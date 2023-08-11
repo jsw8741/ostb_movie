@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div class="site-navbar bg-white" th:fragment="header">
+	<div class="header">
+		<div class="asd">
+			<div class="row">
+				<div class="header-area">
+					<div class="nikki-main-menu">
+						<div class="classy-nav-container breakpoint-off">
+							<div class="container-fluid">
+								<nav class="classy-navbar justify-content-between" id="nikkiNav">
+									<div class="classy-menu">
+										<div class="classycloseIcon">
+											<div class="cross-wrap">
+												<span class="top"></span><span class="bottom"></span>
+											</div>
+										</div>
+										<div class="logo_bar">
+											<a href="/"> <img src="/images/logo.png" alt="logo"
+												class="logoimg" /></a>
+										</div>
+										<div class="classynav">
+											<ul>
+												<li><a href="index.html">홈</a></li>
+												<li><a href="#">영화</a>
+													<div class="megamenu">
+														<ul class="single-mega cn-col-7">
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="index.html" class="first_title">영화</a></li>
+															<li><a href="archive-blog.html">-무비차트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 예매</a></li>
+															<li><a href="#">- 빠른 예매</a></li>
+															<li><a href="#">- 상영 스케줄</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 스토어</a></li>
+															<li><a href="#">- 팝콘</a></li>
+															<li><a href="#">- 스낵</a></li>
+															<li><a href="#">- 음료</a></li>
+															<li><a href="#">- 영화 관람권</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 이벤트</a></li>
+															<li><a href="#">- 룰렛 이벤트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 고객센터</a></li>
+															<li><a href="#">- FAQ</a></li>
+															<li><a href="#">- 공지사항</a></li>
+															<li><a href="#">- 분실물 문의</a></li>
+															<li><a href="#">- 이메일 문의</a></li>
+															<li><a href="#">- 내 문의내역</a></li>
+														</ul>
+													</div></li>
+												<li><a href="#">예매</a>
+													<div class="megamenu">
+														<ul class="single-mega cn-col-7">
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="index.html" class="first_title">영화</a></li>
+															<li><a href="archive-blog.html">-무비차트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 예매</a></li>
+															<li><a href="#">- 빠른 예매</a></li>
+															<li><a href="#">- 상영 스케줄</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 스토어</a></li>
+															<li><a href="#">- 팝콘</a></li>
+															<li><a href="#">- 스낵</a></li>
+															<li><a href="#">- 음료</a></li>
+															<li><a href="#">- 영화 관람권</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 이벤트</a></li>
+															<li><a href="#">- 룰렛 이벤트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 고객센터</a></li>
+															<li><a href="#">- FAQ</a></li>
+															<li><a href="#">- 공지사항</a></li>
+															<li><a href="#">- 분실물 문의</a></li>
+															<li><a href="#">- 이메일 문의</a></li>
+															<li><a href="#">- 내 문의내역</a></li>
+														</ul>
+													</div></li>
+												<li><a href="#">스토어</a>
+													<div class="megamenu">
+														<ul class="single-mega cn-col-7">
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="index.html" class="first_title">영화</a></li>
+															<li><a href="archive-blog.html">-무비차트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 예매</a></li>
+															<li><a href="#">- 빠른 예매</a></li>
+															<li><a href="#">- 상영 스케줄</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 스토어</a></li>
+															<li><a href="#">- 팝콘</a></li>
+															<li><a href="#">- 스낵</a></li>
+															<li><a href="#">- 음료</a></li>
+															<li><a href="#">- 영화 관람권</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 이벤트</a></li>
+															<li><a href="#">- 룰렛 이벤트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 고객센터</a></li>
+															<li><a href="#">- FAQ</a></li>
+															<li><a href="#">- 공지사항</a></li>
+															<li><a href="#">- 분실물 문의</a></li>
+															<li><a href="#">- 이메일 문의</a></li>
+															<li><a href="#">- 내 문의내역</a></li>
+														</ul>
+													</div></li>
+												<li><a href="#">이벤트</a>
+													<div class="megamenu">
+														<ul class="single-mega cn-col-7">
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="index.html" class="first_title">영화</a></li>
+															<li><a href="archive-blog.html">-무비차트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 예매</a></li>
+															<li><a href="#">- 빠른 예매</a></li>
+															<li><a href="#">- 상영 스케줄</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 스토어</a></li>
+															<li><a href="#">- 팝콘</a></li>
+															<li><a href="#">- 스낵</a></li>
+															<li><a href="#">- 음료</a></li>
+															<li><a href="#">- 영화 관람권</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 이벤트</a></li>
+															<li><a href="#">- 룰렛 이벤트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 고객센터</a></li>
+															<li><a href="#">- FAQ</a></li>
+															<li><a href="#">- 공지사항</a></li>
+															<li><a href="#">- 분실물 문의</a></li>
+															<li><a href="#">- 이메일 문의</a></li>
+															<li><a href="#">- 내 문의내역</a></li>
+														</ul>
+													</div></li>
+												<li><a href="#">고객센터</a>
+													<div class="megamenu">
+														<ul class="single-mega cn-col-7">
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="index.html" class="first_title">영화</a></li>
+															<li><a href="archive-blog.html">-무비차트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 예매</a></li>
+															<li><a href="#">- 빠른 예매</a></li>
+															<li><a href="#">- 상영 스케줄</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 스토어</a></li>
+															<li><a href="#">- 팝콘</a></li>
+															<li><a href="#">- 스낵</a></li>
+															<li><a href="#">- 음료</a></li>
+															<li><a href="#">- 영화 관람권</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 이벤트</a></li>
+															<li><a href="#">- 룰렛 이벤트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 고객센터</a></li>
+															<li><a href="#">- FAQ</a></li>
+															<li><a href="#">- 공지사항</a></li>
+															<li><a href="#">- 분실물 문의</a></li>
+															<li><a href="#">- 이메일 문의</a></li>
+															<li><a href="#">- 내 문의내역</a></li>
+														</ul>
+													</div>
+													</li>
+												<li>
+												<a href="contact.html">채팅</a></li>
+											</ul>
+										</div>
+										<div class="header_bar">
+											<i class=" fa-solid fa-lock fa"></i>
+											<i class=" fa-solid fa-user-plus fa"></i>
+										</div>
+									</div>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>
