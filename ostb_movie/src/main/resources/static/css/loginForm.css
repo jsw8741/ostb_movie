@@ -1,4 +1,190 @@
 @charset "UTF-8";
-.login-wrap{
-	background-color: black;
-}
+.Login{
+			width: 100%;
+			height: 100%;
+			padding: 240px 10vw;
+			background-color: black;
+			color: white;
+		}
+		
+		.Login__wrap{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin: auto;
+			max-width: 1080px;
+		}
+		
+		.Login__content{
+			width: 542px;
+		}
+		
+		.Login__content-input{
+			display: flex;
+			margin: auto;
+			flex-direction: column;
+		}
+		
+		.Login__content-input input{
+			font-family : Noto Sans KR;
+			font-style : normal;
+			font-weight : 400;
+			font-size : 14px;
+			line-height : 20.7px;
+			letter-spacing : -.06em;
+			border : 1px solid #29a5ff;
+			border-radius : 3px;
+			padding: 12px 16px;
+			margin-bottom: 8px;
+		}
+		
+		.Login__content-btn{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		
+		.Login__content-btn button{
+			font-family : Noto Sans KR;
+			font-style : normal;
+			font-weight : 400;
+			font-size : 14px;
+			line-height : 20.7px;
+			letter-spacing : -.06em;
+			width: 100%;
+			height: 46px;
+			border-radius : 3px;
+			margin-top: 8px;
+			transition : .3s;
+		}
+		
+		.Login__content-btn-login{
+			background-color: #29a5ff;
+			color: white;
+			border: none;
+		}
+		
+		.Login__content-btn-register{
+			background-color: black;
+			color: white;
+			border: 1px solid #29a5ff;
+		}
+		
+		.Login__content-sub{
+			font-family : Noto Sans KR;
+			font-style : normal;
+			font-weight : 400;
+			font-size : 14px;
+			line-height : 20.7px;
+			letter-spacing : -.06em;
+			height : 20px;
+			color: white;
+			display: flex;
+			align-items: center;
+			margin-top: 18px;
+		}
+		
+		.Login__content-sub-remember{
+			display: flex;
+		}
+		
+		.Login__content-sub-remember-checkbox{
+			margin-right: 4px;
+		}
+		
+		.CheckBox__wrap{
+			display: flex;
+			align-items: center;
+		}
+		
+		.CheckBox{
+			display: inline-block;
+			cursor: pointer;
+			background-color: none;
+			border: none!important;
+		}
+		
+		.CheckBox input{
+			display: none;
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+			height: 0;
+			width: 0;
+		}
+		
+		
+		
+		.CheckBox__label, .CheckBox__label-disabled{
+			font-family : Noto Sans KR;
+			font-style : normal;
+			font-weight : 400;
+			font-size : 14px;
+			line-height : 20.7px;
+			letter-spacing : -.06em;
+			background-color : transparent;
+			padding : 0 0 0 8px;
+			text-align : left;
+		}
+		
+		button{
+			cursor: pointer;
+			border: none;
+			color: white;
+		}
+		
+		.Login__content-sub-find{
+			display: flex;
+			align-items: center;
+			margin-left: auto;
+		}
+		
+		.Login__content-sub-find a{
+			cursor:  pointer;
+		}
+		
+		a{
+			color: white;
+			text-decoration: none;
+		}
+		
+		.Login__divider{
+			width: 1px;
+			height: 12px;
+			background-color: white;
+			margin: 0 12px;
+		}
+		
+		.Login__social{
+			text-align: center;
+		}
+		
+		.Login__social-title{
+			font-family : Noto Sans KR;
+			font-style : normal;
+			font-weight : 400;
+			font-size : 14px;
+			line-height : 20.7px;
+			letter-spacing : -.06em;
+			color: #29a5ff;
+			margin-top: 24px;
+		}
+		
+		.Login__social-btn{
+			margin-top: 20px;
+			margin-bottom: 36px;			
+		}
+		
+		.btn{
+			background-color: black !important;
+			border: none;
+		}
+		.Login__social-btn *{
+			/* margin: 0 10px; */
+			cursor: pointer;
+		}
+		
+		h3{
+			text-align: center;
+			color: #29a5ff;
+		}

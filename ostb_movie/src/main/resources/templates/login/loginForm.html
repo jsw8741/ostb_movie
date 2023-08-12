@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/loginForm.css}"/>
+</th:block>	
+	
+<div layout:fragment="content">
+	<div class="Login">
+		<div class="Login__wrap">
+			<div class="Login__content">
+				<h3>일반 로그인</h3>
+				<div class="Login__content-input">
+					<input type="email" placeholder="아이디(이메일)" autocomplete="off">
+					<input id="password" type="password" placeholder="비밀번호" autocomplete="off">
+				</div>
+				
+				<div class="Login__content-btn">
+					<button class="Login__content-btn-login">로그인</button>
+					<button class="Login__content-btn-register" onClick="location.href='/login/join'">이메일로 회원가입</button>
+				</div>
+				
+				<div class="Login__content-sub">
+					<div class="Login__content-sub-remember">
+						<div class="Login__content-sub-remember-checkbox">
+						<div class="CheckBox__wrap" style="align-items:center">
+							<label class="CheckBox" style="width:24px;height:24px;min-width:24px">
+							<input type="checkbox" class="CheckBox__input">
+							<svg id="icon" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<rect x="0.5" y="0.5" width="23" height="23" rx="2.5" fill="#fff"></rect>
+								<rect x="0.5" y="0.5" width="23" height="23" rx="2.5" stroke="#D0D1D3"></rect>
+							</svg>
+							
+							</label>
+							<button style="font-size:12px" class="CheckBox__label">로그인 상태 유지</button>
+						</div>
+						</div>
+					</div>
+					
+					<div class="Login__content-sub-find">
+						<a href="/auth/find/send_email">비밀번호 찾기</a>
+						<div class="Login__divider"></div>
+						<a href="/auth/find/email">이메일 찾기</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="Login__social">
+				<div class="Login__social-title">
+					<div>SNS 계정으로 간편 로그인/회원가입</div>
+				</div>
+				
+				<div class="Login__social-btn">
+					<a href="/oauth2/authorization/kakao" class="btn btn-secondary active" role="button"><svg width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 48c13.255 0 24-10.745 24-24S37.255 0 24 0 0 10.745 0 24s10.745 24 24 24Z" fill="#FAE300"></path><path d="M24 13.057c-7.18 0-13 4.6-13 10.277 0 3.694 2.466 6.933 6.167 8.744a674.738 674.738 0 0 0-1.128 4.247c-.176.707.259.7.545.507.224-.149 3.562-2.419 5-3.4a16.51 16.51 0 0 0 2.413.177c7.18 0 13-4.6 13-10.277s-5.82-10.277-13-10.277" fill="#391B1B"></path><path d="" fill="#FAE300"></path></svg></a>
+					<a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button"><svg width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M47.88 24C47.88 10.811 37.189.12 24 .12 10.811.12.12 10.811.12 24 .12 37.189 10.811 47.88 24 47.88c13.189 0 23.88-10.691 23.88-23.88Z" fill="#06BE34"></path><path d="M34 16v18h-6.711l-6.578-9.06V34H14V16h6.711l6.578 9.428V16H34Z" fill="#fff"></path></svg></a>
+					<a href="/oauth2/authorization/google" class="btn btn-success active" role="button"><svg width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="24" fill="#fff"></circle><path d="M35.49 24.525c0-.773-.068-1.507-.186-2.221H24.25v4.412h6.33c-.284 1.448-1.115 2.67-2.348 3.502v2.935h3.776c2.211-2.044 3.483-5.058 3.483-8.628Z" fill="#4285F4"></path><path d="M24.25 36c3.17 0 5.82-1.056 7.757-2.847l-3.776-2.935c-1.057.705-2.397 1.135-3.982 1.135-3.062 0-5.654-2.064-6.583-4.852h-3.894v3.023C15.699 33.359 19.662 36 24.249 36Z" fill="#34A853"></path><path d="M17.666 26.5a6.812 6.812 0 0 1-.372-2.24c0-.782.137-1.535.372-2.24v-3.023h-3.894a11.603 11.603 0 0 0 0 10.527l3.894-3.023Z" fill="#FBBC05"></path><path d="M24.25 17.168c1.731 0 3.277.597 4.5 1.76l3.345-3.345c-2.025-1.898-4.676-3.062-7.846-3.062-4.588 0-8.55 2.641-10.477 6.476l3.894 3.023c.929-2.788 3.521-4.852 6.583-4.852Z" fill="#EA4335"></path></svg></a>	
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		const icon = document.getElementById("icon");
+		const svgList = [
+		    `<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" fill="#fff"></rect>
+		      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" stroke="#D0D1D3"></rect>
+		    </svg>`,
+		    `<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		      <rect width="24" height="24" rx="3" fill="#29a5ff"></rect>
+		      <path d="m5.407 11.562 4.592 5.6 6.35-7.219 2.227-2.53" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+		    </svg>`
+		  ];
+	
+		  let currentIndex = 0;
+	
+		  icon.addEventListener("click", () => {
+		    currentIndex = (currentIndex + 1) % svgList.length;
+		    icon.innerHTML = svgList[currentIndex];
+		  });		
+	</script>
+</th:block>
+</html>
