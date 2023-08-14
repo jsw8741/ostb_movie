@@ -11,8 +11,12 @@ public class LoginController {
 
 	@GetMapping("/login/loginForm")
 	public String loginForm() {
-		
 		return "/login/loginForm";
+	}
+	
+	@GetMapping("/login/joinForm")
+	public String joinForm() {
+		return "/login/joinForm";
 	}
 	
 }

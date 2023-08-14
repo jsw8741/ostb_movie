@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/joinForm.css}"/>
+</th:block>	
+	
+<div layout:fragment="content">
+	<div class="join">
+		<div class="SignUp__wrap">
+			<div class="SignUp__section">
+				<div class="SignUp__mobile-hidden">
+					<div class="SignUp__section-title">회원가입</div>
+				</div>
+				
+				<div class="SignUp__section-content-padding">
+				<ul class="SignUp__section-content-inputList">
+					<li>
+						<div class="ProductView__inputComponent">
+							<div class="ProductView__inputComponent-title-wrap">
+								<div class="ProductView__inputComponent-title">이메일</div>
+							</div>
+							
+							<div>
+								<div class="Input__action">
+									<input placeholder="이메일을 입력해주세요." value="">							
+								</div>
+							</div>
+						
+						</div>
+					</li>
+					
+					<li>
+						<div class="ProductView__inputComponent">
+							<div class="ProductView__inputComponent-title-wrap">
+								<div class="ProductView__inputComponent-title">비밀번호</div>
+							</div>
+							
+							<div>
+								<input type="password" name="" class="Input__normal" placeholder="특수문자 / 문자 / 숫자 포함 형태의 8~15자리" pattern="" maxlength="524,288" autocomplete="off" value="" >
+							</div>
+						</div>
+					</li>
+					
+					<li>
+						<div class="ProductView__inputComponent">
+							<div class="ProductView__inputComponent-title-wrap">
+								<div class="ProductView__inputComponent-title">비밀번호 확인</div>
+							</div>
+						
+						<div>
+							<input type="password" name="" class="Input__normal" placeholder="특수문자 / 문자 / 숫자 포함 형태의 8~15자리" pattern="" maxlength="524,288" autocomplete="off" value="">
+						</div>
+					
+					</div>
+					</li>
+					
+					
+					<li>
+						<div class="ProductView__inputComponent">
+							<div class="ProductView__inputComponent-title-wrap">
+								<div class="ProductView__inputComponent-title">이름</div>
+							</div>
+							
+							<div>
+								<input type="text" name="" class="Input__normal" placeholder="이름을 입력해주세요." pattern="" maxlength="524,288" autocomplete="off" value="">
+							</div>
+						</div>
+					</li>
+					
+					<li>
+						<div class="ProductView__inputComponent">
+							<div class="ProductView__inputComponent-title-wrap">
+								<div class="ProductView__inputComponent-title">닉네임</div>
+							</div>
+							
+							<div>
+								<input type="text" name="" class="Input__normal" placeholder="미입력시 이름으로 설정됩니다." pattern="" maxlength="524,288" autocomplete="off" value="">
+							</div>
+						</div>
+					</li>
+					
+					<li>
+						<div class="asd mb-3">
+              
+							<div class="ProductView__inputComponent-title-wrap">
+								<div class="ProductView__inputComponent-title">생년월일</div>
+							</div>
+							
+			            <div class="g3">
+			              	<div>
+			                	<select class="form-select col-sm-4 month" aria-label="Default select example" id="exampleFormControlInput4">
+				                    <option selected disabled>년</option>
+				                    <option value="1">1</option>
+				                    <option value="2">2</option>
+				                    <option value="3">3</option>
+				                    <option value="4">4</option>
+				                    <option value="5">5</option>
+				                    <option value="6">6</option>
+				                    <option value="7">7</option>
+				                    <option value="8">8</option>
+				                    <option value="9">9</option>
+				                    <option value="10">10</option>
+				                    <option value="11">11</option>
+				                    <option value="12">12</option>
+			                	</select>
+			                </div>
+			
+			                <div>
+			                	<select class="form-select col-sm-4 month" aria-label="Default select example" id="exampleFormControlInput4">
+				                    <option selected disabled>월</option>
+				                    <option value="1">1</option>
+				                    <option value="2">2</option>
+				                    <option value="3">3</option>
+				                    <option value="4">4</option>
+				                    <option value="5">5</option>
+				                    <option value="6">6</option>
+				                    <option value="7">7</option>
+				                    <option value="8">8</option>
+				                    <option value="9">9</option>
+				                    <option value="10">10</option>
+				                    <option value="11">11</option>
+				                    <option value="12">12</option>
+			                	</select>
+			                </div>
+			
+			                <div>
+			                 	<select class="form-select col-sm-4 month" aria-label="Default select example" id="exampleFormControlInput4">
+				                    <option selected disabled>일</option>
+				                    <option value="1">1</option>
+				                    <option value="2">2</option>
+				                    <option value="3">3</option>
+				                    <option value="4">4</option>
+				                    <option value="5">5</option>
+				                    <option value="6">6</option>
+				                    <option value="7">7</option>
+				                    <option value="8">8</option>
+				                    <option value="9">9</option>
+				                    <option value="10">10</option>
+				                    <option value="11">11</option>
+				                    <option value="12">12</option>
+			                  </select>
+			                </div>
+			            </div>
+						</div>
+					</li>
+								
+					<li>
+						<div class="ProductView__inputComponent">
+							<div class="ProductView__inputComponent-title-wrap">
+								<div class="ProductView__inputComponent-title">휴대전화</div>
+							</div>
+							
+							<div>
+								<input type="tel" name="" class="Input__normal" placeholder="'-'를 제외한 전화번호를 입력하세요." pattern="" maxlength="524,288" autocomplete="off" value="">
+							</div>
+						</div>
+					</li>
+				
+					<li>
+						<button type="button" class="register">가입하기</button>
+					</li>
+				</ul>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		const icon = document.getElementById("icon");
+		const svgList = [
+		    `<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" fill="#fff"></rect>
+		      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" stroke="#D0D1D3"></rect>
+		    </svg>`,
+		    `<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		      <rect width="24" height="24" rx="3" fill="#29a5ff"></rect>
+		      <path d="m5.407 11.562 4.592 5.6 6.35-7.219 2.227-2.53" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+		    </svg>`
+		  ];
+	
+		  let currentIndex = 0;
+	
+		  icon.addEventListener("click", () => {
+		    currentIndex = (currentIndex + 1) % svgList.length;
+		    icon.innerHTML = svgList[currentIndex];
+		  });		
+	</script>
+</th:block>
+</html>
