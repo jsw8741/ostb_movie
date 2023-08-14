@@ -1,7 +1,10 @@
 package com.example.ostb_movie.entity;
 
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.example.ostb_movie.constant.Role;
+import com.example.ostb_movie.dto.MemberFormDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,15 +39,19 @@ public class Member{
 	private String email;
 
 	private String name;
-
-
+	
 	private String password;
 
+	private String phone;
 
 	private String provider;
 
 	private String providerId;
 
+	private String nickname;
+	
+	private String birth;
+	
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
@@ -61,12 +68,38 @@ public class Member{
 //		return member;
 //	}
 	
-	public Member (String name , String email) {
-		this.name = name;
-		this.email = email;
+//	public Member (String name , String email) {
+//		this.name = name;
+//		this.email = email;
+//	}
+	
+	
+	
+	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+		String password;
+		if(memberFormDto.getPassword().equals("SNS 로그인")) {
+			password = "SNS 로그인";
+		}else {
+			password = passwordEncoder.encode(memberFormDto.getPassword());
+		}
+		
+		Member member = new Member();
+		
+		member.setEmail(memberFormDto.getEmail());
+		member.setPassword(password);
+		member.setName(memberFormDto.getName());
+		member.setPhone(memberFormDto.getPhone());
+		member.setBirth(memberFormDto.getBirth());
+		member.setRole(Role.USER);
+		
+		if(memberFormDto.getNickname().isEmpty()) {
+			member.setNickname(memberFormDto.getName());
+		}else {
+			member.setNickname(memberFormDto.getNickname());
+		}
+		
+		return member;
 	}
-	
-	
 	
 	@Builder(builderClassName = "MemberDetailRegister", builderMethodName = "MemberDetailRegister")
     public Member(String email, String password, String name, Role role) {

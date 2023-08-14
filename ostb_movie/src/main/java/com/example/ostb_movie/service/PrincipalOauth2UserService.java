@@ -56,18 +56,18 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
      String email = oAuth2UserInfo.getEmail();
      Role role = Role.USER;
      
-     Member byUsername = memberRepository.findByEmail(email);
+     Member member = memberRepository.findByEmail(email);
      
      //DB에 없는 사용자라면 회원가입처리
-     if(byUsername == null){
-         byUsername = Member.oauth2Register()
+     if(member == null){
+    	 member = Member.oauth2Register()
         		 .email(email).name(username).password(password).role(role)
                  .provider(provider).providerId(providerId)
                  .build();
-         memberRepository.save(byUsername);
+//         memberRepository.save(byUsername);
      }
      
      
-     return new PrincipalDetails(byUsername, oAuth2UserInfo);
+     return new PrincipalDetails(member, oAuth2UserInfo);
 	}
 }

@@ -3,6 +3,11 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
 	
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>	
+	
 <th:block layout:fragment="css">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/loginForm.css}"/>
 </th:block>	
@@ -12,14 +17,15 @@
 		<div class="Login__wrap">
 			<div class="Login__content">
 				<h3>일반 로그인</h3>
+				<form role="form" action="/login/loginForm" method="post">
 				<div class="Login__content-input">
-					<input type="email" placeholder="아이디(이메일)" autocomplete="off">
-					<input id="password" type="password" placeholder="비밀번호" autocomplete="off">
+					<input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력해주세요">
+					<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력해주세요">
 				</div>
 				
 				<div class="Login__content-btn">
-					<button class="Login__content-btn-login">로그인</button>
-					<button class="Login__content-btn-register" onClick="location.href='/login/join'">이메일로 회원가입</button>
+					<button type="submit" class="Login__content-btn-login">로그인</button>
+					<button type="button" class="Login__content-btn-register" onClick="location.href='/login/joinForm'">이메일로 회원가입</button>
 				</div>
 				
 				<div class="Login__content-sub">
@@ -45,6 +51,8 @@
 						<a href="/auth/find/email">이메일 찾기</a>
 					</div>
 				</div>
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				</form>
 			</div>
 			
 			<div class="Login__social">
@@ -84,6 +92,12 @@
 		    currentIndex = (currentIndex + 1) % svgList.length;
 		    icon.innerHTML = svgList[currentIndex];
 		  });		
+		  
+		// 로그인 실패했을때
+		var errorMessage = [[${loginErrorMsg}]];
+		if(errorMessage != null){
+			alert(errorMessage);
+		} 
 	</script>
 </th:block>
 </html>
