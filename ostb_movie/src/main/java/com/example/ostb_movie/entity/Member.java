@@ -76,14 +76,17 @@ public class Member{
 	
 	
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+		Member member = new Member();
 		String password;
 		if(memberFormDto.getPassword().equals("SNS 로그인")) {
 			password = "SNS 로그인";
+			member.setProvider(memberFormDto.getProvider());
+			member.setProviderId(memberFormDto.getProviderId());
 		}else {
 			password = passwordEncoder.encode(memberFormDto.getPassword());
 		}
 		
-		Member member = new Member();
+		
 		
 		member.setEmail(memberFormDto.getEmail());
 		member.setPassword(password);

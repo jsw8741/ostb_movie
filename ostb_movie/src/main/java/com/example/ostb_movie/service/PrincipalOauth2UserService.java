@@ -38,21 +38,15 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
      if(provider.equals("google")){
          oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
      }else if(provider.equals("naver")){
-    	 System.out.println(oAuth2User.getAttributes() + "JJJJJJJJJJJ");
          oAuth2UserInfo = new NaverUserInfo(oAuth2User.getAttributes());
-         System.out.println("GGGGGGGG");
-     }else if(provider.equals("kakao")){	//추가
+     }else if(provider.equals("kakao")){
          oAuth2UserInfo = new KakaoMemberInfo(oAuth2User.getAttributes());
      }
      
      String providerId = oAuth2UserInfo.getProviderId();
-     String username = oAuth2UserInfo.getName(); 	
-//     String username = oAuth2User.getAttribute("name");  	
-     String uuid = UUID.randomUUID().toString().substring(0, 6);
-     //String password = passwordEncoder.encode("패스워드"+uuid);  // 사용자가 입력한 적은 없지만 만들어준다
+     String username = oAuth2UserInfo.getName(); 
      String password = "SNS 로그인";  // 사용자가 입력한 적은 없지만 만들어준다
-	 
-//     String email = oAuth2User.getAttribute("email");
+	
      String email = oAuth2UserInfo.getEmail();
      Role role = Role.USER;
      
@@ -64,7 +58,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
         		 .email(email).name(username).password(password).role(role)
                  .provider(provider).providerId(providerId)
                  .build();
-//         memberRepository.save(byUsername);
      }
      
      

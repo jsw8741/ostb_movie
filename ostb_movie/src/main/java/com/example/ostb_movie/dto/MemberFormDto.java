@@ -32,6 +32,7 @@ public class MemberFormDto {
 	private String provider;
 
 	private String providerId;
+	
 //	@NotEmpty
 	private String birth;
 	

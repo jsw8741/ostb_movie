@@ -24,7 +24,7 @@
 				</div>
 				
 				<div class="Login__content-btn">
-					<button type="submit" class="Login__content-btn-login">로그인</button>
+					<button type="submit" class="Login__content-btn-login" id="loginbtn">로그인</button>
 					<button type="button" class="Login__content-btn-register" onClick="location.href='/login/joinForm'">이메일로 회원가입</button>
 				</div>
 				
@@ -33,22 +33,22 @@
 						<div class="Login__content-sub-remember-checkbox">
 						<div class="CheckBox__wrap" style="align-items:center">
 							<label class="CheckBox" style="width:24px;height:24px;min-width:24px">
-							<input type="checkbox" class="CheckBox__input">
+							<input type="checkbox" class="CheckBox__input" name="id_save" id="id_save">
 							<svg id="icon" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<rect x="0.5" y="0.5" width="23" height="23" rx="2.5" fill="#fff"></rect>
 								<rect x="0.5" y="0.5" width="23" height="23" rx="2.5" stroke="#D0D1D3"></rect>
 							</svg>
 							
 							</label>
-							<button style="font-size:12px" class="CheckBox__label">로그인 상태 유지</button>
+							<button style="font-size:12px" class="CheckBox__label">이메일 기억</button>
 						</div>
 						</div>
 					</div>
 					
 					<div class="Login__content-sub-find">
-						<a href="/auth/find/send_email">비밀번호 찾기</a>
+						<a href="/login/find/pw">비밀번호 찾기</a>
 						<div class="Login__divider"></div>
-						<a href="/auth/find/email">이메일 찾기</a>
+						<a href="/login/find/email">이메일 찾기</a>
 					</div>
 				</div>
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -57,7 +57,7 @@
 			
 			<div class="Login__social">
 				<div class="Login__social-title">
-					<div>SNS 계정으로 간편 로그인/회원가입</div>
+					<div>SNS 계정으로 간편 로그인 / 회원가입</div>
 				</div>
 				
 				<div class="Login__social-btn">
@@ -73,31 +73,64 @@
 
 
 <th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
 	<script th:inline="javascript">
-		const icon = document.getElementById("icon");
-		const svgList = [
-		    `<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-		      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" fill="#fff"></rect>
-		      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" stroke="#D0D1D3"></rect>
-		    </svg>`,
-		    `<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-		      <rect width="24" height="24" rx="3" fill="#29a5ff"></rect>
-		      <path d="m5.407 11.562 4.592 5.6 6.35-7.219 2.227-2.53" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-		    </svg>`
-		  ];
-	
-		  let currentIndex = 0;
-	
-		  icon.addEventListener("click", () => {
-		    currentIndex = (currentIndex + 1) % svgList.length;
-		    icon.innerHTML = svgList[currentIndex];
-		  });		
+	const icon = document.getElementById("icon");
+	const svgList = [
+	    `<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+	      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" fill="#fff"></rect>
+	      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" stroke="#D0D1D3"></rect>
+	    </svg>`,
+	    `<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+	      <rect width="24" height="24" rx="3" fill="#29a5ff"></rect>
+	      <path d="m5.407 11.562 4.592 5.6 6.35-7.219 2.227-2.53" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+	    </svg>`
+	  ];
+
+	  let currentIndex = 0;
+
+	  icon.addEventListener("click", () => {
+	    currentIndex = (currentIndex + 1) % svgList.length;
+	    icon.innerHTML = svgList[currentIndex];
+	  });	
+	  
+	//쿠키를 이용한 아이디 기억
+	$(document).ready(function() {
+		var userInputId = getCookie("userInputId");
+		var setCookieYN = getCookie("setCookieYN");
+		if (setCookieYN == "Y") {
+			$("#id_save").prop("checked", true);
+			$("#email").val(userInputId);
+			icon.innerHTML = svgList[1];
+		} else {
+			$("#id_save").prop("checked", false);
+			icon.innerHTML = svgList[0];
+		}
+
+		//로그인 버튼 클릭
+		$('#loginbtn').click(function() {
+			if ($("#id_save").is(":checked")) {
+				var userInputId = $("#email").val();
+				setCookie("userInputId", userInputId, 60);
+				setCookie("setCookieYN", "Y", 60);
+			} else {
+				deleteCookie("userInputId");
+				deleteCookie("setCookieYN");
+			}
+		});
+	});			
 		  
-		// 로그인 실패했을때
-		var errorMessage = [[${loginErrorMsg}]];
-		if(errorMessage != null){
-			alert(errorMessage);
-		} 
+	// 로그인 실패했을때
+	var errorMessage = [[${loginErrorMsg}]];
+	if(errorMessage != null){
+		alert(errorMessage);
+	} 
+	
+	// 임시 비밀번호로 변경되었을 때
+	var tempPasswordMessage = [[${tempPasswordMessage}]];
+	if(tempPasswordMessage != null){
+		alert(tempPasswordMessage);
+	}
 	</script>
 </th:block>
 </html>

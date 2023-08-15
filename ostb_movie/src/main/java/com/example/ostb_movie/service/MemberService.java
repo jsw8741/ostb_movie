@@ -19,6 +19,7 @@ public class MemberService implements UserDetailsService{
 	
 	private final MemberRepository memberRepository;
 	
+	// 회원 등록
 	public Member saveMember(Member member) {
 		validateDuplicateMember(member); // 이메일 중복체크
 		Member saveMember = memberRepository.save(member); // insert
@@ -32,6 +33,32 @@ public class MemberService implements UserDetailsService{
 		if(findMember != null) {
 			throw new IllegalStateException("이미 가입된 회원입니다.");
 		}
+	}
+	
+	// 이름 + 전화번호로 이메일 찾기
+	public String findEmail(String name, String phone) {
+		System.out.println(name + "11111111");
+		System.out.println(phone + "222222222");
+		String memberEmail = memberRepository.getMemberEmail(name, phone);
+		System.out.println(memberEmail + "333333333");
+		
+		if(memberEmail == null) {
+			throw new IllegalStateException("가입된 정보가 없습니다.");
+		}
+		
+		return memberEmail;
+	}
+	
+	// 이메일로 회원 정보 찾기
+	public Member findMember(String email) {
+		Member member = memberRepository.findByEmail(email);
+		return member;
+	}
+	
+	// 비밀번호 변경
+	public Member updatePassword(Member member) {
+		memberRepository.save(member);
+		return member;
 	}
 	
 	@Override
