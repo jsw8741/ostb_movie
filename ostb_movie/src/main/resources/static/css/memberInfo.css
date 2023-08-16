@@ -1,0 +1,235 @@
+@charset "EUC-KR";
+<style>
+#modal_btn {
+    width: 100px;
+    height: 20px;
+}
+
+.modal_title {
+	width: 498px;
+	height: 60px;
+	border-bottom: 1px solid black;
+	background-color: black;
+	color: white;
+	margin: 0 auto;
+}
+
+.modal_text {	
+	height: 60px;
+	color: white;
+	padding: 15px;
+}
+
+.modal_wrap {
+    display: none;
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    border: 2px solid black;
+    top:50%;
+    left: 50%;
+    margin: -250px 0 0 -250px;
+    background:#eee;
+    z-index: 2;
+}
+.modal_background {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0, 0,0, 0.5);
+    top:0;
+    left: 0;
+    z-index: 1;
+}
+.modal_close {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 17px;
+    right: 10px;
+    color: white;
+}
+
+.modal_wrap .text {
+	display: flex;
+}
+
+.modal_close .closeImg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.VIPlogo {
+	width:130px;
+	height: 130px;
+	margin: 20px;
+}
+
+.modal_vip {
+	font-size: 12px;
+	width: 300px;
+}
+
+.col-lg-8 {
+	width: 775px;
+	border: 1px solid;
+	border-radius: 5px;
+	border-color: white;
+	color: white;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+
+.rd-text {
+	margin-top: 50px;
+	margin-left: 30px;
+}
+
+.rd-title {
+	display: flex;
+}
+
+.profile {
+	max-width: 15%;
+	margin-right: 10px;
+}
+
+.box-contents {
+	style="height: 50px;
+	border-bottom: 1px solid;
+}
+
+.box-contents > h3 {
+	color: white;
+}
+
+.nickname {
+	margin-right: 15px;
+}
+
+.modify-profile {
+	margin-right: 10px;
+}
+
+.main-grade {
+	margin-top: 40px;
+	color: white;
+}
+
+.grade-ok {
+	margin-left: 15px;
+	font-size: 10px;
+}
+
+.mycoupon {
+	display: flex;
+	margin-bottom: 30px;
+}
+
+.coupon-title {
+	margin-right: 30px;
+}
+
+.coupon-info {
+	color: white;
+	border-bottom: 1px solid;
+	width: 250px;
+}
+
+.coupon-detail {
+	display: flex;
+	justify-content: space-between;
+}
+
+.coupon-count {
+	color: white; !important
+}
+
+.myVIP {
+	padding-left: 30px;
+	border-left: 1px solid;
+}
+
+.VIP-grade {
+	border-bottom: 1px solid;
+	color: white;
+}
+
+.mypage {
+	width: 775px;
+	justify-content: left;
+	margin: 0 auto;
+}
+
+.myostb {
+	margin-bottom: 20px;
+	margin-top: 30px;
+	color: white;
+}
+
+.ostb-caution {
+	color: white;
+	text-align: end;
+	margin: 0;
+}
+
+.myreserv {
+	display: flex;
+	color: white;
+	margin-bottom: 5px;
+}
+
+.myreserv-detail {
+	font-size: 15px;
+	color: white;
+}
+
+.myreserv-contents {
+	border: 1px solid white;
+	height: 80px;
+	border-radius: 5px;
+}
+
+.myreserv-contents > p{
+	color: white;
+	padding: 25px;
+}
+
+.modal_vip {
+	margin-top: 20px;
+}
+
+.myqna {
+	display: flex;
+	color: white;
+	margin-bottom: 5px;
+}
+
+.qna-count {
+	font-size: 15px;
+	color: white;
+}
+
+.qna-contents {
+	border: 1px solid white;
+	height: 80px;
+	border-radius: 5px;
+}
+
+.qna-contents > p{
+	color: white;
+	padding: 25px;
+}
+
+.fa-solid.fa-pen {
+	background-color: black;
+	border: black;
+	color: white;
+}
+
+.modal_title {
+	margin-top: 1px;
+}
+</style>
