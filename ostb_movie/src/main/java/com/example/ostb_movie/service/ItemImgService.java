@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional
 public class ItemImgService {
-	private String itemImgLocation = "C:/hotel/item";
+	private String itemImgLocation = "C:/movie/item";
 	private final ItemImgRepository itemImgRepository;
 	private final FileService fileService;
 	
@@ -26,7 +26,7 @@ public class ItemImgService {
 		
 		if(!StringUtils.isEmpty(oriImgName)) {
 			imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
-			imgUrl = "/image/item/" + imgName;
+			imgUrl = "/images/item/" + imgName;
 		}
 		itemImg.updateItemImg(oriImgName, imgName, imgUrl);
 			itemImgRepository.save(itemImg);

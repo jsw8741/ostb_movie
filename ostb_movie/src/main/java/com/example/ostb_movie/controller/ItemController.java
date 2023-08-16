@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class ItemController {
 	private final ItemService itemService;
 
-	@GetMapping(value = "/item/room")
+	@GetMapping(value = "/item/item")
 	public String itemShopList(Model model, ItemSearchDto itemSearchDto, Optional<Integer> page) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
 		Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
@@ -56,4 +57,14 @@ public class ItemController {
 		}
 		return "redirect:/";
 	}
+	// 상품 상세 페이지
+		@GetMapping(value = "/item/{itemId}")
+		public String itemDtl(Model model, @PathVariable("itemId") Long itemId) {
+			ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+			System.out.println(itemFormDto.getPrice());
+			
+			model.addAttribute("item", itemFormDto);
+
+			return "item/itemDtl";
+		}
 }

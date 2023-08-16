@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+<th:block layout:fragment="css">
+</th:block>
+
+<div layout:fragment="content">
+	<div class="bg-light py-3">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 mb-0 header_margin">
+					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
+						class="text-black">스토어</strong>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="site-section">
+		<div class="container">
+			<h2 th:text="${item.itemNm}"></h2>
+			<div class="row">
+				<input type="hidden" id="itemId" th:value="${item.id}">
+				<div class="asd">
+				<img  th:src="${item.itemImgDto.imgUrl}" >
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 각 페이지의 스크립트가 작성될 위치 -->
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		var swiper = new Swiper(".mySwiper", {
+			spaceBetween : 10,
+			slidesPerView : 4,
+			freeMode : true,
+			watchSlidesProgress : true,
+		});
+		var swiper2 = new Swiper(".mySwiper2", {
+			spaceBetween : 10,
+			navigation : {
+				nextEl : ".swiper-button-next",
+				prevEl : ".swiper-button-prev",
+			},
+			thumbs : {
+				swiper : swiper,
+			},
+		});
+
+		function calculateTotalPrice() {
+			const startDateStr = new Date($("#checkIn").val());
+			const endDateStr = new Date($("#checkOut").val());
+			var count = $("#person").val();//수량
+			var price = $("#price").val();//가격
+			var gg = (endDateStr - startDateStr);
+			const daysDifference = gg / (1000 * 60 * 60 * 24);
+			var totalPrice = (price * count * daysDifference)
+					.toLocaleString('ko-KR')
+					+ '원'; //천단위 콤마
+			if (count == '99') {
+				totalPrice = '0';
+				$("#totalPrice").html('문의 바랍니다.');
+			} else {
+				if ("1" >= totalPrice) {
+					totalPrice = "날짜를 확인해주세요";
+				}
+				$("#Tprice").val(totalPrice);
+				$("#totalPrice").html(totalPrice); //총가격 출력
+			}
+		}
+
+		function order() {
+			alert('로그인 후 사용해주세요')
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			var url = "/order";
+
+			//controller(서버)에 전달할 데이터
+			var paramData = {
+				itemId : $("#itemId").val(), //item의 ID
+				count : $("#count").val()
+			// 수량
+			}
+
+			//전달하기전에 데이터를 json => 문자열로 만들어야 한다/
+
+			var param = JSON.stringify(paramData);
+
+			$.ajax({
+				url : url,
+				type : "POST",
+				contentType : "application/json",
+				data : param, //서버에 전송할 데이터
+				beforeSend : function(xhr) {
+					//데이터를 전송하기전에 헤더에 csrf값을 설정
+					xhr.setRequestHeader(header, token);
+
+				},
+				dataType : "json",
+				cache : false,
+				success : function(result, status) {
+					alert("주문이 완료 됐다.");
+					//location.href='/';
+				},
+				error : function(jqXHR, status, error) {
+					if (jqXHR.status == '401') {
+						alert('로그인 후 사용해주세요')
+						location.href = '/members/login';
+					} else {
+						alert(jqXHR.responseText);//에러 메세지 출력
+					}
+				}
+			});
+		}
+	</script>
+
+</th:block>
+
+</html>

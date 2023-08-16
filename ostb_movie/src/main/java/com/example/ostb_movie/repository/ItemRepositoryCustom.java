@@ -8,7 +8,9 @@ import com.example.ostb_movie.dto.MainItemDto;
 import com.example.ostb_movie.entity.Item;
 
 public interface ItemRepositoryCustom {
-//	Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
 
-//	Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
+	Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
+
+	Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
+
 }

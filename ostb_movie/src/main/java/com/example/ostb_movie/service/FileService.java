@@ -18,7 +18,6 @@ public class FileService {
 		
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
 		String savedFileName = uuid.toString() + extension; // 파일 이름 생성
-		System.out.println(uploadPath + "/" + savedFileName);
 		String fileUploadFullUrl = uploadPath + "/" + savedFileName;
 		
 		// 파일 업로드
