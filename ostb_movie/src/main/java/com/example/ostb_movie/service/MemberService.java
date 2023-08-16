@@ -37,10 +37,7 @@ public class MemberService implements UserDetailsService{
 	
 	// 이름 + 전화번호로 이메일 찾기
 	public String findEmail(String name, String phone) {
-		System.out.println(name + "11111111");
-		System.out.println(phone + "222222222");
 		String memberEmail = memberRepository.getMemberEmail(name, phone);
-		System.out.println(memberEmail + "333333333");
 		
 		if(memberEmail == null) {
 			throw new IllegalStateException("가입된 정보가 없습니다.");

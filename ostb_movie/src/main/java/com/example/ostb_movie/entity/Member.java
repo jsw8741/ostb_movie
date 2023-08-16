@@ -53,27 +53,7 @@ public class Member{
 	private String birth;
 	
 	@Enumerated(EnumType.STRING)
-	private Role role;
-
-	// MemberFormDto를 -> Member 엔티티 객체로 변환
-//	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
-//		// 패스워드 암호화
-//		String password = passwordEncoder.encode(memberFormDto.getPassword());
-//
-//		Member member = new Member(memberFormDto.getName() , memberFormDto.getEmail() , memberFormDto.getAddress());
-//		member.setPassword(password);
-//		member.setRole(Role.ADMIN); //관리자로 가입할때
-////		member.setRole(Role.USER); // 일반 사용자로 가입할때
-//
-//		return member;
-//	}
-	
-//	public Member (String name , String email) {
-//		this.name = name;
-//		this.email = email;
-//	}
-	
-	
+	private Role role;	
 	
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
@@ -85,8 +65,6 @@ public class Member{
 		}else {
 			password = passwordEncoder.encode(memberFormDto.getPassword());
 		}
-		
-		
 		
 		member.setEmail(memberFormDto.getEmail());
 		member.setPassword(password);
