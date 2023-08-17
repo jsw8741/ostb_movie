@@ -39,10 +39,8 @@ public class LoginController {
 		if(authentication != null) {
 			PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 	        Member member = principal.getMember();
-	        
 	        if(member != null) {
 	        	MemberFormDto memberFormDto = MemberFormDto.of(member);
-	        	
 	        	model.addAttribute("memberFormDto", memberFormDto);
 	        }
 		}else {    

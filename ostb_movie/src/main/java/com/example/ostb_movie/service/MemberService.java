@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.repository.MemberRepository;
 
@@ -64,12 +65,8 @@ public class MemberService implements UserDetailsService{
 		if(member == null) {
 			throw new UsernameNotFoundException(email);
 		}
-		// 사용자가 있다면 DB에서 가져온 값으로 userDetails 객체를 만들어서 반환
-		return User.builder()
-				.username(member.getEmail())
-				.password(member.getPassword())
-				.roles(member.getRole().toString())
-				.build();
+		
+		return new PrincipalDetails(member);
 	}
 
 }

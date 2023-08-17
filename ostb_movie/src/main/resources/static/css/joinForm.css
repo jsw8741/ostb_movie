@@ -3,6 +3,10 @@
 			
     		overflow: scroll;
     	}
+    	
+    	.errorInput{
+    		font-size: 12px;
+    	}
     
     	.join{
     		width: 100%;

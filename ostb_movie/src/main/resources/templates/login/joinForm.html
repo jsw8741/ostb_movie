@@ -56,8 +56,9 @@
 								
 								<div>
 									<div class="Input__action">
-										<input type="email" th:field="*{email}" class="Input__normal" placeholder="이메일을 입력해주세요">							
+										<input type="email" th:field="*{email}" class="Input__normal" placeholder="이메일을 입력해주세요" id="emailInput" oninput="validateEmail()">						
 									</div>
+									<p id="emailError" class="errorInput" style="color: red;"></p>
 								</div>
 							
 							</div>
@@ -72,8 +73,9 @@
 								</div>
 								
 								<div>
-									<input type="password" th:field="*{password}" class="Input__normal" placeholder="특수문자 / 문자 / 숫자 포함 형태의 8~15자리" maxlength="15" autocomplete="off">
+									<input type="password" th:field="*{password}" class="Input__normal" placeholder="특수문자 / 문자 / 숫자 포함 형태의 8~15자리" maxlength="15" autocomplete="off" id="passwordInput" oninput="validatePassword()">
 								</div>
+								<p id="passwordError" class="errorInput" style="color: red;"></p>
 							</div>
 						</li>
 						
@@ -84,9 +86,9 @@
 								</div>
 							
 							<div>
-								<input type="password" id="check_pw" class="Input__normal" placeholder="특수문자 / 문자 / 숫자 포함 형태의 8~15자리" maxlength="15" autocomplete="off">
+								<input type="password" id="check_pw" name="check_pw" class="Input__normal" placeholder="비밀번호 확인" maxlength="15" autocomplete="off" oninput="validatePasswordMatch()">
 							</div>
-						
+							<p id="passwordMatchMessage" class="errorInput"></p>
 						</div>
 						</li>
 						
@@ -198,6 +200,47 @@
 			let day = f.day.value;
 			let birth;
 			
+			// 이름 확인
+			if(!f.name.value){
+				alert('이름을 입력해주세요.');
+				f.name.focus();
+				return;
+			}
+			
+			// 이메일 확인
+			if(!f.email.value){
+				alert('이메일을 입력해주세요.');
+				f.email.focus();
+				return;
+			}else if(!validateEmail()){
+				alert('이메일 형식으로 입력해주세요.');
+				f.email.focus();
+				return;
+			}
+			
+			// 비밀번호 확인
+			if(!f.password.value){
+				alert('비밀번호를 입력해주세요.');
+				f.password.focus();
+				return;
+			}else if(!validatePassword()){
+				alert('비밀번호는 특수문자, 문자, 숫자를 포함한 8~15자리여야 합니다.');
+				f.password.focus();
+				return;
+			}
+			
+			// 비밀번호 매치 확인
+			if(!f.check_pw.value){
+				alert('비밀번호 확인란을 입력해주세요.');
+				f.check_pw.focus();
+				return;
+			}else if(!validatePasswordMatch()){
+				alert('비밀번호 확인란과 비밀번호가 일치하지않습니다.');
+				f.check_pw.focus();
+				return;
+			}
+			
+			// 생년월일
 			if(year == '년'){
 				alert('년도를 선택해주세요');
 				return;
@@ -222,6 +265,62 @@
 			
 			f.submit();
 		}
+		
+		// 이메일 정규식 확인
+		function validateEmail() {
+	        const emailInput = document.getElementById("emailInput");
+	        const emailError = document.getElementById("emailError");
+	        const emailValue = emailInput.value;
+	        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+	        if (!emailPattern.test(emailValue)) {
+	            emailInput.style.border = "1px solid red";
+	            emailError.textContent = "이메일 형식으로 입력해주세요.";
+	            return false;
+	        } else {
+	            emailInput.style.border = "1px solid #ccc";
+	            emailError.textContent = "";
+	            return true;
+	        }
+	    }
+		
+		// 비밀번호 정규식 확인
+		function validatePassword() {
+	        const passwordInput = document.getElementById("passwordInput");
+	        const passwordError = document.getElementById("passwordError");
+	        const passwordValue = passwordInput.value;
+	        const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+	
+	        if (!passwordPattern.test(passwordValue)) {
+	            passwordInput.style.border = "1px solid red";
+	            passwordError.textContent = "특수문자, 문자, 숫자를 포함한 8~15자리여야 합니다.";
+	            return false;
+	        } else {
+	            passwordInput.style.border = "1px solid #ccc";
+	            passwordError.textContent = "";
+	            return true;
+	        }
+	    }
+		
+		// 비밀번호 확인
+		function validatePasswordMatch() {
+	        const passwordInput = document.getElementById("passwordInput");
+	        const confirmPasswordInput = document.getElementById("check_pw");
+	        const passwordMatchMessage = document.getElementById("passwordMatchMessage");
+	
+	        const passwordValue = passwordInput.value;
+	        const confirmPasswordValue = confirmPasswordInput.value;
+	
+	        if (passwordValue !== confirmPasswordValue) {
+	            confirmPasswordInput.style.border = "1px solid red";
+	            passwordMatchMessage.textContent = "비밀번호가 일치하지 않습니다.";
+	            passwordMatchMessage.style.color = "red";
+	        } else {
+	        	confirmPasswordInput.style.border = "none";
+	            passwordMatchMessage.textContent = "비밀번호가 일치합니다.";
+	            passwordMatchMessage.style.color = "green";
+	        }
+	    }
 	</script>
 </th:block>
 </html>
