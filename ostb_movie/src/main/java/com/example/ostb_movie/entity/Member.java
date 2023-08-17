@@ -1,7 +1,10 @@
 package com.example.ostb_movie.entity;
 
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.example.ostb_movie.constant.Role;
+import com.example.ostb_movie.dto.MemberFormDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,37 +39,48 @@ public class Member{
 	private String email;
 
 	private String name;
-
-
+	
 	private String password;
 
+	private String phone;
 
 	private String provider;
 
 	private String providerId;
 
+	private String nickname;
+	
+	private String birth;
+	
 	@Enumerated(EnumType.STRING)
-	private Role role;
-
-	// MemberFormDto를 -> Member 엔티티 객체로 변환
-//	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
-//		// 패스워드 암호화
-//		String password = passwordEncoder.encode(memberFormDto.getPassword());
-//
-//		Member member = new Member(memberFormDto.getName() , memberFormDto.getEmail() , memberFormDto.getAddress());
-//		member.setPassword(password);
-//		member.setRole(Role.ADMIN); //관리자로 가입할때
-////		member.setRole(Role.USER); // 일반 사용자로 가입할때
-//
-//		return member;
-//	}
+	private Role role;	
 	
-	public Member (String name , String email) {
-		this.name = name;
-		this.email = email;
+	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+		Member member = new Member();
+		String password;
+		if(memberFormDto.getPassword().equals("SNS 로그인")) {
+			password = "SNS 로그인";
+			member.setProvider(memberFormDto.getProvider());
+			member.setProviderId(memberFormDto.getProviderId());
+		}else {
+			password = passwordEncoder.encode(memberFormDto.getPassword());
+		}
+		
+		member.setEmail(memberFormDto.getEmail());
+		member.setPassword(password);
+		member.setName(memberFormDto.getName());
+		member.setPhone(memberFormDto.getPhone());
+		member.setBirth(memberFormDto.getBirth());
+		member.setRole(Role.USER);
+		
+		if(memberFormDto.getNickname().isEmpty()) {
+			member.setNickname(memberFormDto.getName());
+		}else {
+			member.setNickname(memberFormDto.getNickname());
+		}
+		
+		return member;
 	}
-	
-	
 	
 	@Builder(builderClassName = "MemberDetailRegister", builderMethodName = "MemberDetailRegister")
     public Member(String email, String password, String name, Role role) {
