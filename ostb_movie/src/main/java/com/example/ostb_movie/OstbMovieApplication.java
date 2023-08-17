@@ -14,7 +14,7 @@ public class OstbMovieApplication {
 	}
 	
 	public static void main(String[] args) {
-		SpringApplication.run(OstbMovieApplication.class, args);
+		SpringApplication.run(OstbMovieApplication.class, args); 
 	}
 
 }
