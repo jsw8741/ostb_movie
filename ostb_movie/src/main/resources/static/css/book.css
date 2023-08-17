@@ -1,0 +1,531 @@
+@charset "UTF-8";
+
+html, body {
+	-webkit-text-size-adjust: none; /* 크롬, 사파리, 오페라 신버전 */
+	-ms-text-size-adjust: none; /* IE */
+	-moz-text-size-adjust: none; /* 파이어폭스 */
+	-o-text-size-adjust: none; /* 오페라 구버전 */
+}
+
+a {
+	text-decoration: none;
+	outline: 0;
+	color: rgb(255, 255, 255);
+}
+
+button {
+	border: none;
+	background: transparent;
+}
+
+input[type="radio"] {
+	appearance: none;
+}
+
+a:hover {
+	color: #fff;
+}
+
+/* 상영스케줄 */
+.scroll_box {
+	overflow: scroll;
+	max-height: 800px;
+	-ms-overflow-style: none;
+}
+
+.scroll_box::-webkit-scrollbar {
+	overflow: scroll;
+	max-height: 800px;
+	-ms-overflow-style: none;
+	display: none;
+}
+
+.bg_box .box_tit {
+	font-size: 2em;
+	font-weight: 700;
+	color: #fff;
+}
+
+.age {
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	border-radius: 10px;
+	text-align: center;
+	display: block;
+	margin-left: 30px;
+	margin-top: 16px;
+	font-size: 10px;
+	font-weight: 700;
+	color: #fff;
+	float: left;
+}
+
+.age.age_12 {
+	background: #41ADDE;
+}
+
+.age.age_15 {
+	background: #E69F35;
+}
+
+.age.age_all {
+	background: #0CB052;
+	font-size: 8px;
+}
+
+.age.age_18 {
+	background: #DC2121;
+}
+
+.age.age_19 {
+	background: #DC2121;
+}
+
+.movie_time {
+	border-left: 1px solid rgba(255, 255, 255, 0.4);
+	border-right: 1px solid rgba(255, 255, 255, 0.4);
+	box-sizing: border-box;
+	max-width: 670px;
+	float: left;
+	position: relative;
+	padding-bottom: 30px;
+	width: 40%;
+}
+
+.movie_time .date {
+	margin-left: 30px;
+	margin-top: 20px;
+	font-size: 1.8em;
+	font-weight: 600;
+	color: #fff;
+}
+
+.movie_time .icon_wrap {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+}
+
+.movie_time .icon_wrap p {
+	float: left;
+	margin-right: 12px;
+	font-size: 1.3em;
+	color: #fff;
+	font-weight: 600;
+	padding-left: 24px;
+}
+
+.movie_time .icon_wrap p:last-child {
+	margin-right: 0;
+}
+
+.movie_time .movie_tit {
+	margin-top: 30px;
+	width: 1000px;
+	display: flex;
+	align-items: center;
+}
+
+.movie_time .movie_tit::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.movie_time .movie_tit .age {
+	margin-top: 3px;
+	float: left;
+}
+
+.movie_time .movie_tit .tit {
+	font-size: 1.6em;
+	font-weight: 600;
+	color: #fff;
+	margin-left: 12px;
+	float: left;
+}
+
+.time_wrap {
+	width: calc(100% - 60px);
+	margin: 20px auto 0 auto;
+}
+
+.time_wrap .time_wrap_top {
+	position: relative;
+}
+
+.time_wrap .time_wrap_top::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.time_wrap .time_wrap_top .tit {
+	font-size: 1.4em;
+	font-weight: 600;
+	color: #fff;
+}
+
+.time_wrap .time_wrap_top .location {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.time_wrap .time_wrap_top .location p {
+	float: left;
+	color: #fff;
+	font-size: 1.4em;
+	font-weight: 600;
+}
+
+.time_wrap .time_wrap_top .location .chair {
+	margin-left: 12px;
+}
+
+.time_wrap .time_list_wrap {
+	margin-top: 12px;
+}
+
+.time_wrap+.time_wrap {
+	margin-top: 30px;
+}
+
+.time_wrap .time_list_wrap::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.time_wrap .time_list_wrap .time_list {
+	width: calc(20% - 10px);
+	margin-right: 10px;
+	margin-bottom: 10px;
+	display: block;
+	float: left;
+	text-align: center;
+	position: relative;
+}
+
+.time_wrap .time_list_wrap .time_list.off {
+	opacity: 0.5;
+}
+
+.time_wrap .time_list_wrap .time_list:last-child {
+	margin-right: 0;
+}
+
+.time_wrap .time_list_wrap .time_list p {
+	color: #fff;
+	text-align: center;
+}
+
+.time_wrap .time_list_wrap .time_list input {
+	position: absolute;
+}
+
+.time_wrap .time_list_wrap .time_list label {
+	display: block;
+	width: 100%;
+	height: 60px;
+	border: 1px solid #fff;
+	box-sizing: border-box;
+	border-radius: 5px;
+	padding-left: 0;
+	font-size: 1em;
+}
+
+.time_wrap .time_list_wrap .time_list label::after {
+	display: none;
+}
+
+.time_wrap .time_list_wrap .time_list input[type="radio"]:checked+label
+	{
+	border: 1px solid #29a5ff;
+	background: rgba(41, 165, 255, 0.24);
+}
+
+.time_wrap .time_list_wrap .time_list .start {
+	font-size: 1.2em;
+	font-weight: 600;
+}
+
+.time_wrap .time_list_wrap .time_list .end {
+	font-size: 12px;
+	font-weight: 400;
+	margin-top: 0;
+}
+
+.time_wrap .time_list_wrap .time_list .num {
+	font-size: 1.4em;
+	margin-top: 8px;
+}
+
+.time_wrap .time_list_wrap .time_list.off {
+	opacity: 0.5;
+}
+
+.bg_box_full {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: calc(100vh - 150px);
+	z-index: 9;
+}
+
+.bg_box_full>.inner {
+	padding: 100px 220px;
+}
+
+.bg_box_full .box_tit {
+	font-size: 2em;
+	font-weight: 700;
+	color: #fff;
+}
+
+.timetable_box .movie_time {
+	width: 615px;
+	border: none;
+	padding-bottom: 0;
+	float: unset;
+}
+
+.timetable_box .movie_time+.movie_time {
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+
+.timetable_box .movie_time+.movie_time .movie_tit {
+	margin-top: 0;
+}
+
+.timetable_box .movie_time .icon_wrap {
+	position: unset;
+	top: unset;
+	right: unset;
+	float: left;
+	margin-top: 35px;
+	margin-left: 30px;
+}
+
+.timetable_box .time_list_wrap .time_list label::after {
+	display: none;
+}
+
+.timetable_box .movie_time .date {
+	margin-top: 30px;
+	margin-left: 0;
+}
+
+.timetable_box .movie_time .movie_tit .age {
+	margin-left: 0;
+}
+
+.timetable_box .movie_time .sub_txt {
+	float: left;
+	margin-left: 20px;
+	margin-top: 3px;
+}
+
+.timetable_box .movie_time .sub_txt span {
+	display: block;
+	float: left;
+	position: relative;
+	font-size: 13px;
+	color: #C4C4C4;
+	margin-right: 25px;
+}
+
+.timetable_box .movie_time .sub_txt span:last-child {
+	margin-right: 0;
+}
+
+.timetable_box .movie_time .sub_txt span::after {
+	content: "";
+	display: block;
+	width: 1px;
+	height: 9px;
+	background: rgba(255, 255, 255, 0.3);
+	position: absolute;
+	top: 50%;
+	right: -12px;
+	transform: translate(0, -50%);
+}
+
+.timetable_box .movie_time .sub_txt span:last-child::after {
+	display: none;
+}
+
+.timetable_box .time_wrap {
+	width: 100%;
+	margin: 22px auto 0 auto;
+}
+
+.timetable_box .time_wrap+.time_wrap {
+	margin: 30px auto 0 auto;
+}
+
+.timetable_box .time_wrap .tit {
+	float: left;
+}
+
+.timetable_box .time_wrap .sub_text {
+	float: left;
+	margin-left: 25px;
+	font-size: 1.4em;
+	color: #fff;
+	font-weight: 500;
+	position: relative;
+}
+
+.timetable_box .time_wrap .sub_text::before {
+	content: "";
+	display: block;
+	width: 1px;
+	height: 12px;
+	background: rgba(255, 255, 255, 0.3);
+	position: absolute;
+	top: 50%;
+	left: -12px;
+	transform: translate(0, -50%);
+}
+
+.time_wrap .time_wrap_top .location {
+	display: none;
+}
+
+/* 예매내역 */
+.ticketing_box>.inner {
+	padding: 100px 220px;
+}
+
+.movie_ticket_box {
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	box-sizing: border-box;
+	margin-top: 30px;
+	width: 100%;
+}
+
+.history_contents::after {
+	display: block;
+	content: '';
+	clear: both;
+}
+
+.history_contents .left_conts {
+	width: calc(100% - 61.9rem);
+	float: left;
+	border-right: 1px solid rgba(255, 255, 255, 0.4);
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.history_contents .left_conts .page_tab {
+	padding: 1em 2em;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.history_contents .left_conts .tabType1 {
+	max-height: 40em;
+}
+
+.history_contents .left_conts .tab_desc {
+	padding: 2.4em 3em;
+	min-height: 45em;
+	overflow-y: scroll;
+}
+
+.history_contents .left_conts .tabType1 .msg_box, .history_contents .left_conts .tabType2 .msg_box,
+	.history_contents .left_conts .tabType3 .msg_box {
+	opacity: 0.8;
+	padding: 16rem 0;
+}
+
+.history_contents .left_conts .tabType1 .msg_box p, .history_contents .left_conts .tabType2 .msg_box p,
+	.history_contents .left_conts .tabType3 .msg_box p {
+	font-size: 1.6rem;
+	text-align: center;
+	color: #FFFFFF;
+}
+
+.history_contents .right_conts {
+	width: 61.9rem;
+	float: right;
+}
+
+.history_contents .left_conts .page_tab button.on {
+	color: #fff;
+}
+
+.history_contents .left_conts .page_tab button {
+	font-size: 1.3em;
+	color: rgba(255, 255, 255, 0.4);
+}
+
+.history_contents .left_conts .tab_desc {
+	padding: 2.4em 3em;
+	min-height: 45em;
+	overflow-y: scroll;
+}
+
+.history_contents .left_conts .tabType1 .msg_box, .history_contents .left_conts .tabType2 .msg_box,
+	.history_contents .left_conts .tabType3 .msg_box {
+	opacity: 0.8;
+	padding: 16rem 0;
+}
+
+.history_contents .right_conts .area {
+	padding: 1.7em 3em;
+}
+
+.history_contents .right_conts .sec_tit {
+	font-size: 18px;
+	color: #fff;
+	margin-bottom: 1.1111em;
+}
+
+.history_contents .right_conts ul {
+	border-radius: 5px;
+	margin-bottom: 30px;
+}
+
+.history_contents .right_conts ul li {
+	font-size: 1.4em;
+	padding: 1.428em;
+	text-align: center;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+	color: #fff;
+}
+
+.history_contents .right_conts .msg_box {
+	padding-top: 30px;
+	border-top: 1px solid rgba(255, 255, 255, 0.4);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.history_contents .right_conts .msg_box p {
+	float: left;
+	color: #C4C4C4;
+	font-size: 13px;
+}
+
+.history_contents .left_conts .tab_desc {
+	padding: 2.4em 3em;
+	min-height: 45em;
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+}
+
+.history_contents .left_conts .tab_desc::-webkit-scrollbar {
+	overflow: scroll;
+	-ms-overflow-style: none;
+	display: none;
+}
