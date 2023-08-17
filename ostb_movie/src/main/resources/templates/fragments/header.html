@@ -190,8 +190,9 @@
 														</ul>
 													</div>
 													</li>
-												<li>
-												<a href="contact.html">채팅</a></li>
+												<li><a href="contact.html">채팅</a></li>
+												<li class="nav-item"><a class="nav-link" href="/login/loginForm" sec:authorize="isAnonymous()">로그인</a></li>
+												<li class="nav-item"><a class="nav-link" href="/login/logout" sec:authorize="isAuthenticated()">로그아웃</a></li>
 											</ul>
 										</div>
 										<div class="header_bar">
