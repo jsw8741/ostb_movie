@@ -43,7 +43,7 @@ public class SecurityConfig {
 		
 		.authorizeHttpRequests((authorize) -> authorize
 				.requestMatchers(mvc.pattern("/"), mvc.pattern("/login/**"), mvc.pattern("/oauth/**"), mvc.pattern("/FAQ/**"), mvc.pattern("/notice/**"), mvc.pattern("/members/**")).permitAll()
-				.requestMatchers(mvc.pattern("/css/**"), mvc.pattern("/js/**"), mvc.pattern("/img/**"), mvc.pattern("/images/**"), mvc.pattern("/fonts/**")).permitAll()
+				.requestMatchers(mvc.pattern("/css/**"), mvc.pattern("/js/**"),mvc.pattern("/lib/**"), mvc.pattern("/img/**"), mvc.pattern("/images/**"), mvc.pattern("/fonts/**")).permitAll()
 				.requestMatchers(mvc.pattern("/favicon"), mvc.pattern("/error"), mvc.pattern("api/**")).permitAll()
 				.requestMatchers(mvc.pattern("/test")).hasRole("USER")
 	            .anyRequest().authenticated())		
