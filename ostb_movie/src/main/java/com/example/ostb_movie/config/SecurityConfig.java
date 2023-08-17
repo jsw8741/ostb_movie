@@ -42,11 +42,29 @@ public class SecurityConfig {
 		http
 		
 		.authorizeHttpRequests((authorize) -> authorize
+<<<<<<< HEAD
+				.requestMatchers(mvc.pattern("/"), mvc.pattern("/login/**"), mvc.pattern("/members/**"), mvc.pattern("/oauth/**")).permitAll()
+=======
 				.requestMatchers(mvc.pattern("/"), mvc.pattern("/login/**"), mvc.pattern("/oauth/**"), mvc.pattern("/FAQ/**"), mvc.pattern("/notice/**")).permitAll()
+>>>>>>> be2ec9e8260435373f05d639f6c349bd42a86a16
 				.requestMatchers(mvc.pattern("/css/**"), mvc.pattern("/js/**"), mvc.pattern("/img/**"), mvc.pattern("/images/**"), mvc.pattern("/fonts/**")).permitAll()
 				.requestMatchers(mvc.pattern("/favicon"), mvc.pattern("/error"), mvc.pattern("api/**")).permitAll()
 				.requestMatchers(mvc.pattern("/test")).hasRole("USER")
+<<<<<<< HEAD
+	            .anyRequest().authenticated())
+ 
+		
+		.oauth2Login(oauth2 -> oauth2 
+				.loginPage("/login/loginForm")
+				.defaultSuccessUrl("/")
+				.failureUrl("/loginForm")
+				.userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
+				.userService(principalOauth2UserService))
+				)
+		
+=======
 	            .anyRequest().authenticated())		
+>>>>>>> be2ec9e8260435373f05d639f6c349bd42a86a16
 		.formLogin(formLogin -> formLogin //2. 로그인에 관련된 설정
 				.loginPage("/login/loginForm") //로그인 페이지 URL 설정
 				.defaultSuccessUrl("/") //로그인 성공시 이동할 페이지

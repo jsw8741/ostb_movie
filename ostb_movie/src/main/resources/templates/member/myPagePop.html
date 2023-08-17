@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.profile-top {
+	background-color: black;
+	width: 706px;
+	height: 50px;
+	border-bottom: 1px solid black;
+	color: white;
+	padding-top: 23px;
+	font-size: 20px;
+}
+
+.profile-user {
+	width: 550px;
+	margin: 0 auto;
+	display: flex;
+}
+
+.profile-id {
+	margin-left: 20px;
+}
+
+.profile-main {
+	width: 450px;
+	height: 270px;
+	margin: 0 auto;
+	background-color: gray;
+	padding: 50px;
+}
+
+.pop-nick {
+	display: flex;
+	font-size: 13px;
+}
+
+.pop-img {
+	font-size: 13px;
+	display: flex;
+	margin-top: 30px;
+}
+
+.profile {
+	width: 80px;
+	margin-left: 20px;
+}
+
+.pop-bottom {
+	margin-left: 100px;
+}
+</style>
+</head>
+<body>
+	<div class="profile-top">나의 프로필 수정</div>
+	<div class="profile-nick">
+		<div class="profile-user"><h2>admin님</h2><p class="profile-id">nickname</p></div>
+	</div>
+	<div class="profile-main">
+		<div class="pop-nick">
+			<p>닉네임</p>
+			<p style="margin-left: 60px;">한글, 영문, 숫자 혼용 가능(한글 기준 10자 이내)</p>
+		</div>
+		<div style="margin-left: 100px;">
+			<input><button>중복확인</button>
+		</div>
+		<div class="pop-img">
+			<p>프로필이미지</p>
+			<img class="profile" src="errorImg.jpg" onerror="this.src='/images/profile.png';"/>
+		</div>
+		<div class="pop-bottom">
+			<p style="font-size: 13px;">JPG, GIF, BMP 파일만 등록 가능합니다.(최대 3M)</p>
+			<div style="display: flex;">
+				<button>파일 선택</button><p>선택된 파일 없음</p>
+			</div>
+		</div>
+	</div>
+	<div style="justify-content: center; display: flex; margin-top: 25px;">
+		<button style="margin-right: 20px;">등록하기</button>
+		<button>취소</button>
+	</div>
+</body>
+</html>
