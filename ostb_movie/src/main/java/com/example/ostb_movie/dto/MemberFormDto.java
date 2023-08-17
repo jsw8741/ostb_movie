@@ -33,7 +33,6 @@ public class MemberFormDto {
 
 	private String providerId;
 	
-//	@NotEmpty
 	private String birth;
 	
 	private static ModelMapper modelMapper = new ModelMapper();
