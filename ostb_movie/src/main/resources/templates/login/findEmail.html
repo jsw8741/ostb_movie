@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/loginForm.css}"/>
+</th:block>	
+
+<div layout:fragment="content">
+	<div class="Login">
+		<div class="Login__wrap">
+			<div class="Login__content">
+				<h3 th:text="${name} + '님의 이메일'"></h3>
+			
+				<div class="Login__content-input">
+					<div class="form-control" id="email" th:text="${email}"></div>
+				</div>
+				
+				<div class="Login__content-btn">
+					<button type="button" class="Login__content-btn-login" onClick="location.href='/login/find/pw'">비밀번호 찾기</button>
+					<button type="button" class="Login__content-btn-register" onClick="location.href='/login/find/pw'">비밀번호 찾기</button>
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+	</script>
+</th:block>
+</html>
