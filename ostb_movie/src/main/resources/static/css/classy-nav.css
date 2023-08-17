@@ -81,7 +81,10 @@
 	font-size: 15px;
 }
 .content{
-	height: 1000px;
+<<<<<<< HEAD
+=======
+	/* height: 1000px; */
+>>>>>>> 445a965b8c02fb4f203b9331572cecd5f6a1b79c
 }
 
 body {
