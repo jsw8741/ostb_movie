@@ -44,7 +44,7 @@ public class ItemService {
 	@Transactional(readOnly = true) // 트랜젝션 읽기 전용(변경감지 수행하지 않음) -> 성능향상
 	public ItemFormDto getItemDtl(Long itemId) {
 		// 1. item_img 테이블의 이미지를 가져온다.
-		ItemImgDto itemImgDtoList = new ItemImgDto();
+		ItemImgDto itemImgDto =itemRepository.findByImg(itemId);
 
 	
 		// 2. item 테이블에 있는 데이터를 가져온다.
@@ -54,7 +54,7 @@ public class ItemService {
 		ItemFormDto itemFormDto = ItemFormDto.of(item);
 
 		// 3. ItemFormDto에 이미지 정보(itemImgDtoList)를 넣어준다.
-		itemFormDto.setItemImgDto(itemImgDtoList);
+		itemFormDto.setItemImgDto(itemImgDto);
 
 		return itemFormDto;
 	}

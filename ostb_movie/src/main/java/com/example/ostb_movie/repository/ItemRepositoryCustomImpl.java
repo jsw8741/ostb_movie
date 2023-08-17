@@ -44,16 +44,6 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 	@Override
 	public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
 		
-		
-		
-		
-		
-		
-		/* 
-		 * select * from item where reg_time = ?
-		 * and item_sell_status = ? and item_nm(create_by) like %검색어%
-		 * order by item_id desc;
-		 */
 		List<Item> content = queryFactory.selectFrom(QItem.item)
 										 .where(searchSellStatusEq(itemSearchDto.getCategori()),
 										 searchByLike(itemSearchDto.getSearchBy(), itemSearchDto.getSearchQuery()))										 
@@ -61,17 +51,10 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 										 .offset(pageable.getOffset())
 										 .limit(pageable.getPageSize())
 										 .fetch();
-		
-		
 		//select
 		long total = queryFactory.select(Wildcard.count).from(QItem.item)
 				.where(searchSellStatusEq(itemSearchDto.getCategori()),
 						 searchByLike(itemSearchDto.getSearchBy(), itemSearchDto.getSearchQuery())).fetchOne();
-		
-		
-		
-		
-		
 		
 		return new PageImpl<>(content, pageable, total);
 	}
@@ -84,35 +67,27 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 
 	@Override
 	public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
-		//   select * from item, item_img, item_img.imgUrl, item.price item.Detail where item.item_id= item_img
-		//   and item_img.repimg_tn = 'y'
-		//   and item.item_nm like '%검색어%'
-		//   oreder by item.item_id desc
 		
 		QItem item = QItem.item;
 		QItemimg itemImg = QItemimg.itemimg;
-		
-		
-		//dto를 객체로 바로 받아올때는 컴럼과 dto객체의 필드가 일치해야한다
-		//2.@QuertProjection을 반드시 사용해야한다.
-		//3.
 		List<MainItemDto> content = queryFactory
-								.select( 
-										new QMainItemDto( 
-												item.id,
-												item.itemNm,
-												item.itemDetail,
-												itemImg.imgUrl,
-												item.price
-												)
-										)
-										.from(itemImg)
-										.join(itemImg.item, item)
-										.where(itemNmlike(itemSearchDto.getSearchQuery()))
-										.orderBy(item.id.desc())
-										.offset(pageable.getOffset())
-										.limit(pageable.getPageSize())
-										.fetch();
+									.select(
+											new QMainItemDto(
+													item.id, 
+													item.itemNm, 
+													item.itemDetail, 
+													item.price, 
+													itemImg.imgUrl
+													)
+											)
+								    .from(itemImg)
+								    .join(itemImg.item, item)
+								    .where(item.itemNm.like(itemSearchDto.getSearchQuery()))
+								    .orderBy(item.id.desc())   // orderBy를 where 절 다음에 위치시킴
+								    .offset(pageable.getOffset())
+								    .limit(pageable.getPageSize())
+								    .fetch();
+
 		
 		long total = queryFactory.select(Wildcard.count)
 				.from(itemImg)
@@ -122,7 +97,6 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
 				.fetchOne();
-		
 		
 		return new PageImpl<>(content, pageable, total);
 	}

@@ -19,22 +19,12 @@
 				</div>
 			</div>
 			<div class="row">
-				<div th:each="item, status: ${items}" class="aaas">
-					<div class="room_list_div">
-						<div id="serv_hover" class="room">
-							<div class="room_img">
-								<a th:href="'/item/' + ${item.id}"> <img
-									th:src="${item.imgUrl}" th:alt="${item.itemNm}" height="280px"
-									width="150px" class="roomImg" />
-								</a>
-							</div>
-							<div class="bed_room">
-								<a class="romom" th:href="'/item/' + ${item.id}" th:text="${item.itemNm}" />
-								<a th:href="'/item/' + ${item.id}" th:text="'가격&nbsp;:&nbsp; &nbsp;' +  ${item.price}" />
-							</div>
-						</div>
-					</div>
-				</div>
+				<th:block th:each="item, status: ${items}"
+					th:if="${status.index} < 6">
+					<h2 class="item-title">
+						<a th:href="'/item/' +${item.id}" th:text=${item.itemNm}></a>
+					</h2>
+					</th:bolk>
 			</div>
 		</div>
 	</div>

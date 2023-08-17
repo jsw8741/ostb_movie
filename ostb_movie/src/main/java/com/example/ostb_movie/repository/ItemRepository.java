@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.example.ostb_movie.dto.ItemImgDto;
 import com.example.ostb_movie.entity.Item;
 
 
@@ -20,4 +21,7 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositor
 	@Query("select i from Item i where i.price >= :price")
 	List<Item> findByPrice(@Param("price") int price);
 
+	
+	@Query("select i from Itemimg i where i.item.id >= :itemId")
+	ItemImgDto findByImg(@Param("itemId") Long itemId);
 }
