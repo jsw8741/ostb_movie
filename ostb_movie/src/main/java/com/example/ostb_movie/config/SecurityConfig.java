@@ -40,7 +40,7 @@ public class SecurityConfig {
 				.requestMatchers(mvc.pattern("/favicon"), mvc.pattern("/error")).permitAll()
 				.requestMatchers(mvc.pattern("/test")).hasRole("USER")
 	            .anyRequest().authenticated())
-
+ 
 		
 		.oauth2Login(oauth2 -> oauth2 
 				.loginPage("/login/loginForm")
