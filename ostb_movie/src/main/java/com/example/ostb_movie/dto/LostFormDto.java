@@ -17,7 +17,6 @@ public class LostFormDto {
 	
 	private Long id;
 	
-	@NotBlank(message = "상태를 선택해주세요.")
 	private LostStatus lostStatus;
 	
 	@NotBlank(message = "분실물 이름을 입력해주세요.")
@@ -33,7 +32,7 @@ public class LostFormDto {
 	//dto -> entity로 바꿔줌
 	public Lost createLost(Member member) {
 		this.memberId = member.getId();
-		this.lostStatus = lostStatus.ACCEPT;
+		lostStatus = LostStatus.ACCEPT;
 		return modelMapper.map(this, Lost.class);
 	}
 	

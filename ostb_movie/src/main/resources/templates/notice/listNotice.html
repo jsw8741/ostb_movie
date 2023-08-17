@@ -2488,7 +2488,6 @@ li.ac_item {}
 					<!-- list top -->
 					<div class="list_top_ui">
 						<div class="list_total">총 <em>[[${totalCount}]]건</em></div>
-						<div class="list_total" sec:authorize="isAuthenticated()">&nbsp;&nbsp;<a href="/notice/create">공지사항 등록</a></div>
 						<!-- 검색어 입력 시 -->
 						
 						<div class="search_area">
@@ -2509,7 +2508,7 @@ li.ac_item {}
 
 					<!-- list -->
 					<div class="btn_area btn_ac">
-					<a href="/notice/create" class="btn_typeB1"><span>공지사항 등록</span></a>
+					<a href="/notice/create" class="btn_typeB1" sec:authorize="isAuthenticated()"><span>공지사항 등록</span></a>
 					</div>
 						<div class="board_list_type2">
 							<th:block th:each="notice, status: ${notices.getContent()}">

@@ -2263,6 +2263,24 @@ li.ac_item {}
   cursor: pointer;
 }
 
+.acodi_type1 .ac_accept { 
+  position: absolute;
+  right: 0;
+  top: 25px;
+  width: 80px;
+  height: 32px;
+  font-family: "HGGGothicssi";
+  font-weight: 400;
+  font-size: 15px;
+  color: #fff;
+  text-align: center;
+  line-height: 32px;
+  background-color: #29A5FF;
+  border-radius: 8px;
+  -webkit-transition: background-color .15s;
+  transition: background-color .15s;
+}
+
 .acodi_type1 .ac_head .tit_area .kinds {
   display: inline-block;
   font-family: "Noto Sans KR";

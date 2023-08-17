@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ostb_movie.dto.FaqFormDto;
 import com.example.ostb_movie.dto.LostFormDto;
-import com.example.ostb_movie.entity.Faq;
 import com.example.ostb_movie.entity.Lost;
 import com.example.ostb_movie.repository.LostRepository;
 import com.example.ostb_movie.service.LostService;
@@ -37,7 +36,7 @@ public class LostController {
 	// lost 생성페이지
 	@GetMapping(value = "/lost/createLost")
 	public String lostForm(Model model) {
-		model.addAttribute("lostFormDto", new FaqFormDto());
+		model.addAttribute("lostFormDto", new LostFormDto());
 		return "lost/createLost";
 	}
 
@@ -57,7 +56,7 @@ public class LostController {
 			model.addAttribute("errorMessage", "FAQ등록 중 에러가 발생했습니다.");
 			return "/lost/createLost";
 		}
-		return "redirect:/lost/createLost";
+		return "redirect:/lost/list";
 	}
 
 	// lost 리스트
@@ -87,7 +86,7 @@ public class LostController {
 			model.addAttribute("lost", new Lost());
 			return "lost/listLost";
 		}
-		return "lost/updateLost";
+		return "lost/listLost";
 	}
 
 	// lost 수정(update)
