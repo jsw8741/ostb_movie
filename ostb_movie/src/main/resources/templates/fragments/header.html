@@ -50,7 +50,7 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 고객센터</a></li>
-															<li><a href="#">- FAQ</a></li>
+															<li><a href="/FAQ/list">- FAQ</a></li>
 															<li><a href="#">- 공지사항</a></li>
 															<li><a href="#">- 분실물 문의</a></li>
 															<li><a href="#">- 이메일 문의</a></li>
@@ -83,7 +83,7 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 고객센터</a></li>
-															<li><a href="#">- FAQ</a></li>
+															<li><a href="/FAQ/list">- FAQ</a></li>
 															<li><a href="#">- 공지사항</a></li>
 															<li><a href="#">- 분실물 문의</a></li>
 															<li><a href="#">- 이메일 문의</a></li>
@@ -116,7 +116,7 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 고객센터</a></li>
-															<li><a href="#">- FAQ</a></li>
+															<li><a href="/FAQ/list">- FAQ</a></li>
 															<li><a href="#">- 공지사항</a></li>
 															<li><a href="#">- 분실물 문의</a></li>
 															<li><a href="#">- 이메일 문의</a></li>
@@ -149,7 +149,7 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 고객센터</a></li>
-															<li><a href="#">- FAQ</a></li>
+															<li><a href="/FAQ/list">- FAQ</a></li>
 															<li><a href="#">- 공지사항</a></li>
 															<li><a href="#">- 분실물 문의</a></li>
 															<li><a href="#">- 이메일 문의</a></li>
@@ -182,7 +182,7 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 고객센터</a></li>
-															<li><a href="#">- FAQ</a></li>
+															<li><a href="/FAQ/list">- FAQ</a></li>
 															<li><a href="#">- 공지사항</a></li>
 															<li><a href="#">- 분실물 문의</a></li>
 															<li><a href="#">- 이메일 문의</a></li>
@@ -190,8 +190,45 @@
 														</ul>
 													</div>
 													</li>
-												<li>
-												<a href="contact.html">채팅</a></li>
+												<li><a href="contact.html">채팅</a></li>
+
+												<li><a href="/members/info" sec:authorize="isAuthenticated()">마이페이지</a>
+													<div class="megamenu">
+														<ul class="single-mega cn-col-7">
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="index.html" class="first_title">영화</a></li>
+															<li><a href="archive-blog.html">-무비차트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 예매</a></li>
+															<li><a href="#">- 빠른 예매</a></li>
+															<li><a href="#">- 상영 스케줄</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 스토어</a></li>
+															<li><a href="#">- 팝콘</a></li>
+															<li><a href="#">- 스낵</a></li>
+															<li><a href="#">- 음료</a></li>
+															<li><a href="#">- 영화 관람권</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 이벤트</a></li>
+															<li><a href="#">- 룰렛 이벤트</a></li>
+														</ul>
+														<ul class="single-mega cn-col-5">
+															<li><a href="#" class="first_title"> 고객센터</a></li>
+															<li><a href="#">- FAQ</a></li>
+															<li><a href="#">- 공지사항</a></li>
+															<li><a href="#">- 분실물 문의</a></li>
+															<li><a href="#">- 이메일 문의</a></li>
+															<li><a href="#">- 내 문의내역</a></li>
+														</ul>
+													</div>
+												</li>
+
+												<li class="nav-item"><a class="nav-link" href="/login/loginForm" sec:authorize="isAnonymous()">로그인</a></li>
+												<li class="nav-item"><a class="nav-link" href="/login/logout" sec:authorize="isAuthenticated()">로그아웃</a></li>
 											</ul>
 										</div>
 										<div class="header_bar">
