@@ -1,10 +1,679 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout2}" style="background-color: black;">
 
-</body>
+
+<head>
+<!--아이작스로 보낼때 메타  -->
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
+
+
+<!-- 각 페이지의 CSS가 작성될 위치 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/FAQ.css}">
+	<style>
+.text-right {
+	text-align: right;
+}
+
+/*********** board list ***********/
+.wrap_board_list {
+	position: relative;
+}
+
+.list_top_ui {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	margin-bottom: 60px;
+}
+
+.list_top_ui .list_total {
+	font-family: "Noto Sans KR";
+	font-weight: 400;
+	font-size: 18px;
+	color: #111;
+}
+
+.list_top_ui .list_total em {
+	font-weight: 700;
+}
+
+.list_top_ui .search_area {
+	margin-left: auto;
+}
+
+.board_list_type1>ul>li {
+	position: relative;
+	float: left;
+	-webkit-transition: -webkit-transform .3s;
+	transition: -webkit-transform .3s;
+	transition: transform .3s;
+	transition: transform .3s, -webkit-transform .3s;
+}
+
+.board_list_type1>ul>li:hover {
+	-webkit-transform: translateY(-10px);
+	-ms-transform: translateY(-10px);
+	transform: translateY(-10px);
+}
+
+.board_list_type1>ul>li a, .board_list_type1>ul>li button {
+	position: relative;
+	display: block;
+	width: 100%;
+	border-radius: 16px;
+	border: 1px solid #ddd;
+	overflow: hidden;
+	-webkit-box-shadow: 5px 6px 12px 1px rgba(25, 48, 88, 0.1);
+	box-shadow: 5px 6px 12px 1px rgba(25, 48, 88, 0.1);
+}
+
+.board_list_type1>ul>li a:hover .thumbnail .img, .board_list_type1>ul>li button:hover .thumbnail .img
+	{
+	-webkit-transform: scale(1.05) rotate(0.001deg);
+	-ms-transform: scale(1.05) rotate(0.001deg);
+	transform: scale(1.05) rotate(0.001deg);
+}
+
+.board_list_type1>ul>li .new {
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	width: 72px;
+	height: 43px;
+	font-family: "HGGGothicssi";
+	font-weight: 600;
+	font-size: 20px;
+	color: #4e2bf4;
+	line-height: 41px;
+	text-align: center;
+	border-radius: 8px;
+	background: #fff;
+	border: 1px solid #4e2bf4;
+	z-index: 1;
+}
+
+.board_list_type1>ul>li .new span {
+	font-family: inherit;
+	font-weight: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	letter-spacing: inherit;
+}
+
+.board_list_type1>ul>li .d_day {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	width: 72px;
+	height: 43px;
+	font-family: "HGGGothicssi";
+	font-weight: 600;
+	font-size: 20px;
+	color: #fff;
+	line-height: 43px;
+	text-align: center;
+	border-radius: 8px;
+	background: #603de3;
+	z-index: 1;
+}
+
+.board_list_type1>ul>li .thumbnail {
+	position: relative;
+	display: block;
+	width: 100%;
+	overflow: hidden;
+	height: 300px;
+}
+
+.board_list_type1>ul>li .thumbnail .ratio {
+	width: 100%;
+}
+
+.board_list_type1>ul>li .thumbnail .img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	-webkit-transition: .5s;
+	transition: .5s;
+}
+
+.board_list_type1>ul>li .wrap_txt {
+	position: relative;
+	height: 160px;
+	padding: 35px 30px 0 40px;
+}
+
+.board_list_type1>ul>li .wrap_txt .subject {
+	height: 50px;
+	font-family: "HGGGothicssi";
+	font-weight: 600;
+	font-size: 20px;
+	color: #333;
+	line-height: 25px;
+}
+
+.board_list_type1>ul>li .wrap_txt .date {
+	font-family: "Noto Sans KR";
+	font-weight: 400;
+	font-size: 16px;
+	color: #999;
+	margin-top: 12px;
+}
+
+.board_list_type1>ul>li.video .thumbnail {
+	position: relative;
+}
+
+.board_list_type1>ul>li.video .thumbnail::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.2;
+	z-index: 1;
+}
+
+.board_list_type1>ul>li.video .thumbnail::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	width: 66px;
+	height: 66px;
+	background-image:
+		url("https://www.h-point.co.kr/assets/app/img/common/ic_play1.png");
+	background-repeat: no-repeat;
+	background-size: auto;
+	background-position: calc(50% + 3px) 50%;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 50%;
+	-webkit-transition: .3s;
+	transition: .3s;
+	z-index: 1;
+}
+
+.board_list_type1>ul>li.video:hover .thumbnail::after {
+	background-color: rgba(85, 99, 255, 0.85);
+}
+
+.board_list_type1>ul>li.video .mo_video_link {
+	display: none;
+}
+
+.board_list_type1>ul.col2 li {
+	width: calc(( 100% - 24px)/2);
+	margin: 0 24px 24px 0;
+}
+
+.board_list_type1>ul.col2 li:nth-child(2n) {
+	margin-right: 0;
+}
+
+.board_list_type1>ul.col3 li {
+	width: calc(( 100% - 50px)/3);
+	margin: 0 24px 24px 0;
+}
+
+.board_list_type1>ul.col3 li:nth-child(3n) {
+	margin-right: 0;
+}
+
+.board_list_type2 li {
+	border: 1px solid #eee;
+	border-radius: 8px;
+	margin-top: 8px;
+}
+
+.board_list_type2 li:first-child {
+	margin-top: 0;
+}
+
+.board_list_type2 li a {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	padding: 25px 40px 25px 0;
+}
+
+.board_list_type2 li a .num {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 auto;
+	flex: 0 0 auto;
+	display: inline-block;
+	width: 100px;
+	font-family: "Noto Sans KR";
+	font-weight: 300;
+	font-size: 20px;
+	color: #111;
+	text-align: center;
+}
+
+.board_list_type2 li a .tag {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 auto;
+	flex: 0 0 auto;
+	display: inline-block;
+	width: 64px;
+	height: 32px;
+	font-family: "HGGGothicssi";
+	font-weight: 400;
+	font-size: 15px;
+	color: #fff;
+	line-height: 32px;
+	text-align: center;
+	background-color: #4e2bf4;
+	border-radius: 8px;
+	margin-right: 25px;
+}
+
+.board_list_type2 li a .subject {
+	font-family: "Noto Sans KR";
+	font-weight: 700;
+	font-size: 20px;
+	color: #111;
+	letter-spacing: -0.5px;
+	margin-right: 30px;
+}
+
+.board_list_type2 li a .date {
+	font-family: "Noto Sans KR";
+	font-weight: 300;
+	font-size: 16px;
+	color: #888;
+	margin-left: auto;
+}
+
+.list_coupon {
+	width: calc(100% + 7px);
+}
+
+.list_coupon li {
+	float: left;
+	width: calc(( 100% - 34px)/3);
+	margin: 0 17px 16px 0;
+	-webkit-transition: -webkit-transform .3s;
+	transition: -webkit-transform .3s;
+	transition: transform .3s;
+	transition: transform .3s, -webkit-transform .3s;
+}
+
+.list_coupon li:nth-child(3n) {
+	margin-right: 0;
+}
+
+.list_coupon li:hover {
+	-webkit-transform: translateY(-10px);
+	-ms-transform: translateY(-10px);
+	transform: translateY(-10px);
+}
+
+.box_coupon {
+	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	width: 100%;
+}
+
+.box_coupon .new {
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	width: 54px;
+	height: 33px;
+	font-family: "HGGGothicssi";
+	font-weight: 600;
+	font-size: 15px;
+	color: #4e2bf4;
+	line-height: 31px;
+	text-align: center;
+	background: #fff;
+	border: 1px solid #4e2bf4;
+	border-radius: 8px;
+	z-index: 1;
+}
+
+.box_coupon .d_day {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	width: 72px;
+	height: 43px;
+	font-family: "HGGGothicssi";
+	font-weight: 600;
+	font-size: 20px;
+	color: #fff;
+	line-height: 43px;
+	text-align: center;
+	border-radius: 8px;
+	background: #603de3;
+	z-index: 1;
+}
+
+.box_coupon .bg_coupon {
+	width: 100%;
+}
+
+.box_coupon .bg_coupon img {
+	width: 100%;
+}
+
+.box_coupon .thumbnail {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 40.5%;
+	height: calc(100% - 5%);
+	padding: 0 25px 0 27px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.box_coupon .thumbnail .wrap_img {
+	position: relative;
+	width: 100%;
+}
+
+.box_coupon .thumbnail .wrap_img img {
+	width: 100%;
+	border-radius: 50%;
+	height: 100px
+}
+
+.box_coupon .thumbnail .wrap_img .img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	border-radius: 50%;
+}
+
+.box_coupon .wrap_txt {
+	position: absolute;
+	left: 45%;
+	top: 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	width: calc(100% - 45% - 2%);
+	height: calc(100% - 5%);
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.box_coupon .wrap_txt .inner {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 auto;
+	flex: 0 0 auto;
+	width: 100%;
+	padding-right: 20px;
+}
+
+.box_coupon .subject {
+	font-family: "HGGGothicssi";
+	font-weight: 600;
+	font-size: 20px;
+	color: #111;
+	line-height: 25px;
+}
+
+.box_coupon .subject.elps2 {
+	min-height: 50px;
+}
+
+.box_coupon .subject.elps3 {
+	min-height: 75px;
+}
+
+.box_coupon .date {
+	font-family: "Noto Sans KR";
+	font-weight: 400;
+	font-size: 16px;
+	color: #999;
+	margin-top: 10px;
+}
+
+/** 썸네일 없을 때 기본이미지 **/
+.no_img1 {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+
+.no_img2 {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+
+.wrap_board_view2 {
+	margin-top: 0px !important;
+}
+
+.wrap_board_view2 .viewpage_edit {
+	margin-top: 0px !important;
+}
+</style>
+</th:block>
+
+
+
+<div layout:fragment="content">
+
+	<!-- tab -->
+	<!--// tab -->
+
+	<section class="wrap_con">
+		<div class="layout1">
+			<!-- list top -->
+			<!--// list top -->
+			<!-- list -->
+			<div class="acodiList acodi_type1">
+
+				<section class="wrap_board_view2">
+					<form role="form" th:action="@{'/lost/updateLost/' + ${lostId}}"
+						method="post" th:object="${lost}" name="lostForm" id="lostForm">
+
+						<input type="hidden" th:field="*{id}" />
+						<!-- 게시글 영역 -->
+						<div class="viewpage_edit">
+							<!-- 컨텐츠 불러오는 영역 -->
+							<div class="wrap_box">
+								<div class="inner600">
+									<div class="board_list_type1">
+										<ul class="col3 clear">
+
+											<li>
+												<figure class="thumbnail">
+													<img class="ratio"
+														src="/assets/app/img/common/ratio_event.gif" alt="">
+													<span class="img"
+														style="background-image: url('/images/profile.png');"></span>
+												</figure>
+												</li>
+
+
+										</ul>
+									</div>
+									<div class="login_input text-right">
+										<div class="select_ui py-3">
+											<select th:for="lostStatus" name="lostStatus" id="lostStatus"
+												th:field="*{lostStatus}">
+												<option value="">상태선택</option>
+												<option th:value="'ACCEPT'" th:text="ACCEPT">ACCEPT</option>
+												<option th:value="'PROCESSING'" th:text="PROCESSING">PROCESSING</option>
+												<option th:value="'COMPLETED'" th:text="COMPLETED">COMPLETED</option>
+											</select>
+											<p th:if="${#fields.hasErrors('lostStatus')}"
+												th:errors="lostStatus" class="fieldError">Incorrect Data</p>
+										</div>
+										<input type="text" id="lostItem" name="lostItem"  class="inp flex subject viewpage_edit inp_bundle mt custPwd"  th:field="*{lostItem}" th:value="${lostItem}" placeholder="분실물품">
+										<input type="text" id="lostDetail" name="lostDetail"  class="inp flex subject viewpage_edit inp_bundle mt custPwd"  th:field="*{lostDetail}" th:value="${lostDetail}" placeholder="분실물상세설명">
+									</div>
+								</div>
+							</div>
+							<div class="btn_area btn_ac py-5">
+								<button  class="btn_typeB1" type="submit" th:value="${lostId}"
+									>
+									<span>수정</span>
+								</button>
+								<button class="btn_typeB1" th:value="${lostId}"
+									onclick="deleteLost(this.value)">
+									<span>삭제</span>
+								</button>
+							</div>
+						</div>
+					</form>
+				</section>
+			</div>
+
+		</div>
+	</section>
+
+
+</div>
+
+<!-- 각 페이지의 스크립트가 작성될 위치 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+	<script th:inline="javascript">
+	
+	$(document).ready(function(){
+    	var errorMessage = [[${errorMessage}]];
+    	if(errorMessage != null){
+        	alert(errorMessage);
+    	}
+	});
+	
+	//수정하기
+function updateLost(lostId) {
+    var updateConf = confirm("수정하시겠습니까?");
+    if (!updateConf) {
+        // 취소 버튼을 눌렀을 경우
+        return;
+    }
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    // request URL
+    var url = "/lost/updateLost/" + lostId;
+    var lostItem = $("#lostItem").val();
+    var lostDetail = $("#lostDetail").val();
+    console.log("lostItem: " + lostItem);
+    console.log("lostDetail: " + lostDetail);
+
+    // 서버로 보내줄 데이터(반드시 JSON -> string 타입으로 바꿔줘야 한다)
+    var paramData = {
+        lostId: lostId,
+        lostItem: lostItem,
+        lostDetail: lostDetail
+    }
+    
+    var param = JSON.stringify(paramData);
+
+    $.ajax({
+        url: url, // request URL
+        type: "POST", // 전송방식
+        contentType: "application/json",
+        data: param,
+        beforeSend: function(xhr) {
+            // 데이터를 전송하기 전에 헤더에 csrf 값을 설정
+            xhr.setRequestHeader(header, token);
+        },
+        dataType: "json",
+        cache: false,
+        console.log("lostItem: " + lostItem);
+        console.log("lostDetail: " + lostDetail);
+        success: function(result, status) {
+            alert('수정이 완료되었습니다.');
+            window.close();
+        },
+        error: function(jqXHR, status, error) {
+            if (jqXHR.status == '401') {
+                alert('로그인 후 이용해주세요.');
+                location.href = '/members/login';
+            } else {
+                alert(jqXHR.responseText);
+            }
+        }
+    });
+}
+	
+	
+	
+	//삭제하기
+			function deleteFaq(faqId) {
+			const deleteConf = confirm("삭제하시겠습니까?");
+			if(!deleteConf) return; //취소버튼 누르면
+			
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
+			//request URL
+			var url = "/FAQ/deleteFAQ/" + faqId + "/delete";
+			
+			$.ajax({
+				url : url, //request URL
+				type : "DELETE", //전송방식
+				contentType : "application/json",
+				beforeSend : function(xhr) {
+					//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+					xhr.setRequestHeader(header, token);
+				},
+				dataType : "json",
+				cache : false,
+				success : function(result, status) {
+					location.href = '/FAQ/list';
+				},
+				error : function(jqXHR, status, error) {
+					if(jqXHR.status == '401') {
+						alert('로그인 후 이용해주세요.');
+						location.href = '/members/login';
+					} else {
+						alert(jqXHR.responseText);
+					}
+				}
+			});
+		}
+	
+	
+	
+	</script>
+
+
+
+</th:block>
+
 </html>

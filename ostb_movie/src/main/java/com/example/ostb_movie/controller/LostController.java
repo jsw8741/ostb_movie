@@ -74,7 +74,7 @@ public class LostController {
 	}
 
 	// lost 수정페이지 보기
-	@GetMapping(value = "/lost/updateLost/{faqId}")
+	@GetMapping(value = "/lost/updateLost/{lostId}")
 	public String lostDtl(@PathVariable("lostId") Long lostId, Model model) {
 
 		try {
@@ -86,15 +86,15 @@ public class LostController {
 			model.addAttribute("lost", new Lost());
 			return "lost/listLost";
 		}
-		return "lost/listLost";
+		return "lost/updateLost";
 	}
 
 	// lost 수정(update)
-	@PostMapping(value = "/lost/updateLost/{faqId}")
+	@PostMapping(value = "/lost/updateLost/{lostId}")
 	public String lostUpdate(@Valid LostFormDto lostFormDto, Model model, BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {
-			return "lost/listLost";
+			return "lost/list";
 		}
 
 		try {
@@ -102,9 +102,10 @@ public class LostController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "FAQ 수정 중 에러가 발생했습니다.");
+			
 			return "lost/updateLost";
 		}
-		return "redirect:/lost/listLost";
+		return "redirect:/lost/updateLost/{lostId}";
 	}
 
 	// lost 삭제(delete)

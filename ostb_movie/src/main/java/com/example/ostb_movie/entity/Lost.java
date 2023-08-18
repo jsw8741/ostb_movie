@@ -46,6 +46,8 @@ public class Lost {
 	
 	// lost entity 수정
 	public void updateLost(LostFormDto lostFormDto) {
+		this.lostDetail = lostFormDto.getLostDetail();
+		this.lostItem = lostFormDto.getLostItem();
 		this.lostStatus = lostFormDto.getLostStatus();
 	}
 	
