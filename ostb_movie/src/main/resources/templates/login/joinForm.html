@@ -137,13 +137,15 @@
 								</div>
 								
 								<div>
-									<input type="tel" th:field="*{phone}" class="Input__normal" placeholder="'-'를 제외한 전화번호를 입력하세요." oninput="formatPhoneNumber(this)" maxlength="13">
+									<input type="tel" th:field="*{phone}" name="phone" class="Input__normal" placeholder="'-'를 제외한 전화번호를 입력하세요." maxlength="13" id="phoneInput" oninput="replacePhone(this)">
 								</div>
+								<p id="phoneError" class="errorInput" style="color: red;"></p>
 							</div>
 						</li>
 					
 						<li>
-							<button type="button" onclick="beforeSubmit()" class="register">가입하기</button>
+							<button type="button" onclick="joinAllSubmit()" class="register" th:unless="${#strings.equals(memberFormDto.password, 'SNS 로그인')}">가입하기</button>
+							<button type="button" onclick="joinSNSSubmit()" class="register" th:if="${#strings.equals(memberFormDto.password, 'SNS 로그인')}">가입하기</button>
 						</li>
 					</ul>
 						
@@ -185,14 +187,73 @@
 		    currentIndex = (currentIndex + 1) % svgList.length;
 		    icon.innerHTML = svgList[currentIndex];
 		  });
-		  
-		// 전화번호 자동 정규식 처리
-		function formatPhoneNumber(obj) {
-		      obj.value = obj.value.replace(/[^0-9]/g, '').replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`)
-		  }
 
-		  
-		function beforeSubmit(){
+		// SNS 회원가입 
+		function joinSNSSubmit(){
+			const f = document.joinForm;
+			
+			let year = f.year.value;
+			let month = f.month.value;
+			let day = f.day.value;
+			let birth;
+			
+			// 이름 확인
+			if(!f.name.value){
+				alert('이름을 입력해주세요.');
+				f.name.focus();
+				return;
+			}
+			
+			// 이메일 확인
+			if(!f.email.value){
+				alert('이메일을 입력해주세요.');
+				f.email.focus();
+				return;
+			}else if(!validateEmail()){
+				alert('이메일 형식으로 입력해주세요.');
+				f.email.focus();
+				return;
+			}
+			
+			// 전화번호
+			if(!f.phone.value){
+				alert('전화번호를 입력해주세요.');
+				f.phone.focus();
+				return;
+			}else if(!validatePhone()){
+				alert('올바른 전화번호를 입력해주세요.');
+				f.phone.focus();
+				return;
+			}
+			
+			// 생년월일
+			if(year == '년'){
+				alert('년도를 선택해주세요');
+				return;
+			}else if(month == '월'){
+				alert('월을 선택해주세요');
+				return;
+			}else if(day == '일'){
+				alert('일을 선택해주세요');
+				return;
+			}
+		
+			if(month.length < 2){
+				month = 0 + month;
+			}
+			
+			if(day.length < 2){
+				day = 0 + day;
+			}
+		
+			birth = year.substr(2) + '.' + month + '.' + day;				
+			$('input[name=birth]').attr('value',birth);
+			
+			f.submit();
+		}
+		
+		// 일반 회원 가입
+		function joinAllSubmit(){
 			const f = document.joinForm;
 			
 			let year = f.year.value;
@@ -237,6 +298,17 @@
 			}else if(!validatePasswordMatch()){
 				alert('비밀번호 확인란과 비밀번호가 일치하지않습니다.');
 				f.check_pw.focus();
+				return;
+			}
+			
+			// 전화번호
+			if(!f.phone.value){
+				alert('전화번호를 입력해주세요.');
+				f.phone.focus();
+				return;
+			}else if(!validatePhone()){
+				alert('올바른 전화번호를 입력해주세요.');
+				f.phone.focus();
 				return;
 			}
 			
@@ -310,17 +382,42 @@
 	
 	        const passwordValue = passwordInput.value;
 	        const confirmPasswordValue = confirmPasswordInput.value;
-	
+			
 	        if (passwordValue !== confirmPasswordValue) {
 	            confirmPasswordInput.style.border = "1px solid red";
 	            passwordMatchMessage.textContent = "비밀번호가 일치하지 않습니다.";
 	            passwordMatchMessage.style.color = "red";
+	            return false;
 	        } else {
 	        	confirmPasswordInput.style.border = "none";
 	            passwordMatchMessage.textContent = "비밀번호가 일치합니다.";
 	            passwordMatchMessage.style.color = "green";
+	            return true;
 	        }
 	    }
+		
+		// 전화번호 확인
+		function replacePhone(obj) {
+		    obj.value = obj.value.replace(/[^0-9]/g, '').replace(/^(\d{3})(\d{4})(\d{4})$/, `$1-$2-$3`);
+		    validatePhone();
+		}
+		
+		function validatePhone() {
+		    const phoneInput = document.getElementById("phoneInput");
+		    const phoneError = document.getElementById("phoneError");
+		    const phonePattern = /^\d{3}-\d{4}-\d{4}$/; 
+		    const phoneValue = phoneInput.value;
+		
+		    if (!phonePattern.test(phoneValue)) {
+		        phoneInput.style.border = "1px solid red";
+		        phoneError.textContent = "올바른 전화번호를 입력해주세요.";
+		        return false;
+		    } else {
+		        phoneInput.style.border = "1px solid #ccc";
+		        phoneError.textContent = "";
+		        return true;
+		    }
+		}
 	</script>
 </th:block>
 </html>

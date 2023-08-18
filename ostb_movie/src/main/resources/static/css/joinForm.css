@@ -27,7 +27,7 @@
     		color : #29a5ff;
     		font-family: Noto Sans KR;
     		font-style: normal;
-    		font-weight: 500;
+    		font-weight: bolder;
     		font-size: 20px;
     		line-height: 29.6px;
     		letter-spacing: -.06em;
@@ -36,6 +36,7 @@
     	}
     	
     	.SignUp__section-content-padding{
+    		margin-bottom: 100px;
     		padding: 0 24px;
     	}
     	
@@ -141,7 +142,14 @@
 		  border: solid 1px rgb(218, 218, 218);
 		  color: #29a5ff;
 		  width: 100%;
-		  
-		  font-size: 20px;
+		  font-size: 14px;
+		  line-height: 28px;
 		  text-align: center;
 		}
+		
+		.register:hover {
+			background-color: #e7e7e7;
+			font-weight: bolder;
+			cursor: pointer;
+		}
+		

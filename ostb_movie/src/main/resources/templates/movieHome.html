@@ -4,13 +4,45 @@
 	layout:decorate="~{layouts/layout1}">
 
 <th:block layout:fragment="css">
-	
+	<link rel="stylesheet" type="text/css" th:href="@{/css/movieHome.css}"/>
+	<link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css}"/>
 </th:block>
 <div layout:fragment="content">
 	<h3>메인</h3>
-	
+	<div class="sw_1">
+        <div class="main_title">인기순위</div>
+        <div class="swiper mySwiper">
+			<div class="swiper-wrapper">
+				<th:block th:each="moviePopular, status:${moviePopualrList}">
+				   <div class="swiper-slide">
+				     <a href="#" class="information_popular">
+					     <img th:src="${moviePopular.imgUrl}" th:alt="${moviePopular.movieTitle}" class="slide_popular19 slideimges" />
+					     <div class="title_popular19 title" th:text="${moviePopular.movieTitle.substring(1, moviePopular.movieTitle.length() - 1)}"></div>
+				     </a>
+				   </div>
+			    </th:block>
+			   
+			 </div>
+			 
+			 <div class="swiper-button-next"></div>
+			 <div class="swiper-button-prev"></div>
+        </div>
+      </div>
 </div>
 
 <th:block layout:fragment="script">
+	<script th:src="@{'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js'}"></script>
+	<script th:inline="javascript">
+	var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 5,
+        spaceBetween: 50,
+        
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+	</script>
+
 </th:block>
 </html>

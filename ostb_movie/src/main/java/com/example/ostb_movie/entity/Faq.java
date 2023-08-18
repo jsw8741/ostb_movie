@@ -3,6 +3,9 @@ package com.example.ostb_movie.entity;
 
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.example.ostb_movie.dto.FaqFormDto;
 
 import jakarta.persistence.Column;
@@ -32,6 +35,7 @@ public class Faq {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="member_id")
+	@OnDelete(action= OnDeleteAction.CASCADE)
 	private Member member;
 	
 	private String faqRole;

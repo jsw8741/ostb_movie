@@ -1,6 +1,5 @@
 package com.example.ostb_movie.service;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -37,14 +36,14 @@ public class MemberService implements UserDetailsService{
 	}
 	
 	// 이름 + 전화번호로 이메일 찾기
-	public String findEmail(String name, String phone) {
-		String memberEmail = memberRepository.getMemberEmail(name, phone);
+	public Member findEmail(String name, String phone) {
+		Member member = memberRepository.getMemberEmail(name, phone);
 		
-		if(memberEmail == null) {
+		if(member == null) {
 			throw new IllegalStateException("가입된 정보가 없습니다.");
 		}
 		
-		return memberEmail;
+		return member;
 	}
 	
 	// 이메일로 회원 정보 찾기

@@ -1,5 +1,8 @@
 package com.example.ostb_movie.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,5 +27,6 @@ public class Seat {
 	
 	@ManyToOne
 	@JoinColumn(name = "theater_id")
+	@OnDelete(action= OnDeleteAction.CASCADE)
 	private Theater theater;
 }
