@@ -3,6 +3,9 @@ package com.example.ostb_movie.entity;
 
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.example.ostb_movie.dto.NoticeFormDto;
 
 import jakarta.persistence.Column;
@@ -33,6 +36,7 @@ public class Notice extends BaseEntity {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="member_id")
+	@OnDelete(action= OnDeleteAction.CASCADE)
 	private Member member;
 	
 	private String noticeTitle;

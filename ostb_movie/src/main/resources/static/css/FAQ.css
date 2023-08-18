@@ -1439,7 +1439,7 @@ button.swiper-pagination-bullet {
   font-family: "Noto Sans KR";
   font-weight: 300;
   font-size: 20px;
-  color: #111;
+  color: white;
   text-align: center;
 }
 
@@ -1465,7 +1465,7 @@ button.swiper-pagination-bullet {
   font-family: "Noto Sans KR";
   font-weight: 700;
   font-size: 20px;
-  color: #111;
+  color: white;
   letter-spacing: -0.5px;
   margin-right: 30px;
 }
@@ -2281,6 +2281,42 @@ li.ac_item {}
   transition: background-color .15s;
 }
 
+.acodi_type1 .ac_processing { 
+  position: absolute;
+  right: 0;
+  top: 25px;
+  width: 100px;
+  height: 32px;
+  font-family: "HGGGothicssi";
+  font-weight: 400;
+  font-size: 15px;
+  color: #fff;
+  text-align: center;
+  line-height: 32px;
+  background-color: red;
+  border-radius: 8px;
+  -webkit-transition: background-color .15s;
+  transition: background-color .15s;
+}
+
+.acodi_type1 .ac_completed { 
+  position: absolute;
+  right: 0;
+  top: 25px;
+  width: 90px;
+  height: 32px;
+  font-family: "HGGGothicssi";
+  font-weight: 400;
+  font-size: 15px;
+  color: #fff;
+  text-align: center;
+  line-height: 32px;
+  background-color: black;
+  border-radius: 8px;
+  -webkit-transition: background-color .15s;
+  transition: background-color .15s;
+}
+
 .acodi_type1 .ac_head .tit_area .kinds {
   display: inline-block;
   font-family: "Noto Sans KR";
@@ -2583,13 +2619,14 @@ input[type=radio] + label {
   border-radius: 8px;
   padding: 70px;
   margin: 60px 0 80px;
+  width: 100%;
 }
 
 .viewpage_tit .subject {
   font-family: "Noto Sans KR";
   font-weight: 700;
   font-size: 40px;
-  color: #111;
+  color: black;
 }
 
 .viewpage_tit .date {

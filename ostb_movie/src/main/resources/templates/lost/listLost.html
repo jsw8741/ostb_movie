@@ -87,8 +87,9 @@
 									<p class="subject">
 										<span class="kinds" th:text="'[' + ${lost.lostItem} + ']'"></span>[[${lost.lostDetail}]]
 									</p>
-									<span
-										th:classappend="${#strings.equals(lost.lostStatus, 'ACCEPT')} ? 'ac_accept' : ''">[[${lost.lostStatus}]]</span>
+									<span th:classappend="${#strings.equals(lost.lostStatus, 'ACCEPT') ? 'ac_accept' : 
+              (#strings.equals(lost.lostStatus, 'PROCESSING') ? 'ac_processing' : 
+              (#strings.equals(lost.lostStatus, 'COMPLETED') ? 'ac_completed' : ''))}">[[${lost.lostStatus}]]</span>
 								</div>
 							</div> 
 							 <div class="ac_panel" th:id="${lost.id}" sec:authorize="isAuthenticated()">

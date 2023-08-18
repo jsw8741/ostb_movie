@@ -1,5 +1,8 @@
 package com.example.ostb_movie.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.example.ostb_movie.constant.LostStatus;
 import com.example.ostb_movie.dto.LostFormDto;
 
@@ -33,6 +36,7 @@ public class Lost {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="member_id")
+	@OnDelete(action= OnDeleteAction.CASCADE)
 	private Member member;
 	
 	@Enumerated(EnumType.STRING)

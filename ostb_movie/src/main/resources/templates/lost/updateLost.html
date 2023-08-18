@@ -539,8 +539,8 @@
 											<p th:if="${#fields.hasErrors('lostStatus')}"
 												th:errors="lostStatus" class="fieldError">Incorrect Data</p>
 										</div>
-										<input type="text" id="lostItem" name="lostItem"  class="inp flex subject viewpage_edit inp_bundle mt custPwd"  th:field="*{lostItem}" th:value="${lostItem}" placeholder="분실물품">
-										<input type="text" id="lostDetail" name="lostDetail"  class="inp flex subject viewpage_edit inp_bundle mt custPwd"  th:field="*{lostDetail}" th:value="${lostDetail}" placeholder="분실물상세설명">
+										<input type="hidden" id="lostItem" name="lostItem"  class="inp flex subject viewpage_edit inp_bundle mt custPwd"  th:field="*{lostItem}" th:value="${lostItem}" placeholder="분실물품">
+										<input type="hidden" id="lostDetail" name="lostDetail"  class="inp flex subject viewpage_edit inp_bundle mt custPwd"  th:field="*{lostDetail}" th:value="${lostDetail}" placeholder="분실물상세설명">
 									</div>
 								</div>
 							</div>
