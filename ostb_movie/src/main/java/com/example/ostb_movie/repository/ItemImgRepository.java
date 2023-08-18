@@ -8,6 +8,6 @@ import com.example.ostb_movie.entity.Itemimg;
 
 public interface ItemImgRepository extends JpaRepository<Itemimg, Long> {
 
-	List<Itemimg> findByItemIdOrderByIdAsc(Long itemId);
+	Itemimg findByItemIdOrderByIdAsc(Long itemId);
 
 }

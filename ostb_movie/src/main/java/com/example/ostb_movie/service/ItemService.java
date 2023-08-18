@@ -43,20 +43,28 @@ public class ItemService {
 
 	@Transactional(readOnly = true) // 트랜젝션 읽기 전용(변경감지 수행하지 않음) -> 성능향상
 	public ItemFormDto getItemDtl(Long itemId) {
-		// 1. item_img 테이블의 이미지를 가져온다.
-		ItemImgDto itemImgDto =itemRepository.findByImg(itemId);
-
-	
-		// 2. item 테이블에 있는 데이터를 가져온다.
+		
+		Itemimg itemImg = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
+		
 		Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
+		
+		ItemImgDto itemImgDto = ItemImgDto.of(itemImg);
 
-		// Item 앤티티 객체 -> dto로 변환
 		ItemFormDto itemFormDto = ItemFormDto.of(item);
+		
 
-		// 3. ItemFormDto에 이미지 정보(itemImgDtoList)를 넣어준다.
+		itemFormDto.setItemImgId(itemImg.getId());
 		itemFormDto.setItemImgDto(itemImgDto);
 
 		return itemFormDto;
+	}
+
+	public Long updateItem(ItemFormDto itemFormDto, MultipartFile itemImgFile) throws Exception {
+		Item item = itemRepository.findById(itemFormDto.getId()).orElseThrow(EntityNotFoundException::new);
+		item.updateItem(itemFormDto);
+		Long itemImgId = itemFormDto.getItemImgId();
+		itemImgService.updateItemImg(itemImgId,itemImgFile);
+		return item.getId();
 	}
 
 	public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
