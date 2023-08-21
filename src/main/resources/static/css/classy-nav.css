@@ -54,10 +54,12 @@
 	color: black;
 	font-size: 15px;
 }
-.content{
+
+.content {
 	background-color: black;
 }
-.call> i {
+
+.call>i {
 	font-size: 15px;
 	margin: 10px;
 }
@@ -66,25 +68,27 @@
 	display: flex !important;
 	margin-top: 15px;
 }
-.footer-area{
+
+.footer-area {
 	background-color: white;
 }
-.footer_2{
+
+.footer_2 {
 	margin-left: 100px;
 }
+
 .footer_2>dl>dd {
-	 color: black;
+	color: black;
 	font-size: 15px;
 }
+
 .footer_2>dl>dt {
-	 color: black;
+	color: black;
 	font-size: 15px;
 }
-.content{
-<<<<<<< HEAD
-=======
-	/* height: 1000px; */
->>>>>>> 445a965b8c02fb4f203b9331572cecd5f6a1b79c
+
+.content {
+	height: 1000px;
 }
 
 body {

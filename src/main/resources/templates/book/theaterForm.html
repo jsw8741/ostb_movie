@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/book.css}" />
+</th:block>
+
+<div layout:fragment="content">
+	<div class="container">
+		<div class="inner">
+			<p class="box_tit df">상영영화 등록</p>
+			<div class="box_content df">
+				<form class="form_area" action="/book/theater/new" th:object="${theaterFormDto}" method="post">
+					<div class="form_wrap">
+						<label>상영관</label>
+						<input type="text" th:field="*{theaterNm}" required />
+					</div>
+					<div class="form_wrap">
+						<label>수용인원</label>
+						<input type="number" th:field="*{capacity}" required />
+					</div>
+					<div class="form_wrap">
+						<label>상영 시작 시간</label>
+						<input type="datetime-local" th:field="*{startTime}" required />
+					</div>
+					<div class="form_wrap">
+						<label>상영종료 시간</label>
+						<input type="datetime-local" th:field="*{endTime}" required />
+					</div>
+					<div class="df">
+						<button class="bttn" type="submit">등록</button>
+					</div>
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<th:block layout:fragment="script">
+</th:block>
+
+</html>
