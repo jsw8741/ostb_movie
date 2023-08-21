@@ -9,13 +9,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "movie_detail")
+@Table(name = "movie")
 @Getter
 @Setter
-public class MovieDetail {
+public class Movie extends BaseEntity{
 	@Id
-	@Column(name="movie_detail_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="movie_id")
     private Long id;
 	
 	private String imgUrl;
@@ -40,15 +39,16 @@ public class MovieDetail {
 	@OnDelete(action= OnDeleteAction.CASCADE)
 	private MovieStatus status;
 	
-	public static MovieDetail createMovie(MovieDto movieDto, MovieStatus status) {
-		MovieDetail movie = new MovieDetail();
+	public static Movie createMovie(Long id, MovieDto movieDto, MovieStatus status) {
+		Movie movie = new Movie();
 		
-		movie.setOriginId(movieDto.getOriginId());
+		movie.setId(id);
 		movie.setImgUrl(movieDto.getImgUrl());
 		movie.setMovieTitle(movieDto.getMovieTitle());
 		movie.setDescription(movieDto.getDescription());
 		movie.setAdult(movieDto.isAdult());
 		movie.setRunTime(movieDto.getRunTime());
+		movie.setOriginId(movieDto.getOriginId());
 		movie.setStatus(status);
 		
 		return movie;

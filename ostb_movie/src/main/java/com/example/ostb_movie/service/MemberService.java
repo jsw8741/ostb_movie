@@ -1,12 +1,12 @@
 package com.example.ostb_movie.service;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.repository.MemberRepository;
 
@@ -36,14 +36,14 @@ public class MemberService implements UserDetailsService{
 	}
 	
 	// 이름 + 전화번호로 이메일 찾기
-	public String findEmail(String name, String phone) {
-		String memberEmail = memberRepository.getMemberEmail(name, phone);
+	public Member findEmail(String name, String phone) {
+		Member member = memberRepository.getMemberEmail(name, phone);
 		
-		if(memberEmail == null) {
+		if(member == null) {
 			throw new IllegalStateException("가입된 정보가 없습니다.");
 		}
 		
-		return memberEmail;
+		return member;
 	}
 	
 	// 이메일로 회원 정보 찾기
@@ -64,12 +64,8 @@ public class MemberService implements UserDetailsService{
 		if(member == null) {
 			throw new UsernameNotFoundException(email);
 		}
-		// 사용자가 있다면 DB에서 가져온 값으로 userDetails 객체를 만들어서 반환
-		return User.builder()
-				.username(member.getEmail())
-				.password(member.getPassword())
-				.roles(member.getRole().toString())
-				.build();
+		
+		return new PrincipalDetails(member);
 	}
 
 }

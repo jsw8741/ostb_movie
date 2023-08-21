@@ -17,14 +17,19 @@
 		<div class="Login__wrap">
 			<div class="Login__content">
 				<h3>이메일 찾기</h3>
-			<form role="form" action="/login/find/email" method="post">
+			<form role="form" action="/login/find/email" method="post" name="findEmailForm">
 				<div class="Login__content-input">
 					<input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력해주세요">
-					<input type="tel" class="form-control" name="phone" placeholder="'-'를 제외한 전화번호를 입력하세요." oninput="formatPhoneNumber(this)" maxlength="13">
 				</div>
 				
+				<div class="Login__content-input">
+					<input type="tel" class="form-control" name="phone" placeholder="'-'를 제외한 전화번호를 입력하세요." maxlength="13" id="phoneInput" oninput="replacePhone(this)">
+				</div>
+				<p id="phoneError" class="errorInput" style="color: red;"></p>
+			
+				
 				<div class="Login__content-btn">
-					<button type="submit" class="Login__content-btn-login">찾기</button>
+					<button type="button" class="Login__content-btn-login" onclick="beforSubmit()">찾기</button>
 				</div>
 				
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -43,10 +48,52 @@
 		alert(errorMessage);
 	} 
 	
-	// 전화번호 자동 정규식 처리
-	function formatPhoneNumber(obj) {
-	      obj.value = obj.value.replace(/[^0-9]/g, '').replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`)
-	  }	
+	// 전화번호 확인
+	function replacePhone(obj) {
+	    obj.value = obj.value.replace(/[^0-9]/g, '').replace(/^(\d{3})(\d{4})(\d{4})$/, `$1-$2-$3`);
+	    validatePhone();
+	}
+	
+	function validatePhone() {
+	    const phoneInput = document.getElementById("phoneInput");
+	    const phoneError = document.getElementById("phoneError");
+	    const phonePattern = /^\d{3}-\d{4}-\d{4}$/; 
+	    const phoneValue = phoneInput.value;
+	
+	    if (!phonePattern.test(phoneValue)) {
+	        phoneInput.style.border = "1px solid red";
+	        phoneError.textContent = "올바른 전화번호를 입력해주세요.";
+	        return false;
+	    } else {
+	        phoneInput.style.border = "1px solid #ccc";
+	        phoneError.textContent = "";
+	        return true;
+	    }
+	}
+	
+	function beforSubmit(){
+		const f = document.findEmailForm;
+		
+		// 이름 확인
+		if(!f.name.value){
+			alert('이름을 입력해주세요.');
+			f.name.focus();
+			return;
+		}
+		
+		// 전화번호
+		if(!f.phone.value){
+			alert('전화번호를 입력해주세요.');
+			f.phone.focus();
+			return;
+		}else if(!validatePhone()){
+			alert('올바른 전화번호를 입력해주세요.');
+			f.phone.focus();
+			return;
+		}
+		
+		f.submit();
+	}
 	</script>
 </th:block>
 </html>

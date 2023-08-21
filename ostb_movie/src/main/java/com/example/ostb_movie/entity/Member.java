@@ -52,6 +52,12 @@ public class Member{
 	
 	private String birth;
 	
+	private Long point;
+
+	private Long totalPay;
+	
+	private String memberImg;
+	
 	@Enumerated(EnumType.STRING)
 	private Role role;	
 	
@@ -71,7 +77,8 @@ public class Member{
 		member.setName(memberFormDto.getName());
 		member.setPhone(memberFormDto.getPhone());
 		member.setBirth(memberFormDto.getBirth());
-		member.setRole(Role.USER);
+		member.setMemberImg("/images/profile.png");
+		member.setRole(Role.ROLE_USER);
 		
 		if(memberFormDto.getNickname().isEmpty()) {
 			member.setNickname(memberFormDto.getName());
