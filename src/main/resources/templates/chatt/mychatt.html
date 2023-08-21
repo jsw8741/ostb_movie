@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<!-- 각 페이지의 CSS가 작성될 위치 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/FAQ.css}">
+</th:block>
+
+
+<div layout:fragment="content">
+	<div class="pageTitle bg_blue">
+		<div class="layout1">
+			<h2 class="tit">고객센터</h2>
+			<p class="desc">
+				OSTB에 대해 궁금하신 점이 있다면<br>무엇이든 물어보세요!
+			</p>
+		</div>
+		<!-- pageTab -->
+		<div class="pageTab">
+			<div class="tab_ui type1 pageTabSwiper">
+				<div class="tab_wrap swiper-container swiper-container-horizontal">
+					<ul class="tab_inner swiper-wrapper">
+						<li class="swiper-slide tab  swiper-slide-active"><a
+							href="/FAQ/list"><span>FAQ</span></a></li>
+						<li class="swiper-slide tab swiper-slide-next"><a href="/"><span>1:1
+									문의</span></a></li>
+						<li class="swiper-slide tab"><a href="/notice/list"><span>공지사항</span></a></li>
+						<li class="swiper-slide tab active"><a href="/lost/list"><span>분실물
+									문의</span></a></li>
+					</ul>
+					<span class="swiper-notification" aria-live="assertive"
+						aria-atomic="true"></span>
+				</div>
+			</div>
+		</div>
+		<!--// pageTab -->
+	</div>
+
+	<!-- tab -->
+	<div class="tab_ui type2 tabSwiper py-5">
+		<div
+			class="tab_wrap swiper-container swiper-container-horizontal swiper-container-free-mode">
+			<ul class="tab_inner swiper-wrapper"
+				style="transform: translate3d(0px, 0px, 0px);">
+				<li class="swiper-slide tab active swiper-slide-active"><a
+					href="/FAQ/list"><span>전체</span></a></li>
+
+				<li class="swiper-slide tab swiper-slide-next"><a
+					href="/FAQ/list/member"><span id="cdNm1">접수</span></a></li>
+
+				<li class="swiper-slide tab"><a href="/FAQ/list/point"><span
+						id="cdNm2">처리중</span></a></li>
+
+				<li class="swiper-slide tab"><a href="/FAQ/list/benefit"><span
+						id="cdNm3">처리완료</span></a></li>
+
+			</ul>
+			<span class="swiper-notification" aria-live="assertive"
+				aria-atomic="true"></span>
+		</div>
+	</div>
+	<!--// tab -->
+	<section class="wrap_con">
+		<div class="layout1">
+			<!-- list top -->
+			<th:block th:each="oneBoard : ${oneBoards}">
+				<div class="acodiList acodi_type1 py-1">
+					<ul>
+						<li class="ac_item" th:data-target="${oneBoard.id}" th:id="${oneBoard.id}">
+							<div class="ac_head" onclick="openPop('/chatt/' + this.getAttribute('data-target'), 800, 800);" th:data-target="${oneBoard.id}">
+								<span class="ic_Q">[[${oneBoard.id}]]</span>
+								<div class="tit_area">
+									<p class="subject">
+										1:1 문의
+									</p>
+									<span>문의 시간 : [[${oneBoard.regTime}]]</span>
+									<span th:classappend="${#strings.equals(oneBoard.roomStatus, 'OPNE') ? 'ac_accept' : 
+									(#strings.equals(oneBoard.roomStatus, 'CLOSED') ? 'ac_processing' : 
+           						   (#strings.isEmpty(oneBoard.roomStatus) ? 'ac_completed' : ''))}">[[${oneBoard.roomStatus}]]</span>
+								</div>
+							</div> 
+						</li>
+					</ul>
+				</div>
+				<!--// list top -->
+				<!-- list -->
+			</th:block>
+		</div>
+	</section>
+
+
+</div>
+
+<!-- 각 페이지의 스크립트가 작성될 위치 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+	<script th:inline="javascript">
+		var dropdownButtons = document.querySelectorAll(".ac_item");
+
+		//각 버튼에 대해 클릭 이벤트 리스너를 추가합니다.
+		dropdownButtons.forEach(function(li) {
+			li.addEventListener("click", function() {
+				var targetId = li.getAttribute("data-target");
+				var dropdownContent = document.getElementById(targetId);
+
+				// 드롭다운 내용의 현재 표시 상태를 확인합니다.
+				var isDisplayed = dropdownContent.style.display === "block";
+
+				// 드롭다운 내용의 표시 상태를 변경합니다.
+				if (isDisplayed) {
+					dropdownContent.style.display = "none";
+					li.classList.remove("on");
+				} else {
+					dropdownContent.style.display = "block";
+					li.classList.add("on");
+				}
+
+			});
+		});
+
+		function openPop(url, width, height) {
+			var left = (screen.width - width) / 2;
+			var top = (screen.height - height) / 2;
+
+			window.open(url, 'popupwindow', 'scrollbars=yes,width=' + width
+					+ ',height=' + height + ',top=' + top + ',left=' + left);
+		}
+	</script>
+
+
+
+</th:block>
+
+</html>

@@ -10,17 +10,18 @@ import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
+import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 
 @Service
-@ServerEndpoint(value="/chatt")
+@ServerEndpoint(value="/chatt/{roomId}")
 public class WebSocketChatt {
 	private static Set<Session> clients = 
 			Collections.synchronizedSet(new HashSet<Session>());
 
 	
 	@OnOpen
-	public void onOpen(Session s) {
+	public void onOpen(Session s, @PathParam("roomId") String roomId) {
 		System.out.println("open session : " + s.toString());
 		if(!clients.contains(s)) {
 			clients.add(s);
@@ -32,7 +33,7 @@ public class WebSocketChatt {
 	
 	
 	@OnMessage
-	public void onMessage(String msg, Session session) throws Exception{
+	public void onMessage(String msg, Session session, @PathParam("roomId") String roomId) throws Exception{
 		System.out.println("receive message : " + msg);
 		for(Session s : clients) {
 			System.out.println("send data : " + msg);
@@ -43,7 +44,7 @@ public class WebSocketChatt {
 	}
 	
 	@OnClose
-	public void onClose(Session s) {
+	public void onClose(Session s, @PathParam("roomId") String roomId) {
 		System.out.println("session close : " + s);
 		clients.remove(s);
 	}

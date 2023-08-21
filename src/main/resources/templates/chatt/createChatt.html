@@ -53,8 +53,8 @@
 			<div class="acodiList acodi_type1">
 
 				<section class="wrap_board_view2">
-					<form role="form" action="/FAQ/createFAQ" method="post"
-					th:object="${faqFormDto}"
+					<form role="form" action="/chatt/createChatt" method="post"
+					th:object="${oneBoardFormDto}"
 					name="faqForm" >
 					
 					<input type="hidden" th:field="*{id}" />
@@ -62,31 +62,6 @@
 						<div class="viewpage_edit">
 							<!-- 컨텐츠 불러오는 영역 -->
 					<div class="wrap_box">
-						<div class="inner600">
-							<div class="login_input">
-									<div class="select_ui py-3">
-										<select th:for="faqRole" name="faqRole" id="faqRole" th:field="*{faqRole}">
-											<option value="" >카테고리선택</option>
-													<option th:value="'회원'" th:text="회원" >회원</option>
-													<option th:value="'포인트'" th:text="포인트" >포인트</option>
-													<option th:value="'혜택'" th:text="혜택" >혜택</option>
-													<option th:value="'친구'" th:text="친구" >친구</option>
-										</select>
-										<p th:if="${#fields.hasErrors('faqRole')}" th:errors="*{faqRole}"
-										class="fieldError">Incorrect Data</p>
-									</div>
-									<div class="inp_bundle custId">
-										<input type="text" id="faqTitle" name="faqTitle"  class="inp flex"  th:field="*{faqTitle}" placeholder="제목">
-										<p th:if="${#fields.hasErrors('faqTitle')}" th:errors="*{faqTitle}"
-								class="fieldError">Incorrect Data</p>
-									</div>
-									<div class="inp_bundle mt custPwd textarea" >
-										<textarea id="faqContent" name="faqContent"class="inp flex py-3" th:field="*{faqContent}" placeholder="컨텐츠 내용"></textarea>
-										<p th:if="${#fields.hasErrors('faqTitle')}" th:errors="*{faqContent}"
-								class="fieldError">Incorrect Data</p>
-									</div>
-							</div>
-						</div>
 					</div>
 						<div class="btn_area btn_ac py-5">
 							<button class="btn_typeB1" type="submit"><span>등록</span></button>
