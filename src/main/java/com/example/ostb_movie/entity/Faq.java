@@ -3,6 +3,9 @@ package com.example.ostb_movie.entity;
 
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.example.ostb_movie.dto.FaqFormDto;
 
 import jakarta.persistence.Column;
@@ -24,7 +27,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Faq {
+public class Faq extends BaseEntity {
 	@Id
 	@Column(name="faq_id") //테이블로 생설될때 컬럼이름을 지정해준다
 	@GeneratedValue(strategy = GenerationType.AUTO) // 기본키를 자동으로 생성
@@ -32,6 +35,7 @@ public class Faq {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="member_id")
+	@OnDelete(action= OnDeleteAction.CASCADE)
 	private Member member;
 	
 	private String faqRole;

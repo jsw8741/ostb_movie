@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<!-- 각 페이지의 CSS가 작성될 위치 -->
+<th:block layout:fragment="css">
+<link rel="stylesheet" th:href="@{/css/FAQ.css}">
+</th:block>
+
+
+
+<div layout:fragment="content">
+	<div class="pageTitle bg_blue">
+				<div class="layout1">
+					<h2 class="tit">고객센터</h2>
+					<p class="desc">OSTB에 대해 궁금하신 점이 있다면<br>무엇이든 물어보세요!</p>
+				</div>
+				<!-- pageTab -->
+				<div class="pageTab">
+					<div class="tab_ui type1 pageTabSwiper">
+						<div class="tab_wrap swiper-container swiper-container-horizontal">
+							<ul class="tab_inner swiper-wrapper">
+								<li class="swiper-slide tab active swiper-slide-active"><a  href="/FAQ/list"><span>FAQ</span></a></li>
+								<li class="swiper-slide tab swiper-slide-next"><a href="/"><span>1:1 문의</span></a></li>
+								<li class="swiper-slide tab"><a href="/notice/list" ><span>공지사항</span></a></li>
+								<li class="swiper-slide tab"><a href="/lost/list"><span>분실물 문의</span></a></li>
+							</ul>
+						<span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+					</div>
+				</div>
+				<!--// pageTab -->
+			</div>
+			
+			<!-- tab -->
+			<div class="tab_ui type2 tabSwiper py-5" th:object="${faqSearchDto}">
+				<div class="tab_wrap swiper-container swiper-container-horizontal swiper-container-free-mode ">
+					<ul class="tab_inner swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);" >
+						<li class="swiper-slide tab  swiper-slide-active"><a href="/FAQ/list"><span>전체</span></a></li>
+						
+							<li class="swiper-slide tab swiper-slide-next"><a href="/FAQ/list/member"><span id="cdNm1">회원</span></a></li>
+						
+							<li class="swiper-slide tab"><a href="/FAQ/list/point"><span id="cdNm2">포인트</span></a></li>
+						
+							<li class="swiper-slide tab"><a href="/FAQ/list/benefit"><span id="cdNm3">혜택</span></a></li>
+						
+							<li class="swiper-slide tab active"><a href="/FAQ/list/frend"><span id="cdNm4">친구</span></a></li>
+						
+						
+					</ul>
+				<span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+			</div>
+			<!--// tab -->
+			
+			<section class="wrap_con">
+				<div class="layout1">
+					<!-- list top -->
+					<div class="list_top_ui">
+						<div class="list_total">총 <em>[[${totalCount}]]건</em></div>
+						<!-- 검색어 입력 시 -->
+						<!-- <div class="list_total"><em>‘백화점’</em> 에 대한 검색결과 <em>72건</em></div> -->
+						
+						<div class="search_area">
+							<div class="search_bundle">
+								<div class="inp_search">
+									<form name="faqDtlForm" id="faqDtlForm" method="post" action="/cu/cmct/faqDtlList.nhd">
+										<input type="hidden" name="pageSize" id="pageSize" value="10">
+										<input type="hidden" name="pageIndex" id="pageIndex" value="0">
+										<input type="hidden" name="faqTypeGbcd" id="faqTypeGbcd" value="">
+										<input type="search" name="searchStr" id="searchStr" class="inp_self" placeholder="검색어를입력해주세요.">
+										<button type="button" class="btn_search" onclick="doSearch( '');"><span class="hidden"></span></button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--// list top -->
+
+					<!-- list -->
+					
+							<th:block th:each="faq, status: ${faqs.getContent()}">
+						<div class="acodiList acodi_type1 py-1">
+							<ul>
+									<li class="ac_item" th:data-target="${faq.id}">
+										<div class="ac_head" >
+											<span class="ic_Q">Q</span>
+											<div class="tit_area">
+												<p class="subject"><span class="kinds" th:text="'[' + ${faq.faqRole} + ']'"></span>[[${faq.faqTitle}]]</p>
+																								
+											</div>
+										</div>
+										<div class="ac_panel" th:id="${faq.id}">
+											<span class="ic_A">A</span>
+											<div class="con_area">
+											[[${faq.faqContent}]]
+											<br>
+											<a class="faqupdate" sec:authorize="isAuthenticated()" th:href="'/members/centers/' + ${faq.Id}">수정하기</a>
+											</div>
+										</div>
+									</li>
+							</ul>
+						</div>
+							</th:block>
+					
+					<!--// list -->
+
+					<!-- paging -->
+					
+						<!-- pc -->
+						<div class="wrap_paging mo_none">
+						<nav
+							th:with="start=${(faqs.number/maxPage)*maxPage + 1}
+			                 ,end=(${(faqs.totalPages == 0) ? 1 : (start + (maxPage - 1) < faqs.totalPages ? start + (maxPage - 1) : faqs.totalPages)})"
+							>
+							<pagination>
+								<ul class="pagination">
+												<li class="pagination-page page-item"
+													th:classappend="${faqs.first}?'disabled'"
+													>
+													<a 
+													class="page-link"
+													th:href="@{'/members/center/frend/' + ${faqs.number-1}}">이전</a></li>
+													
+												<li class="pagination-page page-item"
+													th:each="page: ${#numbers.sequence(start, end)}"
+													th:classappend="${faqs.number eq page-1}?'active':''">
+													<a class="page-link"
+													 th:inline="text"
+													 th:href="@{'/members/center/frend/' + ${page-1}}">[[${page}]]</a></li>
+													 
+												<li class="pagination-page page-item"
+													th:classappend="${faqs.last}?'disabled'">
+													<a class="page-link"
+													th:href="@{'/members/center/frend/' + ${faqs.number+1}}">다음</a></li>
+								</ul>
+							</pagination>
+						 </nav>
+						</div>
+				</div>
+			</section>
+			
+			
+</div>	
+	
+<!-- 각 페이지의 스크립트가 작성될 위치 -->
+<th:block layout:fragment="script">
+<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+<script th:inline="javascript">
+
+var dropdownButtons = document.querySelectorAll(".ac_item");
+
+//각 버튼에 대해 클릭 이벤트 리스너를 추가합니다.
+dropdownButtons.forEach(function(li) {
+li.addEventListener("click", function() {
+    var targetId = li.getAttribute("data-target");
+    var dropdownContent = document.getElementById(targetId);
+
+// 드롭다운 내용의 현재 표시 상태를 확인합니다.
+var isDisplayed = dropdownContent.style.display === "block";
+
+// 드롭다운 내용의 표시 상태를 변경합니다.
+if (isDisplayed) {
+ dropdownContent.style.display = "none";
+ li.classList.remove("on");
+} else {
+ dropdownContent.style.display = "block";
+ li.classList.add("on");
+}
+
+    
+});
+});
+
+
+
+
+
+
+</script>
+
+
+
+</th:block>
+	
+</html>

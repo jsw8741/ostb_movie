@@ -39,10 +39,8 @@ public class LoginController {
 		if(authentication != null) {
 			PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 	        Member member = principal.getMember();
-	        
 	        if(member != null) {
 	        	MemberFormDto memberFormDto = MemberFormDto.of(member);
-	        	
 	        	model.addAttribute("memberFormDto", memberFormDto);
 	        }
 		}else {    
@@ -64,6 +62,7 @@ public class LoginController {
 			// MemberFormDto -> Member Entity, 비밀번호 암호화(일반 회원 가입일때만)
 			Member member = Member.createMember(memberFormDto, passwordEncoder);
 			memberService.saveMember(member);
+			model.addAttribute("joinMessage", "회원 가입이 완료되었습니다!");
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "/login/joinForm";
@@ -92,9 +91,10 @@ public class LoginController {
             Model model) {
 		
 		try {
-			String memberEmail = memberService.findEmail(name, phone);
+			Member member = memberService.findEmail(name, phone);
+			
 			model.addAttribute("name", name);
-			model.addAttribute("email", memberEmail);
+			model.addAttribute("member", member);
 			
 			return "login/findEmail";
 		} catch (IllegalStateException e) {
@@ -114,20 +114,17 @@ public class LoginController {
 	@PostMapping(value = "/login/find/pw")
 	public String findPw(@RequestParam("email") String email, Model model) throws Exception{
 		Member member = new Member();
-		
 		try {
 			// 1. 입력한 이메일이 회원인지 확인
 			member = memberService.findMember(email);
-			
+			// 소셜 로그인 / 회원은 불가능 
+			if(member.getPassword().equals("SNS 로그인")) {
+				model.addAttribute("SNSerrorMessage", "소셜가입 회원은 비밀번호 변경이 불가능합니다.\n간편 로그인을 이용해주세요.");
+				return "/login/loginForm";
+			}else {
 			// 2. 입력한 메일로 임시 비밀번호 전송
 			String tempPassword = EmailServiceImpl.createTempPassword();
 			emailService.sendSimpleMessage(email, tempPassword);
-			
-			// 소셜 로그인 / 회원은 불가능 
-			if(member.getPassword().equals("SNS 로그인")) {
-				model.addAttribute("errorMessage", "소셜 로그인 / 회원 가입 회원은 비밀번호 변경이 불가능합니다.");
-				return "/login/findPwForm";
-			}else {
 			
 			// 3. 기존 비밀번호를 임시 비밀번호로 변경
 			member.setPassword(passwordEncoder.encode(tempPassword));

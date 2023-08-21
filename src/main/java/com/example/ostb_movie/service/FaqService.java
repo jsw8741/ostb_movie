@@ -66,4 +66,29 @@ public class FaqService {
 			Faq faq = faqRepository.findById(faqId).orElseThrow(EntityNotFoundException::new);
 			faqRepository.delete(faq);
 		}
+		
+	//faq 회원
+		@Transactional(readOnly = true)
+		public Page<Faq> getFaqMember(Pageable pageable) {
+			return faqRepository.getFaqMember(pageable);
+		}
+		
+	//faq 포인트
+		@Transactional(readOnly = true)
+		public Page<Faq> getFaqPoint(Pageable pageable) {
+			return faqRepository.getFaqPoint(pageable);
+		}
+		
+	//faq 혜택
+		@Transactional(readOnly = true)
+		public Page<Faq> getFaqBenefit(Pageable pageable) {
+			return faqRepository.getFaqBenefit(pageable);
+		}
+		
+	//faq 친구
+		@Transactional(readOnly = true)
+		public Page<Faq> getFaqFrend(Pageable pageable) {
+			return faqRepository.getFaqFrend(pageable);
+		}
+		
 }

@@ -18,15 +18,16 @@
 	<section class="contact-section spad">
 		<div class="container">
 			<div class="row">
+				<th:block th:each="member, status: ${member}">
 					<div class="col-lg-8">
 						<div class="room-details-item">
 							<div class="rd-text">
 								<div class="rd-title">
 									<img class="profile" src="errorImg.jpg" onerror="this.src='/images/profile.png';"/>
 									<div class="box-contents">
-										<h3>admin님</h3>
-										<em class="nickname">nickname</em>
-										<span class="modify-profile">닉네임:<i>닉네임을 설정해주세요.</i>
+										<h3 th:text="${member.name} + 님"></h3>
+										<em class="mp-email">[[${member.email}]]</em>
+										<span class="mp-nickname">닉네임:<i>[[${member.nickname}]]</i>
 										</span>
 										<button class="fa-solid fa-pen authorId_btn" ></button>
 										<div>
@@ -41,20 +42,20 @@
 										<h3 class="coupon-info">MY COUPON</h3>
 										<div class="coupon-detail">
 											<strong>OSTB 할인쿠폰</strong>
-											<p class="coupon-count">1개</p>
+											<strong class="coupon-count">1개</strong>
 										</div>
 									</div>
 									<div class="myVIP">
 										<h3 class="VIP-grade">VIP 점수</h3>
-										<strong>VIP누적 점수 15000/20000점</strong>
+										<strong>VIP누적 점수 43000/49999점</strong>
 									</div>
 								</div>
 							</div>
 
 						</div>
 					</div>
-					<input type="hidden" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				</th:block>
 			</div>
 		</div>
 		<div class="modal_background"></div>
