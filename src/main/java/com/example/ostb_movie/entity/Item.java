@@ -1,6 +1,5 @@
 package com.example.ostb_movie.entity;
 
-
 import com.example.ostb_movie.constant.Categori;
 import com.example.ostb_movie.dto.ItemFormDto;
 
@@ -24,11 +23,11 @@ import lombok.ToString;
 @ToString
 public class Item {
 	@Id
-	@Column(name = "item_id") 
+	@Column(name = "item_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(nullable = false, length = 50) 
+	@Column(nullable = false, length = 50)
 	private String itemNm;
 
 	@Column(nullable = false)
@@ -38,7 +37,7 @@ public class Item {
 	@Column(nullable = false, columnDefinition = "longtext")
 	private String itemDetail;
 
-	@Enumerated(EnumType.STRING) 
+	@Enumerated(EnumType.STRING)
 	private Categori categori;
 
 	public void updateItem(ItemFormDto itemFormDto) {

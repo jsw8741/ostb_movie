@@ -1,7 +1,5 @@
 package com.example.ostb_movie.controller;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -18,8 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ostb_movie.dto.ItemFormDto;
 import com.example.ostb_movie.dto.ItemSearchDto;
+import com.example.ostb_movie.dto.OrderDto;
 import com.example.ostb_movie.entity.Item;
 import com.example.ostb_movie.service.ItemService;
+import com.example.ostb_movie.service.OrderService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ItemController {
 	private final ItemService itemService;
+	private final OrderService orderService;
 
 	// 상품 리스트
 	@GetMapping(value = "/item/items")
@@ -80,6 +81,7 @@ public class ItemController {
 	public String itemDtl(Model model, @PathVariable("itemId") Long itemId) {
 		ItemFormDto item = itemService.getItemDtl(itemId);
 		model.addAttribute("item", item);
+		model.addAttribute("OrderDto", new OrderDto());
 
 		return "item/itemDtl";
 	}
@@ -101,7 +103,7 @@ public class ItemController {
 //상품 수정 창
 	@GetMapping(value = "/admin/item/{itemId}")
 	public String itemDtl(@PathVariable("itemId") Long itemid, Model model) {
-		
+
 		try {
 			ItemFormDto itemFormDto = itemService.getItemDtl(itemid);
 			System.out.println(itemFormDto.getItemImgId() + "KKKKKKKKK");
@@ -119,13 +121,10 @@ public class ItemController {
 	@PostMapping(value = "/admin/item/{itemId}")
 	public String itemUpdate(@Valid ItemFormDto itemFormDto, Model model, BindingResult bindingResult,
 			@RequestParam("itemImgFile") MultipartFile itemImgFiles, @PathVariable("itemId") Long itemId) {
-		System.out.println(itemFormDto.getItemImgId() + "BBBBBBBBBBB");
 		if (bindingResult.hasErrors()) {
-			System.out.println("11111111111");
 			return "redirect:/admin/item/" + itemId;
 		}
 		if (itemImgFiles.isEmpty() && itemFormDto.getId() == null) {
-			System.out.println("22222222222");
 			model.addAttribute("errorMessage", "상품 이미지는 필수입니다.");
 			return "redirect:/admin/item/" + itemId;
 		}
@@ -133,12 +132,18 @@ public class ItemController {
 			itemService.updateItem(itemFormDto, itemImgFiles);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("33333333333333");
 			model.addAttribute("errormessage", "상품 수정 중 에러가 발생했습니다.");
 			return "redirect:/admin/item/" + itemId;
 
 		}
-		System.out.println("444444444444");
+		return "redirect:/";
+	}
+
+	// 아이템 삭제
+	@GetMapping(value = "/admin/item/delete/{itemId}")
+	public String Facilitiesdelete(@PathVariable("itemId") Long itemId, Model model) {
+		orderService.deletItems(itemId);
+		itemService.deleteByitemIdByNative(itemId);
 		return "redirect:/";
 	}
 }
