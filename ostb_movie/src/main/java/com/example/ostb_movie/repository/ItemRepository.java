@@ -17,11 +17,10 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositor
 	@Query(value = "select * from item where item_detail like %:itemDetail% order by price desc", nativeQuery = true)
 	List<Item> findByItemDetailByNative(@Param("itemDetail") String itemDetail);
 
-	// 퀴즈 2-1
 	@Query("select i from Item i where i.price >= :price")
 	List<Item> findByPrice(@Param("price") int price);
 
 	
-	@Query("select i from Itemimg i where i.item.id >= :itemId")
-	ItemImgDto findByImg(@Param("itemId") Long itemId);
+	@Query("select i from Itemimg i where i.item.id = :itemId")
+	ItemImgDto findByItemImg(@Param("itemId") Long itemId);
 }

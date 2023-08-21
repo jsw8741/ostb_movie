@@ -5,6 +5,9 @@
 
 <th:block layout:fragment="css">
 	<style>
+	.content{
+	background-color: white;
+	}
 </style>
 </th:block>
 
@@ -19,12 +22,11 @@
 				</div>
 			</div>
 			<div class="row">
-				<th:block th:each="item, status: ${items}"
-					th:if="${status.index} < 6">
-					<h2 class="item-title">
-						<a th:href="'/item/' +${item.id}" th:text=${item.itemNm}></a>
-					</h2>
-					</th:bolk>
+				<th:block th:each="item, status: ${items}">
+					<div th:if="${item.categori.toString() == 'POPCON'}">
+							<a th:href="'/item/' + ${item.id}" th:text="${item.itemNm}"></a>
+					</div>
+				</th:block>
 			</div>
 		</div>
 	</div>

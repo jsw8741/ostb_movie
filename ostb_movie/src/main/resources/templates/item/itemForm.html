@@ -11,6 +11,77 @@
 .fieldError {
 	color: #bd2130;
 }
+
+.custom-select {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 100px;
+}
+
+.custom-select select {
+	appearance: none;
+	-webkit-appearance: none;
+	border: none;
+	outline: none;
+	width: 100%;
+	padding: 10px;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.custom-select::after {
+	content: '\25BC';
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY(-50%);
+	pointer-events: none;
+}
+
+.custom-select select:focus+.custom-select::after {
+	color: #007bff;
+}
+
+.custom-input {
+	position: relative;
+	display: inline-block;
+}
+
+.custom-input input {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: #fff;
+	outline: none;
+	width: 250px;
+}
+
+.custom-input input:focus {
+	border-color: #007bff;
+}
+
+.custom-input label {
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: #fff;
+	padding: 0 5px;
+	font-size: 12px;
+	color: #777;
+	transition: transform 0.2s, font-size 0.2s, color 0.2s;
+}
+
+.custom-input input:focus+label, .custom-input input:not(:placeholder-shown)+label
+	{
+	transform: translateY(-100%) scale(0.8);
+	font-size: 10px;
+	color: #007bff;
+}
 </style>
 </th:block>
 
@@ -40,8 +111,8 @@
 							<input type="hidden" th:field="*{id}" />
 
 							<div class="form-group row">
-								<div class="col-md-12">
-									<select class="form-select" th:field="*{categori}">
+								<div class="col-md-12 custom-select">
+									<select class="form-select " th:field="*{categori}">
 										<option value="POPCON">팝콘</option>
 										<option value="GOODS">굿즈</option>
 										<option value="SNACK">스낵</option>
@@ -51,8 +122,8 @@
 							</div>
 
 							<div class="form-group row">
-								<div class="col-md-12">
-									<label th:for="itemNm" class="text-black">상품명</label> <input
+								<div class="col-md-12 custom-input">
+									<label th:for="itemNm" class="text-black"></label> <input
 										type="text" class="form-control" th:field="*{itemNm}"
 										placeholder="상품명 입력">
 									<p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}"
@@ -61,8 +132,8 @@
 							</div>
 
 							<div class="form-group row">
-								<div class="col-md-12">
-									<label th:for="price" class="text-black">가격</label> <input
+								<div class="col-md-12 custom-input">
+									<label th:for="price" class="text-black"></label> <input
 										type="text" class="form-control" th:field="*{price}"
 										placeholder="가격 입력" onkeyup="inputNumberFormat(this)">
 									<p th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
@@ -70,8 +141,8 @@
 								</div>
 							</div>
 							<div class="form-group row">
-								<div class="col-md-12">
-									<label th:for="itemDetail" class="text-black">상품 상세내용</label>
+								<div class="col-md-12 custom-input">
+									<label th:for="itemDetail" class="text-black"></label>
 									<textarea rows=10 class="form-control" placeholder="상품 상세내용"
 										th:field="*{itemDetail}" id="floatingTextarea"></textarea>
 									<p th:if="${#fields.hasErrors('itemDetail')}"
@@ -81,7 +152,7 @@
 							</div>
 							<!-- th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}" -->
 							<div class="form-group row">
-								<div class="col-md-12">
+								<div class="col-md-12 custom-input" >
 									<label for="formFile" class="form-label" th:text="상품이미지"></label>
 									<input class="form-control" type="file" id="itemImgFile"
 										name="itemImgFile">

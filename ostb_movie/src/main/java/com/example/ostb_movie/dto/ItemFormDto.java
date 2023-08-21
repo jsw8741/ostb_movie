@@ -1,5 +1,8 @@
 package com.example.ostb_movie.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 
 import com.example.ostb_movie.constant.Categori;
@@ -24,12 +27,16 @@ public class ItemFormDto {
 	@NotBlank(message = "상품 상세설명은 필수 입력입니다.")
 	private String itemDetail;
 
+
 	private Categori categori;
+
 
 	private ItemImgDto itemImgDto;
 
 	private static ModelMapper modelMapper = new ModelMapper();
 
+	private Long itemImgId;
+	
 	public Item createItem() {
 		return modelMapper.map(this, Item.class);
 	}
