@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/book.css}" />
+</th:block>
+<div layout:fragment="content">
+	<div class="container">
+
+
+		<div class="ticketing_box bg_box"
+			style="bottom: 0; max-height: calc(100vh - 150px); overflow: auto;">
+			<div class="inner">
+				<p class="box_tit">예매하기</p>
+				<div class="movie_ticket_box">
+
+					<div id="rsvMovie" class="all_movie"
+						style="height: 550px; overflow-y: auto">
+						<div class="all_movie_tit">
+							<p class="tit">
+								영화<span id="movieTotalCount">34</span>
+							</p>
+							<select id="cinema_list"><option value="81">대한극장</option></select>
+						</div>
+
+						<div id="movieTotalList" class="movie_list_wrap">
+							<div class="movie_list">
+								<input type="radio" id="movie_403" name="movie"> <label
+									id="movie_label_403" class="movie_title_label" for="movie_403"
+									data-mid="403" data-mkey="0">
+									<div class="age age_all">전체</div>
+									<p class="movie_title" data-mid="403" data-mkey="0">나를 만나는
+										길</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1139" name="movie"> <label
+									id="movie_label_1139" class="movie_title_label live"
+									for="movie_1139" data-mid="1139" data-mkey="1">
+									<div class="age age_15">15</div>
+									<p class="movie_title" data-mid="1139" data-mkey="1">미션
+										임파서블: 데드 레코닝 PART ONE</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1154" name="movie"> <label
+									id="movie_label_1154" class="movie_title_label live"
+									for="movie_1154" data-mid="1154" data-mkey="2">
+									<div class="age age_15">15</div>
+									<p class="movie_title" data-mid="1154" data-mkey="2">보호자</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1159" name="movie"> <label
+									id="movie_label_1159" class="movie_title_label live"
+									for="movie_1159" data-mid="1159" data-mkey="3">
+									<div class="age age_15">15</div>
+									<p class="movie_title" data-mid="1159" data-mkey="3">밀수</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1170" name="movie"> <label
+									id="movie_label_1170" class="movie_title_label"
+									for="movie_1170" data-mid="1170" data-mkey="4">
+									<div class="age age_12">12</div>
+									<p class="movie_title" data-mid="1170" data-mkey="4">더 문</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1173" name="movie"> <label
+									id="movie_label_1173" class="movie_title_label live"
+									for="movie_1173" data-mid="1173" data-mkey="5">
+									<div class="age age_12">12</div>
+									<p class="movie_title" data-mid="1173" data-mkey="5">비공식작전</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1182" name="movie"> <label
+									id="movie_label_1182" class="movie_title_label live"
+									for="movie_1182" data-mid="1182" data-mkey="6">
+									<div class="age age_15">15</div>
+									<p class="movie_title" data-mid="1182" data-mkey="6">콘크리트
+										유토피아</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1191" name="movie"> <label
+									id="movie_label_1191" class="movie_title_label"
+									for="movie_1191" data-mid="1191" data-mkey="7">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1191" data-mkey="7">밀라레파</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1192" name="movie"> <label
+									id="movie_label_1192" class="movie_title_label"
+									for="movie_1192" data-mid="1192" data-mkey="8">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1192" data-mkey="8">불교진혼곡</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1193" name="movie"> <label
+									id="movie_label_1193" class="movie_title_label"
+									for="movie_1193" data-mid="1193" data-mkey="9">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1193" data-mkey="9">아미라</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1194" name="movie"> <label
+									id="movie_label_1194" class="movie_title_label"
+									for="movie_1194" data-mid="1194" data-mkey="10">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1194" data-mkey="10">우리</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1195" name="movie"> <label
+									id="movie_label_1195" class="movie_title_label"
+									for="movie_1195" data-mid="1195" data-mkey="11">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1195" data-mkey="11">피스 바이
+										초콜릿</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1196" name="movie"> <label
+									id="movie_label_1196" class="movie_title_label"
+									for="movie_1196" data-mid="1196" data-mkey="12">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1196" data-mkey="12">크로우스
+										얼 화이트</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1197" name="movie"> <label
+									id="movie_label_1197" class="movie_title_label"
+									for="movie_1197" data-mid="1197" data-mkey="13">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1197" data-mkey="13">클라라
+										솔라</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1198" name="movie"> <label
+									id="movie_label_1198" class="movie_title_label"
+									for="movie_1198" data-mid="1198" data-mkey="14">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1198" data-mkey="14">2 우먼</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1199" name="movie"> <label
+									id="movie_label_1199" class="movie_title_label"
+									for="movie_1199" data-mid="1199" data-mkey="15">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1199" data-mkey="15">1976</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1200" name="movie"> <label
+									id="movie_label_1200" class="movie_title_label"
+									for="movie_1200" data-mid="1200" data-mkey="16">
+									<div class="age age_12">12</div>
+									<p class="movie_title" data-mid="1200" data-mkey="16">견왕:
+										이누오</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1201" name="movie"> <label
+									id="movie_label_1201" class="movie_title_label"
+									for="movie_1201" data-mid="1201" data-mkey="17">
+									<div class="age age_15">15</div>
+									<p class="movie_title" data-mid="1201" data-mkey="17">붓다:싯다르타
+										왕자의 모험</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1202" name="movie"> <label
+									id="movie_label_1202" class="movie_title_label"
+									for="movie_1202" data-mid="1202" data-mkey="18">
+									<div class="age age_all">전체</div>
+									<p class="movie_title" data-mid="1202" data-mkey="18">붓다 :
+										위대한 여정</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1203" name="movie"> <label
+									id="movie_label_1203" class="movie_title_label"
+									for="movie_1203" data-mid="1203" data-mkey="19">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1203" data-mkey="19">참배</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1204" name="movie"> <label
+									id="movie_label_1204" class="movie_title_label"
+									for="movie_1204" data-mid="1204" data-mkey="20">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1204" data-mkey="20">님과
+										함께:만남 중창단</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1205" name="movie"> <label
+									id="movie_label_1205" class="movie_title_label"
+									for="movie_1205" data-mid="1205" data-mkey="21">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1205" data-mkey="21">툭담 :
+										삶과 죽음의 경계에서</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1206" name="movie"> <label
+									id="movie_label_1206" class="movie_title_label"
+									for="movie_1206" data-mid="1206" data-mkey="22">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1206" data-mkey="22">38년생김한옥</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1207" name="movie"> <label
+									id="movie_label_1207" class="movie_title_label"
+									for="movie_1207" data-mid="1207" data-mkey="23">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1207" data-mkey="23">샤프론
+										하트</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1208" name="movie"> <label
+									id="movie_label_1208" class="movie_title_label"
+									for="movie_1208" data-mid="1208" data-mkey="24">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1208" data-mkey="24">다크 레드
+										포레스트</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1209" name="movie"> <label
+									id="movie_label_1209" class="movie_title_label"
+									for="movie_1209" data-mid="1209" data-mkey="25">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1209" data-mkey="25">불佛효자</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1210" name="movie"> <label
+									id="movie_label_1210" class="movie_title_label"
+									for="movie_1210" data-mid="1210" data-mkey="26">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1210" data-mkey="26">무이사</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1211" name="movie"> <label
+									id="movie_label_1211" class="movie_title_label"
+									for="movie_1211" data-mid="1211" data-mkey="27">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1211" data-mkey="27">일층 이층
+										삼층</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1212" name="movie"> <label
+									id="movie_label_1212" class="movie_title_label"
+									for="movie_1212" data-mid="1212" data-mkey="28">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1212" data-mkey="28">2023
+										세계일화국제불교영화제 동국 OTT쇼케이스</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1213" name="movie"> <label
+									id="movie_label_1213" class="movie_title_label"
+									for="movie_1213" data-mid="1213" data-mkey="29">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1213" data-mkey="29">2023
+										세계일화국제불교영화제 단편세션 4</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1214" name="movie"> <label
+									id="movie_label_1214" class="movie_title_label"
+									for="movie_1214" data-mid="1214" data-mkey="30">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1214" data-mkey="30">2023
+										세계일화국제불교영화제 단편세션 3</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1215" name="movie"> <label
+									id="movie_label_1215" class="movie_title_label"
+									for="movie_1215" data-mid="1215" data-mkey="31">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1215" data-mkey="31">2023
+										세계일화국제불교영화제 단편세션 2</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1216" name="movie"> <label
+									id="movie_label_1216" class="movie_title_label"
+									for="movie_1216" data-mid="1216" data-mkey="32">
+									<div class="age age_none">없음</div>
+									<p class="movie_title" data-mid="1216" data-mkey="32">2023
+										세계일화국제불교영화제 단편세션 1</p>
+								</label>
+							</div>
+							<div class="movie_list">
+								<input type="radio" id="movie_1218" name="movie"> <label
+									id="movie_label_1218" class="movie_title_label live"
+									for="movie_1218" data-mid="1218" data-mkey="33">
+									<div class="age age_15">15</div>
+									<p class="movie_title" data-mid="1218" data-mkey="33">오펜하이머</p>
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div id="rsvSchedule" class="movie_time"
+						style="height: 550px; overflow-y: auto">
+						<p class="resdate date" data-default="2023-08-16">2023-08-16(수)</p>
+						<div class="icon_wrap">
+							<p class="day">조조</p>
+							<p class="night">심야</p>
+						</div>
+						<div id="scheduleList">
+							<div class="movie_tit" style="margin-top: 50px;">
+								<p class="age age_12">12</p>
+								<p class="tit">비공식작전</p>
+								<p class="sub_txt">
+									<span>드라마</span><span>2023-08-02 개봉</span><span>132분</span>
+								</p>
+							</div>
+							<div class="time_wrap">
+								<div class="time_wrap_top">
+									<p class="tit">2D 디지털</p>
+									<p class="sub_text loc">4관 (3층)</p>
+									<p class="sub_text">총 92석</p>
+									<div class="location">
+										<p class="loc">4관 (3층)</p>
+										<p class="chair">총 92석</p>
+									</div>
+								</div>
+								<div class="time_list_wrap">
+									<div class="time_list off">
+										<input type="radio" id="time_11730040" name="movie_time">
+										<label class="off" for="time_11730040">
+											<p class="start">13:10</p>
+											<p class="end">~15:22</p>
+										</label>
+										<p class="num">예매마감</p>
+									</div>
+									<div class="time_list">
+										<input type="radio" id="time_11730041" name="movie_time">
+										<label class="on" for="time_11730041" data-key="1"
+											data-skey="004" data-cid="81" data-tid="102" data-mid="1173"
+											data-scrncode="04" data-amt-gid="51" data-scode="97728"
+											data-showtime="03" data-theacd="97728" data-mdate="20230816"
+											data-mtime="1900">
+											<p class="start">19:00</p>
+											<p class="end">~21:12</p>
+										</label>
+										<p class="num">92석</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="rsvSeat" class="movie_seat"
+						style="display: none; max-height: 550px; overflow-y: auto;">
+						<p class="tit">관람인원선택</p>
+						<button class="refresh">초기화</button>
+						<div class="btn_area reserve_area"></div>
+						<div class="screen">SCREEN</div>
+						<div class="seat_select seating_map_view"></div>
+						<div class="seat_txt">
+							<p class="ex">• 좌석 선택 후 5분이내에 결제를 완료해주시기 바랍니다.</p>
+							<div class="ex_icon">
+								<p class="disablePerson_icon">장애인</p>
+								<p class="select_icon">현재선택</p>
+								<p class="normal_icon">선택가능</p>
+								<p class="blank_icon">좌석건너뜀</p>
+								<p class="done_icon">판매완료</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="movie_seat" id="rsvPayment" style="display: none;">
+						<div class="tit_wrap">
+							<p class="tit">결제수단선택</p>
+							<button class="refresh">초기화</button>
+						</div>
+						<div class="payment_radio_wrap">
+							<div class="payment_list">
+								<input type="radio" id="payment_01" name="payment"
+									class="paymethod" data-type="C" data-method="C"
+									data-val="PWCD0020"> <label for="payment_01">신용/체크카드
+									결제</label>
+							</div>
+							<div class="payment_list">
+								<input type="radio" id="payment_02" name="payment"
+									class="paymethod" data-type="M" data-method="M"
+									data-val="PWCD0040"> <label for="payment_02">휴대폰
+									결제</label>
+							</div>
+							<div class="payment_list">
+								<input type="radio" id="payment_03" name="payment"
+									class="paymethod" data-type="N" data-method="N"
+									data-val="PWCD0090"> <label for="payment_03">네이버페이</label>
+							</div>
+						</div>
+						<input id="pay_method_ids" type="hidden" name="pay_method"
+							value="">
+						<div class="card_box">
+							<p class="card_ex" style="margin-top: 100px;">• 결재확인을 위해 연락처를
+								입력하세요</p>
+							<div class="tel-group">
+								<input type="number" id="phone1_ids" class="card_select"
+									style="height: 27px; border: 1px solid rgba(0, 0, 0, 0.2);">
+								<input type="number" id="phone2_ids" class="card_select"
+									style="height: 27px; border: 1px solid rgba(0, 0, 0, 0.2);">
+								<input type="number" id="phone3_ids" class="card_select"
+									style="height: 27px; border: 1px solid rgba(0, 0, 0, 0.2);">
+							</div>
+						</div>
+					</div>
+
+					<div id="rsvInfo" class="movie_info" data-mid="1173">
+						<div class="movie_poster">
+							<div class="poster">
+								<div class="img">
+									<img
+										src="/auth/W9021/POST/202307/ceb55fafc5d844c4a74f6a63d0d9bdb7.jpg"
+										alt="" title="-">
+								</div>
+							</div>
+							<div class="movie_info_txt">
+								<p class="tit">비공식작전</p>
+								<div class="info_box">
+									<div class="info_list">
+										<p class="th">상영</p>
+										<p class="td">
+											<em id="reserveInfoTheaterName">대한극장</em>&nbsp;<em
+												id="reserveInfoScreenName">4관 (3층)</em>
+										</p>
+									</div>
+									<div class="info_list">
+										<p class="th">일시</p>
+										<p class="td" id="reserveInfoPlayDate">2023-08-16 19:00</p>
+									</div>
+									<div class="info_list">
+										<p class="th">인원</p>
+										<p class="td" id="reserveInfoTicket" data-count="0"></p>
+									</div>
+									<div class="info_list">
+										<p class="th">좌석</p>
+										<p class="td" id="reserveInfoSeat" data-count="">좌석 선택 가능</p>
+									</div>
+									<div class="info_list" style="display: none;">
+										<p class="th">할인</p>
+										<p class="td" id="reserveInfoDiscount">0</p>
+									</div>
+									<div class="info_list">
+										<span style="font-size: 1.2em; color: #BCBCBC;">* 소셜
+											로그인 및 비회원 로그인은 청소년 관람 불가 영화를 예매 하실 수 없습니다.</span>
+									</div>
+									<div class="info_list">
+										<span style="font-size: 1.2em; color: #BCBCBC;">* <b><font
+												color="#f15f09">휴대폰 결제</font></b>의 경우, 통신사의 정책에 따라 <font
+											color="#f15f09">익월 취소가 불가능</font>합니다.
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="total_box">
+							<div class="total_num">
+								<p class="total">총 합계</p>
+								<p class="price" id="reserveInfoTotal">0원</p>
+							</div>
+
+							<p class="seatsel" style="display: block;">
+								<button class="btn st_nx">좌석선택</button>
+							</p>
+							<p class="seatsel total_btn_wrap" style="display: none;">
+								<button class="btn stlf_on">이전</button>
+								<button class="btn strf_off">다음</button>
+							</p>
+							<p class="seatsel total_btn_wrap" style="display: none;">
+								<button class="btn stlf_on">이전</button>
+								<button class="btn strf_off">다음</button>
+							</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<th:block layout:fragment="script">
+</th:block>
+</html>
