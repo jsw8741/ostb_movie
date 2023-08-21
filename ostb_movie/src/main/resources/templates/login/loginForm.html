@@ -40,7 +40,7 @@
 							</svg>
 							
 							</label>
-							<button style="font-size:12px" class="CheckBox__label">이메일 기억</button>
+							<button type="button" style="font-size:12px" class="CheckBox__label" id="remember">이메일 기억</button>
 						</div>
 						</div>
 					</div>
@@ -76,6 +76,7 @@
 	<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
 	<script th:inline="javascript">
 	const icon = document.getElementById("icon");
+	const remember = document.getElementById("remember");
 	const svgList = [
 	    `<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
 	      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" fill="#fff"></rect>
@@ -90,6 +91,11 @@
 	  let currentIndex = 0;
 
 	  icon.addEventListener("click", () => {
+	    currentIndex = (currentIndex + 1) % svgList.length;
+	    icon.innerHTML = svgList[currentIndex];
+	  });	
+	  
+	  remember.addEventListener("click", () => {
 	    currentIndex = (currentIndex + 1) % svgList.length;
 	    icon.innerHTML = svgList[currentIndex];
 	  });	
@@ -109,28 +115,42 @@
 
 		//로그인 버튼 클릭
 		$('#loginbtn').click(function() {
-			if ($("#id_save").is(":checked")) {
+			if (currentIndex == 1) {
 				var userInputId = $("#email").val();
 				setCookie("userInputId", userInputId, 60);
 				setCookie("setCookieYN", "Y", 60);
 			} else {
 				deleteCookie("userInputId");
+				setCookie("setCookieYN", "N", 60);
 				deleteCookie("setCookieYN");
 			}
 		});
 	});			
 		  
 	// 로그인 실패했을때
-	var errorMessage = [[${loginErrorMsg}]];
-	if(errorMessage != null){
-		alert(errorMessage);
+	var loginErrorMsg = [[${loginErrorMsg}]];
+	if(loginErrorMsg != null){
+		alert(loginErrorMsg);
 	} 
 	
-	// 임시 비밀번호로 변경되었을 때
+	// 임시 비밀번호로 변경되었을때
 	var tempPasswordMessage = [[${tempPasswordMessage}]];
 	if(tempPasswordMessage != null){
 		alert(tempPasswordMessage);
 	}
+	
+	// 회원가입 성공했을때
+	var joinMessage = [[${joinMessage}]];
+	if(joinMessage != null){
+		alert(joinMessage);
+	}
+	
+	// SNS 관련 에러
+	var SNSerrorMessage = [[${SNSerrorMessage}]];
+	if(SNSerrorMessage != null){
+		alert(SNSerrorMessage);
+	} 
+	
 	</script>
 </th:block>
 </html>

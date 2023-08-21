@@ -37,8 +37,7 @@ public class NoticeController {
 		@GetMapping(value = "/notice/create")
 		public String noticeForm(Model model) {
 			model.addAttribute("noticeFormDto", new NoticeFormDto());
-			
-			return "/notice/createNotice";
+			return "notice/createNotice";
 		}
 		
 		//notice 등록(insert)
@@ -47,16 +46,16 @@ public class NoticeController {
 				Model model, Principal principal) {
 			
 			if(bindingResult.hasErrors()) {
-				return "/notice/createNotice";
+				return "notice/createNotice";
 			}
-			String email = principal.getName();
 			
 			try {
+			String email = principal.getName();
 			noticeService.saveNotice(noticeFormDto, email);
 			} catch (Exception e) {
 				e.printStackTrace();
 				model.addAttribute("errorMessage", "공지사항등록 중 에러가 발생했습니다.");
-				return "/notice/createNotice";
+				return "notice/createNotice";
 			}
 			return "redirect:/notice/list";
 		}
@@ -72,7 +71,7 @@ public class NoticeController {
 			model.addAttribute("totalCount",totalCount);
 			model.addAttribute("maxPage", 5);
 			
-			return "/notice/listNotice";
+			return "notice/listNotice";
 		}
 		
 		
@@ -90,7 +89,7 @@ public class NoticeController {
 				return "/notice/list";
 			}
 			
-			return "/notice/updateNotice";
+			return "notice/updateNotice";
 		}
 		
 		
@@ -143,7 +142,7 @@ public class NoticeController {
 				return "/notice/listNotice";
 			}
 			
-			return "/notice/readNotice";
+			return "notice/readNotice";
 		}
 	
 }

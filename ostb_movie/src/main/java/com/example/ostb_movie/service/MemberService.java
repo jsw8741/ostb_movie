@@ -1,8 +1,11 @@
 package com.example.ostb_movie.service;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import org.springframework.security.core.userdetails.User;
+=======
+>>>>>>> 65f934d6c09fcadfd8486d8462ff49bd5817ac5b
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,7 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
+<<<<<<< HEAD
 import com.example.ostb_movie.dto.MypageFormDto;
+=======
+>>>>>>> 65f934d6c09fcadfd8486d8462ff49bd5817ac5b
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.repository.MemberRepository;
 
@@ -43,14 +49,14 @@ public class MemberService implements UserDetailsService{
 	}
 	
 	// 이름 + 전화번호로 이메일 찾기
-	public String findEmail(String name, String phone) {
-		String memberEmail = memberRepository.getMemberEmail(name, phone);
+	public Member findEmail(String name, String phone) {
+		Member member = memberRepository.getMemberEmail(name, phone);
 		
-		if(memberEmail == null) {
+		if(member == null) {
 			throw new IllegalStateException("가입된 정보가 없습니다.");
 		}
 		
-		return memberEmail;
+		return member;
 	}
 	
 	// 이메일로 회원 정보 찾기

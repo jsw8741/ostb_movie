@@ -53,9 +53,7 @@ public class EmailServiceImpl  implements EmailService{
 	    
 	    @Override
 	    public void sendSimpleMessage(String to, String tempPassword)throws Exception {
-	        // TODO Auto-generated method stub
 	        MimeMessage message = createMessage(to, tempPassword);
-	        System.out.println(message.getContent());
 	        try{//예외처리
 	            emailSender.send(message);
 	        }catch(MailException es){

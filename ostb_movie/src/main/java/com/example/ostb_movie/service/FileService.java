@@ -6,11 +6,16 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 65f934d6c09fcadfd8486d8462ff49bd5817ac5b
 import lombok.extern.java.Log;
 
 @Service
 @Log
 public class FileService {
+<<<<<<< HEAD
 	//파일 업로드 
 	public String uploadFile(String uploadPath, String originalFileName,
 			byte[] fileData) throws Exception {
@@ -26,12 +31,23 @@ public class FileService {
 		String fileUploadFullUrl = uploadPath + "/" + savedFileName;
 		
 		//파일업로드
+=======
+	// 파일 업로드
+	public String uploadFile(String uploadPath, String originalFileName, byte[] fileData) throws Exception  {
+		UUID uuid = UUID.randomUUID(); 
+		
+		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+		String savedFileName = uuid.toString() + extension;
+		String fileUploadFullUrl = uploadPath + "/" + savedFileName;
+		
+>>>>>>> 65f934d6c09fcadfd8486d8462ff49bd5817ac5b
 		FileOutputStream fos = new FileOutputStream(fileUploadFullUrl);
 		fos.write(fileData);
 		fos.close();
 		
 		return savedFileName;
 	}
+<<<<<<< HEAD
 	
 	//파일 삭제
 	public void deleteFile(String filePath) throws Exception {
@@ -47,3 +63,19 @@ public class FileService {
 		}
 	}
 }
+=======
+	//파일 삭제
+	public void deleteFile(String filePath) throws Exception{
+		File deleteFile = new File(filePath);
+	
+		// 파일 삭제
+		if(deleteFile.exists()) { // 파일이 있으면
+			deleteFile.delete();
+			log.info("파일을 삭제하였습니다.");			
+		}else {
+			log.info("파일이 존재하지않습니다.");
+		}
+	}
+	
+}
+>>>>>>> 65f934d6c09fcadfd8486d8462ff49bd5817ac5b

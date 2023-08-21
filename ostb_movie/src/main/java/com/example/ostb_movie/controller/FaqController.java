@@ -75,7 +75,7 @@ public class FaqController {
 	}
 	
 	//faq 수정페이지 보기
-	@GetMapping(value = "/members/centers/{faqId}")
+	@GetMapping(value = "/FAQ/updateFAQ/{faqId}")
 	public String faqDtl(@PathVariable("faqId") Long faqId, Model model) {
 		
 		try {
@@ -85,17 +85,17 @@ public class FaqController {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "FAQ정보를 가져올때 에러가 발생했습니다.");
 			model.addAttribute("faq", new Faq());
-			return "member/createFaq";
+			return "FAQ/listFAQ";
 		}
-		return "member/faqUpdate";
+		return "FAQ/updateFAQ";
 	}
 	
 	//faq 수정(update)
-	@PostMapping(value = "/members/centers/{faqId}" )
+	@PostMapping(value = "/FAQ/updateFAQ/{faqId}" )
 	public String faqUpdate(@Valid FaqFormDto faqFormDto, Model model, BindingResult bindingResult) {
 		
 		if(bindingResult.hasErrors()) {
-			return "member/faqUpdate";
+			return "FAQ/listFAQ";
 		}
 		
 		try {
@@ -103,13 +103,13 @@ public class FaqController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "FAQ 수정 중 에러가 발생했습니다.");
-			return "member/faqUpdate";
+			return "FAQ/updateFAQ";
 		}
-		return "redirect:/members/center";
+		return "redirect:/FAQ/listFAQ";
 	}
 	
 	// faq 삭제(delete)
-	@DeleteMapping("/members/centers/{faqId}/delete")
+	@DeleteMapping("/FAQ/deleteFAQ/{faqId}/delete")
 	public @ResponseBody ResponseEntity deleteFaq(@PathVariable("faqId") Long faqId, Principal principal) {
 		
 		//1. 본인인증
@@ -120,5 +120,67 @@ public class FaqController {
 		faqService.deleteFaq(faqId);
 		return new ResponseEntity<Long>(faqId, HttpStatus.OK);
 	}
+	
+	// faq 회원
+	@GetMapping(value = { "/FAQ/list/member", "/FAQ/list/member/{page}" } )
+	public String faqMemberlist(Model model,@PathVariable("page") Optional<Integer> page) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+		Long totalCount = faqRepository.getFaqMemberTotal();
+		Page<Faq> faqs = faqService.getFaqMember(pageable);
+		
+		model.addAttribute("faqs",faqs);
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("maxPage", 5);
+		
+		return "FAQ/faqMember";
+	}
+	
+	// faq 포인트
+	@GetMapping(value = { "/FAQ/list/point", "/FAQ/list/point/{page}" } )
+	public String faqPointlist(Model model,@PathVariable("page") Optional<Integer> page) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+		Long totalCount = faqRepository.getFaqPointTotal();
+		Page<Faq> faqs = faqService.getFaqPoint(pageable);
+		
+		model.addAttribute("faqs",faqs);
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("maxPage", 5);
+		
+		return "FAQ/faqPoint";
+	}
+	
+	// faq 혜택
+	@GetMapping(value = { "/FAQ/list/benefit", "/FAQ/list/benefit/{page}" } )
+	public String faqBenefitlist(Model model,@PathVariable("page") Optional<Integer> page) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+		Long totalCount = faqRepository.getFaqBenefitTotal();
+		Page<Faq> faqs = faqService.getFaqBenefit(pageable);
+		
+		model.addAttribute("faqs",faqs);
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("maxPage", 5);
+		
+		return "FAQ/faqBenefit";
+	}
+	
+	// faq 친구
+	@GetMapping(value = { "/FAQ/list/frend", "/FAQ/list/frend/{page}" } )
+	public String faqFrendlist(Model model,@PathVariable("page") Optional<Integer> page) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+		Long totalCount = faqRepository.getFaqFrendTotal();
+		Page<Faq> faqs = faqService.getFaqFrend(pageable);
+		
+		model.addAttribute("faqs",faqs);
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("maxPage", 5);
+		
+		return "FAQ/faqFrend";
+	}
+	
+	
+	
+	
+	
+	
 	
 }
