@@ -2,6 +2,9 @@ package com.example.ostb_movie.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,5 +29,6 @@ public class Theater extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "movie_id") // 해당하는 상영관과 연결된 영화 정보
+	@OnDelete(action= OnDeleteAction.CASCADE)
 	private Movie movie;
 }

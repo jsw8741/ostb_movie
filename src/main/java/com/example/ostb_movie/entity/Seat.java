@@ -23,6 +23,7 @@ public class Seat {
 
 	private int price; // 좌석가격
 	
+	@ManyToOne
 	@JoinColumn(name = "theater_id")
 	@OnDelete(action= OnDeleteAction.CASCADE)
 	private Theater theater;
