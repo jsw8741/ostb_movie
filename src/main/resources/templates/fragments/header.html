@@ -192,7 +192,7 @@
 													</li>
 												<li><a href="contact.html">채팅</a></li>
 
-												<li><a href="/members/info" sec:authorize="isAuthenticated()">마이페이지</a>
+												<li><a href="/members/info" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')">마이페이지</a>
 													<div class="megamenu">
 														<ul class="single-mega cn-col-7">
 														</ul>

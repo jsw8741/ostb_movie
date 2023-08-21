@@ -23,7 +23,7 @@
 						<div class="room-details-item">
 							<div class="rd-text">
 								<div class="rd-title">
-									<img class="profile" src="errorImg.jpg" onerror="this.src='/images/profile.png';"/>
+									<img class="profile" th:src="${member.memberImg}"/>
 									<div class="box-contents">
 										<h3 th:text="${member.name} + 님"></h3>
 										<em class="mp-email">[[${member.email}]]</em>

@@ -28,6 +28,7 @@ public class MemberController {
 	private final MemberService memberService;
 	
 	@GetMapping(value =  "/members/info")
+	//마이페이지 화면
 	public String newMyPage(Authentication authentication, Model model) {
 		
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
@@ -58,30 +59,37 @@ public class MemberController {
 	
 	//마이페이지 수정
 	@PostMapping(value = "/members/infoPop")
-	public String popProfile(@Valid MypageFormDto mypageFormDto,
-			Model model, BindingResult bindingResult, @RequestParam("memberImg") MultipartFile memberImgFile) {
-		//수정 정보들 가지고있어
-		System.out.println("11111111111111111111111");
+	public String popProfile(@Valid MypageFormDto mypageFormDto, Authentication authentication,
+			Model model, BindingResult bindingResult, 
+			@RequestParam("memberImg") MultipartFile memberImgFile) {
+		
 		if(bindingResult.hasErrors()) {
-			System.out.println("666666666666666");
 			return "member/myPagePop";
 		}
 		
-		if(memberImgFile.isEmpty() && mypageFormDto.getId() == null) {
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        Member member = principal.getMember();
+        
+        
+
+		if(memberImgFile.isEmpty()) {
 			model.addAttribute("errorMessage", "이미지가 존재하지 않습니다.");
 			return "member/myPagePop";
 		}
 		
 		try {
 			memberService.updateMember(mypageFormDto, memberImgFile);
+			
 //			member.updateMember(mypageFormDto);
 		} catch (Exception e) {
-			System.out.println("33333333333333");
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "프로필 등록 중 에러가 발생했습니다.");
 			return "member/myPagePop";
 		}
 		
-		return "member/myPagePop";
+		model.addAttribute("member",member);
+		model.addAttribute("mypageFormDto",mypageFormDto);
+//		return "redirect:/member/myPage";
+		return "member/myPage";
 	}
 }
