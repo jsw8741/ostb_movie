@@ -48,6 +48,7 @@ public class SecurityConfig {
 				.requestMatchers(mvc.pattern("/"), mvc.pattern("/login/**"), mvc.pattern("/oauth/**"), mvc.pattern("/FAQ/**"), mvc.pattern("/notice/**"), mvc.pattern("/members/**")).permitAll()
 				.requestMatchers(mvc.pattern("/css/**"), mvc.pattern("/js/**"), mvc.pattern("/lib/**"), mvc.pattern("/img/**"), mvc.pattern("/images/**"), mvc.pattern("/fonts/**")).permitAll()
 				.requestMatchers(mvc.pattern("/favicon"), mvc.pattern("/error"), mvc.pattern("api/**")).permitAll()
+				.requestMatchers(mvc.pattern("/book/**")).permitAll()
 				.requestMatchers(mvc.pattern("/test/**")).hasRole("ADMIN").anyRequest().authenticated())		
 		.formLogin(formLogin -> formLogin //2. 로그인에 관련된 설정
 				.loginPage("/login/loginForm") //로그인 페이지 URL 설정
