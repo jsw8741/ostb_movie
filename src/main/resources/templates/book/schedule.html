@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/book.css}" />
+</th:block>
+<div layout:fragment="content">
+	<div class="container">
+		<div class="inner">
+			<p class="box_tit">
+				상영시간표
+			</p>
+			<div class="scrollable-container">
+				<div>
+					<p class="date">
+						<i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;2023-08-16 (수)
+					</p>
+				</div>
+				<div id="scheduleList">
+					<div class="tit_group" style="margin-top: 30px;">
+						<p class="age age_15 mr_10">15</p>
+						<p class="tit mr_20">미션 임파서블: 데드 레코닝 PART ONE</p>
+						<p class="sub_txt">
+							<span class="mr_10 c_c4">액션,스릴러,어드벤처</span>
+							<span class="mr_10 c_c4">|</span>
+							<span class="mr_10 c_c4">2023-07-12 개봉</span>
+							<span class="mr_10 c_c4">|</span>
+							<span class="mr_10 c_c4">163분</span>
+						</p>
+					</div>
+					<div class="time_wrap">
+						<div class="tit_group">
+							<p class="sub_text mr_10">4관 (3층)</p>
+							<span class="mr_10 c_c4">|</span>
+							<p class="sub_text">총 92석</p>
+						</div>
+						<div class="time_list_wrap">
+							<div class="time_list">
+								<input type="radio" id="time_11390040" name="movie_time">
+								<label class="on" for="time_11390040">
+									<p class="start">15:50</p>
+									<p class="end">~18:33</p>
+								</label>
+								<p class="num">89석</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<th:block layout:fragment="script">
+</th:block>
+
+</html>

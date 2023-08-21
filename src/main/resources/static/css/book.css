@@ -1,0 +1,207 @@
+@charset "UTF-8";
+
+.content p,
+.content a,
+.content span,
+.content label {
+	color: #fff;
+}
+
+input[type="radio"] {
+	appearance: none;
+}
+
+.mr_10 {
+	margin-right: 10px;
+}
+
+.mr_20 {
+	margin-right: 20px;
+}
+
+.mt_15 {
+	margin-top: 15px;
+}
+
+.df {
+	display: flex;
+	justify-content: center
+}
+
+.c_c4 {
+	color: #C4C4C4;
+}
+
+/* 상영스케줄 */
+
+.scrollable-container::-webkit-scrollbar {
+	display: none;
+}
+
+.scrollable-container {
+	overflow: scroll;
+	max-height: 720px;
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.box_tit {
+	font-size: 1.6rem;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
+
+.inner {
+	padding: 100px 200px;
+}
+
+.date {
+	font-size: 1.4rem;
+}
+
+.tit_group {
+	display: flex;
+	align-items: center;
+}
+
+.tit {
+	font-size: 1.2rem;
+}
+
+.sub_txt {
+	font-size: 0.9rem;
+}
+
+.age {
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	border-radius: 10px;
+	text-align: center;
+	display: block;
+	font-size: 10px;
+	font-weight: 700;
+	color: #fff;
+	float: left;
+}
+
+.age.age_12 {
+	background: #41ADDE;
+}
+
+.age.age_15 {
+	background: #E69F35;
+}
+
+.age.age_all {
+	background: #0CB052;
+	font-size: 8px;
+}
+
+.age.age_18 {
+	background: #DC2121;
+}
+
+.age.age_19 {
+	background: #DC2121;
+}
+
+.time_wrap .time_list_wrap {
+	margin-top: 12px;
+	display: block;
+}
+
+.time_wrap .time_list_wrap::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.time_wrap .time_list_wrap .time_list {
+	width: calc(15% - 10px);
+	margin-right: 10px;
+	margin-bottom: 10px;
+	display: block;
+	float: left;
+	text-align: center;
+	position: relative;
+}
+
+.time_wrap .time_list_wrap .time_list label {
+	display: block;
+	width: 100%;
+	height: 60px;
+	border: 1px solid #fff;
+	box-sizing: border-box;
+	border-radius: 5px;
+	padding-left: 0;
+	font-size: 1em;
+}
+
+.time_wrap .time_list_wrap .time_list .start {
+	font-size: 1.4em;
+	font-weight: 600;
+	line-height: 1.5;
+}
+
+.time_wrap .time_list_wrap .time_list .end {
+	font-size: 1em;
+	font-weight: 400;
+	margin-top: 0;
+}
+
+.time_wrap .time_list_wrap .time_list input[type="radio"]:checked+label {
+	border: 1px solid rgb(41, 165, 255);
+	background: rgba(41, 165, 255, 0.24);
+}
+
+.time_wrap .time_list_wrap .time_list.off {
+	opacity: 0.5;
+}
+
+/* 상영관, 상영영화 등록 */
+
+.box_content {
+	width: 50em;
+	margin: auto;
+	border: 1px solid #fff;
+}
+
+.form_area {
+	padding: 50px 0;
+}
+
+.bttn {
+	background-color: rgb(41, 165, 255);
+	border: 1px solid rgb(41, 165, 255);
+	border-radius: .25rem;
+	color: #fff;
+	width: 100%;
+	height: 48px;
+	font-size: 1.2em; 
+}
+
+.form_wrap {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 50px;
+}
+
+.form_area label {
+	padding-bottom: 20px;
+}
+
+.form_area input {
+	padding: 10px;
+	text-align: center;
+	border-radius: .25rem;
+	border: 1px solid #fff;
+}
+
+.form_area label,
+.form_area input {
+	font-size: 1.4em;
+	display: flex;
+	justify-content: center
+}
