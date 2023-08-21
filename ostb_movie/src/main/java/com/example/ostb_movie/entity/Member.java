@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.ostb_movie.constant.Role;
 import com.example.ostb_movie.dto.MemberFormDto;
+import com.example.ostb_movie.dto.MypageFormDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -78,7 +80,11 @@ public class Member{
 		member.setPhone(memberFormDto.getPhone());
 		member.setBirth(memberFormDto.getBirth());
 		member.setMemberImg("/images/profile.png");
+<<<<<<< HEAD
+		member.setRole(Role.USER);
+=======
 		member.setRole(Role.ROLE_USER);
+>>>>>>> 65f934d6c09fcadfd8486d8462ff49bd5817ac5b
 		
 		if(memberFormDto.getNickname().isEmpty()) {
 			member.setNickname(memberFormDto.getName());
@@ -87,6 +93,11 @@ public class Member{
 		}
 		
 		return member;
+	}
+	
+	public void updateMember(MypageFormDto mypageFormDto) {
+		this.nickname = mypageFormDto.getNickname();
+		this.memberImg = mypageFormDto.getImgUrl();
 	}
 	
 	@Builder(builderClassName = "MemberDetailRegister", builderMethodName = "MemberDetailRegister")
@@ -106,4 +117,5 @@ public class Member{
         this.provider = provider;
         this.providerId = providerId;
     }
+
 }

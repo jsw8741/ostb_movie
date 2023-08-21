@@ -1,15 +1,27 @@
 package com.example.ostb_movie.service;
 
+<<<<<<< HEAD
+import java.util.List;
+
+import org.springframework.security.core.userdetails.User;
+=======
+>>>>>>> 65f934d6c09fcadfd8486d8462ff49bd5817ac5b
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
+<<<<<<< HEAD
+import com.example.ostb_movie.dto.MypageFormDto;
+=======
+>>>>>>> 65f934d6c09fcadfd8486d8462ff49bd5817ac5b
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.repository.MemberRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberService implements UserDetailsService{
 	
 	private final MemberRepository memberRepository;
+	private final MemberImgService memberImgService;
 	
 	// 회원 등록
 	public Member saveMember(Member member) {
@@ -67,5 +80,15 @@ public class MemberService implements UserDetailsService{
 		
 		return new PrincipalDetails(member);
 	}
-
+	
+	// 1. 지금 접속한 멤버 찾기
+	// 2. 찾은 멤버로 업데이트 메소드 실행
+	public Long updateMember(MypageFormDto mypageFormDto, MultipartFile memberImgFile) throws Exception {
+		System.out.println(mypageFormDto.getId() + "asdasd");
+		Member member = memberRepository.findById(mypageFormDto.getId())
+										.orElseThrow(EntityNotFoundException::new);
+		member.updateMember(mypageFormDto);
+		return member.getId();
+	}
+	
 }

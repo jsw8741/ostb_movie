@@ -105,11 +105,11 @@
 	color: white;
 }
 
-.nickname {
+.mp-email {
 	margin-right: 15px;
 }
 
-.modify-profile {
+.mp-nickname {
 	margin-right: 10px;
 }
 
@@ -167,6 +167,7 @@
 	margin-bottom: 20px;
 	margin-top: 30px;
 	color: white;
+	font-size: 23px;
 }
 
 .ostb-caution {
@@ -216,6 +217,7 @@
 	border: 1px solid white;
 	height: 80px;
 	border-radius: 5px;
+	margin-bottom: 100px;
 }
 
 .qna-contents > p{
