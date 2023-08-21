@@ -1,11 +1,8 @@
 package com.example.ostb_movie.service;
 
-<<<<<<< HEAD
 import java.util.List;
 
 import org.springframework.security.core.userdetails.User;
-=======
->>>>>>> 65f934d6c09fcadfd8486d8462ff49bd5817ac5b
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,10 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
-<<<<<<< HEAD
 import com.example.ostb_movie.dto.MypageFormDto;
-=======
->>>>>>> 65f934d6c09fcadfd8486d8462ff49bd5817ac5b
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.repository.MemberRepository;
 

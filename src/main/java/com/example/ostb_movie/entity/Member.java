@@ -80,11 +80,7 @@ public class Member{
 		member.setPhone(memberFormDto.getPhone());
 		member.setBirth(memberFormDto.getBirth());
 		member.setMemberImg("/images/profile.png");
-<<<<<<< HEAD
-		member.setRole(Role.USER);
-=======
 		member.setRole(Role.ROLE_USER);
->>>>>>> 65f934d6c09fcadfd8486d8462ff49bd5817ac5b
 		
 		if(memberFormDto.getNickname().isEmpty()) {
 			member.setNickname(memberFormDto.getName());

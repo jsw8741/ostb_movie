@@ -25,6 +25,6 @@ public class Theater extends BaseEntity {
 	private LocalDateTime endTime; // 상영종료시간
 
 	@ManyToOne
-	@JoinColumn(name = "movie_detail_id") // 해당하는 상영관과 연결된 영화 정보
-	private MovieDetail movieDetail;
+	@JoinColumn(name = "movie_id") // 해당하는 상영관과 연결된 영화 정보
+	private Movie movie;
 }

@@ -26,7 +26,7 @@ public class TheaterFormDto {
 	@NotNull(message = "상영 종료시간을 입력해 주세요.")
 	private LocalDateTime endTime;
 
-	private MovieDetail movieDetail;
+	private Movie movieDetail;
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 
