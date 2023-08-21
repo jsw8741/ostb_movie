@@ -43,9 +43,6 @@ Version: - v1.0.0
 @import url(css/magnific-popup.css);
 @import url(css/font-awesome.min.css); */
 /* :: 3.0 Base CSS */
-.content{
-	background-color: white;
-}
 .footer-social-info d-flex align-items-center justify-content-between{
 	width: 930px;
 	height: 83px;
