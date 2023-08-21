@@ -9,7 +9,6 @@
 </th:block>
 
 
-
 <div layout:fragment="content">
 	<div class="pageTitle bg_blue">
 		<div class="layout1">
@@ -23,10 +22,20 @@
 			<div class="tab_ui type1 pageTabSwiper">
 				<div class="tab_wrap swiper-container swiper-container-horizontal">
 					<ul class="tab_inner swiper-wrapper">
-								<li class="swiper-slide tab active swiper-slide-active"><a href="/FAQ/list"><span>FAQ</span></a></li>
-								<li class="swiper-slide tab swiper-slide-next"><a href="/"><span>1:1 문의</span></a></li>
-								<li class="swiper-slide tab"><a href="/notice/list" ><span>공지사항</span></a></li>
-								<li class="swiper-slide tab"><a href="/lost/list"><span>분실물 문의</span></a></li>
+						<li class="swiper-slide tab  swiper-slide-active"><a
+							href="/FAQ/list"
+							><span>FAQ</span></a></li>
+						<li class="swiper-slide tab swiper-slide-next"><a
+							href="/"
+							><span>1:1
+									문의</span></a></li>
+						<li class="swiper-slide tab"><a
+							href="/notice/list"
+							><span>공지사항</span></a></li>
+						<li class="swiper-slide tab active"><a
+							href="/lost/list"
+							><span>분실물
+									문의</span></a></li>
 					</ul>
 					<span class="swiper-notification" aria-live="assertive"
 						aria-atomic="true"></span>
@@ -37,10 +46,9 @@
 	</div>
 
 	<!-- tab -->
-	
 	<!--// tab -->
 
-	<section class="wrap_con">
+	<div class="wrap_con">
 		<div class="layout1">
 			<!-- list top -->
 			<!--// list top -->
@@ -48,9 +56,9 @@
 			<div class="acodiList acodi_type1">
 
 				<section class="wrap_board_view2">
-					<form role="form" action="/notice/create" method="post"
-					th:object="${noticeFormDto}"
-					name="noticeForm" >
+					<form role="form" action="/lost/createLost" method="post"
+					th:object="${lostFormDto}"
+					name="lostForm" >
 					
 					<input type="hidden" th:field="*{id}" />
 						<!-- 게시글 영역 -->
@@ -60,20 +68,20 @@
 						<div class="inner600">
 							<div class="login_input">
 									<div class="inp_bundle custId">
-										<input type="text" id="noticeTitle" name="noticeTitle"  class="inp flex"  th:field="*{noticeTitle}" placeholder="제목">
-										<p th:if="${#fields.hasErrors('noticeTitle')}" th:errors="*{noticeTitle}"
+										<input type="text" id="lostItem" name="lostItem"  class="inp flex"  th:field="*{lostItem}" placeholder="분실물품">
+										<p th:if="${#fields.hasErrors('lostItem')}" th:errors="*{lostItem}"
 								class="fieldError">Incorrect Data</p>
 									</div>
-									<div class="inp_bundle mt custPwd textarea py-3" >
-										<textarea id="noticeContent" name="noticeContent"class="inp flex" th:field="*{noticeContent}" placeholder="컨텐츠 내용"></textarea>
-										<p th:if="${#fields.hasErrors('noticeTitle')}" th:errors="*{noticeContent}"
+									<div class="inp_bundle mt custPwd textarea" >
+										<textarea id="lostDetatil" name="lostDetail"class="inp flex py-3" th:field="*{lostDetail}" placeholder="분실물 상세설명"></textarea>
+										<p th:if="${#fields.hasErrors('lostDetail')}" th:errors="*{lostDetail}"
 								class="fieldError">Incorrect Data</p>
 									</div>
 							</div>
 						</div>
 					</div>
 						<div class="btn_area btn_ac py-5">
-							<button class="btn_typeB1" type="submit"><span>등록</span></button>
+							<button class="btn_typeB1" type="submit" id="submitBtn"><span>등록하기</span></button>
 						</div>
 					</div>
 					<input type="hidden" th:name="${_csrf.parameterName}"
@@ -83,7 +91,7 @@
 			</div>
 
 		</div>
-	</section>
+	</div>
 
 
 </div>
@@ -98,6 +106,15 @@
     	if(errorMessage != null){
         	alert(errorMessage);
     	}
+	});
+	
+	// 버튼 요소를 가져옵니다.
+	const submitButton = document.getElementById("submitBtn");
+
+	// 버튼에 클릭 이벤트 리스너를 추가합니다.
+	submitButton.addEventListener("click", function() {
+	    // 등록 완료 메시지를 표시하는 알림 창을 생성합니다.
+	    alert("등록이 완료되었습니다.");
 	});
 	</script>
 

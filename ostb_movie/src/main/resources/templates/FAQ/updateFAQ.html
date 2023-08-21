@@ -1,10 +1,169 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+	
+<head> <!--아이작스로 보낼때 메타  -->
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>		
+	
+	
 
-</body>
+<!-- 각 페이지의 CSS가 작성될 위치 -->
+<th:block layout:fragment="css">
+<link rel="stylesheet" th:href="@{/css/FAQ.css}">
+</th:block>
+
+
+
+<div layout:fragment="content">
+	<div class="pageTitle bg_blue">
+		<div class="layout1">
+			<h2 class="tit">고객센터</h2>
+			<p class="desc">
+				OSTB에 대해 궁금하신 점이 있다면<br>무엇이든 물어보세요!
+			</p>
+		</div>
+		<!-- pageTab -->
+		<div class="pageTab">
+			<div class="tab_ui type1 pageTabSwiper">
+				<div class="tab_wrap swiper-container swiper-container-horizontal">
+					<ul class="tab_inner swiper-wrapper">
+						<li class="swiper-slide tab active swiper-slide-active"><a
+							href="/FAQ/list"
+							><span>FAQ</span></a></li>
+						<li class="swiper-slide tab swiper-slide-next"><a
+							href="/"
+							><span>1:1
+									문의</span></a></li>
+						<li class="swiper-slide tab"><a
+							href="/notice/list"
+							><span>공지사항</span></a></li>
+<li class="swiper-slide tab"><a href="/lost/list"><span>분실물 문의</span></a></li>
+					</ul>
+					<span class="swiper-notification" aria-live="assertive"
+						aria-atomic="true"></span>
+				</div>
+			</div>
+		</div>
+		<!--// pageTab -->
+	</div>
+
+	<!-- tab -->
+	<!--// tab -->
+
+	<section class="wrap_con">
+		<div class="layout1">
+			<!-- list top -->
+			<!--// list top -->
+			<!-- list -->
+			<div class="acodiList acodi_type1">
+
+				<section class="wrap_board_view2">
+					<form role="form" th:action="@{'/FAQ/updateFAQ/' + ${faqId}}" method="post"
+					th:object="${faq}"
+					name="faqForm" >
+					
+					<input type="hidden" th:field="*{id}" />
+						<!-- 게시글 영역 -->
+						<div class="viewpage_edit">
+							<!-- 컨텐츠 불러오는 영역 -->
+					<div class="wrap_box">
+						<div class="inner600">
+							<div class="login_input">
+									<div class="select_ui py-3">
+										<select th:for="faqRole" name="faqRole" id="faqRole" th:field="*{faqRole}">
+											<option value="" >카테고리선택</option>
+													<option th:value="'회원'" th:text="회원" >회원</option>
+													<option th:value="'포인트'" th:text="포인트" >포인트</option>
+													<option th:value="'혜택'" th:text="혜택" >혜택</option>
+													<option th:value="'친구'" th:text="친구" >친구</option>
+										</select>
+										<p th:if="${#fields.hasErrors('faqRole')}" th:errors="*{faqRole}"
+										class="fieldError">Incorrect Data</p>
+									</div>
+									<div class="inp_bundle custId">
+										<input type="text" id="faqTitle" name="faqTitle"  class="inp flex"  th:field="*{faqTitle}" placeholder="제목">
+										<p th:if="${#fields.hasErrors('faqTitle')}" th:errors="*{faqTitle}"
+								class="fieldError">Incorrect Data</p>
+									</div>
+									<div class="inp_bundle mt custPwd textarea" >
+										<textarea id="faqContent" name="faqContent"class="inp flex" th:field="*{faqContent}" placeholder="컨텐츠 내용"></textarea>
+										<p th:if="${#fields.hasErrors('faqTitle')}" th:errors="*{faqContent}"
+								class="fieldError">Incorrect Data</p>
+									</div>
+							</div>
+						</div>
+					</div>
+						<div class="btn_area btn_ac py-5">
+							<button class="btn_typeB1" type="submit"><span>수정</span></button>
+							<button class="btn_typeB1" th:value="${faqId}" onclick="deleteFaq(this.value)"><span>삭제</span></button>
+						</div>
+					</div>
+					</form>
+				</section>
+			</div>
+
+		</div>
+	</section>
+
+
+</div>
+
+<!-- 각 페이지의 스크립트가 작성될 위치 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+	<script th:inline="javascript">
+	
+	$(document).ready(function(){
+    	var errorMessage = [[${errorMessage}]];
+    	if(errorMessage != null){
+        	alert(errorMessage);
+    	}
+	});
+	
+			function deleteFaq(faqId) {
+			const deleteConf = confirm("삭제하시겠습니까?");
+			if(!deleteConf) return; //취소버튼 누르면
+			
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
+			//request URL
+			var url = "/FAQ/deleteFAQ/" + faqId + "/delete";
+			
+			$.ajax({
+				url : url, //request URL
+				type : "DELETE", //전송방식
+				contentType : "application/json",
+				beforeSend : function(xhr) {
+					//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+					xhr.setRequestHeader(header, token);
+				},
+				dataType : "json",
+				cache : false,
+				success : function(result, status) {
+					location.href = '/FAQ/list';
+				},
+				error : function(jqXHR, status, error) {
+					if(jqXHR.status == '401') {
+						alert('로그인 후 이용해주세요.');
+						location.href = '/members/login';
+					} else {
+						alert(jqXHR.responseText);
+					}
+				}
+			});
+		}
+	
+	
+	
+	</script>
+
+
+
+</th:block>
+
 </html>

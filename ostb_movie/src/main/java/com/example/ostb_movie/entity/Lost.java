@@ -1,15 +1,15 @@
 package com.example.ostb_movie.entity;
 
-
-
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.example.ostb_movie.dto.FaqFormDto;
+import com.example.ostb_movie.constant.LostStatus;
+import com.example.ostb_movie.dto.LostFormDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,13 +23,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity //엔티티 클래스로 정의
-@Table(name="faq") //테이블 이름 지정
+@Table(name="lost_board") //테이블 이름 지정
 @Getter
 @Setter
 @ToString
-public class Faq extends BaseEntity {
+public class Lost extends BaseEntity {
+	
 	@Id
-	@Column(name="faq_id") //테이블로 생설될때 컬럼이름을 지정해준다
+	@Column(name="lost_id") //테이블로 생설될때 컬럼이름을 지정해준다
 	@GeneratedValue(strategy = GenerationType.AUTO) // 기본키를 자동으로 생성
 	private Long id;
 	
@@ -38,20 +39,23 @@ public class Faq extends BaseEntity {
 	@OnDelete(action= OnDeleteAction.CASCADE)
 	private Member member;
 	
-	private String faqRole;
+	@Enumerated(EnumType.STRING)
+	private LostStatus lostStatus;
 	
-	private String faqTitle;
+	private String lostItem;
 	
 	@Lob
 	@Column(nullable = false, columnDefinition = "longtext")
-	private String faqContent;
+	private String lostDetail;
 	
-	// faq entity 수정
-	public void updateFaq(FaqFormDto faqFormDto) {
-		this.faqContent = faqFormDto.getFaqContent();
-		this.faqRole = faqFormDto.getFaqRole();
-		this.faqTitle = faqFormDto.getFaqTitle();
+	// lost entity 수정
+	public void updateLost(LostFormDto lostFormDto) {
+		this.lostDetail = lostFormDto.getLostDetail();
+		this.lostItem = lostFormDto.getLostItem();
+		this.lostStatus = lostFormDto.getLostStatus();
 	}
+	
+	
 	
 	
 	
