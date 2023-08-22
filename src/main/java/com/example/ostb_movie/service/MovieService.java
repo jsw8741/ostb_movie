@@ -75,7 +75,8 @@ public class MovieService {
 	        	String ImgUrl = "https://image.tmdb.org/t/p/w200";
 	            String match = "[\"]";
 	            
-	            String runTime = getRunTime(originId);
+	            String runTime = getRunTime(originId, "runTime");
+	            String genres = getRunTime(originId, "genres");
 	            
 	            MovieDto movieDto = MovieDto.builder()
 	            		.originId(contents.get("id").getAsLong())
@@ -84,6 +85,7 @@ public class MovieService {
 	                    .imgUrl(ImgUrl + contents.get("poster_path").toString().replaceAll(match, ""))
 	                    .adult(contents.get("title").getAsBoolean())
 	                    .runTime(runTime)
+	                    .genres(genres)
 	                    .build();
 	            
 	            Long id = (long) (k + baseId);
@@ -99,9 +101,8 @@ public class MovieService {
     
     
     // 영화 상세에서 상영시간 가져오기
-    public String getRunTime(String originId) {
+    public String getRunTime(String originId, String data) {
     	String movieDetailUrl = "https://api.themoviedb.org/3/movie/" + originId + "?api_key=d0f57e4e20e63bfcf331ff49a646c74c&language=ko-KR&page=1" ;
-        String runTime = null;
     	
         try {
 			URL url = new URL(movieDetailUrl);
@@ -111,15 +112,49 @@ public class MovieService {
 			
 			JsonParser jsonParserDetail = new JsonParser();
 	        JsonObject jsonObjectDetail = (JsonObject) jsonParserDetail.parse(resultDetail);
-	        runTime = jsonObjectDetail.get("runtime").toString();
 	        
-			return runTime;
+	        if(data.equals("runTime")) {
+	        	String runTime = jsonObjectDetail.get("runtime").toString();
+	        	return runTime;	        	
+	        }else if(data.equals("genres")) {
+	        	String genres = null; 
+	        	
+	        	JsonArray list = (JsonArray) jsonObjectDetail.get("genres");
+	        	
+	        	for(int i=0; i<list.size();i++) {
+	        		JsonObject contents = (JsonObject) list.get(i);
+	        		if(i == 0) {
+	        			String originalData = contents.get("name").toString();
+	        			genres = originalData.replace("\"", "");
+	        			
+	        		}else {
+	        			String originalData = contents.get("name").toString();
+	        			genres += " " + originalData.replace("\"", "");   			
+	        		}
+	        		
+	        	}
+		      
+		        return genres;
+	        	
+	        }else {
+	        	return null;
+	        }
+	        
+	        
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
         
     }
+    
+    // 상영 시간(상세)
+    public String getRunTime(JsonObject jsonObjectDetail) {
+    	
+    	return null;
+    }
+    
+    // 영화 장르(상세)
     
     // 영화 전체 리스트 가져오기
     public List<Movie> getMovieAll(){

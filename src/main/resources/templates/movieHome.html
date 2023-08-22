@@ -4,14 +4,15 @@
 	layout:decorate="~{layouts/layout1}">
 
 <th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/responsiveMap.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/movieHome.css}"/>
 	<link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css}"/>
 </th:block>
 <div layout:fragment="content">
-	<h3>메인</h3>
+
 	<div class="sw_1">
-        <div class="main_title">인기순위</div>
-        <div class="swiper mySwiper">
+	
+		<div class="swiper mySwiper">
 			<div class="swiper-wrapper">
 				<th:block th:each="moviePopular, status:${moviePopualrList}">
 				   <div class="swiper-slide">
@@ -27,11 +28,28 @@
 			 <div class="swiper-button-next"></div>
 			 <div class="swiper-button-prev"></div>
         </div>
+        
+        <div>
+        	건이 아이템
+        </div>
+        
+        
+        <div class="container_map">
+			<h3>map</h3>
+        
+            <div class="map">
+              <div id="googleMap"></div>
+            </div>
+            
+      	</div>
       </div>
+      
 </div>
 
 <th:block layout:fragment="script">
-	<script th:src="@{'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js'}"></script>
+	<script th:src="@{/js/map.js}"></script>
+	<script th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyAyPYAYxIWN49JeM3vrJ_RND1V1xjjXfWQ&callback=myMap}"></script>
+	<script th:src="@{https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js}"></script>
 	<script th:inline="javascript">
 	var swiper = new Swiper(".mySwiper", {
         slidesPerView: 5,
