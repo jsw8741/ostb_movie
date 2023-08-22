@@ -39,6 +39,8 @@ public class Movie extends BaseEntity{
 	@OnDelete(action= OnDeleteAction.CASCADE)
 	private MovieStatus status;
 	
+    private String genres;
+	
 	public static Movie createMovie(Long id, MovieDto movieDto, MovieStatus status) {
 		Movie movie = new Movie();
 		
@@ -50,6 +52,7 @@ public class Movie extends BaseEntity{
 		movie.setRunTime(movieDto.getRunTime());
 		movie.setOriginId(movieDto.getOriginId());
 		movie.setStatus(status);
+		movie.setGenres(movieDto.getGenres());
 		
 		return movie;
 	}

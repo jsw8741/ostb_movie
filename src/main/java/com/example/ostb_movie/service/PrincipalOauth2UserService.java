@@ -48,7 +48,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
      
      Member member = memberRepository.findByEmail(email);
      
-     //DB에 없는 사용자라면 회원가입처리
      if(member == null){
     	 member = Member.oauth2Register()
         		 .email(email).name(username).password(password).role(role)

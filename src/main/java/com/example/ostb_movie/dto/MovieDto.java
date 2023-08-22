@@ -17,4 +17,6 @@ public class MovieDto {
 	private String runTime;
 	
 	private Long originId;
+	
+	private String genres;
 }

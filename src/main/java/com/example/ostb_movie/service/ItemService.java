@@ -43,15 +43,14 @@ public class ItemService {
 
 	@Transactional(readOnly = true) // 트랜젝션 읽기 전용(변경감지 수행하지 않음) -> 성능향상
 	public ItemFormDto getItemDtl(Long itemId) {
-		
+
 		Itemimg itemImg = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
-		
+
 		Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
-		
+
 		ItemImgDto itemImgDto = ItemImgDto.of(itemImg);
 
 		ItemFormDto itemFormDto = ItemFormDto.of(item);
-		
 
 		itemFormDto.setItemImgId(itemImg.getId());
 		itemFormDto.setItemImgDto(itemImgDto);
@@ -63,7 +62,7 @@ public class ItemService {
 		Item item = itemRepository.findById(itemFormDto.getId()).orElseThrow(EntityNotFoundException::new);
 		item.updateItem(itemFormDto);
 		Long itemImgId = itemFormDto.getItemImgId();
-		itemImgService.updateItemImg(itemImgId,itemImgFile);
+		itemImgService.updateItemImg(itemImgId, itemImgFile);
 		return item.getId();
 	}
 
@@ -75,5 +74,9 @@ public class ItemService {
 	public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
 		Page<MainItemDto> itemPage = itemRepository.getMainItemPage(itemSearchDto, pageable);
 		return itemPage;
+	}
+
+	public void deleteByitemIdByNative(long itemId) {
+		itemRepository.deleteByitemIdByNative(itemId);
 	}
 }

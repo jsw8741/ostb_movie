@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<th:block layout:fragment="css">
+	<style>
+.fieldError {
+	color: #bd2130;
+}
+
+.content {
+	padding-top: 100px;
+}
+</style>
+
+</th:block>
+
+
+<div layout:fragment="content">
+	<div class="bg-light py-3">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 mb-0 header_margin">
+					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
+						class="text-black">객실 예약</strong>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="site-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h2 class="h3 mb-3 text-black">객실 예약하기</h2>
+					<div class="p-3 p-lg-5 border">
+						<form role="form" action="/order" method="post"
+							th:object="${ReservationDto}">
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label th:for="itemNm" class="text-black"></label> <input
+										type="text" class="form-control" placeholder="이름을 입력해주세요"
+										th:field="*{itemNm}">
+									<p th:errors="*{itemNm}" class="fieldError">Incorrect Data</p>
+								</div>
+							</div>
+							<div>
+								<label for="startDay">체크인 날짜:</label> <input type="date"
+									id="checkIn" name="startDay"> <label for="endDay">체크아웃
+									날짜:</label> <input type="date" id="checkOut" name="endDay">
+							</div>
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label th:for="person" class="text-black">인원</label> <input
+										type="text" class="form-control" placeholder="인원수를 입력해주세요"
+										th:field="*{person}" name="person">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label th:for="price" class="text-black">가격</label> <input
+										type="text" class="form-control" placeholder="가격 입력해주세요"
+										th:field="*{price}" name="price">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12">
+									<button type="submit">예약하기</button>
+									<input type="hidden" th:name="${_csrf.parameterName}"
+										th:value="${_csrf.token}">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<th:block layout:fragment="script">
+</th:block>
+
+
+
+
+
+
+
+
+
+
+
+<form role="form" action="/order" method="post"
+	th:object="${ReservationDto}">
+	<div class="form-group row">
+		<div class="col-md-12">
+			<label th:for="itemNm" class="text-black"></label> <input type="text"
+				class="form-control" placeholder="이름을 입력해주세요" th:field="*{itemNm}">
+			<p th:errors="*{itemNm}" class="fieldError">Incorrect Data</p>
+		</div>
+	</div>
+	<div>
+		<label for="startDay">체크인 날짜:</label> <input type="date" id="checkIn"
+			name="startDay"> <label for="endDay">체크아웃 날짜:</label> <input
+			type="date" id="checkOut" name="endDay">
+	</div>
+	<div class="form-group row">
+		<div class="col-md-12">
+			<label th:for="person" class="text-black">인원</label> <input
+				type="text" class="form-control" placeholder="인원수를 입력해주세요"
+				th:field="*{person}" name="person">
+		</div>
+	</div>
+	<div>
+		<div class="form-group row">
+			<div class="col-md-12">
+				<label th:for="price" class="text-black">가격</label> <input
+					type="text" class="form-control" placeholder="가격 입력해주세요"
+					th:field="*{price}" name="price">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-12">
+				<button type="submit">구매하기</button>
+				<input type="hidden" th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}">
+			</div>
+		</div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
