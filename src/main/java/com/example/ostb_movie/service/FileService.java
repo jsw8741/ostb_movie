@@ -48,13 +48,16 @@ public class FileService {
 	//파일 삭제
 	public void deleteFile(String filePath) throws Exception {
 		File deleteFile = new File(filePath); //파일이 저장된 경로를 이용해서 파일 객체를 생성
+		System.out.println("1111111111111");
 		
 		//파일삭제
 		if(deleteFile.exists()) { //해당 경로에 파일이 있으면
 			deleteFile.delete(); //파일삭제
 			log.info("파일을 삭제하였습니다."); //로그 기록을 저장한다
+			System.out.println("22222222222222");
 		} else {
 			log.info("파일이 존재하지 않습니다.");
+			System.out.println("333333333333333");
 		}
 	}
 

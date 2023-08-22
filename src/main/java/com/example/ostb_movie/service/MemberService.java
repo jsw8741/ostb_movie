@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
+import com.example.ostb_movie.dto.MemberFormDto;
 import com.example.ostb_movie.dto.MypageFormDto;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.repository.MemberRepository;
@@ -75,13 +76,26 @@ public class MemberService implements UserDetailsService{
 		return new PrincipalDetails(member);
 	}
 	
+	public Long saveMember(MypageFormDto mypageFormDto, MultipartFile memberImgFile) throws Exception {
+		Member member = mypageFormDto.createMypage();
+		memberRepository.save(member);
+		
+		return member.getId();
+	}
+	
 	// 1. 지금 접속한 멤버 찾기
 	// 2. 찾은 멤버로 업데이트 메소드 실행
 	public Long updateMember(MypageFormDto mypageFormDto, MultipartFile memberImgFile) throws Exception {
 		System.out.println(mypageFormDto.getId() + "asdasd");
+		
 		Member member = memberRepository.findById(mypageFormDto.getId())
 										.orElseThrow(EntityNotFoundException::new);
 		member.updateMember(mypageFormDto);
+		
+		Long memberId = mypageFormDto.getId();
+		memberImgService.UpdateMemberImg(memberId, memberImgFile);
+		memberRepository.save(member);
+		
 		return member.getId();
 	}
 	

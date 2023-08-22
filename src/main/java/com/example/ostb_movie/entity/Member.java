@@ -60,6 +60,8 @@ public class Member{
 	
 	private String memberImg;
 	
+	private String imgName;
+	
 	@Enumerated(EnumType.STRING)
 	private Role role;	
 	
@@ -94,6 +96,11 @@ public class Member{
 	public void updateMember(MypageFormDto mypageFormDto) {
 		this.nickname = mypageFormDto.getNickname();
 		this.memberImg = mypageFormDto.getImgUrl();
+	}
+	
+	public void updateMemberImg(String imgName,String memberImg) {
+		this.imgName = imgName;
+		this.memberImg = memberImg;
 	}
 	
 	@Builder(builderClassName = "MemberDetailRegister", builderMethodName = "MemberDetailRegister")
