@@ -30,6 +30,7 @@ public class MemberController {
 	@GetMapping(value =  "/members/info")
 	public String newMyPage(Authentication authentication, Model model) {
 		
+		// 로그인한 사용자의 정보를 담고있다.
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
 		
