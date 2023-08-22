@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.dto.NoticeFormDto;
+import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.Notice;
 import com.example.ostb_movie.repository.NoticeRepository;
 import com.example.ostb_movie.service.NoticeService;
@@ -43,14 +46,16 @@ public class NoticeController {
 		//notice 등록(insert)
 		@PostMapping(value = "/notice/create")
 		public String noticeNew(@Valid NoticeFormDto noticeFormDto, BindingResult bindingResult,
-				Model model, Principal principal) {
+				Model model, Authentication authentication) {
 			
+			PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+	        Member member = principal.getMember();
 			if(bindingResult.hasErrors()) {
 				return "notice/createNotice";
 			}
 			
 			try {
-			String email = principal.getName();
+			String email = member.getEmail();
 			noticeService.saveNotice(noticeFormDto, email);
 			} catch (Exception e) {
 				e.printStackTrace();
