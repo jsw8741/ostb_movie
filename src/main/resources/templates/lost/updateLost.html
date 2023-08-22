@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout2}" style="background-color: black;">
+
+
+<head>
+<!--아이작스로 보낼때 메타  -->
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
+
+
+<!-- 각 페이지의 CSS가 작성될 위치 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/FAQ.css}">
+	<link rel="stylesheet" th:href="@{/css/lost.css}">
+</th:block>
+
+
+
+<div layout:fragment="content">
+
+	<!-- tab -->
+	<!--// tab -->
+
+	<section class="wrap_con">
+		<div class="layout1">
+			<!-- list top -->
+			<!--// list top -->
+			<!-- list -->
+			<div class="acodiList acodi_type1">
+
+				<section class="wrap_board_view2">
+					<form role="form" th:action="@{'/lost/updateLost/' + ${lostId}}"
+						method="post" th:object="${lost}" name="lostForm" id="lostForm">
+
+						<input type="hidden" th:field="*{id}" />
+						<!-- 게시글 영역 -->
+						<div class="viewpage_edit">
+							<!-- 컨텐츠 불러오는 영역 -->
+							<div class="wrap_box">
+								<div class="inner600">
+									<div class="board_list_type1">
+										<ul class="col3 clear">
+
+											<li>
+												<figure class="thumbnail">
+													<img class="ratio"
+														src="/assets/app/img/common/ratio_event.gif" alt="">
+													<span class="img"
+														style="background-image: url('/images/profile.png');"></span>
+												</figure>
+												</li>
+
+
+										</ul>
+									</div>
+									<div class="login_input text-right">
+										<div class="select_ui py-3">
+											<select th:for="lostStatus" name="lostStatus" id="lostStatus"
+												th:field="*{lostStatus}">
+												<option value="">상태선택</option>
+												<option th:value="'ACCEPT'" th:text="ACCEPT">ACCEPT</option>
+												<option th:value="'PROCESSING'" th:text="PROCESSING">PROCESSING</option>
+												<option th:value="'COMPLETED'" th:text="COMPLETED">COMPLETED</option>
+											</select>
+											<p th:if="${#fields.hasErrors('lostStatus')}"
+												th:errors="lostStatus" class="fieldError">Incorrect Data</p>
+										</div>
+										<input type="hidden" id="lostItem" name="lostItem"  class="inp flex subject viewpage_edit inp_bundle mt custPwd"  th:field="*{lostItem}" th:value="${lostItem}" placeholder="분실물품">
+										<input type="hidden" id="lostDetail" name="lostDetail"  class="inp flex subject viewpage_edit inp_bundle mt custPwd"  th:field="*{lostDetail}" th:value="${lostDetail}" placeholder="분실물상세설명">
+									</div>
+								</div>
+							</div>
+							<div class="btn_area btn_ac py-5">
+								<button  class="btn_typeB1" type="submit" th:value="${lostId}"
+									>
+									<span>수정</span>
+								</button>
+								<button class="btn_typeB1" th:value="${lostId}"
+									onclick="deleteLost(this.value)">
+									<span>삭제</span>
+								</button>
+							</div>
+						</div>
+					</form>
+				</section>
+			</div>
+
+		</div>
+	</section>
+
+
+</div>
+
+<!-- 각 페이지의 스크립트가 작성될 위치 -->
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+	<script th:inline="javascript">
+	
+	$(document).ready(function(){
+    	var errorMessage = [[${errorMessage}]];
+    	if(errorMessage != null){
+        	alert(errorMessage);
+    	}
+	});
+	
+	//수정하기
+function updateLost(lostId) {
+    var updateConf = confirm("수정하시겠습니까?");
+    if (!updateConf) {
+        // 취소 버튼을 눌렀을 경우
+        return;
+    }
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    // request URL
+    var url = "/lost/updateLost/" + lostId;
+    var lostItem = $("#lostItem").val();
+    var lostDetail = $("#lostDetail").val();
+    console.log("lostItem: " + lostItem);
+    console.log("lostDetail: " + lostDetail);
+
+    // 서버로 보내줄 데이터(반드시 JSON -> string 타입으로 바꿔줘야 한다)
+    var paramData = {
+        lostId: lostId,
+        lostItem: lostItem,
+        lostDetail: lostDetail
+    }
+    
+    var param = JSON.stringify(paramData);
+
+    $.ajax({
+        url: url, // request URL
+        type: "POST", // 전송방식
+        contentType: "application/json",
+        data: param,
+        beforeSend: function(xhr) {
+            // 데이터를 전송하기 전에 헤더에 csrf 값을 설정
+            xhr.setRequestHeader(header, token);
+        },
+        dataType: "json",
+        cache: false,
+        console.log("lostItem: " + lostItem);
+        console.log("lostDetail: " + lostDetail);
+        success: function(result, status) {
+            alert('수정이 완료되었습니다.');
+            window.close();
+        },
+        error: function(jqXHR, status, error) {
+            if (jqXHR.status == '401') {
+                alert('로그인 후 이용해주세요.');
+                location.href = '/members/login';
+            } else {
+                alert(jqXHR.responseText);
+            }
+        }
+    });
+}
+	
+	
+	
+	//삭제하기
+			function deleteFaq(faqId) {
+			const deleteConf = confirm("삭제하시겠습니까?");
+			if(!deleteConf) return; //취소버튼 누르면
+			
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
+			//request URL
+			var url = "/FAQ/deleteFAQ/" + faqId + "/delete";
+			
+			$.ajax({
+				url : url, //request URL
+				type : "DELETE", //전송방식
+				contentType : "application/json",
+				beforeSend : function(xhr) {
+					//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+					xhr.setRequestHeader(header, token);
+				},
+				dataType : "json",
+				cache : false,
+				success : function(result, status) {
+					location.href = '/FAQ/list';
+				},
+				error : function(jqXHR, status, error) {
+					if(jqXHR.status == '401') {
+						alert('로그인 후 이용해주세요.');
+						location.href = '/members/login';
+					} else {
+						alert(jqXHR.responseText);
+					}
+				}
+			});
+		}
+	
+	
+	
+	</script>
+
+
+
+</th:block>
+
+</html>

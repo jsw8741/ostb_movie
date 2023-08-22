@@ -1,7 +1,9 @@
 package com.example.ostb_movie.service;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -10,41 +12,33 @@ import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
+import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 
 @Service
-@ServerEndpoint(value="/chatt")
+@ServerEndpoint(value="/chatt/{roomId}")
 public class WebSocketChatt {
-	private static Set<Session> clients = 
-			Collections.synchronizedSet(new HashSet<Session>());
+	  private static Map<String, Set<Session>> roomSessions = new HashMap<>();
 
-	
-	@OnOpen
-	public void onOpen(Session s) {
-		System.out.println("open session : " + s.toString());
-		if(!clients.contains(s)) {
-			clients.add(s);
-			System.out.println("session open : " + s);
-		}else {
-			System.out.println("이미 연결된 session 임!!!");
-		}
-	}
-	
-	
-	@OnMessage
-	public void onMessage(String msg, Session session) throws Exception{
-		System.out.println("receive message : " + msg);
-		for(Session s : clients) {
-			System.out.println("send data : " + msg);
-			s.getBasicRemote().sendText(msg);
+	    @OnOpen
+	    public void onOpen(Session session, @PathParam("roomId") String roomId) {
+	        
+	        roomSessions.computeIfAbsent(roomId, key -> Collections.synchronizedSet(new HashSet<>()))
+	            .add(session);
+	        
+	    }
 
-		}
-		
-	}
-	
-	@OnClose
-	public void onClose(Session s) {
-		System.out.println("session close : " + s);
-		clients.remove(s);
-	}
+	    @OnMessage
+	    public void onMessage(String msg, Session session, @PathParam("roomId") String roomId) throws Exception {
+	        Set<Session> clientsInRoom = roomSessions.getOrDefault(roomId, Collections.emptySet());
+	        for (Session s : clientsInRoom) {
+	            s.getBasicRemote().sendText(msg);
+	        }
+	    }
+
+	    @OnClose
+	    public void onClose(Session session, @PathParam("roomId") String roomId) {
+	        Set<Session> clientsInRoom = roomSessions.getOrDefault(roomId, Collections.emptySet());
+	        clientsInRoom.remove(session);
+	    }
 }

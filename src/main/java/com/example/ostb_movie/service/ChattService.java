@@ -1,5 +1,7 @@
 package com.example.ostb_movie.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -47,7 +49,11 @@ public class ChattService {
 		return oneBoard.getId();
 	}
 	
-	
+	//나의 1:1 방 보기
+	@Transactional(readOnly = true)
+	public List<OneBoard> getOneBoard(long memberId) {
+		return oneBoardRepository.getmyChatt(memberId);
+	}
 	
 	
 	

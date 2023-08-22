@@ -50,7 +50,6 @@ public class FaqController {
 		
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
-        
 		if(bindingResult.hasErrors()) {
 			return "/FAQ/createFAQ";
 		}

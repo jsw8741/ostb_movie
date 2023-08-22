@@ -9,7 +9,6 @@
 </th:block>
 
 
-
 <div layout:fragment="content">
 	<div class="pageTitle bg_blue">
 		<div class="layout1">
@@ -23,10 +22,17 @@
 			<div class="tab_ui type1 pageTabSwiper">
 				<div class="tab_wrap swiper-container swiper-container-horizontal">
 					<ul class="tab_inner swiper-wrapper">
-								<li class="swiper-slide tab  swiper-slide-active"><a href="/FAQ/list"><span>FAQ</span></a></li>
-								<li class="swiper-slide tab swiper-slide-next"><a href="/chatt/createChatt"><span>1:1 문의</span></a></li>
-								<li class="swiper-slide tab active"><a href="/notice/list" ><span>공지사항</span></a></li>
-								<li class="swiper-slide tab"><a href="/lost/list"><span>분실물 문의</span></a></li>
+						<li class="swiper-slide tab  swiper-slide-active"><a
+							href="/FAQ/list"
+							><span>FAQ</span></a></li>
+						<li class="swiper-slide tab swiper-slide-next active"><a
+							href="/chatt/createChatt"
+							><span>1:1
+									문의</span></a></li>
+						<li class="swiper-slide tab"><a
+							href="/notice/list"
+							><span>공지사항</span></a></li>
+<li class="swiper-slide tab"><a href="/lost/list"><span>분실물 문의</span></a></li>
 					</ul>
 					<span class="swiper-notification" aria-live="assertive"
 						aria-atomic="true"></span>
@@ -38,48 +44,37 @@
 
 	<!-- tab -->
 	<!--// tab -->
-	
-	<section class="wrap_con">
-		<th:block th:each="notice, status: ${notice}">
+
+	<div class="wrap_con">
 		<div class="layout1">
 			<!-- list top -->
 			<!--// list top -->
 			<!-- list -->
 			<div class="acodiList acodi_type1">
-				<section class="wrap_board_view2">
-					<div class="layout1">
-						<div class="viewpage_tit">
-							<p class="subject">[[${notice.noticeTitle}]]</p>
-							<span class="date">
-								[[${notice.regTime}]]
-							</span>
-						</div>
 
+				<section class="wrap_board_view2">
+					<form role="form" action="/chatt/createChatt" method="post"
+					th:object="${oneBoardFormDto}"
+					name="faqForm" >
+					
+					<input type="hidden" th:field="*{id}" />
 						<!-- 게시글 영역 -->
 						<div class="viewpage_edit">
 							<!-- 컨텐츠 불러오는 영역 -->
-							<div class="edit_row">
-								<p style=" color: white;">
-									[[${notice.noticeContent}]]
-								</p>
-							</div>
-							<!--// 컨텐츠 불러오는 영역 -->
-						</div>
-						<!--// 게시글 영역 -->
-
-						
-						<div class="btn_area btn_ac py-3">
-							<a href="/notice/list" class="btn_typeB1"><span>목록</span></a>
-							<a th:href="'/notice/update/' + ${notice.id}" class="btn_typeB1" sec:authorize="isAuthenticated()"><span>수정하기</span></a>
-							<a href="/notice/list" class="btn_typeB1" sec:authorize="isAuthenticated()"><span>삭제하기</span></a>
+					<div class="wrap_box">
+					</div>
+						<div class="btn_area btn_ac py-5">
+							<button class="btn_typeB1" type="submit"><span>등록</span></button>
 						</div>
 					</div>
+					<input type="hidden" th:name="${_csrf.parameterName}"
+								th:value="${_csrf.token}">
+					</form>
 				</section>
 			</div>
 
 		</div>
-		</th:block>
-	</section>
+	</div>
 
 
 </div>

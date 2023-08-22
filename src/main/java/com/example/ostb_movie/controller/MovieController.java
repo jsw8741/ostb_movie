@@ -58,4 +58,6 @@ public class MovieController {
     public void updateMovieDB() {
 		movieService.updateMovie();
     }
+	
+	
 }
