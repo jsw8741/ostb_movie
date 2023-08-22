@@ -15,4 +15,9 @@ String uploadPath = "file:///C:/movie/"; // 업로드할 경로
 		registry.addResourceHandler("/images/**")
 				.addResourceLocations(uploadPath);		
 	}
+	
+	
+	
+	
+	
 }
