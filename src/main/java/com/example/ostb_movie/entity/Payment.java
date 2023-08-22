@@ -9,7 +9,7 @@ import lombok.*;
 @Table(name = "payment")
 @Getter
 @Setter
-public class Payment {
+public class Payment{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "payment_id")

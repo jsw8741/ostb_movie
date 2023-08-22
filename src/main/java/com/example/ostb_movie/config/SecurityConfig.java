@@ -50,6 +50,7 @@ public class SecurityConfig {
 				.requestMatchers(mvc.pattern("/favicon"), mvc.pattern("/error"), mvc.pattern("api/**")).permitAll()
 				.requestMatchers(mvc.pattern("/lost"), mvc.pattern("/chatt")).permitAll()
 				.requestMatchers(mvc.pattern("/book/**")).permitAll()
+				.requestMatchers(mvc.pattern("/order")).permitAll()
 				.requestMatchers(mvc.pattern("/test/**")).hasRole("ADMIN").anyRequest().authenticated())		
 		.formLogin(formLogin -> formLogin //2. 로그인에 관련된 설정
 				.loginPage("/login/loginForm") //로그인 페이지 URL 설정
