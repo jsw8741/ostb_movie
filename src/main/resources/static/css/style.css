@@ -75,14 +75,9 @@ dd {
 	margin-bottom: 0.5rem;
 	margin-left: 0;
 }
-<<<<<<< HEAD
 
-.content {
-	height: 1000px !important;
-=======
 .content{
 	height: 1500px !important;
->>>>>>> 7f6c4b25bb7e3122132a9b5ac018e15e138c9c73
 }
 
 address {
