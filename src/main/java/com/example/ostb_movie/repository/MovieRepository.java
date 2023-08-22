@@ -12,4 +12,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	@Query("select m from Movie m where m.status.id = :movie_status_id")
 	List<Movie> getPopularList(@Param("movie_status_id") Long movie_status_id);
 	
+	@Query("select m from Movie m where m.originId = :originId")
+	Movie getMovieDtl(@Param("originId") Long originId);
 }

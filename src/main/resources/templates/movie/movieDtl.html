@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/movieDtl.css}"/>
+</th:block>	
+
+<div layout:fragment="content">
+	<div class="wrap">
+          <div class="main">
+            <div class="main-top">
+              <div class="main-left">
+                <div class="images">
+                	<img th:alt="${movieDtl.movieTitle}" th:src="${movieDtl.imgUrl}">
+                </div>
+              </div>
+              <div class="main-right">
+                <div class="right-top">
+                  <h4 class="tagline" th:text="${movieDtl.tagline}"></h4>
+                  <div class="contents-wrap">
+                    <div class="contents">
+                      <h1 class="title" th:text="${movieDtl.movieTitle}"></h1>
+                      <div style="display: flex">
+                        <p class="runtime" th:text="'러닝타임: ' + ${movieDtl.runTime} + '분'"></p>
+                      </div>
+                      <p class="day" th:text="'개봉일: ' + ${movieDtl.releaseDate}"></p>
+                      <p class="genres" th:text="'장르: ' + ${movieDtl.genres}"></p>
+                    </div>
+                    <div class="average">
+                      <i class="fa-solid fa-star star fa-2x" style="color: #fff700;"></i>
+                      <p th:text="${movieDtl.voteAverage}"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="right-bottom">
+                  <p>줄거리</p>
+                  <p class="overview" th:text="${movieDtl.description}"></p>
+                </div>
+              </div>
+            </div>
+            <div class="main-bottom">
+            	<p>예고편</p>
+            	<div class="video">
+            		<iframe id="video" width="1280" height="720" th:src="${movieDtl.trailerUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            	</div>
+            </div>
+          </div>
+	</div>
+</div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		
+	</script>
+</th:block>
+</html>
