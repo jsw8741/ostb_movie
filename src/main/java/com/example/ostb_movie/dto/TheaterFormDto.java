@@ -3,10 +3,10 @@ package com.example.ostb_movie.dto;
 import java.time.LocalDateTime;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.ostb_movie.entity.*;
 
-import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
@@ -14,20 +14,20 @@ import lombok.*;
 public class TheaterFormDto {
 	private Long id;
 
-	@NotBlank(message = "상영관을 입력해 주세요.")
-	private String theaterNm;
+	private String theaterInfo; // 상영관 정보
 
-	@NotNull(message = "수용인원을 입력해 주세요.")
-	private int capacity;
+	private int capacity; // 수용인원
 
-	@NotNull(message = "상영 시작시간을 입력해 주세요.")
-	private LocalDateTime startTime;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	private LocalDateTime startTime; // 상영 시작 시간
 
-	@NotNull(message = "상영 종료시간을 입력해 주세요.")
-	private LocalDateTime endTime;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	private LocalDateTime endTime; // 상영종료 시간
 
-	private Movie movieDetail;
-	
+	private String age; // 연령등급
+
+	private Movie movie;
+
 	private static ModelMapper modelMapper = new ModelMapper();
 
 	public Theater createTheater() {
@@ -36,6 +36,7 @@ public class TheaterFormDto {
 
 	public static TheaterFormDto of(Theater theater) {
 		return modelMapper.map(theater, TheaterFormDto.class);
+
 	}
 
 }

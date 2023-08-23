@@ -1,11 +1,13 @@
 package com.example.ostb_movie.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.ostb_movie.dto.FaqFormDto;
 import com.example.ostb_movie.dto.OneBoardFormDto;
@@ -56,6 +58,9 @@ public class ChattService {
 	}
 	
 	
+	public String getCreatedBy(String roomId) {
+		return oneBoardRepository.getCreatedBy(roomId);
+	}
 	
 	
 }

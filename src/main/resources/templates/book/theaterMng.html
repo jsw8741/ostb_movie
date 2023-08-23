@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/book.css}" />
+	<style>
+table {
+	width: 100%;
+	text-align: center;
+	border: 1px solid #fff;
+	border-spacing: 1px;
+	margin: auto;
+}
+
+caption {
+	font-weight: bold;
+}
+
+table td {
+	padding: 10px;
+}
+
+table th {
+	background-color: fff;
+	color: #fff;
+	padding: 10px;
+}
+
+img {
+	width: 90px;
+	height: 180px;
+}
+
+.update, .delete {
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: bold;
+}
+
+.update, .delete {
+	background-color: transparent;
+}
+
+.tablefoot {
+	padding: 0;
+	border-bottom: 1px solid #fff;
+}
+</style>
+</th:block>
+
+<div layout:fragment="content">
+
+	<div class="container">
+		<div class="inner">
+			<p class="box_tit df">상영정보 관리</p>
+			<div class="box_content_2">
+				<form>
+					<!-- 
+				<form th:action="@{'/book/theatherMng/' + ${theater.number}}" method="get"
+					th:object="${mngs}">  -->
+					<table>
+						<thead>
+							<tr>
+								<th class="tit"></th>
+								<th class="tit">제목</th>
+								<th class="tit">상영관</th>
+								<th class="tit">수용인원</th>
+								<th class="tit">상영 시작 시간</th>
+								<th class="tit">상영종료 시간</th>
+								<th class="tit"></th>
+							</tr>
+						</thead>
+						<tbody>
+					<tr>
+								<!--
+							<tr th:each="mng, status: ${mngs.getContents()}">  -->
+								<td><img src="" alt="img"></td>
+								<td class="sub_txt"></td>
+								<td class="sub_txt"></td>
+								<td class="sub_txt"></td>
+								<td class="sub_txt"></td>
+								<td class="sub_txt"></td>
+								<td class="sub_txt">
+									<button class="delete">삭제</button>
+									<button class="update">수정</button>
+								</td>
+							</tr>
+
+						</tbody>
+						<tfoot>
+							<td colspan="7" class="tablefoot"></td>
+						</tfoot>
+
+					</table>
+
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<th:block layout:fragment="script">
+	<script>
+		
+	</script>
+</th:block>
+</html>

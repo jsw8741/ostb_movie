@@ -33,9 +33,11 @@
 															<li><a href="archive-blog.html">-무비차트</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="/admin/itemform" class="first_title"> 아이템 등록</a></li>
+															<li><a href="/admin/itemform" class="first_title">
+																	아이템 등록</a></li>
 															<li><a href="/item/items">- 아이템</a></li>
 															<li><a href="/admin/items">- 아이템 관리</a></li>
+															<li><a href="/order/myCart">- 장바구니</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 스토어</a></li>
@@ -67,8 +69,8 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 예매</a></li>
-															<li><a href="#">- 빠른 예매</a></li>
-															<li><a href="#">- 상영 스케줄</a></li>
+															<li><a href="#">- 빠른예매</a></li>
+															<li><a href="/book/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 스토어</a></li>
@@ -100,8 +102,8 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 예매</a></li>
-															<li><a href="#">- 빠른 예매</a></li>
-															<li><a href="#">- 상영 스케줄</a></li>
+															<li><a href="#">- 빠른예매</a></li>
+															<li><a href="/book/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 스토어</a></li>
@@ -133,8 +135,8 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 예매</a></li>
-															<li><a href="#">- 빠른 예매</a></li>
-															<li><a href="#">- 상영 스케줄</a></li>
+															<li><a href="#">- 빠른예매</a></li>
+															<li><a href="/book/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 스토어</a></li>
@@ -166,8 +168,8 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 예매</a></li>
-															<li><a href="#">- 빠른 예매</a></li>
-															<li><a href="#">- 상영 스케줄</a></li>
+															<li><a href="#">- 빠른예매</a></li>
+															<li><a href="/book/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 스토어</a></li>
@@ -188,11 +190,11 @@
 															<li><a href="#">- 이메일 문의</a></li>
 															<li><a href="#">- 내 문의내역</a></li>
 														</ul>
-													</div>
-													</li>
+													</div></li>
 												<li><a href="contact.html">채팅</a></li>
 
-												<li><a href="/members/info" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')">마이페이지</a>
+												<li><a href="/members/info"
+													sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')">마이페이지</a>
 													<div class="megamenu">
 														<ul class="single-mega cn-col-7">
 														</ul>
@@ -202,8 +204,8 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 예매</a></li>
-															<li><a href="#">- 빠른 예매</a></li>
-															<li><a href="#">- 상영 스케줄</a></li>
+															<li><a href="#">- 빠른예매</a></li>
+															<li><a href="/book/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><a href="#" class="first_title"> 스토어</a></li>
@@ -224,16 +226,19 @@
 															<li><a href="#">- 이메일 문의</a></li>
 															<li><a href="#">- 내 문의내역</a></li>
 														</ul>
-													</div>
-												</li>
-												
-												<li class="nav-item"><a class="nav-link" href="/login/loginForm" sec:authorize="!hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')">로그인</a></li>
-												<li class="nav-item"><a class="nav-link" href="/login/logout" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')">로그아웃</a></li>
+													</div></li>
+
+												<li class="nav-item"><a class="nav-link"
+													href="/login/loginForm"
+													sec:authorize="!hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')">로그인</a></li>
+												<li class="nav-item"><a class="nav-link"
+													href="/login/logout"
+													sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')">로그아웃</a></li>
 											</ul>
 										</div>
 										<div class="header_bar">
-											<i class=" fa-solid fa-lock fa"></i>
-											<i class=" fa-solid fa-user-plus fa"></i>
+											<i class=" fa-solid fa-lock fa"></i> <i
+												class=" fa-solid fa-user-plus fa"></i>
 										</div>
 									</div>
 								</nav>

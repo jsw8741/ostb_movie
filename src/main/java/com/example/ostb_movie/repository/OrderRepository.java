@@ -8,9 +8,8 @@ import org.springframework.data.repository.query.Param;
 import com.example.ostb_movie.entity.Order;
 
 
-public interface OrderRepository extends JpaRepository<Order,Long>
-{
+public interface OrderRepository extends JpaRepository<Order,Long>{
 	@Modifying
-	@Query(value = "delete from order where item_id = :itemId", nativeQuery = true)
+	@Query(value = "delete from orders where item_id = :itemId", nativeQuery = true)
 	void deleteByitemId(@Param("itemId") long itemId);
 }
