@@ -12,22 +12,33 @@
 
 	<div class="sw_1">
 	
-		<div class="swiper mySwiper">
-			<div class="swiper-wrapper">
-				<th:block th:each="moviePopular, status:${moviePopualrList}">
-				   <div class="swiper-slide">
-				     <a href="#" class="information_popular">
-					     <img th:src="${moviePopular.imgUrl}" th:alt="${moviePopular.movieTitle}" class="slide_popular19 slideimges" />
-					     <div class="title_popular19 title" th:text="${moviePopular.movieTitle.substring(1, moviePopular.movieTitle.length() - 1)}"></div>
-				     </a>
-				   </div>
-			    </th:block>
-			   
-			 </div>
-			 
-			 <div class="swiper-button-next"></div>
-			 <div class="swiper-button-prev"></div>
-        </div>
+		<div class="container_trailer">
+		
+			<div class="video">
+				<iframe id="video" width="1280" height="720" th:src="${moviePopualrList[0].trailerUrl} + '?autoplay=1&mute=1&controls=0'" 
+				frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				
+				<div class="swiper mySwiper">
+					<div class="swiper-wrapper">
+						<th:block th:each="moviePopular, status:${moviePopualrList}">
+						   <div class="swiper-slide">
+						     <a th:href="'/movie/detail/' + ${moviePopular.originId}" class="information_popular">
+							     <img th:src="${moviePopular.imgUrl}" th:alt="${moviePopular.movieTitle}" class="slide_popular19 slideimges" />
+							     <div class="title_popular19 title" th:text="${moviePopular.movieTitle}"></div>
+						     </a>
+						   </div>
+					    </th:block>
+					   
+					 </div>
+					 
+		        </div>
+		        
+		        <div class="swiper-button-next"></div>
+		        <div class="swiper-button-prev"></div>
+		        
+			</div>
+		</div>
+	
         
         <div>
         	건이 아이템
@@ -48,6 +59,8 @@
 
 <th:block layout:fragment="script">
 	<script th:src="@{/js/map.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js}"></script>
+    <script th:src="@{https://unpkg.com/youtube-background@1.0.14/jquery.youtube-background.min.js}"></script>
 	<script th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyAyPYAYxIWN49JeM3vrJ_RND1V1xjjXfWQ&callback=myMap}"></script>
 	<script th:src="@{https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js}"></script>
 	<script th:inline="javascript">

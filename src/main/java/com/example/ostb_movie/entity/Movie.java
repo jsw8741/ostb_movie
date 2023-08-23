@@ -40,6 +40,14 @@ public class Movie extends BaseEntity{
 	private MovieStatus status;
 	
     private String genres;
+    
+    private String tagline;
+    
+    private String voteAverage;
+    
+    private String releaseDate;
+    
+    private String trailerUrl;
 	
 	public static Movie createMovie(Long id, MovieDto movieDto, MovieStatus status) {
 		Movie movie = new Movie();
@@ -53,6 +61,11 @@ public class Movie extends BaseEntity{
 		movie.setOriginId(movieDto.getOriginId());
 		movie.setStatus(status);
 		movie.setGenres(movieDto.getGenres());
+		movie.setTagline(movieDto.getTagline());
+		movie.setVoteAverage(movieDto.getVoteAverage());
+		movie.setReleaseDate(movieDto.getReleaseDate());
+		movie.setTrailerUrl(movieDto.getTrailerUrl());
+		
 		
 		return movie;
 	}

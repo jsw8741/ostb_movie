@@ -1,0 +1,135 @@
+@charset "utf-8";
+
+.main {
+  width: 100%;
+  padding-top: 150px;
+  margin: 0 auto;
+}
+.main-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.main-left {
+  width: 578px;
+  height: 905px;
+  display: flex;
+}
+.main-left div {
+  width: 500px;
+  height: 750px;
+  margin: 77px 39px;
+}
+.main-right {
+  width: 742px;
+  height: 905px;
+  padding-right: 30px;
+}
+.right-top {
+  width: 742px;
+  height: 370px;
+  margin-top: 110px;
+}
+.tagline {
+  font-size: 25px;
+  color: #a5a5a5;
+  font-style: italic;
+  font-weight: 300;
+  font-family: "Noto Sans KR", sans-serif;
+  margin-right: 30px;
+}
+.contents-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+.contents {
+  width: 400px;
+}
+.title {
+  font-size: 40px;
+  color: #fff;
+  font-weight: 600;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 10px 0 20px 0;
+}
+.runtime,
+.day {
+  font-size: 16px;
+  color: #a5a5a5;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 400;
+  margin: 10px 0 0 0;
+}
+.genres {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #a5a5a5;
+  margin: 15px 0 0 0;
+}
+.casting {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #a5a5a5;
+  margin: 10px 0 0 0;
+}
+.average {
+  width: 200px;
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px 30px 0 0;
+}
+.star {
+  width: 40px;
+  height: 40px;
+  margin-top: 25px;
+}
+.average p {
+  font-size: 40px;
+  font-family: "Noto Sans KR", sans-serif;
+  color: #fff;
+  font-weight: 700;
+  margin: 0 0 0 10px;
+}
+.right-bottom {
+  width: 742px;
+  height: 280px;
+  margin-top: 50px;
+}
+.right-bottom p:nth-child(1) {
+  font-size: 25px;
+  color: #fff;
+  font-weight: 600;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 30px 0 10px 0;
+}
+.overview {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: #dfdfdf;
+  line-height: 35px;
+  margin-right: 30px;
+}
+.video {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+.main-bottom {
+  width: 1280px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+.main-bottom p {
+  font-size: 25px;
+  color: #fff;
+  font-weight: 600;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 0 0 30px 0;
+}
+.images > img{
+	width: 500px;
+	height: 750px;
+}

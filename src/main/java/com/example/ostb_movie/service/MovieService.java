@@ -72,20 +72,30 @@ public class MovieService {
 	        	JsonObject contents = (JsonObject) list.get(k);
 	        	String originId = contents.get("id").toString();
 	        	
-	        	String ImgUrl = "https://image.tmdb.org/t/p/w200";
+	        	String ImgUrl = "https://image.tmdb.org/t/p/w500";
 	            String match = "[\"]";
 	            
 	            String runTime = getRunTime(originId, "runTime");
 	            String genres = getRunTime(originId, "genres");
+	            String tagline = getRunTime(originId, "tagline");
+	            String trailerUrl = getTrailerKey(originId);
+	            
+	            if(trailerUrl != null) {
+	            	trailerUrl = "https://www.youtube.com/embed/" + trailerUrl;
+	            }
 	            
 	            MovieDto movieDto = MovieDto.builder()
 	            		.originId(contents.get("id").getAsLong())
-	                    .description(contents.get("overview").toString())
-	                    .movieTitle(contents.get("title").toString())
+	                    .description(contents.get("overview").toString().replace("\"", ""))
+	                    .movieTitle(contents.get("title").toString().replace("\"", ""))
 	                    .imgUrl(ImgUrl + contents.get("poster_path").toString().replaceAll(match, ""))
 	                    .adult(contents.get("title").getAsBoolean())
 	                    .runTime(runTime)
 	                    .genres(genres)
+	                    .tagline(tagline)
+	                    .voteAverage(contents.get("vote_average").toString())
+	                    .releaseDate(contents.get("release_date").toString().replace("\"", ""))
+	                    .trailerUrl(trailerUrl)
 	                    .build();
 	            
 	            Long id = (long) (k + baseId);
@@ -102,7 +112,7 @@ public class MovieService {
     
     // 영화 상세에서 상영시간 가져오기
     public String getRunTime(String originId, String data) {
-    	String movieDetailUrl = "https://api.themoviedb.org/3/movie/" + originId + "?api_key=d0f57e4e20e63bfcf331ff49a646c74c&language=ko-KR&page=1" ;
+    	String movieDetailUrl = "https://api.themoviedb.org/3/movie/" + originId + "?api_key=d0f57e4e20e63bfcf331ff49a646c74c&language=ko-KR&page=1";
     	
         try {
 			URL url = new URL(movieDetailUrl);
@@ -124,18 +134,18 @@ public class MovieService {
 	        	for(int i=0; i<list.size();i++) {
 	        		JsonObject contents = (JsonObject) list.get(i);
 	        		if(i == 0) {
-	        			String originalData = contents.get("name").toString();
-	        			genres = originalData.replace("\"", "");
-	        			
+	        			genres = contents.get("name").toString().replace("\"", "");
 	        		}else {
-	        			String originalData = contents.get("name").toString();
-	        			genres += " " + originalData.replace("\"", "");   			
+	        			genres += " " + contents.get("name").toString().replace("\"", "");
 	        		}
 	        		
 	        	}
 		      
 		        return genres;
 	        	
+	        }else if(data.equals("tagline")) {
+	        	String tagline = jsonObjectDetail.get("tagline").toString().replace("\"", "");
+	        	return tagline;
 	        }else {
 	        	return null;
 	        }
@@ -148,13 +158,46 @@ public class MovieService {
         
     }
     
-    // 상영 시간(상세)
-    public String getRunTime(JsonObject jsonObjectDetail) {
+    // 영화 예고편 가져오기
+    public String getTrailerKey(String originId) {
+    	String movieTrailerUrl = "https://api.themoviedb.org/3/movie/" + originId + "/videos?api_key=d0f57e4e20e63bfcf331ff49a646c74c&language=ko-KR";
+	    
+    	String trailerKet = null;
     	
-    	return null;
+    	try {
+    		URL url = new URL(movieTrailerUrl);
+			BufferedReader bf;
+			bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+			String resultTrailer = bf.readLine();
+			
+			JsonArray list = null;
+			
+			JsonParser jsonParserTrailer = new JsonParser();
+	        JsonObject jsonObjectTrailer = (JsonObject) jsonParserTrailer.parse(resultTrailer);
+	        list = (JsonArray) jsonObjectTrailer.get("results");
+	        
+	        if(list.size()>1) {
+	        	JsonObject contents = (JsonObject) list.get(0);
+	        	
+	        	trailerKet = contents.get("key").toString().replace("\"", "");
+	        	
+	        	return trailerKet;
+	        }else {
+	        	return null;
+	        }
+	        
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
     }
     
-    // 영화 장르(상세)
+    // 영화 정보 가져오기(상세)
+    public Movie getMovieDtl(Long originId) {
+    	Movie movieDtl = movieRepository.getMovieDtl(originId);
+    	
+    	return movieDtl;
+    }
     
     // 영화 전체 리스트 가져오기
     public List<Movie> getMovieAll(){

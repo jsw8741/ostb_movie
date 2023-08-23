@@ -19,4 +19,12 @@ public class MovieDto {
 	private Long originId;
 	
 	private String genres;
+	
+	private String tagline;
+	
+	private String voteAverage;
+	
+	private String releaseDate;
+	
+	private String trailerUrl;
 }
