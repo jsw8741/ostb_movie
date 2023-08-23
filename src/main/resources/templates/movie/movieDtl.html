@@ -46,6 +46,11 @@
             		<iframe id="video" width="1280" height="720" th:src="${movieDtl.trailerUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             	</div>
             </div>
+            <div style="height: 200px; width: 1200px; margin: 0 auto;">
+				<label th:for="name" class="text-black" style="text-align: center;">리뷰</label> 
+	            <input type="text" class="form-control">
+	            <button type="button" onclick="beforeSubmit()" class="btn btn-primary mb-3" style="width:100px;">리뷰등록</button>
+            </div>
           </div>
 	</div>
 </div>
