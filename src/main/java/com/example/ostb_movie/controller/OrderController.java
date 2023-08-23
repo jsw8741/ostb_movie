@@ -122,6 +122,7 @@ public class OrderController {
 				orderList.add(selectedCart);
 			}
 			model.addAttribute("orderList", orderList);
+			model.addAttribute("orderList", orderList);
 		}
 
 		return "Order/myCart";
