@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout1}">
+	layout:decorate="~{layouts/layout2}">
 	
 	
 <head> <!--아이작스로 보낼때 메타  -->
@@ -12,17 +12,25 @@
 <th:block layout:fragment="css">
 <link rel="stylesheet" th:href="@{/css/FAQ.css}">
 <style>
+
+.content {
+	height: 800px !important;
+}
+
+.viewpage_tit .subject {
+	color: white;
+}
+
+
 *{
 	box-sizing: border-box;
 }
 
 #chatt{
-	width: 800px;
-	margin: 20px auto;
+	margin: 0 auto;
 }
 
 #chatt #talk{
-	width: 800px;
 	height: 400px;
 	overflow: scroll;
 	border : 1px solid #aaa;
@@ -43,7 +51,7 @@
 }
 
 #chatt #talk div{
-	width: 70%;
+	width: 40%;
 	display: inline-block;
 	padding: 6px;
 	border-radius:10px;
@@ -51,15 +59,55 @@
 }
 
 #chatt .me{
-	background-color : #ffc;
-	margin : 1px 0px 2px 30%;	
+	background-color : white;
+	border : 1px solid #29A5FF;
+	margin : 1px 0px 2px 59%;
 }
 
 #chatt .other{
 	background-color : #eee;
 	margin : 2px;
 }
+#sendZone {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
 
+#msg {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+#btnSend {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#talk {
+  display: flex;
+  flex-direction: column; /* 아이템을 역순으로 나열하도록 설정 */
+  align-items: flex-start; /* 아이템을 왼쪽에 정렬 */
+  gap: 5px; /* 아이템 간의 간격 조정 */
+}
+
+.btn_ac {
+  gap: 10px;
+}
+
+.btn_typeC2 {
+  background-color: #007bff;
+}
 </style>
 </th:block>
 
@@ -67,12 +115,19 @@
 
 <div layout:fragment="content">
 		<input type="hidden" th:value="${roomId}"  id="room"/>
-<div id='chatt'>
-		<h1>WebSocket Chatting</h1>
-		<input type='text' id='mid' value='홍길동'>
-		<input type='button' value='로그인' id='btnLogin'>
-		<br/>
-		<div id='talk'></div>
+		<input type="hidden" id="createdBy" th:value="${createdBy}">
+<div id='chatt' class="viewpage_ti ">
+		<div class="layout1 pageTitle bg_blue py-3">
+			<h2 class="tit">고객센터</h2>
+			<p class="desc">
+				OSTB에 대해 궁금하신 점이 있다면<br>무엇이든 물어보세요!
+			</p>
+		</div>
+		<div class="py-2 btn_ac">
+		<input class="btn_typeC2" type='text' id='mid' th:value="${createdBy}">
+		<input class="btn_typeC2" type='button' value='채팅 시작하기' id='btnLogin'>
+		</div>
+		<div id='talk' class="py-3"></div>
 		<div id='sendZone'>
 			<textarea id='msg' value='hi...' ></textarea>
 			<input type='button' value='전송' id='btnSend'>
@@ -113,12 +168,12 @@ ws.onmessage = function(msg){
 	var css;
 	
 	if(data.mid == mid.value){
-		css = 'class=me';
+		css = 'me';
 	}else{
-		css = 'class=other';
+		css = 'other';
 	}
 	
-	var item = `<div ${css} >
+	var item = `<div class="${css}" >
 	                <span><b>${data.mid}</b></span> [ ${data.date} ]<br/>
                   <span>${data.msg}</span>
 					</div>`;

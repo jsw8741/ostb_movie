@@ -31,22 +31,30 @@ public class OneController {
 	private final ChattService chattService;
 	private final OneBoardRepository oneBoardRepository;
 	
+	
 	//1:1 채팅방 생성페이지
 	@GetMapping(value = "/chatt/createChatt")
-	public String chattForm(Model model) {
+	public String chattForm(Model model, Authentication authentication) {
+		
 		model.addAttribute("oneBoardFormDto",new OneBoardFormDto());
 		return "chatt/createChatt";
 	}
 	
 	//1:1 채팅방 등록(insert)
 	@PostMapping(value = "/chatt/createChatt")
-	public String faqNew(@Valid OneBoardFormDto oneBoardFormDto, BindingResult bindingResult,
+	public String chattNew(@Valid OneBoardFormDto oneBoardFormDto, BindingResult bindingResult,
 			Model model, Authentication authentication) {
+		
+	    if (!authentication.isAuthenticated()) {
+	        return "redirect:/"; // 로그인이 되어 있지 않은 경우 로그인 페이지로 리다이렉트
+	    }
+		
 		
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
+        
 		if(bindingResult.hasErrors()) {
-			return "/chatt/createChatt";
+			return "redirect:/";
 		}
 		
 		try {
