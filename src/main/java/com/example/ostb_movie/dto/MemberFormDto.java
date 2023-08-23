@@ -7,6 +7,7 @@ import com.example.ostb_movie.entity.Member;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Getter
@@ -24,6 +25,8 @@ public class MemberFormDto {
 	@NotBlank(message = "이름은 필수입력 값입니다.")
 	private String name;
 	
+	@NotBlank(message = "닉네임을 입력해주세요")
+	@Size(max=10, message = "닉네임은 10자 이내로 입력해주세요")
 	private String nickname;
 	
 	@NotEmpty(message = "전화번호는 필수입력 값입니다.")

@@ -3,6 +3,7 @@ package com.example.ostb_movie.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
@@ -34,7 +36,8 @@ public class MemberController {
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
 		
-		model.addAttribute("member",member);
+        Member updateMember = memberService.findMember(member.getEmail());
+		model.addAttribute("member",updateMember);
 		
 		return "member/myPage";
 		
@@ -86,7 +89,6 @@ public class MemberController {
 		Member updateMember = memberService.findMember(member.getEmail());
 		model.addAttribute("member",updateMember);
 		model.addAttribute("mypageFormDto",mypageFormDto);
-//		return "redirect:/member/myPage";
 		return "member/myPage";
 	}
 }
