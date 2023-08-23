@@ -1,14 +1,14 @@
 @charset "UTF-8";
 
+.content {
+	height: 100% !important;
+}
+
 .content p,
 .content a,
 .content span,
 .content label {
 	color: #fff;
-}
-
-input[type="radio"] {
-	appearance: none;
 }
 
 .mr_10 {
@@ -29,11 +29,10 @@ input[type="radio"] {
 }
 
 .c_c4 {
-	color: #C4C4C4;
+	color: #C4C4C4 !important;
 }
 
 /* 상영스케줄 */
-
 .scrollable-container::-webkit-scrollbar {
 	display: none;
 }
@@ -47,43 +46,88 @@ input[type="radio"] {
 }
 
 .box_tit {
-	font-size: 1.6rem;
-	font-weight: bold;
-	margin-bottom: 30px;
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin-bottom: 50px;
 }
 
 .inner {
-	padding: 100px 200px;
+	padding: 150px 0;
 }
 
 .date {
-	font-size: 1.4rem;
+	font-size: 1.3rem;
+	font-weight: 600 !important;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
+.calendar-icon {
+	display: flex;
+	align-items: center;
+}
+
+.year-month {
+	margin: 0 30px;
+}
+
+.calendar {
+	display: flex;
+	align-items: center;
+}
+
+.calendar-day {
+	margin-right: 30px;
+	font-size: 15px;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 100%;
+	text-align: center !important;
+}
+
+.selected-day {
+	background-color: #29a5ff;
+	color: black;
 }
 
 .tit_group {
 	display: flex;
 	align-items: center;
+	text-align: center;
+	margin-top: 15px;
 }
 
 .tit {
-	font-size: 1.2rem;
+	font-size: 1.1rem;
+	font-weight: 600;
+	margin-bottom: 0px !important;
 }
 
 .sub_txt {
 	font-size: 0.9rem;
+	font-weight: 500;
+	margin-bottom: 0px !important;
+}
+
+.status {
+	padding-top: 8px;
 }
 
 .age {
-	width: 20px;
-	height: 20px;
-	line-height: 20px;
-	border-radius: 10px;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 100%;
 	text-align: center;
 	display: block;
-	font-size: 10px;
+	font-size: 10px !important;
 	font-weight: 700;
 	color: #fff;
 	float: left;
+	margin-bottom: 0px !important;
 }
 
 .age.age_12 {
@@ -96,7 +140,6 @@ input[type="radio"] {
 
 .age.age_all {
 	background: #0CB052;
-	font-size: 8px;
 }
 
 .age.age_18 {
@@ -107,8 +150,15 @@ input[type="radio"] {
 	background: #DC2121;
 }
 
+.time_list input[type="radio"] {
+	appearance: none;
+}
+
+.time_list p {
+	margin: 0;
+}
+
 .time_wrap .time_list_wrap {
-	margin-top: 12px;
 	display: block;
 }
 
@@ -119,7 +169,7 @@ input[type="radio"] {
 }
 
 .time_wrap .time_list_wrap .time_list {
-	width: calc(15% - 10px);
+	width: calc(10% - 10px);
 	margin-right: 10px;
 	margin-bottom: 10px;
 	display: block;
@@ -140,9 +190,9 @@ input[type="radio"] {
 }
 
 .time_wrap .time_list_wrap .time_list .start {
-	font-size: 1.4em;
+	font-size: 1.3em;
 	font-weight: 600;
-	line-height: 1.5;
+	line-height: 1.4;
 }
 
 .time_wrap .time_list_wrap .time_list .end {
@@ -152,7 +202,7 @@ input[type="radio"] {
 }
 
 .time_wrap .time_list_wrap .time_list input[type="radio"]:checked+label {
-	border: 1px solid rgb(41, 165, 255);
+	border: 1px solid #29a5ff;
 	background: rgba(41, 165, 255, 0.24);
 }
 
@@ -161,7 +211,6 @@ input[type="radio"] {
 }
 
 /* 상영관, 상영영화 등록 */
-
 .box_content {
 	width: 50em;
 	margin: auto;
@@ -173,13 +222,13 @@ input[type="radio"] {
 }
 
 .bttn {
-	background-color: rgb(41, 165, 255);
-	border: 1px solid rgb(41, 165, 255);
+	background-color: #29a5ff;
+	border: 1px solid #29a5ff;
 	border-radius: .25rem;
 	color: #fff;
 	width: 100%;
-	height: 48px;
-	font-size: 1.2em; 
+	font-size: 1.2em;
+	padding: 10px;
 }
 
 .form_wrap {
@@ -188,11 +237,16 @@ input[type="radio"] {
 	margin-bottom: 50px;
 }
 
-.form_area label {
-	padding-bottom: 20px;
+.form_wrap input[type=radio] {
+	accent-color: #29a5ff;
 }
 
-.form_area input {
+.form_area label {
+	padding-bottom: 12px;
+	text-align: center;
+}
+
+.form_area_input {
 	padding: 10px;
 	text-align: center;
 	border-radius: .25rem;
@@ -200,8 +254,16 @@ input[type="radio"] {
 }
 
 .form_area label,
-.form_area input {
-	font-size: 1.4em;
+.form_area input,
+.form_area select {
+	font-size: 1.2em;
 	display: flex;
-	justify-content: center
+	justify-content: center;
 }
+
+.age_grade {
+	padding: 0 !important;
+	margin: 0 8px;
+}
+
+/* 상영관, 상영영화 관리 */
