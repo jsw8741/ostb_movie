@@ -1,50 +1,6 @@
-/* [Master Stylesheet] */
-/*
-Template Name: Nikki - Blog & Magazine Template
-Template Author: Colorlib
-Template Author URI: http://colorlib.com
-Text Domain: Nikki, Blog, Magazine
-Version: - v1.0.0
-*/
-/* =========== Index of CSS ===========
-:: 1.0 Import Fonts
-:: 2.0 Import All CSS
-:: 3.0 Base CSS
-    :: 3.1.0 Spacing
-    :: 3.2.0 Height
-    :: 3.3.0 Section Padding
-    :: 3.4.0 Section Heading
-    :: 3.5.0 Preloader
-    :: 3.6.0 Miscellaneous
-    :: 3.7.0 ScrollUp
-    :: 3.8.0 nikki Button
-:: 4.0 Header Area CSS
-:: 5.0 Hero Slides Area
-:: 6.0 About Us Area CSS
-:: 7.0 Featured Post Sildes CSS
-:: 8.0 Instagram Area CSS
-:: 9.0 Footer Area CSS
-:: 10.0 Breadcumb Area CSS
-:: 11.0 Blog Area CSS
-:: 12.0 Comment Area
-:: 13.0 Leave A Reply Area CSS
-:: 14.0 Pager CSS
-:: 15.0 Sidebar Area CSS
-:: 16.0 Contact Area CSS
-:: 17.0 Typography CSS
-*/
-/* :: 1.0 Import Fonts */
-@import
-	url("https://fonts.googleapis.com/css?family=Barlow:300,400,500,600,700|Work+Sans:300,400,500,600,700")
-	;
-/* :: 2.0 Import All CSS */
-/* @import url(css/bootstrap.min.css);
-@import url(css/classy-nav.css);
-@import url(css/owl.carousel.min.css);
-@import url(css/animate.css);
-@import url(css/magnific-popup.css);
-@import url(css/font-awesome.min.css); */
-/* :: 3.0 Base CSS */
+@charset "UTF-8";
+@import	url("https://fonts.googleapis.com/css?family=Barlow:300,400,500,600,700|Work+Sans:300,400,500,600,700");
+
 .footer-social-info d-flex align-items-center justify-content-between {
 	width: 930px;
 	height: 83px;
@@ -64,7 +20,8 @@ Version: - v1.0.0
 }
 
 .content {
-	background-color: white;
+	background-color: black;
+	height: 1500px !important;
 }
 
 dt {
@@ -74,10 +31,6 @@ dt {
 dd {
 	margin-bottom: 0.5rem;
 	margin-left: 0;
-}
-
-.content{
-	height: 1500px !important;
 }
 
 address {
@@ -2423,7 +2376,3 @@ blockquote.shortcodes {
 .contact-form-area textarea.form-control {
 	height: 120px;
 }
-
-/* ======= The End ======= */
-
-/*# sourceMappingURL=style.css.map */

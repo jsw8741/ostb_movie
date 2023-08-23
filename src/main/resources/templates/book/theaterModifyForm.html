@@ -2,17 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
 
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
 <th:block layout:fragment="css">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/book.css}" />
 </th:block>
 
+
 <div layout:fragment="content">
-	<div id="message" class="message"></div>
 	<div class="container">
 		<div class="inner">
-			<p class="box_tit df">상영정보 등록</p>
+			<p class="box_tit df">상영정보 수정</p>
 			<div class="box_content df">
-				<form class="form_area" action="/book/theater/new" th:object="${theaterFormDto}" method="post">
+				<form class="form_area" role="form" th:action="@{'/book/theater/' + ${theaterFormDto.id}}"
+					th:object="${theaterFormDto}" method="post">
 					<input type="hidden" th:field="*{id}" />
 					<div class="form_wrap">
 						<label for="movie">영화</label>
@@ -74,7 +80,7 @@
 							required />
 					</div>
 					<div class="df">
-						<button class="bttn" type="submit">등록</button>
+						<button class="bttn" type="submit">수정</button>
 					</div>
 					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 				</form>
@@ -86,6 +92,7 @@
 <th:block layout:fragment="script">
 	<script type="text/javascript" th:src="@{/js/theaterForm.js}"></script>
 	<script>
+
 	</script>
 </th:block>
 
