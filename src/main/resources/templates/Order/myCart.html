@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+<th:block layout:fragment="css">
+	<style>
+</style>
+
+</th:block>
+
+<div layout:fragment="content">
+
+	<div class="bg-light py-3">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 mb-0 header_margin">
+					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
+						class="text-black">장바구니</strong>
+				</div>
+			</div>
+		</div>
+		<div class="site-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h2 class="h3 mb-3 text-black">장바구니</h2>
+						<div class="p-3 p-lg-5 border"></div>
+						<form action="/order/cartsign" method="post">
+							<div th:each="cart, status : ${carts}">
+								<label> <input type="checkbox" th:name="selectedItems"
+									th:value="${cart.id}" /> 
+									<span th:text="${cart.itemId.itemNm}"></span>
+								</label>
+							</div>
+							<button type="submit">선택한 항목 주문하기</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<th:block layout:fragment="script">
+</th:block>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
