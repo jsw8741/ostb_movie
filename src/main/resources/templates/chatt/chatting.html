@@ -33,8 +33,29 @@
 #chatt #talk{
 	height: 400px;
 	overflow: scroll;
-	border : 1px solid #aaa;
+	border : 1px solid #29A5FF;
 }
+
+#chatt #talk::-webkit-scrollbar {
+    width: 20px; /* 스크롤바의 너비 조절 */
+}
+
+#chatt #talk::-webkit-scrollbar-thumb {
+    background-color: white; /* 스크롤바 색상 */
+    border-radius: 5px; /* 스크롤바 모서리 둥글게 */
+}
+
+#chatt #talk::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* 스크롤바에 마우스 호버시 색상 변경 */
+}
+
+#chatt #talk::-webkit-scrollbar-track {
+    background-color: black; /* 스크롤바 트랙 배경색 */
+}
+
+
+
+
 #chatt #msg{
 	width: 740px;
 	height:100px;
