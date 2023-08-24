@@ -2,7 +2,11 @@ package com.example.ostb_movie.entity;
 
 import java.time.LocalDateTime;
 
-import groovy.transform.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.example.ostb_movie.dto.ReviewDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,9 +18,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Table
+@Table(name = "review")
 @Getter
 @Setter
 @ToString
@@ -28,11 +33,21 @@ public class Review {
 	
 	private String content;
 	
-	private int like;
+	private int rvLike;
 	
 	private LocalDateTime reviewDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
-	private Member memberId;
+	private Member member;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "movie_id")
+	private Movie movie;
+	
+	public void updateReview(ReviewDto reviewDto) {
+		this.content = reviewDto.getContent();
+		this.rvLike = reviewDto.getRvLike();
+		this.reviewDate = reviewDto.getReviewDate();
+	}
 }
