@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
-import com.example.ostb_movie.dto.FaqFormDto;
 import com.example.ostb_movie.dto.LostFormDto;
 import com.example.ostb_movie.entity.Lost;
 import com.example.ostb_movie.entity.Member;
@@ -59,7 +58,7 @@ public class LostController {
 			lostService.saveLost(lostFormDto, email);
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("errorMessage", "FAQ등록 중 에러가 발생했습니다.");
+			model.addAttribute("errorMessage", "분신물 등록 중 에러가 발생했습니다.");
 			return "/lost/createLost";
 		}
 		return "redirect:/lost/list";
@@ -88,7 +87,7 @@ public class LostController {
 			model.addAttribute("lost", lost);
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("errorMessage", "FAQ정보를 가져올때 에러가 발생했습니다.");
+			model.addAttribute("errorMessage", "분신물 정보를 가져올때 에러가 발생했습니다.");
 			model.addAttribute("lost", new Lost());
 			return "lost/listLost";
 		}
@@ -107,7 +106,7 @@ public class LostController {
 			lostService.updateLost(lostFormDto);
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("errorMessage", "FAQ 수정 중 에러가 발생했습니다.");
+			model.addAttribute("errorMessage", "분신물 정보 수정 중 에러가 발생했습니다.");
 			
 			return "lost/updateLost";
 		}

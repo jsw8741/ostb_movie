@@ -43,111 +43,111 @@ public class NoticeController {
 			return "notice/createNotice";
 		}
 		
-		//notice 등록(insert)
-		@PostMapping(value = "/notice/create")
-		public String noticeNew(@Valid NoticeFormDto noticeFormDto, BindingResult bindingResult,
-				Model model, Authentication authentication) {
-			
-			PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-	        Member member = principal.getMember();
-			if(bindingResult.hasErrors()) {
-				return "notice/createNotice";
-			}
-			
-			try {
-			String email = member.getEmail();
-			noticeService.saveNotice(noticeFormDto, email);
-			} catch (Exception e) {
-				e.printStackTrace();
-				model.addAttribute("errorMessage", "공지사항등록 중 에러가 발생했습니다.");
-				return "notice/createNotice";
-			}
-			return "redirect:/notice/list";
+	//notice 등록(insert)
+	@PostMapping(value = "/notice/create")
+	public String noticeNew(@Valid NoticeFormDto noticeFormDto, BindingResult bindingResult,
+			Model model, Authentication authentication) {
+		
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        Member member = principal.getMember();
+		if(bindingResult.hasErrors()) {
+			return "notice/createNotice";
 		}
 		
-		//notice 리스트
-		@GetMapping(value = {"/notice/list", "/notice/list/{page}" })
-		public String noticeMainList(Model model,@PathVariable("page") Optional<Integer> page) {
-			Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-			Page<Notice> notices = noticeService.getMainNoticeDtl(pageable);
-			Long totalCount = noticeRepository.count();
-			
-			model.addAttribute("notices", notices);
-			model.addAttribute("totalCount",totalCount);
-			model.addAttribute("maxPage", 5);
-			
-			return "notice/listNotice";
+		try {
+		String email = member.getEmail();
+		noticeService.saveNotice(noticeFormDto, email);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "공지사항 등록 중 에러가 발생했습니다.");
+			return "notice/createNotice";
+		}
+		return "redirect:/notice/list";
+	}
+		
+	//notice 리스트
+	@GetMapping(value = {"/notice/list", "/notice/list/{page}" })
+	public String noticeMainList(Model model,@PathVariable("page") Optional<Integer> page) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+		Page<Notice> notices = noticeService.getMainNoticeDtl(pageable);
+		Long totalCount = noticeRepository.count();
+		
+		model.addAttribute("notices", notices);
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("maxPage", 5);
+		
+		return "notice/listNotice";
+	}
+	
+	
+	//notice 수정페이지 보기
+	@GetMapping(value = "/notice/update/{noticeId}")
+	public String noticeDtl(@PathVariable("noticeId") Long noticeId, Model model) {
+		
+		try {
+			Notice notice = noticeRepository.findById(noticeId).orElseThrow(EntityNotFoundException::new);
+			model.addAttribute("notice", notice);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "공지사항 정보를 가져오는 중 에러가 발생했습니다.");
+			model.addAttribute("notice", new Notice());
+			return "/notice/list";
 		}
 		
+		return "notice/updateNotice";
+	}
+	
+	
+	//notice 수정(update)
+	@PostMapping(value = "/notice/update/{noticeId}" )
+	public String noticeUpdate(@Valid NoticeFormDto noticeFormDto, Model model, BindingResult bindingResult) {
 		
-		//notice 수정페이지 보기
-		@GetMapping(value = "/notice/update/{noticeId}")
-		public String noticeDtl(@PathVariable("noticeId") Long noticeId, Model model) {
-			
-			try {
-				Notice notice = noticeRepository.findById(noticeId).orElseThrow(EntityNotFoundException::new);
-				model.addAttribute("notice", notice);
-			} catch (Exception e) {
-				e.printStackTrace();
-				model.addAttribute("errorMessage", "공지사항을 가져올때 에러가 발생했습니다.");
-				model.addAttribute("notice", new Notice());
-				return "/notice/list";
-			}
-			
-			return "notice/updateNotice";
-		}
-		
-		
-		//notice 수정(update)
-		@PostMapping(value = "/notice/update/{noticeId}" )
-		public String noticeUpdate(@Valid NoticeFormDto noticeFormDto, Model model, BindingResult bindingResult) {
-			
-			if(bindingResult.hasErrors()) {
-				return "/notice/list";
-			}
-			
-			
-			try {
-				noticeService.updateNotice(noticeFormDto);
-			} catch (Exception e) {
-				e.printStackTrace();
-				model.addAttribute("errorMessage", "공지사항 수정 중 에러가 발생했습니다.");
-				return "/notice/list";
-			}
-			return "redirect:/notice/list";
+		if(bindingResult.hasErrors()) {
+			return "/notice/list";
 		}
 		
 		
-		// notice 삭제(delete)
-		@DeleteMapping("/notice/update/{noticeId}/delete")
-		public @ResponseBody ResponseEntity deleteNotice(@PathVariable("noticeId") Long noticeId, Principal principal) {
-			
-			//1. 본인인증
-			if(!noticeService.validateFaq(noticeId, principal.getName())) {
-				return new ResponseEntity<String>("공지사항 삭제 권한이 없습니다.", HttpStatus.FORBIDDEN);
-			}
-			
-			noticeService.deleteNotice(noticeId);
-			
-			return new ResponseEntity<Long>(noticeId, HttpStatus.OK);
-			
+		try {
+			noticeService.updateNotice(noticeFormDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "공지사항 수정 중 에러가 발생했습니다.");
+			return "/notice/list";
+		}
+		return "redirect:/notice/list";
+	}
+	
+	
+	// notice 삭제(delete)
+	@DeleteMapping("/notice/update/{noticeId}/delete")
+	public @ResponseBody ResponseEntity deleteNotice(@PathVariable("noticeId") Long noticeId, Principal principal) {
+		
+		//1. 본인인증
+		if(!noticeService.validateFaq(noticeId, principal.getName())) {
+			return new ResponseEntity<String>("공지사항 삭제 권한이 없습니다.", HttpStatus.FORBIDDEN);
 		}
 		
-		//notice 상세보기
-		@GetMapping(value = "/notice/read/{noticeId}")
-		public String noticeDtllist(@PathVariable("noticeId") Long noticeId, Model model) {
-			
-			try {
-				Notice notice = noticeRepository.findById(noticeId).orElseThrow(EntityNotFoundException::new);
-				model.addAttribute("notice", notice);
-			} catch (Exception e) {
-				e.printStackTrace();
-				model.addAttribute("errorMessage", "공지사항을 가져올때 에러가 발생했습니다.");
-				model.addAttribute("notice", new Notice());
-				return "/notice/listNotice";
-			}
-			
-			return "notice/readNotice";
+		noticeService.deleteNotice(noticeId);
+		
+		return new ResponseEntity<Long>(noticeId, HttpStatus.OK);
+		
+	}
+	
+	//notice 상세보기
+	@GetMapping(value = "/notice/read/{noticeId}")
+	public String noticeDtllist(@PathVariable("noticeId") Long noticeId, Model model) {
+		
+		try {
+			Notice notice = noticeRepository.findById(noticeId).orElseThrow(EntityNotFoundException::new);
+			model.addAttribute("notice", notice);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "공지사항 상세정보를 가져오는 중 에러가 발생했습니다.");
+			model.addAttribute("notice", new Notice());
+			return "/notice/listNotice";
 		}
+		
+		return "notice/readNotice";
+	}
 	
 }

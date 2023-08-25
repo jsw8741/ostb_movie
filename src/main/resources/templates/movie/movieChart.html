@@ -1,10 +1,127 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/movieChart.css}"/>
+	<style>
+	    .grid .box {
+	        display: none; /* 처음에 모든 아이템을 숨김 */
+	    }
+	    .grid .popular {
+	        display: block; /* 인기순위 아이템을 보이게 함 */
+	    }
+	</style>
+</th:block>	
 
-</body>
+<div layout:fragment="content">
+	<div class="wrap">
+          <div class="container_movieChart">
+          
+            <ul class="filters_movieChart">
+	          <li class="active" data-filter=".popular">인기순위</li>
+	          <li data-filter=".nowPlaying">상영중</li>
+	          <li data-filter=".upComming">개봉예정</li>
+	        </ul>
+	        
+	        <div class="filters-content">
+	          <div class="row grid">
+	        	
+		            <div class="box_ranking">
+			            <ol class="list_movieranking">
+			            	<th:block th:each="popular, status:${popularList}">
+		                    <li class="popular box">
+		                        <div class="item_poster">
+		                            <div class="thumb_item">
+		                                <div class="poster_movie">
+		                                        <img th:src="${popular.imgUrl}" class="img_thumb" th:alt="${popular.movieTitle}">
+		                                    <span class="rank_num" th:text="${status.index} + 1"></span>
+		                                </div>
+		                                <div class="poster_info">
+		                                    <a th:href="'/movie/detail/' + ${popular.id}" class="link_story" data-tiara-layer="poster" th:text="${popular.tagline}"></a>
+		                                </div>
+		                            </div>
+		                            <div class="thumb_cont">
+		                                <strong class="tit_item">
+		                                    <a th:href="'/movie/detail/' + ${popular.id}" class="link_txt" data-tiara-layer="moviename" th:text="${popular.movieTitle}"></a>
+		                                </strong>
+		                                <span class="txt_append">
+		                                    <span class="info_txt">평점<span class="txt_grade" th:text="${popular.voteAverage}"></span></span>
+		                                </span>
+		                                <span class="txt_info">
+									        개봉<span class="txt_num" th:text="${popular.releaseDate}"></span>
+								        </span>
+		                            </div>
+		                        </div>
+		                    </li>
+		                    </th:block>
+		                    
+		                    <th:block th:each="nowPlaying, status:${nowPlayingList}">
+		                    <li class="nowPlaying box">
+		                        <div class="item_poster">
+		                            <div class="thumb_item">
+		                                <div class="poster_movie">
+		                                        <img th:src="${nowPlaying.imgUrl}" class="img_thumb" th:alt="${nowPlaying.movieTitle}">
+		                                </div>
+		                                <div class="poster_info">
+		                                    <a th:href="'/movie/detail/' + ${nowPlaying.id}" class="link_story" data-tiara-layer="poster" th:text="${nowPlaying.tagline}"></a>
+		                                </div>
+		                            </div>
+		                            <div class="thumb_cont">
+		                                <strong class="tit_item">
+		                                    <a th:href="'/movie/detail/' + ${nowPlaying.id}" class="link_txt" data-tiara-layer="moviename" th:text="${nowPlaying.movieTitle}"></a>
+		                                </strong>
+		                                <span class="txt_append">
+		                                    <span class="info_txt">평점<span class="txt_grade" th:text="${nowPlaying.voteAverage}"></span></span>
+		                                </span>
+		                                <span class="txt_info">
+									        개봉<span class="txt_num" th:text="${nowPlaying.releaseDate}"></span>
+								        </span>
+		                            </div>
+		                        </div>
+		                    </li>
+		                    </th:block>
+		                    
+		                    <th:block th:each="upComming, status:${upCommingList}">
+		                    <li class="upComming box">
+		                        <div class="item_poster">
+		                            <div class="thumb_item">
+		                                <div class="poster_movie">
+		                                        <img th:src="${upComming.imgUrl}" class="img_thumb" th:alt="${upComming.movieTitle}">
+		                                </div>
+		                                <div class="poster_info">
+		                                    <a th:href="'/movie/detail/' + ${upComming.id}" class="link_story" data-tiara-layer="poster" th:text="${upComming.tagline}"></a>
+		                                </div>
+		                            </div>
+		                            <div class="thumb_cont">
+		                                <strong class="tit_item">
+		                                    <a th:href="'/movie/detail/' + ${upComming.id}" class="link_txt" data-tiara-layer="moviename" th:text="${upComming.movieTitle}"></a>
+		                                </strong>
+		                                <span class="txt_append">
+		                                    <span class="info_txt">평점<span class="txt_grade" th:text="${upComming.voteAverage}"></span></span>
+		                                </span>
+		                                <span class="txt_info">
+									        개봉<span class="txt_num" th:text="${upComming.releaseDate}"></span>
+								        </span>
+		                            </div>
+		                        </div>
+		                    </li>
+		                    </th:block>
+			            </ol>
+			        </div>
+	            
+	          </div>
+	        </div>
+	        
+        </div>
+	</div>
+</div>
+
+<th:block layout:fragment="script">
+	<script th:src="@{'/js/movieChart.js'}"></script>
+	<script th:inline="javascript">
+		
+	</script>
+</th:block>
 </html>

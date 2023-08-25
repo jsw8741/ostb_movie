@@ -54,6 +54,20 @@ public class MovieController {
 		return "movieHome";
 	}
 	
+	@GetMapping(value = "/movie/chart")
+	public String movieChart(Model model) {
+		
+		List<Movie> popularList = movieService.getMoviePopular();
+		List<Movie> nowPlayingList = movieService.getMovieNowPlaying();
+		List<Movie> upCommingList = movieService.getMovieUpComming();
+		
+		model.addAttribute("popularList", popularList);
+		model.addAttribute("nowPlayingList", nowPlayingList);
+		model.addAttribute("upCommingList", upCommingList);
+		
+		return "movie/movieChart";
+	}
+	
 	// 매 주 월요일 오전 00:00에 DB 업데이트
 	@Scheduled(cron = "0 0 0 ? * 1")
     public void updateMovieDB() {

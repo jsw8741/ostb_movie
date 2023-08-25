@@ -1,25 +1,18 @@
 package com.example.ostb_movie.controller;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.dto.OneBoardFormDto;
-import com.example.ostb_movie.entity.Faq;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.OneBoard;
-import com.example.ostb_movie.repository.OneBoardRepository;
 import com.example.ostb_movie.service.ChattService;
 
 import jakarta.validation.Valid;
@@ -28,9 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class OneController {
-	private final ChattService chattService;
-	private final OneBoardRepository oneBoardRepository;
-	
+	private final ChattService chattService;	
 	
 	//1:1 채팅방 생성페이지
 	@GetMapping(value = "/chatt/createChatt")
