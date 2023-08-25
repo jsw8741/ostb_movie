@@ -29,7 +29,6 @@ public class ChattController {
 		
 		mv.addObject("roomId", roomId);
 		mv.addObject("createdBy", chattService.getCreatedBy(roomId));
-		System.out.println("sssssssssssssssss"+chattService.getCreatedBy(roomId));
 		mv.setViewName("chatt/chatting");
 		mv.addObject("session", session);
 		return mv;

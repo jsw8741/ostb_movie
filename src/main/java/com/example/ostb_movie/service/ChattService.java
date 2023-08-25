@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.example.ostb_movie.constant.RoomStatus;
 import com.example.ostb_movie.dto.FaqFormDto;
 import com.example.ostb_movie.dto.OneBoardFormDto;
 import com.example.ostb_movie.entity.Faq;
@@ -18,6 +19,7 @@ import com.example.ostb_movie.repository.MemberRepository;
 import com.example.ostb_movie.repository.OneBoardRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -57,10 +59,21 @@ public class ChattService {
 		return oneBoardRepository.getmyChatt(memberId);
 	}
 	
-	
+	//1:1방 생성자 이름 가져오기
 	public String getCreatedBy(String roomId) {
 		return oneBoardRepository.getCreatedBy(roomId);
 	}
 	
-	
+	// (관리자) 1:1 방 생성 목록 보기
+	/*
+	 * @Transactional(readOnly = true) public Page<OneBoard> getAllList(Pageable
+	 * pageable) {
+	 * 
+	 * return oneBoard; }
+	 */
+	public void updateChatt(@PathParam("roomId") String roomId) {
+		OneBoard oneBoard = oneBoardRepository.getId(roomId);
+		oneBoard.setRoomStatus(RoomStatus.CLOSE);
+		oneBoard.setModifiedBy(oneBoard.getCreatedBy());
+	}
 }

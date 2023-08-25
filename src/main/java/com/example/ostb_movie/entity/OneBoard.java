@@ -53,4 +53,11 @@ public class OneBoard extends BaseEntity {
 		this.sessionId = oneBoardFormDto.getSessionId();
 	}
 	
+	//1:1 수정
+	public void updateOne(OneBoardFormDto oneBoardFormDto) {
+		roomStatus = RoomStatus.CLOSE;
+	}
+	
+	
+	
 }

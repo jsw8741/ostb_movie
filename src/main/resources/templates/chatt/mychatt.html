@@ -24,8 +24,8 @@
 					<ul class="tab_inner swiper-wrapper">
 						<li class="swiper-slide tab  swiper-slide-active"><a
 							href="/FAQ/list"><span>FAQ</span></a></li>
-						<li class="swiper-slide tab swiper-slide-next active"><a href="/chatt/createChatt"><span>1:1
-									문의</span></a></li>
+						<li class="swiper-slide tab swiper-slide-next active"><a
+							href="/chatt/createChatt"><span>1:1 문의</span></a></li>
 						<li class="swiper-slide tab"><a href="/notice/list"><span>공지사항</span></a></li>
 						<li class="swiper-slide tab "><a href="/lost/list"><span>분실물
 									문의</span></a></li>
@@ -44,17 +44,14 @@
 			class="tab_wrap swiper-container swiper-container-horizontal swiper-container-free-mode">
 			<ul class="tab_inner swiper-wrapper"
 				style="transform: translate3d(0px, 0px, 0px);">
-				<li class="swiper-slide tab active swiper-slide-active"><a
-					href="/FAQ/list"><span>전체</span></a></li>
+				<li class="swiper-slide tab active"
+					data-filter="all"><a href="#"><span>전체</span></a></li>
 
-				<li class="swiper-slide tab swiper-slide-next"><a
-					href="/FAQ/list/member"><span id="cdNm1">접수</span></a></li>
+				<li class="swiper-slide tab" data-filter="opne"><a href="#"><span
+						id="cdNm1">상담중</span></a></li>
 
-				<li class="swiper-slide tab"><a href="/FAQ/list/point"><span
-						id="cdNm2">처리중</span></a></li>
-
-				<li class="swiper-slide tab"><a href="/FAQ/list/benefit"><span
-						id="cdNm3">처리완료</span></a></li>
+				<li class="swiper-slide tab" data-filter="close"><a href="#"><span
+						id="cdNm2">상담종료</span></a></li>
 
 			</ul>
 			<span class="swiper-notification" aria-live="assertive"
@@ -66,24 +63,48 @@
 		<div class="layout1">
 			<!-- list top -->
 			<th:block th:each="oneBoard : ${oneBoards}">
-				<div class="acodiList acodi_type1 py-1">
-					<ul>
-						<li class="ac_item" th:data-target="${oneBoard.id}" th:id="${oneBoard.id}">
-							<div class="ac_head" onclick="openPop('/chatt/' + this.getAttribute('data-target'), 800, 800);" th:data-target="${oneBoard.id}">
-								<span class="ic_Q">[[${oneBoard.id}]]</span>
-								<div class="tit_area">
-									<p class="subject">
-										1:1 문의
-									</p>
-									<span>문의 시간 : [[${oneBoard.regTime}]]</span>
-									<span th:classappend="${#strings.equals(oneBoard.roomStatus, 'OPNE') ? 'ac_accept' : 
-									(#strings.equals(oneBoard.roomStatus, 'CLOSED') ? 'ac_processing' : 
+				<th:block th:if="${#strings.equals(oneBoard.roomStatus, 'OPNE')}">
+					<div class="acodiList acodi_type1 py-1 item"  data-type="opne" >
+						<ul>
+							<li class="ac_item" th:data-target="${oneBoard.id}"
+								th:id="${oneBoard.id}">
+								<div class="ac_head"
+									onclick="openPop('/chatt/' + this.getAttribute('data-target'), 800, 800);"
+									th:data-target="${oneBoard.id}">
+									<span class="ic_Q">[[${oneBoard.id}]]</span>
+									<div class="tit_area">
+										<p class="subject">1:1 문의</p>
+										<span>문의 시간 : [[${oneBoard.regTime}]]</span> <span
+											th:classappend="${#strings.equals(oneBoard.roomStatus, 'OPNE') ? 'ac_accept' : 
+									(#strings.equals(oneBoard.roomStatus, 'CLOSE') ? 'ac_completed ' : 
            						   (#strings.isEmpty(oneBoard.roomStatus) ? 'ac_completed' : ''))}">[[${oneBoard.roomStatus}]]</span>
+									</div>
 								</div>
-							</div> 
-						</li>
-					</ul>
-				</div>
+							</li>
+						</ul>
+					</div>
+				</th:block>
+				
+				<th:block th:unless="${#strings.equals(oneBoard.roomStatus, 'OPNE')}">
+					<div class="acodiList acodi_type1 py-1 item" data-type="close">
+						<ul>
+							<li class="ac_item" th:data-target="${oneBoard.id}"
+								th:id="${oneBoard.id}">
+								<div class="ac_head " 
+									th:data-target="${oneBoard.id}">
+									<span class="ic_Q">[[${oneBoard.id}]]</span>
+									<div class="tit_area">
+										<p class="subject">1:1 문의</p>
+										<span>문의 시간 : [[${oneBoard.regTime}]]</span> <span
+											th:classappend="${#strings.equals(oneBoard.roomStatus, 'OPNE') ? 'ac_accept' : 
+									(#strings.equals(oneBoard.roomStatus, 'CLOSE') ? 'ac_completed ' : 
+           						   (#strings.isEmpty(oneBoard.roomStatus) ? 'ac_completed' : ''))}">[[${oneBoard.roomStatus}]]</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</th:block>
 				<!--// list top -->
 				<!-- list -->
 			</th:block>
@@ -110,7 +131,7 @@
 
 				// 드롭다운 내용의 표시 상태를 변경합니다.
 				if (isDisplayed) {
-					dropdownContent.style.display = "none";
+					dropdownContent.style.display = "block";
 					li.classList.remove("on");
 				} else {
 					dropdownContent.style.display = "block";
@@ -127,6 +148,44 @@
 			window.open(url, 'popupwindow', 'scrollbars=yes,width=' + width
 					+ ',height=' + height + ',top=' + top + ',left=' + left);
 		}
+		
+		
+		
+		 // Add click event listener to tabs
+	    const tabs = document.querySelectorAll('.tab');
+	    const items = document.querySelectorAll('.item');
+
+	    tabs.forEach(tab => {
+	    	 tab.addEventListener('click', function () {
+	    	        // Remove active class from all tabs
+	    	        tabs.forEach(t => {
+	    	            t.classList.remove('active');
+	    	        });
+
+	    	        // Add active class to the clicked tab
+	    	        tab.classList.add('active');
+
+	    	        const filter = tab.getAttribute('data-filter');
+	    	        
+	    	        // Hide all items
+	    	        items.forEach(item => {
+	    	            item.style.display = 'none';
+	    	        });
+
+	    	        // Show items based on selected filter
+	    	        if (filter === 'all') {
+	    	            items.forEach(item => {
+	    	                item.style.display = 'block';
+	    	            });
+	    	        } else {
+	    	            items.forEach(item => {
+	    	                if (item.getAttribute('data-type') === filter) {
+	    	                    item.style.display = 'block';
+	    	                }
+	    	            });
+	    	        }
+	    	    });
+	    	});
 	</script>
 
 

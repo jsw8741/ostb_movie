@@ -20,4 +20,6 @@ public interface OneBoardRepository extends JpaRepository<OneBoard, Long> {
 	@Query(value = "select created_by from one_board where room_id = :roomId", nativeQuery = true)
 	String getCreatedBy(@Param("roomId") String roomId);
 	
+	@Query(value = "select * from one_board where room_id = :roomId", nativeQuery = true)
+	OneBoard getId(@Param("roomId") String roomId);
 }
