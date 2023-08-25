@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.example.ostb_movie.dto.ReviewDto;
 import com.example.ostb_movie.entity.Movie;
 import com.example.ostb_movie.entity.MovieStatus;
+import com.example.ostb_movie.entity.Review;
 import com.example.ostb_movie.service.MovieService;
 import com.example.ostb_movie.service.MovieStatusService;
 
@@ -66,8 +68,11 @@ public class MovieController {
 		Movie movieDtl = movieService.getMovieDtl(originId);
 		
 		model.addAttribute("movieDtl", movieDtl);
+		model.addAttribute("reviewDto", new ReviewDto());
 		
 		return "movie/movieDtl";
 	}
+	
+	
 	
 }

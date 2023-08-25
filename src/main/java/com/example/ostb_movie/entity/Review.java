@@ -44,6 +44,7 @@ public class Review {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "movie_id")
 	private Movie movie;
+
 	
 	public void updateReview(ReviewDto reviewDto) {
 		this.content = reviewDto.getContent();

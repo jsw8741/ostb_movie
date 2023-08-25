@@ -1,0 +1,63 @@
+@charset "EUC-KR";
+<style>
+#modal_btn {
+    width: 100px;
+    height: 20px;
+}
+
+.modal_title {
+	width: 498px;
+	height: 60px;
+	border-bottom: 1px solid black;
+	background-color: black;
+	color: white;
+	margin: 0 auto;
+}
+
+.modal_text {	
+	height: 60px;
+	color: white;
+	padding: 15px;
+}
+
+.modal_wrap {
+    display: none;
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    border: 2px solid black;
+    top:50%;
+    left: 50%;
+    margin: -250px 0 0 -250px;
+    background:#eee;
+    z-index: 2;
+}
+.modal_background {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0, 0,0, 0.5);
+    top:0;
+    left: 0;
+    z-index: 1;
+}
+.modal_close {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 17px;
+    right: 10px;
+    color: white;
+}
+
+.modal_wrap .text {
+	display: flex;
+}
+
+.modal_close .closeImg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+</style>
