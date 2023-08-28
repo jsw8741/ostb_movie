@@ -1,5 +1,5 @@
 @charset "EUC-KR";
-<style>
+
 #modal_btn {
     width: 100px;
     height: 20px;
@@ -93,6 +93,7 @@
 
 .profile {
 	max-width: 15%;
+	max-height: 150px;
 	margin-right: 10px;
 }
 
@@ -114,7 +115,7 @@
 }
 
 .main-grade {
-	margin-top: 40px;
+	margin-top: 20px;
 	color: white;
 }
 
@@ -234,4 +235,14 @@
 .modal_title {
 	margin-top: 1px;
 }
-</style>
+
+.pwPop{
+	font-size: 11px;
+	color: #29a5ff;
+}
+
+.pwPop:hover{
+	font-size: 11px;
+	color: #0669b1;
+	cursor: pointer;
+}
