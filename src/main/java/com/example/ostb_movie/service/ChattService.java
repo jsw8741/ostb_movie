@@ -66,11 +66,20 @@ public class ChattService {
 
 
 	
-	// 채팅종료시 상태 변경
+	// 채팅창 끌때 진행중으로 상태 변경
 	public void updateChatt(@PathParam("roomId") String roomId) {
 		OneBoard oneBoard = oneBoardRepository.getId(roomId);
 		oneBoard.setRoomStatus(RoomStatus.ONGOING);
 		oneBoard.setModifiedBy(oneBoard.getCreatedBy());
 	}
+	
+	// 채팅 종료시 종료로 상태변경
+	public void closeChatt(@PathParam("roomId") String roomId) {
+		OneBoard oneBoard = oneBoardRepository.getId(roomId);
+		oneBoard.setRoomStatus(RoomStatus.CLOSE);
+	}
+	
+	
+	
 
 }

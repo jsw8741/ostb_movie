@@ -126,6 +126,7 @@
 		<div class="py-2 btn_ac">
 		<input class="btn_typeC2" type='text' id='mid' th:value="${createdBy}">
 		<input class="btn_typeC2" type='button' value='채팅 시작하기' id='btnLogin'>
+		<input class="btn_typeC2" type='button' id='btnLogout' th:value="${roomId}" onclick="closeChatt(this.value)">
 		</div>
 		<div id='talk' class="py-3"></div>
 		<div id='sendZone'>
@@ -160,9 +161,13 @@ var btnSend = getId('btnSend');
 var talk = getId('talk');
 var msg = getId('msg');
 var roomId = $("#room").val();
+var btnLogout = getId('btnLogout');
+btnLogout.style.display = 'none';
 btnLogin.onclick = function(){
 ws = new WebSocket("ws://" + location.host + "/chatt/" + roomId);
 alert("연결되었습니다.");
+btnLogin.style.display = 'none';
+btnLogout.style.display = 'inline-block';
 ws.onmessage = function(msg){
 	var data = JSON.parse(msg.data);
 	var css;
@@ -205,6 +210,48 @@ msg.value ='';
 
 }
 
+function closeChatt(roomId) {
+	const cancelConf = confirm("채팅을 종료하시겠습니까?");
+	
+	if(!cancelConf) return; //취소버튼 누르면
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	//request URL
+	var url = "/chatt/" + roomId + "/chattClose";
+	//서버로 보내줄 데이터(반드시 JSON -> string 타입으로 바꿔줘야 한다)
+	var paramData = {
+			roomId : roomId
+	};
+	var param = JSON.stringify(paramData);
+	
+	$.ajax({
+		url : url, //request URL
+		type :"POST", //전송방식
+		contentType : "application/json",
+		data : param,
+		beforeSend : function(xhr) {
+			//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+			xhr.setRequestHeader(header, token);
+		},
+		dataType : "json",
+		cache : false,
+		success : function(result, status) {
+			console.log("Button clicked!");
+			window.close();
+			
+		},
+		error : function(jqXHR, status, error) {
+			if(jqXHR.status == '401') {
+				alert("로그인 후 이용해 주세요");
+				location.href = '/members/login';
+			}	else {
+				alret(jqXHR.responseText);
+			}
+		}
+	});
+}
 
 
 
