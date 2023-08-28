@@ -21,13 +21,14 @@ import lombok.RequiredArgsConstructor;
 public class KakaoPayService {
 
 	public KakaoPayReadyDto kakaoPay(Map<String, Object> params) {
-		
+		System.out.println("5555555555555555555555555");
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "KakaoAK 826f9676e26b9186cb6767cddf17d62b");
+		headers.set("Authorization", "KakaoAK a729a14eaa765b52faa416faff03f519");
 		headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
 		MultiValueMap<String, Object> payParams = new LinkedMultiValueMap<String, Object>();
 		
+		System.out.println("666666666666666666666666666666");
 		payParams.add("cid", "TC0ONETIME");
 		payParams.add("partner_order_id", "partner_order_id");
 		payParams.add("partner_user_id", "partner_user_id");
@@ -38,12 +39,15 @@ public class KakaoPayService {
 		payParams.add("approval_url", "http://localhost/pay/success");
 		payParams.add("cancel_url", "http://localhost/pay/cancel");
 		payParams.add("fail_url", "http://localhost/pay/fail");
-		
+
+		System.out.println("777777777777777777777777777");
 		HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(payParams, headers);
 		
 		RestTemplate template = new RestTemplate();
 		String url = "https://kapi.kakao.com/v1/payment/ready";
+		System.out.println("8888888888888888888888888888");
 		KakaoPayReadyDto res = template.postForObject(url, request, KakaoPayReadyDto.class);
+		System.out.println("9999999999999999999999");
 		
 		return res;
 	}
@@ -52,7 +56,7 @@ public class KakaoPayService {
 	public KakaoPayApproveDto kakaoPayApprove(String tid, String pgToken) {
 		System.out.println("못온거 맞지????");
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "KakaoAK 826f9676e26b9186cb6767cddf17d62b");
+		headers.set("Authorization", "KakaoAK a729a14eaa765b52faa416faff03f519");
 		headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		
 		MultiValueMap<String, Object> payParams = new LinkedMultiValueMap<String, Object>();

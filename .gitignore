@@ -34,3 +34,4 @@ build/
 
 **/application-oauth.properties
 **/email.properties
+**/ItemController.java
