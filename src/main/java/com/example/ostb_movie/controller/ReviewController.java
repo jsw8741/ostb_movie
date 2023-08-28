@@ -1,9 +1,16 @@
 package com.example.ostb_movie.controller;
 
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -11,6 +18,7 @@ import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.dto.ReviewDto;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.Movie;
+import com.example.ostb_movie.entity.Review;
 import com.example.ostb_movie.service.ReviewService;
 
 import jakarta.validation.Valid;
@@ -52,4 +60,36 @@ public class ReviewController {
 		return "redirect:/";
 	}
 	
+	//내가 쓴 리뷰 페이지보기
+	@GetMapping(value =  { "/member/reviewPage/{memberId}", "/member/reviewPage/{memberId}/{page}" })
+	public String reviewDtl(Model model, @PathVariable("memberId") Long memberId, @PathVariable("page") Optional<Integer> Page) {
+		Pageable pageable = PageRequest.of(Page.isPresent() ? Page.get() : 0, 6);
+		
+		Page<Review> reviews = reviewService.getMyReviewPage(memberId, pageable);
+		
+		model.addAttribute("memberId", memberId);
+		model.addAttribute("reviews", reviews);
+		model.addAttribute("maxPage", 5); //리뷰 페이지 하단에 보여줄 최대 페이지 번호
+		
+		return "member/reviewPage";
+	}
+	
+	//리뷰수정
+	@PostMapping(value = "/movie/reviewAll/{originId}")
+	public String reviewUpdate(@Valid ReviewDto reviewDto, Model model, 
+			BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "redirect:/";
+		}
+		
+		try {
+			reviewService.updateReview(reviewDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "리뷰 수정 중 에러가 발생했습니다.");
+			return "redirect:/";
+		}
+		
+		return "redirect:/";
+	}
 }

@@ -1,5 +1,9 @@
 package com.example.ostb_movie.service;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +47,31 @@ public class ReviewService {
 		
 		return review.getId();
 	}
+	
+	@Transactional(readOnly = true)
+	public ReviewDto getReviewDtl(Long reviewId) {
+		Review review = reviewRepository.findById(reviewId)
+										.orElseThrow(EntityNotFoundException::new);
+		
+		ReviewDto reviewDto = ReviewDto.of(review);
+		
+		return reviewDto;
+	}
 
-
+	// 해당 영화의 모든 리뷰 가져오기
+	public List<Review> getMovieReviewAll(Long movieId){
+		List<Review> review = reviewRepository.getMovieReviewAll(movieId);
+		
+		return review;
+	}
+	
+	// 내가 쓴 리뷰 페이징
+	public Page<Review> getMyReviewPage(Long memberId, Pageable pageable){
+		Page<Review> reviewPage = reviewRepository.getMyReviewPage(memberId, pageable);
+		
+		return reviewPage;
+		
+		
+	}
+	
 }
