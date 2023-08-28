@@ -33,6 +33,7 @@ public class MemberController {
 	//마이페이지 화면
 	public String newMyPage(Authentication authentication, Model model) {
 		
+		//현재 로그인한 회원 정보 가져오기
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
 		
