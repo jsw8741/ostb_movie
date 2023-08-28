@@ -1,5 +1,6 @@
 package com.example.ostb_movie.controller;
 
+import java.awt.ItemSelectable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +35,7 @@ public class OrderController {
 
 	@GetMapping(value = "/order")
 	public String orderForm(Model model) {
+		System.out.println("asdasd");
 		model.addAttribute("OrderDto", new OrderDto());
 		model.addAttribute("cartDto", new CartDto());
 		return "order/orderForm"; // orderForm.html 페이지를 반환
@@ -113,18 +115,16 @@ public class OrderController {
 
 	@PostMapping("/order/cartsign")
 	public String addToOrder(@RequestParam(name = "selectedItems", required = false) List<Long> selectedItems,
-			Model model) {
-		System.out.println(selectedItems.get(1)+"asdasdas");
-		if (selectedItems != null && !selectedItems.isEmpty()) {
-			List<Cart> orderList = new ArrayList<>();
-			for (Long itemId : selectedItems) {
-				Cart selectedCart = cartService.getCartItemById(itemId);
-				orderList.add(selectedCart);
-			}
-			model.addAttribute("orderList", orderList);
-			model.addAttribute("orderList", orderList);
-		}
+	        Model model) {
+		List<Cart> orderList = new ArrayList<>();
+	    if (selectedItems != null && !selectedItems.isEmpty()) {
+	        for (Long itemId : selectedItems) {
+	            Cart selectedCart = cartService.getCartItemById(itemId);
+	            orderList.add(selectedCart);
+	        }
+	        model.addAttribute("orderList", orderList);
+	    }
 
-		return "Order/myCart";
+	    return "Order/myCart";
 	}
 }
