@@ -15,26 +15,41 @@
 		<div class="container_trailer">
 		
 			<div class="video">
-				<iframe id="video" width="1280" height="720" th:src="${moviePopualrList[0].trailerUrl} + '?autoplay=1&mute=1&controls=0'"  
-				frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<div class="container_video">
+					<iframe id="video" width="1300" height="720" th:src="${moviePopualrList[0].trailerUrl} + '?autoplay=1&mute=1&controls=0'" 
+					frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</div>
 				
 				<div class="swiper mySwiper">
 					<div class="swiper-wrapper">
 						<th:block th:each="moviePopular, status:${moviePopualrList}">
-						   <div class="swiper-slide">
-						     <a th:href="'/movie/detail/' + ${moviePopular.originId}" class="information_popular">
-							     <img th:src="${moviePopular.imgUrl}" th:alt="${moviePopular.movieTitle}" class="slide_popular19 slideimges" />
-							     <div class="title_popular19 title" th:text="${moviePopular.movieTitle}"></div>
+						   <div class="swiper-slide" th:data-origin-id="${moviePopular.originId}" th:data-trailer-url="${moviePopular.trailerUrl}">
+						     <a th:href="'/movie/detail/' + ${moviePopular.id}" class="information_popular">
+							     <dl class="list_info">
+									<dt style="padding-top: 20px;">개봉일
+									<dd th:text="${moviePopular.releaseDate}"></dd>
+									</dt>
+									
+									<dt style="padding-top: 10px;">장르
+									<dd th:text="${moviePopular.genres}"></dd>
+									</dt>
+									
+									<dt style="padding-top: 10px;display: inline;">평점
+									<dd th:text="${moviePopular.voteAverage}" style=" display: inline;"></dd>
+									</dt>
+							    </dl>
+							     <img th:src="${moviePopular.imgUrl}" th:alt="${moviePopular.movieTitle}" class="slide_popular slideimges" />
+							     
 						     </a>
+							     <div class="title_popular title" th:text="${moviePopular.movieTitle}"></div>
 						   </div>
 					    </th:block>
 					   
 					 </div>
 					 
 		        </div>
-		        
-		        <div class="swiper-button-next"></div>
-		        <div class="swiper-button-prev"></div>
+		        <div class="swiper-button-next btn"></div>
+		        <div class="swiper-button-prev btn"></div>
 		        
 			</div>
 		</div>
@@ -64,15 +79,40 @@
 	<script th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyAyPYAYxIWN49JeM3vrJ_RND1V1xjjXfWQ&callback=myMap}"></script>
 	<script th:src="@{https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js}"></script>
 	<script th:inline="javascript">
-	var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 5,
-        spaceBetween: 50,
-        
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
+		var swiper = new Swiper(".mySwiper", {
+	        slidesPerView: 5,
+	        spaceBetween: 50,
+	        
+	        navigation: {
+	          nextEl: ".swiper-button-next",
+	          prevEl: ".swiper-button-prev",
+	        },
+	      });
+		
+		swiper.on("transitionEnd", function() {
+			var currentIndex = this.realIndex;
+            var currentSlide = document.querySelector(".swiper-slide-active");
+            var movieUrl = currentSlide.getAttribute("data-trailer-url");
+         
+	        $("#video").remove();
+	        
+	        if(!movieUrl){
+	        	$(".container_video").append(`<div id="video"style="font-size: 50px;color: white;text-align: center; z-index: 3; position: relative; margin-bottom: 650px; top: 300px;">예고편이 없습니다.</div>`);
+	        }else{	        	
+		        $(".container_video").append(`<iframe id="video" width="1300" height="720" src="${movieUrl}?autoplay=1&mute=1&controls=0" 
+						frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);
+	        }
+	        
+		});
+		
+		var videoIframe = document.getElementById('video');
+	    
+		function replayVideo() {
+		    videoIframe.play();
+		}
+
+		// 영상이 재생 완료되면 replayVideo 함수 호출
+		videoIframe.addEventListener('ended', replayVideo);
 	</script>
 
 </th:block>

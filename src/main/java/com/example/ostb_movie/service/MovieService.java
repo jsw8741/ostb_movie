@@ -208,7 +208,21 @@ public class MovieService {
     
     // 영화 차트 가져오기(인기순위)
     public List<Movie> getMoviePopular(){
-    	List<Movie> moviePopularList = movieRepository.getPopularList((long) 1);
+    	List<Movie> moviePopularList = movieRepository.getMovieStatusList((long) 1);
+    	
+    	return moviePopularList;
+    }
+    
+    // 영화 차트 가져오기(상영중)
+    public List<Movie> getMovieNowPlaying(){
+    	List<Movie> moviePopularList = movieRepository.getMovieStatusList((long) 2);
+    	
+    	return moviePopularList;
+    }
+    
+    // 영화 차트 가져오기(개봉예정)
+    public List<Movie> getMovieUpComming(){
+    	List<Movie> moviePopularList = movieRepository.getMovieStatusList((long) 3);
     	
     	return moviePopularList;
     }
