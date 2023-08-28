@@ -63,7 +63,7 @@ public class KakaoPayController {
 	        System.out.println(kakaoPayApproveDto);
 	        
 
-	        return "/main";
+	        return "/";
 	}
 	
 	

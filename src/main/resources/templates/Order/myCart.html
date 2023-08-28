@@ -81,10 +81,11 @@
 
 		$(document).on("click", "#apibtn", function(){
 			var totalPrice = document.getElementById("totalPrice").value;
-			
+			var itemName = '팝콘';
 			
 		    var data = {
-		    		totalPrice : totalPrice
+		    		totalPrice : totalPrice,
+					itemName : itemName
 		        };
 			
 			$.ajax({

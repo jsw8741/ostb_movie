@@ -32,9 +32,9 @@ public class KakaoPayService {
 		payParams.add("cid", "TC0ONETIME");
 		payParams.add("partner_order_id", "partner_order_id");
 		payParams.add("partner_user_id", "partner_user_id");
-		payParams.add("item_name", params.get("itemName"));
+		payParams.add("item_name", "OSTB"); //팝콘params.get("itemName"
 		payParams.add("quantity", "1");
-		payParams.add("total_amount", params.get("totalPrice"));
+		payParams.add("total_amount", "99999"); //가격
 		payParams.add("tax_free_amount", "0");
 		payParams.add("approval_url", "http://localhost/pay/success");
 		payParams.add("cancel_url", "http://localhost/pay/cancel");
