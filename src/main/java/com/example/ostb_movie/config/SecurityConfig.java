@@ -52,6 +52,7 @@ public class SecurityConfig {
 				.requestMatchers(mvc.pattern("/book/**")).permitAll()
 				.requestMatchers(mvc.pattern("/movie/**")).permitAll()
 				.requestMatchers(mvc.pattern("/order/**")).permitAll()
+				.requestMatchers(mvc.pattern("/pay/**")).permitAll()
 				.requestMatchers(mvc.pattern("/kakao/**")).permitAll()				
 				.requestMatchers(mvc.pattern("/test/**")).hasRole("ADMIN").anyRequest().authenticated())		
 		.formLogin(formLogin -> formLogin //2. 로그인에 관련된 설정

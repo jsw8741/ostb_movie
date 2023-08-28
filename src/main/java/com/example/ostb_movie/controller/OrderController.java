@@ -122,9 +122,6 @@ public class OrderController {
 	            Cart selectedCart = cartService.getCartItemById(itemId);
 	            orderList.add(selectedCart);
 	        }
-	        for(Cart s : orderList) {
-	        	
-	        }
 	        model.addAttribute("orderList", orderList);
 	    }
 
