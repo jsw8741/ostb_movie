@@ -110,7 +110,8 @@
 				<!-- list -->
 			</th:block>
 		</div>
-		<div class="wrap_paging mo_none">
+		<div class="wrap_paging mo_none" th:if="${oneBoards.content.size() > 0}">
+		
 						<nav
 							th:with="start=${(oneBoards.number/maxPage)*maxPage + 1}
 			                 ,end=(${(oneBoards.totalPages == 0) ? 1 : (start + (maxPage - 1) < oneBoards.totalPages ? start + (maxPage - 1) : oneBoards.totalPages)})"
@@ -138,7 +139,7 @@
 								</ul>
 							</pagination>
 						 </nav>
-						</div>
+		</div>
 		
 		
 	</section>

@@ -1,6 +1,10 @@
 @charset "UTF-8";
 @import	url("https://fonts.googleapis.com/css?family=Barlow:300,400,500,600,700|Work+Sans:300,400,500,600,700");
 
+ol, ul, dl{
+	margin-bottom: 0 !important;
+}
+
 .footer-social-info d-flex align-items-center justify-content-between {
 	width: 930px;
 	height: 83px;
@@ -547,7 +551,7 @@ left
 
 .header-area .nikki-main-menu .classynav ul li a:hover, .header-area .nikki-main-menu .classynav ul li a:focus
 	{
-	color: #d1bb95;
+	color: #29a5ff;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
