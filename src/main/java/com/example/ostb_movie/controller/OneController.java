@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.dto.OneBoardFormDto;
-import com.example.ostb_movie.entity.Faq;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.OneBoard;
 import com.example.ostb_movie.repository.OneBoardRepository;
@@ -28,9 +27,8 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class OneController {
-	private final ChattService chattService;
+	private final ChattService chattService;	
 	private final OneBoardRepository oneBoardRepository;
-	
 	
 	//1:1 채팅방 생성페이지
 	@GetMapping(value = "/chatt/createChatt")
@@ -84,6 +82,19 @@ public class OneController {
 	}
 	
 	
+	//채팅방 리스트(관리자)
+	@GetMapping(value = {"/chatt/list", "/chatt/list/{page}"})
+	public String chattMainList(Model model, @PathVariable("page") Optional<Integer> page ) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+		Page<OneBoard> oneBoards = oneBoardRepository.findAllByOrderByRoomStatusDescRegTimeDesc(pageable);
+		Long totalCount = oneBoardRepository.count();
+		
+		model.addAttribute("oneBoards", oneBoards);
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("maxPage", 5);
+		
+		return "chatt/listChatt";
+	}
 	
 	
 	

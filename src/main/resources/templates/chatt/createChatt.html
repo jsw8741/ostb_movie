@@ -9,7 +9,7 @@
 </th:block>
 
 
-<div layout:fragment="content">
+<div layout:fragment="content" id="myElement">
 	<div class="pageTitle bg_blue">
 		<div class="layout1">
 			<h2 class="tit">고객센터</h2>
@@ -90,6 +90,31 @@
         	alert(errorMessage);
     	}
 	});
+	
+	   async function checkLoginAndRedirect() {
+	        try {
+	        	console.error("로그인 여부 확인 중 adas오류:");
+	            const response = await fetch("/check-login", {
+	                method: "GET",
+	                credentials: "include" // 쿠키를 전송하기 위해 필요한 옵션
+	            });
+
+	            const data = await response.json();
+	            if (!data.isAuthenticated) {
+	                alert("로그인이 필요합니다.");
+	                window.location.href = "/login/loginForm"; // 로그인 페이지로 리다이렉트
+	            }
+	        } catch (error) {
+	            console.error("로그인 여부 확인 중 오류:", error);
+	            // 에러 발생 시 어떻게 처리할지 정의
+	        }
+	    }
+	    
+	    window.onload = function() {
+	        // 새로고침 시 로그인 검사
+	        console.error("로그인 여부 확인 중 오류:", error);
+	        checkLoginAndRedirect();
+	    };
 	</script>
 
 
