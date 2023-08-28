@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.p {
+	color: white !important;
+}
+
+.profile {
+	width: 70px;
+}
+
+.col-lg-6 {
+	position: relative;
+	display: flex;
+	margin: 0 auto;
+}

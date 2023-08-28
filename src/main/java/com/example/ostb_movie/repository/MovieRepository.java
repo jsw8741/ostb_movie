@@ -1,11 +1,11 @@
 package com.example.ostb_movie.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.example.ostb_movie.entity.Movie;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {

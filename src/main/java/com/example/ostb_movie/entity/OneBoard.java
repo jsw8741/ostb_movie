@@ -6,7 +6,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.example.ostb_movie.constant.RoomStatus;
-import com.example.ostb_movie.dto.FaqFormDto;
 import com.example.ostb_movie.dto.OneBoardFormDto;
 
 import jakarta.persistence.Column;
@@ -52,5 +51,12 @@ public class OneBoard extends BaseEntity {
 	public void getOne(OneBoardFormDto oneBoardFormDto) {
 		this.sessionId = oneBoardFormDto.getSessionId();
 	}
+	
+	//1:1 수정
+	public void updateOne(OneBoardFormDto oneBoardFormDto) {
+		roomStatus = RoomStatus.CLOSE;
+	}
+	
+	
 	
 }

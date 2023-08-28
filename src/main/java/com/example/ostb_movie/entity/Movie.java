@@ -12,6 +12,7 @@ import lombok.*;
 @Table(name = "movie")
 @Getter
 @Setter
+@ToString
 public class Movie extends BaseEntity{
 	@Id
 	@Column(name="movie_id")

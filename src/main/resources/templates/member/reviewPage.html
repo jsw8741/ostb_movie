@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/reviewPage.css}"/>
+</th:block>		
+
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
+<div layout:fragment="content">
+	<section>
+		<div>
+			<p>MY REVIEW</p>
+		</div>
+		<th:block th:each="review, status: ${reviews}">
+			<div class="col-lg-6 col-md-6 review-entry mb-4">
+				<img class="profile" th:src="${review.member.memberImg}"/>
+				<p th:text="'닉네임: ' + ${review.member.nickname}"></p>
+				<p th:text="'리뷰: ' + ${review.content}"></p>
+			</div>
+		</th:block>
+		<div class="row">
+			<div class="col-md-12 text-center">
+               		<nav
+					th:with="start=${(reviews.number/maxPage)*maxPage + 1}
+			                 ,end=(${(reviews.totalPages == 0) ? 1 : (start + (maxPage - 1) < reviews.totalPages ? start + (maxPage - 1) : reviews.totalPages)})"
+							aria-label="Page navigation example">
+							<ul class="pagination d-flex justify-content-center">
+								<li class="page-review" th:classappend="${reviews.first}?'disabled'">
+									<a class="page-link"
+									th:href="@{'/member/reviewPage/' + ${memberId} +'/' + ${reviews.number - 1}}">이전</a>
+								</li>
+								
+								<li class="page-review"
+									th:each="page: ${#numbers.sequence(start, end)}"
+									th:classappend="${reviews.number eq page-1}?'active':''">
+									<a
+									class="page-link" th:inline="text"
+									th:href="@{'/member/reviewPage/' + ${memberId} + '/' + ${page - 1}}">[[${page}]]</a>
+								</li>
+								
+								<li class="page-review" th:classappend="${reviews.last}?'disabled'">
+									<a class="page-link"
+									th:href="@{'/member/reviewPage/' + ${memberId} + '/' + ${reviews.number + 1}}">다음</a>
+								</li>
+							</ul>
+					</nav>
+			</div>
+		</div>
+
+	</section>
+</div>
+</html>
