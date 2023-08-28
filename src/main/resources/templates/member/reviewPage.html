@@ -15,15 +15,27 @@
 <div layout:fragment="content">
 	<section>
 		<div>
-			<p>MY REVIEW</p>
+			<h2 class="myReview">MY REVIEW</h2>
 		</div>
+		<div class="row mb-5 reviewBox">
 		<th:block th:each="review, status: ${reviews}">
-			<div class="col-lg-6 col-md-6 review-entry mb-4">
+			<div class="col-lg-6 review-entry mb-4">
 				<img class="profile" th:src="${review.member.memberImg}"/>
-				<p th:text="'닉네임: ' + ${review.member.nickname}"></p>
-				<p th:text="'리뷰: ' + ${review.content}"></p>
+				<div class="review_top">
+					<p th:text="'닉네임: ' + ${review.member.nickname}"></p>
+					<p th:text="${review.content}"></p>
+					<div class="review_low">
+						<p th:text="${#temporals.format(review.reviewDate, 'yyyy-MM-dd')}"></p>
+						&nbsp&nbsp&nbsp&nbsp
+						<i class="fa-solid fa-thumbs-up" style="color: #29A5FF;"></i>
+						&nbsp&nbsp
+						<p th:text="${review.rvLike}"></p>
+						<a class="review_button" th:href="'/member/reviewUpdatePage/' + ${review.id}">수정하기</a>
+					</div>
+				</div>
 			</div>
 		</th:block>
+		</div>
 		<div class="row">
 			<div class="col-md-12 text-center">
                		<nav

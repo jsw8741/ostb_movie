@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ostb_movie.dto.ReviewDto;
-import com.example.ostb_movie.entity.Member;
+import com.example.ostb_movie.dto.ReviewModifyDto;
 import com.example.ostb_movie.entity.Movie;
 import com.example.ostb_movie.entity.Review;
 import com.example.ostb_movie.repository.MovieRepository;
@@ -39,12 +39,14 @@ public class ReviewService {
 		return movie;
 	}
 	
-	public Long updateReview(ReviewDto reviewDto) throws Exception {
-		Review review = reviewRepository.findById(reviewDto.getId())
+	//리뷰 업데이트
+	public Long updateReview(ReviewModifyDto reviewModifyDto) throws Exception {
+		System.out.println("aaaaaaaaaaaaaaa");
+		Review review = reviewRepository.findById(reviewModifyDto.getId())
 								.orElseThrow(EntityNotFoundException::new);
-		
-		review.updateReview(reviewDto);
-		
+		System.out.println("bbbbbbbbbbbbb");
+		review.updateReview(reviewModifyDto);
+		System.out.println("cccccccccccccc");
 		return review.getId();
 	}
 	
@@ -72,6 +74,16 @@ public class ReviewService {
 		return reviewPage;
 		
 		
+	}
+	
+	//수정할 리뷰 가져오기
+	public ReviewDto getModifyReview(Long reviewId) {
+		Review review = reviewRepository.findById(reviewId)
+				.orElseThrow(EntityNotFoundException::new);
+		
+		ReviewDto reviewDto = ReviewDto.of(review);
+		
+		return reviewDto;
 	}
 	
 }

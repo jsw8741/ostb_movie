@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.dto.ReviewDto;
+import com.example.ostb_movie.dto.ReviewModifyDto;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.Movie;
 import com.example.ostb_movie.entity.Review;
@@ -33,7 +34,6 @@ public class ReviewController {
 	@PostMapping(value = "/member/myPage")
 	public String reviewNew(@Valid ReviewDto reviewDto, BindingResult bindingResult, @RequestParam("movieId") Long movieId,
 			Model model, Authentication authentication) {
-		System.out.println(movieId + "KKKKKK");
 		if(bindingResult.hasErrors()) {
 			return "member/myPage";
 		}
@@ -74,19 +74,32 @@ public class ReviewController {
 		return "member/reviewPage";
 	}
 	
+	//수정화면
+	@GetMapping(value = "/member/reviewUpdatePage/{reviewId}")
+	public String showReviewUpdateForm(@PathVariable Long reviewId, Model model) {
+		ReviewDto reviewDto = reviewService.getModifyReview(reviewId);
+		
+		model.addAttribute("review", reviewDto);
+		
+		return "member/reviewUpdatePage";
+	}
+	
 	//리뷰수정
-	@PostMapping(value = "/movie/reviewAll/{originId}")
-	public String reviewUpdate(@Valid ReviewDto reviewDto, Model model, 
+	@PostMapping(value = "/member/reviewUpdatePage/{reviewId}")
+	public String reviewUpdate(@Valid ReviewModifyDto reviewModifyDto, Model model, 
 			BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return "redirect:/";
 		}
 		
 		try {
-			reviewService.updateReview(reviewDto);
+			reviewService.updateReview(reviewModifyDto);
+			System.out.println("11111111111");
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("22222222222222");
 			model.addAttribute("errorMessage", "리뷰 수정 중 에러가 발생했습니다.");
+			System.out.println("333333333333");
 			return "redirect:/";
 		}
 		

@@ -2,10 +2,7 @@ package com.example.ostb_movie.entity;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import com.example.ostb_movie.dto.ReviewDto;
+import com.example.ostb_movie.dto.ReviewModifyDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,9 +43,10 @@ public class Review {
 	private Movie movie;
 
 	
-	public void updateReview(ReviewDto reviewDto) {
-		this.content = reviewDto.getContent();
-		this.rvLike = reviewDto.getRvLike();
-		this.reviewDate = reviewDto.getReviewDate();
+	public void updateReview(ReviewModifyDto reviewModifyDto) {
+		this.id = reviewModifyDto.getId();
+		this.content = reviewModifyDto.getContent();
 	}
+	
+	
 }
