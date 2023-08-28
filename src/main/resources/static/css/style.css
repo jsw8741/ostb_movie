@@ -2,7 +2,7 @@
 @import	url("https://fonts.googleapis.com/css?family=Barlow:300,400,500,600,700|Work+Sans:300,400,500,600,700");
 
 ol, ul, dl{
-	margin-bottom: 0 !important;
+	margin-bottom: 10px !important;
 }
 
 .footer-social-info d-flex align-items-center justify-content-between {
