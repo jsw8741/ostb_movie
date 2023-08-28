@@ -6,7 +6,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.example.ostb_movie.constant.RoomStatus;
-import com.example.ostb_movie.dto.FaqFormDto;
 import com.example.ostb_movie.dto.OneBoardFormDto;
 
 import jakarta.persistence.Column;

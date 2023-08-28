@@ -26,7 +26,7 @@ public class OneBoardFormDto {
 	//dto -> entity로 바꿔줌
 	public OneBoard createOne(Member member) {
 		this.memberId = member.getId();
-		roomStatus = RoomStatus.OPNE;
+		roomStatus = RoomStatus.OPEN;
 		return modelMapper.map(this, OneBoard.class);
 	}
 	

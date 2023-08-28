@@ -1,18 +1,24 @@
 package com.example.ostb_movie.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.dto.OneBoardFormDto;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.OneBoard;
+import com.example.ostb_movie.repository.OneBoardRepository;
 import com.example.ostb_movie.service.ChattService;
 
 import jakarta.validation.Valid;
@@ -22,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OneController {
 	private final ChattService chattService;	
+	private final OneBoardRepository oneBoardRepository;
 	
 	//1:1 채팅방 생성페이지
 	@GetMapping(value = "/chatt/createChatt")
@@ -76,7 +83,18 @@ public class OneController {
 	
 	
 	//채팅방 리스트(관리자)
-	
+	@GetMapping(value = {"/chatt/list", "/chatt/list/{page}"})
+	public String chattMainList(Model model, @PathVariable("page") Optional<Integer> page ) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+		Page<OneBoard> oneBoards = oneBoardRepository.findAllByOrderByRoomStatusDescRegTimeDesc(pageable);
+		Long totalCount = oneBoardRepository.count();
+		
+		model.addAttribute("oneBoards", oneBoards);
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("maxPage", 5);
+		
+		return "chatt/listChatt";
+	}
 	
 	
 	
