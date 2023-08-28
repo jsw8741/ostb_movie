@@ -15,7 +15,7 @@
 	</style>
 </th:block>	
 
-<div layout:fragment="content">
+<div layout:fragment="content" style="height: 2000px !important;">
 	<div class="wrap">
           <div class="container_movieChart">
           
@@ -38,9 +38,9 @@
 		                                        <img th:src="${popular.imgUrl}" class="img_thumb" th:alt="${popular.movieTitle}">
 		                                    <span class="rank_num" th:text="${status.index} + 1"></span>
 		                                </div>
-		                                <div class="poster_info">
-		                                    <a th:href="'/movie/detail/' + ${popular.id}" class="link_story" data-tiara-layer="poster" th:text="${popular.tagline}"></a>
-		                                </div>
+		                                <div class="poster_info" th:data-id="${popular.id}">
+										    <a href="#" class="link_story" data-tiara-layer="poster" th:text="${popular.description}"></a>
+										</div>
 		                            </div>
 		                            <div class="thumb_cont">
 		                                <strong class="tit_item">
@@ -64,9 +64,9 @@
 		                                <div class="poster_movie">
 		                                        <img th:src="${nowPlaying.imgUrl}" class="img_thumb" th:alt="${nowPlaying.movieTitle}">
 		                                </div>
-		                                <div class="poster_info">
-		                                    <a th:href="'/movie/detail/' + ${nowPlaying.id}" class="link_story" data-tiara-layer="poster" th:text="${nowPlaying.tagline}"></a>
-		                                </div>
+		                                <div class="poster_info" th:data-id="${nowPlaying.id}">
+										    <a href="#" class="link_story" data-tiara-layer="poster" th:text="${nowPlaying.description}"></a>
+										</div>
 		                            </div>
 		                            <div class="thumb_cont">
 		                                <strong class="tit_item">
@@ -90,9 +90,9 @@
 		                                <div class="poster_movie">
 		                                        <img th:src="${upComming.imgUrl}" class="img_thumb" th:alt="${upComming.movieTitle}">
 		                                </div>
-		                                <div class="poster_info">
-		                                    <a th:href="'/movie/detail/' + ${upComming.id}" class="link_story" data-tiara-layer="poster" th:text="${upComming.tagline}"></a>
-		                                </div>
+		                                <div class="poster_info" th:data-id="${upComming.id}">
+										    <a href="#" class="link_story" data-tiara-layer="poster" th:text="${upComming.description}"></a>
+										</div>
 		                            </div>
 		                            <div class="thumb_cont">
 		                                <strong class="tit_item">
@@ -121,7 +121,17 @@
 <th:block layout:fragment="script">
 	<script th:src="@{'/js/movieChart.js'}"></script>
 	<script th:inline="javascript">
-		
+	const linkStoryElements = document.querySelectorAll('.poster_info');
+
+    // 각 link_story 요소에 클릭 이벤트 리스너를 추가합니다.
+    linkStoryElements.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // 링크의 기본 동작을 중단합니다.
+            const movieId = this.getAttribute('data-id'); // "data-id" 속성에서 영화 ID를 가져옵니다.
+            const movieDetailUrl = '/movie/detail/' + movieId; // URL을 구성합니다.
+            location.href = movieDetailUrl; // 영화 상세 페이지로 이동합니다.
+        });
+    });
 	</script>
 </th:block>
 </html>

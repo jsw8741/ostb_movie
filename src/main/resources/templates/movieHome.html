@@ -29,8 +29,13 @@
 									<dt style="padding-top: 20px;">개봉일
 									<dd th:text="${moviePopular.releaseDate}"></dd>
 									</dt>
+									
 									<dt style="padding-top: 10px;">장르
 									<dd th:text="${moviePopular.genres}"></dd>
+									</dt>
+									
+									<dt style="padding-top: 10px;display: inline;">평점
+									<dd th:text="${moviePopular.voteAverage}" style=" display: inline;"></dd>
 									</dt>
 							    </dl>
 							     <img th:src="${moviePopular.imgUrl}" th:alt="${moviePopular.movieTitle}" class="slide_popular slideimges" />
@@ -92,7 +97,7 @@
 	        $("#video").remove();
 	        
 	        if(!movieUrl){
-	        	$(".container_video").append(`<div id="video"style="width=1300; height=720; font-size: 50px;color: white;text-align: center;top: 515px;left: 390px;position: absolute;">예고편이 없습니다.</div>`);
+	        	$(".container_video").append(`<div id="video"style="font-size: 50px;color: white;text-align: center; z-index: 3; position: relative; margin-bottom: 650px; top: 300px;">예고편이 없습니다.</div>`);
 	        }else{	        	
 		        $(".container_video").append(`<iframe id="video" width="1300" height="720" src="${movieUrl}?autoplay=1&mute=1&controls=0" 
 						frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);

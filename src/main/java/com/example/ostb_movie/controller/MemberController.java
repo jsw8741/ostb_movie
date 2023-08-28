@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,8 +27,55 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
-	
+
 	private final MemberService memberService;
+	private final PasswordEncoder passwordEncoder;
+	
+	// 현재 비밀번호 확인 화면
+	@GetMapping(value = "/members/checkPw")
+	public String checkPwForm() {
+		
+		return "member/checkPw";
+	}
+	
+	// 현재 비밀번호 확인
+	@PostMapping(value = "/members/checkPw")
+	public String checkPw(@RequestParam("password") String password, Authentication authentication, Model model) {
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        Member member = principal.getMember();
+		
+        if(passwordEncoder.matches(password, member.getPassword())){
+        	return "member/modifyPw";
+		}else {
+			model.addAttribute("member", member);
+			model.addAttribute("errorMessage", "비밀번호가 다릅니다!");
+			
+			return "member/myPage";
+		}
+        
+		
+	}
+	
+	// 비밀번호 변경 화면
+	@GetMapping(value = "/members/modifyPw")
+	public String modifyPwForm() {
+		
+		return "member/checkPw";
+	}
+	
+	// 비밀번호 변경
+	@PostMapping(value = "/members/modifyPw")
+	public String modifyPw(@RequestParam("password") String password, Authentication authentication, Model model) {
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        Member currentMember = principal.getMember();
+        
+        Member member = memberService.findMember(currentMember.getEmail());
+        member.setPassword(passwordEncoder.encode(password));
+        member = memberService.updatePassword(member);
+		
+		
+		return "member/checkPw";
+	}
 	
 	@GetMapping(value =  "/members/info")
 	//마이페이지 화면
