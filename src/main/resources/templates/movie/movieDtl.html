@@ -40,18 +40,23 @@
                     </div>
                   </div>
                 </div>
-                <div class="right-bottom">
-                  <p>줄거리</p>
-                  <p class="overview" th:text="${movieDtl.description}"></p>
-                </div>
+                <th:block th:if="${movieDtl.description != ''}">
+                	<div class="right-bottom">
+	                  <p>줄거리</p>
+	                  <p class="overview" th:text="${movieDtl.description}"></p>
+	                </div>
+                </th:block>
               </div>
             </div>
-            <div class="main-bottom">
-            	<p>예고편</p>
-            	<div class="video">
-            		<iframe id="video" width="1280" height="720" th:src="${movieDtl.trailerUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            	</div>
-            </div>
+            
+            <th:block th:if="${movieDtl.trailerUrl != null}">
+            	<div class="main-bottom">
+	            	<p>예고편</p>
+	            	<div class="video">
+	            		<iframe id="video" width="1280" height="720" th:src="${movieDtl.trailerUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	            	</div>
+	            </div>
+            </th:block>
             
             <div>
             	 <form action="/member/myPage" method="post" class="contact-form" th:object="${reviewDto}" name="review" enctype="multipart/form-data">
@@ -61,29 +66,16 @@
 				         	 <input type="text" class="form-control" th:field="*{content}">
 				         	 <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="fieldError">Incorrect Data</p>
 			            </div>
-			           	 <button type="button" onclick="beforeSubmit()" class="btn btn-primary mb-3" style="width:100px;">리뷰등록</button>
-			           	 <button class="review_modify" type='button' id="modal_btn">수정</button>
+			           	 <button type="button" onclick="beforeSubmit()" class="create_rvbutton" style="width:100px;">리뷰등록</button>
 		            </div>
-		           	<div class="modal_background"></div>
-					<div class="modal_wrap">
-					<div class="modal_title"><p class="modal_text">리뷰수정</p></div>
-		 				<div class="modal_close">X</div>
-		  			  	<div class="text">
-		      				수정 어쩌구
-		  				</div>
-					</div>
 		            <input type="hidden" name="movieId" th:value="${movieDtl.id}">
 		            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 		         </form>
             </div>
             
-    <h1>리뷰</h1>
-    <ul>
-        <li th:each="review : ${memberReviews}">
-            <p th:text="${review.content}"></p>
-        </li>
-    </ul>
-          </div>
+    <div class="movie">
+    </div>
+    </div>
 	</div>
 </div>
 
@@ -110,23 +102,6 @@
 		}
 		f.submit();
 	}
-	
-	//모달창 열기
-	function modalOpen() {
-	    document.querySelector('.modal_wrap').style.display = 'block';
-	    document.querySelector('.modal_background').style.display = 'block';
-	}
-
-	// 모달창 끄기
-	function modalClose() {
-	    document.querySelector('.modal_wrap').style.display = 'none';
-	    document.querySelector('.modal_background').style.display = 'none';
-	}
-
-
-	//버튼 클릭리스너 달기
-	document.querySelector('#modal_btn').addEventListener('click', modalOpen);
-	document.querySelector('.modal_close').addEventListener('click', modalClose);
 	
 	</script>
 </th:block>

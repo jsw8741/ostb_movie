@@ -44,13 +44,13 @@
 			class="tab_wrap swiper-container swiper-container-horizontal swiper-container-free-mode">
 			<ul class="tab_inner swiper-wrapper"
 				style="transform: translate3d(0px, 0px, 0px);">
-				<li class="swiper-slide tab active"
+				<li class="swiper-slide tab active tab1"
 					data-filter="all"><a href="#"><span>전체</span></a></li>
 
-				<li class="swiper-slide tab" data-filter="opne"><a href="#"><span
+				<li class="swiper-slide tab tab1" data-filter="opne"><a href="#"><span
 						id="cdNm1">상담중</span></a></li>
 
-				<li class="swiper-slide tab" data-filter="close"><a href="#"><span
+				<li class="swiper-slide tab tab1" data-filter="close"><a href="#"><span
 						id="cdNm2">상담종료</span></a></li>
 
 			</ul>
@@ -63,7 +63,7 @@
 		<div class="layout1">
 			<!-- list top -->
 			<th:block th:each="oneBoard : ${oneBoards}">
-				<th:block th:if="${#strings.equals(oneBoard.roomStatus, 'OPEN')}">
+				<th:block th:if="${#strings.equals(oneBoard.roomStatus, 'OPEN') or #strings.equals(oneBoard.roomStatus, 'ONGOING')}">
 					<div class="acodiList acodi_type1 py-1 item"  data-type="opne" >
 						<ul>
 							<li class="ac_item" th:data-target="${oneBoard.id}"
@@ -77,7 +77,7 @@
 										<span>문의 시간 : [[${oneBoard.regTime}]]</span> <span
 											th:classappend="${#strings.equals(oneBoard.roomStatus, 'OPEN') ? 'ac_accept' : 
 									(#strings.equals(oneBoard.roomStatus, 'CLOSE') ? 'ac_completed ' : 
-           						   (#strings.isEmpty(oneBoard.roomStatus) ? 'ac_completed' : ''))}">[[${oneBoard.roomStatus}]]</span>
+           						   (#strings.equals(oneBoard.roomStatus, 'ONGOING') ? 'ac_ongoing' : ''))}">[[${oneBoard.roomStatus}]]</span>
 									</div>
 								</div>
 							</li>
@@ -85,7 +85,7 @@
 					</div>
 				</th:block>
 				
-				<th:block th:unless="${#strings.equals(oneBoard.roomStatus, 'OPEN')}">
+				<th:block th:unless="${#strings.equals(oneBoard.roomStatus, 'OPEN') or #strings.equals(oneBoard.roomStatus, 'ONGOING')}">
 					<div class="acodiList acodi_type1 py-1 item" data-type="close">
 						<ul>
 							<li class="ac_item" th:data-target="${oneBoard.id}"
@@ -98,17 +98,50 @@
 										<span>문의 시간 : [[${oneBoard.regTime}]]</span> <span
 											th:classappend="${#strings.equals(oneBoard.roomStatus, 'OPEN') ? 'ac_accept' : 
 									(#strings.equals(oneBoard.roomStatus, 'CLOSE') ? 'ac_completed ' : 
-           						   (#strings.isEmpty(oneBoard.roomStatus) ? 'ac_completed' : ''))}">[[${oneBoard.roomStatus}]]</span>
+           						    (#strings.equals(oneBoard.roomStatus, 'ONGOING') ? 'ac_ongoing' : ''))}">[[${oneBoard.roomStatus}]]</span>
 									</div>
 								</div>
 							</li>
 						</ul>
 					</div>
 				</th:block>
+				
 				<!--// list top -->
 				<!-- list -->
 			</th:block>
 		</div>
+		<div class="wrap_paging mo_none" th:if="${oneBoards.content.size() > 0}">
+		
+						<nav
+							th:with="start=${(oneBoards.number/maxPage)*maxPage + 1}
+			                 ,end=(${(oneBoards.totalPages == 0) ? 1 : (start + (maxPage - 1) < oneBoards.totalPages ? start + (maxPage - 1) : oneBoards.totalPages)})"
+							>
+							<pagination>
+								<ul class="pagination">
+												<li class="pagination-page page-item"
+													th:classappend="${oneBoards.first}?'disabled'"
+													>
+													<a 
+													class="page-link"
+													th:href="@{'/chatt/list/' + ${oneBoards.number-1}}">이전</a></li>
+													
+												<li class="pagination-page page-item"
+													th:each="page: ${#numbers.sequence(start, end)}"
+													th:classappend="${oneBoards.number eq page-1}?'active':''">
+													<a class="page-link"
+													 th:inline="text"
+													 th:href="@{'/chatt/list/' + ${page-1}}">[[${page}]]</a></li>
+													 
+												<li class="pagination-page page-item"
+													th:classappend="${oneBoards.last}?'disabled'">
+													<a class="page-link"
+													th:href="@{'/chatt/list/' + ${oneBoards.number+1}}">다음</a></li>
+								</ul>
+							</pagination>
+						 </nav>
+		</div>
+		
+		
 	</section>
 
 
@@ -152,7 +185,7 @@
 		
 		
 		 // Add click event listener to tabs
-	    const tabs = document.querySelectorAll('.tab');
+	    const tabs = document.querySelectorAll('.tab1');
 	    const items = document.querySelectorAll('.item');
 
 	    tabs.forEach(tab => {

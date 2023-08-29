@@ -16,6 +16,7 @@ import com.example.ostb_movie.entity.MovieStatus;
 import com.example.ostb_movie.entity.Review;
 import com.example.ostb_movie.service.MovieService;
 import com.example.ostb_movie.service.MovieStatusService;
+import com.example.ostb_movie.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class MovieController {
 	private final MovieService movieService;
 	private final MovieStatusService movieStatusService;
+	private final ReviewService reviewService;
 	
 	@GetMapping(value = "/")
 	public String movieHome(Model model, Authentication authentication){
@@ -56,6 +58,20 @@ public class MovieController {
 		return "movieHome";
 	}
 	
+	@GetMapping(value = "/movie/chart")
+	public String movieChart(Model model) {
+		
+		List<Movie> popularList = movieService.getMoviePopular();
+		List<Movie> nowPlayingList = movieService.getMovieNowPlaying();
+		List<Movie> upCommingList = movieService.getMovieUpComming();
+		
+		model.addAttribute("popularList", popularList);
+		model.addAttribute("nowPlayingList", nowPlayingList);
+		model.addAttribute("upCommingList", upCommingList);
+		
+		return "movie/movieChart";
+	}
+	
 	// 매 주 월요일 오전 00:00에 DB 업데이트
 	@Scheduled(cron = "0 0 0 ? * 1")
     public void updateMovieDB() {
@@ -66,6 +82,10 @@ public class MovieController {
 	public String movieDtl(@PathVariable("originId") Long originId, Model model) {
 		
 		Movie movieDtl = movieService.getMovieDtl(originId);
+		
+		
+		reviewService.getMovieReviewAll(originId);
+		
 		
 		model.addAttribute("movieDtl", movieDtl);
 		model.addAttribute("reviewDto", new ReviewDto());

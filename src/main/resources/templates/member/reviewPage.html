@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/reviewPage.css}"/>
+</th:block>		
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
-<body>
-assd
-</body>
+
+<div layout:fragment="content">
+	<section>
+		<div>
+			<h2 class="myReview">MY REVIEW</h2>
+		</div>
+		<div class="row mb-5 reviewBox">
+		<th:block th:each="review, status: ${reviews}">
+			<div class="col-lg-6 review-entry mb-4">
+				<img class="profile" th:src="${review.member.memberImg}"/>
+				<div class="review_top">
+					<p th:text="'닉네임: ' + ${review.member.nickname}"></p>
+					<p th:text="${review.content}"></p>
+					<div class="review_low">
+						<p th:text="${#temporals.format(review.reviewDate, 'yyyy-MM-dd')}"></p>
+						&nbsp&nbsp&nbsp&nbsp
+						<i class="fa-solid fa-thumbs-up" style="color: #29A5FF;"></i>
+						&nbsp&nbsp
+						<p th:text="${review.rvLike}"></p>
+						<a class="rv_modify" th:href="'/member/reviewUpdatePage/' + ${review.id}">수정하기</a>
+							<p>
+								<button class="review_delete" th:value="${review.id}" onclick="deleteReview(this.value)">삭제하기</button>
+							</p>
+					</div>
+				</div>
+			</div>
+		</th:block>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+               		<nav
+					th:with="start=${(reviews.number/maxPage)*maxPage + 1}
+			                 ,end=(${(reviews.totalPages == 0) ? 1 : (start + (maxPage - 1) < reviews.totalPages ? start + (maxPage - 1) : reviews.totalPages)})"
+							aria-label="Page navigation example">
+							<ul class="pagination d-flex justify-content-center">
+								<li class="page-review" th:classappend="${reviews.first}?'disabled'">
+									<a class="page-link"
+									th:href="@{'/member/reviewPage/' + ${memberId} +'/' + ${reviews.number - 1}}">이전</a>
+								</li>
+								
+								<li class="page-review"
+									th:each="page: ${#numbers.sequence(start, end)}"
+									th:classappend="${reviews.number eq page-1}?'active':''">
+									<a
+									class="page-link" th:inline="text"
+									th:href="@{'/member/reviewPage/' + ${memberId} + '/' + ${page - 1}}">[[${page}]]</a>
+								</li>
+								
+								<li class="page-review" th:classappend="${reviews.last}?'disabled'">
+									<a class="page-link"
+									th:href="@{'/member/reviewPage/' + ${memberId} + '/' + ${reviews.number + 1}}">다음</a>
+								</li>
+							</ul>
+					</nav>
+			</div>
+		</div>
+
+	</section>
+</div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+	function deleteReview(reviewId) {
+		const deleteConf = confirm("삭제하시겠습니까?");
+		if(!deleteConf) return; //취소버튼 누르면
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		//request URL
+		var url = "/member/" + reviewId + "/delete";
+		
+		
+		$.ajax({
+			url : url, //request URL
+			type : "DELETE", //전송방식
+			contentType : "application/json",
+			beforeSend : function(xhr) {
+				//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+				xhr.setRequestHeader(header, token);
+			},
+			dataType : "json",
+			cache : false,
+			success : function(result, status) {
+				alert("삭제가 완료되었습니다.");
+				location.href = '/';
+			},
+			error : function(jqXHR, status, error) {
+				if(jqXHR.status == '401') {
+					alert('로그인 후 이용해주세요.');
+					location.href = '/login/loginForm';
+				} else {
+					alert(jqXHR.responseText);
+				}
+			}
+		});
+	}
+	</script>
+</th:block>	
 </html>

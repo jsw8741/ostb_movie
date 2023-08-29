@@ -132,3 +132,22 @@
 	width: 500px;
 	height: 750px;
 }
+
+.text-black {
+  font-size: 40px;
+  color: #fff;
+  font-weight: 600;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 0 0 30px 0;
+}
+
+.create_rvbutton {
+	background-color: black;
+	color: white;
+	margin-top: 30px;
+	border: 1px solid white;
+}
+
+.rv_moviemain {
+	color: white;
+}

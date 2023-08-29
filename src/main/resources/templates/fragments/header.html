@@ -23,40 +23,38 @@
 										</div>
 										<div class="classynav">
 											<ul>
-												<li><a href="index.html">홈</a></li>
-												<li><a href="#">영화</a>
+												<li><a href="/">홈</a></li>
+												<li><a href="/movie/chart">영화</a>
 													<div class="megamenu">
 														<ul class="single-mega cn-col-7">
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="index.html" class="first_title">영화</a></li>
-															<li><a href="archive-blog.html">-무비차트</a></li>
+															<li><p class="first_title">영화</p></li>
+															<li><a href="/movie/chart">-무비차트</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="/admin/itemform" class="first_title">
-																	아이템 등록</a></li>
-															<li><a href="/item/items">- 아이템</a></li>
-															<li><a href="/admin/items">- 아이템 관리</a></li>
-															<li><a href="/order/myCart">- 장바구니</a></li>
+															<li><p class="first_title"> 예매</p></li>
+															<li><a href="#">- 빠른예매</a></li>
+															<li><a href="/book/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 스토어</a></li>
+															<li><p class="first_title"> 스토어</p></li>
 															<li><a href="#">- 팝콘</a></li>
 															<li><a href="#">- 스낵</a></li>
 															<li><a href="#">- 음료</a></li>
 															<li><a href="#">- 영화 관람권</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 이벤트</a></li>
+															<li><p class="first_title"> 이벤트</p></li>
 															<li><a href="#">- 룰렛 이벤트</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 고객센터</a></li>
+															<li><p class="first_title"> 고객센터</p></li>
 															<li><a href="/FAQ/list">- FAQ</a></li>
-															<li><a href="#">- 공지사항</a></li>
-															<li><a href="#">- 분실물 문의</a></li>
-															<li><a href="#">- 이메일 문의</a></li>
-															<li><a href="#">- 내 문의내역</a></li>
+															<li><a href="/notice/list">- 공지사항</a></li>
+															<li><a sec:authorize="isAuthenticated()" href="/lost/list">- 분실물 문의</a></li>
+															<li><a sec:authorize="isAuthenticated()" href="/chatt/mychatt">- 이메일 문의</a></li>
+															<li><a sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')" href="/chatt/list">- 채팅</a></li>
 														</ul>
 													</div></li>
 												<li><a href="#">예매</a>
@@ -64,32 +62,32 @@
 														<ul class="single-mega cn-col-7">
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="index.html" class="first_title">영화</a></li>
-															<li><a href="archive-blog.html">-무비차트</a></li>
+															<li><p class="first_title">영화</p></li>
+															<li><a href="/movie/chart">-무비차트</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 예매</a></li>
+															<li><p class="first_title"> 예매</p></li>
 															<li><a href="#">- 빠른예매</a></li>
 															<li><a href="/book/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 스토어</a></li>
+															<li><p class="first_title"> 스토어</p></li>
 															<li><a href="#">- 팝콘</a></li>
 															<li><a href="#">- 스낵</a></li>
 															<li><a href="#">- 음료</a></li>
 															<li><a href="#">- 영화 관람권</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 이벤트</a></li>
+															<li><p class="first_title"> 이벤트</p></li>
 															<li><a href="#">- 룰렛 이벤트</a></li>
 														</ul>
-														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 고객센터</a></li>
+													<ul class="single-mega cn-col-5">
+															<li><p class="first_title"> 고객센터</p></li>
 															<li><a href="/FAQ/list">- FAQ</a></li>
-															<li><a href="#">- 공지사항</a></li>
-															<li><a href="#">- 분실물 문의</a></li>
-															<li><a href="#">- 이메일 문의</a></li>
-															<li><a href="#">- 내 문의내역</a></li>
+															<li><a href="/notice/list">- 공지사항</a></li>
+															<li><a sec:authorize="isAuthenticated()" href="/lost/list">- 분실물 문의</a></li>
+															<li><a sec:authorize="isAuthenticated()" href="/chatt/mychatt">- 이메일 문의</a></li>
+															<li><a sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')" href="/chatt/list">- 채팅</a></li>
 														</ul>
 													</div></li>
 												<li><a href="#">스토어</a>
@@ -97,32 +95,32 @@
 														<ul class="single-mega cn-col-7">
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="index.html" class="first_title">영화</a></li>
-															<li><a href="archive-blog.html">-무비차트</a></li>
+															<li><p class="first_title">영화</p></li>
+															<li><a href="/movie/chart">-무비차트</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 예매</a></li>
+															<li><p class="first_title"> 예매</p></li>
 															<li><a href="#">- 빠른예매</a></li>
 															<li><a href="/book/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 스토어</a></li>
+															<li><p class="first_title"> 스토어</p></li>
 															<li><a href="#">- 팝콘</a></li>
 															<li><a href="#">- 스낵</a></li>
 															<li><a href="#">- 음료</a></li>
 															<li><a href="#">- 영화 관람권</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 이벤트</a></li>
+															<li><p class="first_title"> 이벤트</p></li>
 															<li><a href="#">- 룰렛 이벤트</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 고객센터</a></li>
+															<li><p class="first_title"> 고객센터</p></li>
 															<li><a href="/FAQ/list">- FAQ</a></li>
-															<li><a href="#">- 공지사항</a></li>
-															<li><a href="#">- 분실물 문의</a></li>
-															<li><a href="#">- 이메일 문의</a></li>
-															<li><a href="#">- 내 문의내역</a></li>
+															<li><a href="/notice/list">- 공지사항</a></li>
+															<li><a sec:authorize="isAuthenticated()" href="/lost/list">- 분실물 문의</a></li>
+															<li><a sec:authorize="isAuthenticated()" href="/chatt/mychatt">- 이메일 문의</a></li>
+															<li><a sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')" href="/chatt/list">- 채팅</a></li>
 														</ul>
 													</div></li>
 												<li><a href="#">이벤트</a>
@@ -130,103 +128,73 @@
 														<ul class="single-mega cn-col-7">
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="index.html" class="first_title">영화</a></li>
-															<li><a href="archive-blog.html">-무비차트</a></li>
+															<li><p class="first_title">영화</p></li>
+															<li><a href="/movie/chart">-무비차트</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 예매</a></li>
+															<li><p class="first_title"> 예매</p></li>
 															<li><a href="#">- 빠른예매</a></li>
 															<li><a href="/book/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 스토어</a></li>
+															<li><p class="first_title"> 스토어</p></li>
 															<li><a href="#">- 팝콘</a></li>
 															<li><a href="#">- 스낵</a></li>
 															<li><a href="#">- 음료</a></li>
 															<li><a href="#">- 영화 관람권</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 이벤트</a></li>
+															<li><p class="first_title"> 이벤트</p></li>
 															<li><a href="#">- 룰렛 이벤트</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 고객센터</a></li>
+															<li><p class="first_title"> 고객센터</p></li>
 															<li><a href="/FAQ/list">- FAQ</a></li>
-															<li><a href="#">- 공지사항</a></li>
-															<li><a href="#">- 분실물 문의</a></li>
-															<li><a href="#">- 이메일 문의</a></li>
-															<li><a href="#">- 내 문의내역</a></li>
+															<li><a href="/notice/list">- 공지사항</a></li>
+															<li><a sec:authorize="isAuthenticated()" href="/lost/list">- 분실물 문의</a></li>
+															<li><a sec:authorize="isAuthenticated()" href="/chatt/mychatt">- 이메일 문의</a></li>
+															<li><a sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')" href="/chatt/list">- 채팅</a></li>
 														</ul>
 													</div></li>
-												<li><a href="#">고객센터</a>
+												<li><a href="/FAQ/list">고객센터</a>
 													<div class="megamenu">
 														<ul class="single-mega cn-col-7">
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="index.html" class="first_title">영화</a></li>
-															<li><a href="archive-blog.html">-무비차트</a></li>
+															<li><p class="first_title">영화</p></li>
+															<li><a href="/movie/chart">-무비차트</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 예매</a></li>
+															<li><p class="first_title"> 예매</p></li>
 															<li><a href="#">- 빠른예매</a></li>
 															<li><a href="/book/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 스토어</a></li>
+															<li><p class="first_title"> 스토어</p></li>
 															<li><a href="#">- 팝콘</a></li>
 															<li><a href="#">- 스낵</a></li>
 															<li><a href="#">- 음료</a></li>
 															<li><a href="#">- 영화 관람권</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 이벤트</a></li>
+															<li><p class="first_title"> 이벤트</p></li>
 															<li><a href="#">- 룰렛 이벤트</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 고객센터</a></li>
+															<li><p class="first_title"> 고객센터</p></li>
 															<li><a href="/FAQ/list">- FAQ</a></li>
-															<li><a href="#">- 공지사항</a></li>
-															<li><a href="#">- 분실물 문의</a></li>
-															<li><a href="#">- 이메일 문의</a></li>
-															<li><a href="#">- 내 문의내역</a></li>
+															<li><a href="/notice/list">- 공지사항</a></li>
+															<li><a sec:authorize="isAuthenticated()" href="/lost/list">- 분실물 문의</a></li>
+															<li><a sec:authorize="isAuthenticated()" href="/chatt/mychatt">- 이메일 문의</a></li>
+															<!-- 추후 USER 제거 -->
+															<li><a sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')" href="/chatt/list">- 채팅</a></li>
 														</ul>
 													</div></li>
-												<li><a href="contact.html">채팅</a></li>
+													
+												
 
 												<li><a href="/members/info"
-													sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')">마이페이지</a>
-													<div class="megamenu">
-														<ul class="single-mega cn-col-7">
-														</ul>
-														<ul class="single-mega cn-col-5">
-															<li><a href="index.html" class="first_title">영화</a></li>
-															<li><a href="archive-blog.html">-무비차트</a></li>
-														</ul>
-														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 예매</a></li>
-															<li><a href="#">- 빠른예매</a></li>
-															<li><a href="/book/schedule">- 상영시간표</a></li>
-														</ul>
-														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 스토어</a></li>
-															<li><a href="#">- 팝콘</a></li>
-															<li><a href="#">- 스낵</a></li>
-															<li><a href="#">- 음료</a></li>
-															<li><a href="#">- 영화 관람권</a></li>
-														</ul>
-														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 이벤트</a></li>
-															<li><a href="#">- 룰렛 이벤트</a></li>
-														</ul>
-														<ul class="single-mega cn-col-5">
-															<li><a href="#" class="first_title"> 고객센터</a></li>
-															<li><a href="#">- FAQ</a></li>
-															<li><a href="#">- 공지사항</a></li>
-															<li><a href="#">- 분실물 문의</a></li>
-															<li><a href="#">- 이메일 문의</a></li>
-															<li><a href="#">- 내 문의내역</a></li>
-														</ul>
-													</div></li>
+													sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')">마이페이지</a></li>
 
 												<li class="nav-item"><a class="nav-link"
 													href="/login/loginForm"
