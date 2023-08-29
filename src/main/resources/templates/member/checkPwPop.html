@@ -17,18 +17,18 @@
 				<div class="p-3 p-lg-5 border">
 					<div class="form-group row">
 						<div class="col-md-12">
-								<label th:for="name" class="text-black">password</label> <input
-									type="password" class="form-control" placeholder="현재 비밀번호를 입력해주세요" name="password"
-									>
-							</div>
+								<input type="password" class="form-control" placeholder="현재 비밀번호를 입력해주세요" name="password" maxlength="15" id="passwordInput" oninput="validatePassword()" onkeydown="checkEnterKey(event)">
+								<button type="button" onclick="beforeSubmit()" class="btn btn-primary mb-3">확인</button>
+						</div>
+								<p id="passwordError" class="errorInput"></p>
 					</div>
 					
 			
 					<div class="form-group">
 						<div class="btn_box">
-							<button type="button" onclick="beforeSubmit()" class="btn btn-primary mb-3">확인</button>
-							</div>
+							
 						</div>
+					</div>
 						
 						
 					</div>
@@ -48,16 +48,47 @@
 			alert(errorMessage);
 		}
 		
+		function checkEnterKey(event) {
+	        if (event.keyCode === 13) {
+	        	event.preventDefault();
+	        	beforeSubmit();
+	        	return;
+	        }
+	    }
+		
 		function beforeSubmit(){
 			const f = document.memberForm;
-			var password = f.password.value;
-			if(password == ''){
-				alert('비밀번호를 입력해주세요');
-			}else{
-				f.submit();
+			
+			if(!f.password.value){
+				alert('비밀번호를 입력해주세요.');
+				f.password.focus();
+				return;
+			}else if(!validatePassword()){
+				alert('비밀번호는 특수문자, 문자, 숫자를 포함한 8~15자리여야 합니다.');
+				f.password.focus();
+				return;
 			}
 			
+			f.submit();
 		}
+		
+		// 비밀번호 정규식 확인
+		function validatePassword() {
+	        const passwordInput = document.getElementById("passwordInput");
+	        const passwordError = document.getElementById("passwordError");
+	        const passwordValue = passwordInput.value;
+	        const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+	
+	        if (!passwordPattern.test(passwordValue)) {
+	            passwordInput.style.border = "1px solid red";
+	            passwordError.textContent = "특수문자, 문자, 숫자를 포함한 8~15자리여야 합니다.";
+	            return false;
+	        } else {
+	            passwordInput.style.border = "1px solid #ccc";
+	            passwordError.textContent = "";
+	            return true;
+	        }
+	    }
 		
 	</script>
 </html>

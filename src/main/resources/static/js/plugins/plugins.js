@@ -180,11 +180,11 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             // check browser width in real-time
             function breakpointCheck() {
                 var windoWidth = window.innerWidth;
-                if (windoWidth <= defaultOpt.breakpoint) {
+                /*if (windoWidth <= defaultOpt.breakpoint) {
                     navContainer.removeClass('breakpoint-off').addClass('breakpoint-on');
                 } else {
                     navContainer.removeClass('breakpoint-on').addClass('breakpoint-off');
-                }
+                }*/
             }
 
             breakpointCheck();
@@ -194,9 +194,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             });
 
             // always hidden enable
-            if (defaultOpt.alwaysHidden === true) {
+            /*if (defaultOpt.alwaysHidden === true) {
                 navContainer.addClass('breakpoint-on').removeClass('breakpoint-off');
-            }
+            }*/
 
             // sticky
             if (defaultOpt.stickyNav === true) {

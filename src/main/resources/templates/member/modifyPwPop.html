@@ -3,32 +3,32 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 	
-<th:block layout:fragment="css">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/modifyPw.css}"/>
-</th:block>
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/modifyPwPop.css}"/>
+</head>
 
-<div layout:fragment="content">	
-		<div class="site-section layout_padding">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h2 class="h3 mb-3 text-black">My Page</h2>
-					<form role="form" action="/members/modifyPw" method="post" name="memberForm">
-					<div class="p-3 p-lg-5 border">
-						<div class="form-group row">
-							<div class="col-md-12">
-									<label th:for="name" class="text-black">password</label> <input
-										type="password" class="form-control" placeholder="바꾸실 비밀번호를 입력해주세요" name="password"
-										>
-								</div>
-						</div>
-						
-				
-						<div class="form-group">
-							<div class="btn_box">
+<div class="pop_wrap">
+	<div class="site-section layout_padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="pop-top">비밀번호 변경</h2>
+				<form role="form" action="/members/modifyPw" method="post" name="memberForm">
+				<div class="p-3 p-lg-5 border">
+					<div class="form-group row">
+						<div class="col-md-12">
+								<input type="password" class="form-control" placeholder="변경하실 비밀번호를 입력해주세요" name="password" maxlength="15" id="passwordInput" oninput="validatePassword()" onkeydown="checkEnterKey(event)">
 								<button type="button" onclick="beforeSubmit()" class="btn btn-primary mb-3">확인</button>
-							</div>
 						</div>
+						<p id="passwordError" class="errorInput"></p>
+					</div>
+					
+			
+					<div class="form-group">
+						<div class="btn_box">
+							
+						</div>
+					</div>
 						
 						
 					</div>
@@ -39,28 +39,62 @@
 		</div>
 	</div>
 </div>
-<th:block layout:fragment="script">
+
 	<script th:inline="javascript">
-		// 수정 에러
 		var errorMessage = [[${errorMessage}]];
+		var successMessage = [[${successMessage}]];		
 		
 		if(errorMessage != null){
 			alert(errorMessage);
+			window.close();
 		}
+		
+		if(successMessage != null){
+			alert(successMessage);
+			window.close();
+		}
+		
+		function checkEnterKey(event) {
+	        if (event.keyCode === 13) {
+	        	event.preventDefault();
+	        	beforeSubmit();
+	        	return;
+	        }
+	    }
 		
 		function beforeSubmit(){
 			const f = document.memberForm;
-			var password = f.password.value;
-			if(password == ''){
-				alert('비밀번호를 입력해주세요');
-			}else if(8<=password.length && password.length <= 16){
-				f.submit();
-			}else{
-				alert('비밀번호는 8~16자 사이로 입력해주세요.');
+			
+			if(!f.password.value){
+				alert('비밀번호를 입력해주세요.');
+				f.password.focus();
+				return;
+			}else if(!validatePassword()){
+				alert('비밀번호는 특수문자, 문자, 숫자를 포함한 8~15자리여야 합니다.');
+				f.password.focus();
+				return;
 			}
 			
+			f.submit();
 		}
 		
+		// 비밀번호 정규식 확인
+		function validatePassword() {
+	        const passwordInput = document.getElementById("passwordInput");
+	        const passwordError = document.getElementById("passwordError");
+	        const passwordValue = passwordInput.value;
+	        const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+	
+	        if (!passwordPattern.test(passwordValue)) {
+	            passwordInput.style.border = "1px solid red";
+	            passwordError.textContent = "특수문자, 문자, 숫자를 포함한 8~15자리여야 합니다.";
+	            return false;
+	        } else {
+	            passwordInput.style.border = "1px solid #ccc";
+	            passwordError.textContent = "";
+	            return true;
+	        }
+	    }
+		
 	</script>
-</th:block>
 </html>

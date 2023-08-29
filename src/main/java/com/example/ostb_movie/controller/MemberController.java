@@ -45,7 +45,8 @@ public class MemberController {
         Member member = principal.getMember();
 		
         if(passwordEncoder.matches(password, member.getPassword())){
-        	return "member/modifyPw";
+        	
+        	return "member/modifyPwPop";
 		}else {
 			model.addAttribute("member", member);
 			model.addAttribute("errorMessage", "비밀번호가 다릅니다!");
@@ -54,13 +55,6 @@ public class MemberController {
 		}
         
 		
-	}
-	
-	// 비밀번호 변경 화면
-	@GetMapping(value = "/members/modifyPw")
-	public String modifyPwForm() {
-		
-		return "member/checkPw";
 	}
 	
 	// 비밀번호 변경
@@ -73,8 +67,15 @@ public class MemberController {
         member.setPassword(passwordEncoder.encode(password));
         member = memberService.updatePassword(member);
 		
-		
-		return "member/checkPw";
+        
+        if(passwordEncoder.matches(password, member.getPassword())){
+        	model.addAttribute("successMessage", "비밀번호 변경이 완료되었습니다.");
+        	return "member/modifyPwPop";
+		}else {
+			model.addAttribute("errorMessage", "비밀번호 변경이 실패되었습니다.다시 시도해주세요.");
+			return "member/checkPwPop";
+		}
+        
 	}
 	
 	@GetMapping(value =  "/members/info")
