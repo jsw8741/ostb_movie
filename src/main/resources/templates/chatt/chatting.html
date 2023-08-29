@@ -126,7 +126,9 @@
 		<div class="py-2 btn_ac">
 		<input class="btn_typeC2" type='text' id='mid' th:value="${createdBy}">
 		<input class="btn_typeC2" type='button' value='채팅 시작하기' id='btnLogin'>
-		<input class="btn_typeC2" type='button' id='btnLogout' th:value="${roomId}" onclick="closeChatt(this.value)">
+<!-- 		<input class="btn_typeC2" type='button' id='btnLogout' th:value="${roomId}" onclick="closeChatt(this.value)"> -->
+		<input class="btn_typeC2" type='button' id='btnLogout' value="채팅종료" th:onclick="closeChatt()">
+		<input type="hidden" id='roomId' th:value="${roomId}">
 		</div>
 		<div id='talk' class="py-3"></div>
 		<div id='sendZone'>
@@ -210,9 +212,10 @@ msg.value ='';
 
 }
 
-function closeChatt(roomId) {
+function closeChatt() {
 	const cancelConf = confirm("채팅을 종료하시겠습니까?");
-	
+	var roomId = getId('roomId').value;
+
 	if(!cancelConf) return; //취소버튼 누르면
 	
 	var token = $("meta[name='_csrf']").attr("content");

@@ -63,7 +63,7 @@
 		<div class="layout1">
 			<!-- list top -->
 			<th:block th:each="oneBoard : ${oneBoards}">
-				<th:block th:if="${#strings.equals(oneBoard.roomStatus, 'OPEN')}">
+				<th:block th:if="${#strings.equals(oneBoard.roomStatus, 'OPEN') or #strings.equals(oneBoard.roomStatus, 'ONGOING')}">
 					<div class="acodiList acodi_type1 py-1 item"  data-type="opne" >
 						<ul>
 							<li class="ac_item" th:data-target="${oneBoard.id}"
@@ -77,7 +77,7 @@
 										<span>문의 시간 : [[${oneBoard.regTime}]]</span> <span
 											th:classappend="${#strings.equals(oneBoard.roomStatus, 'OPEN') ? 'ac_accept' : 
 									(#strings.equals(oneBoard.roomStatus, 'CLOSE') ? 'ac_completed ' : 
-           						   (#strings.isEmpty(oneBoard.roomStatus) ? 'ac_completed' : ''))}">[[${oneBoard.roomStatus}]]</span>
+           						   (#strings.equals(oneBoard.roomStatus, 'ONGOING') ? 'ac_ongoing' : ''))}">[[${oneBoard.roomStatus}]]</span>
 									</div>
 								</div>
 							</li>
@@ -85,7 +85,7 @@
 					</div>
 				</th:block>
 				
-				<th:block th:unless="${#strings.equals(oneBoard.roomStatus, 'OPEN')}">
+				<th:block th:unless="${#strings.equals(oneBoard.roomStatus, 'OPEN') or #strings.equals(oneBoard.roomStatus, 'ONGOING')}">>
 					<div class="acodiList acodi_type1 py-1 item" data-type="close">
 						<ul>
 							<li class="ac_item" th:data-target="${oneBoard.id}"
@@ -98,7 +98,7 @@
 										<span>문의 시간 : [[${oneBoard.regTime}]]</span> <span
 											th:classappend="${#strings.equals(oneBoard.roomStatus, 'OPEN') ? 'ac_accept' : 
 									(#strings.equals(oneBoard.roomStatus, 'CLOSE') ? 'ac_completed ' : 
-           						   (#strings.isEmpty(oneBoard.roomStatus) ? 'ac_completed' : ''))}">[[${oneBoard.roomStatus}]]</span>
+           						    (#strings.equals(oneBoard.roomStatus, 'ONGOING') ? 'ac_ongoing' : ''))}">[[${oneBoard.roomStatus}]]</span>
 									</div>
 								</div>
 							</li>
@@ -152,7 +152,7 @@
 		
 		
 		 // Add click event listener to tabs
-	    const tabs = document.querySelectorAll('.tab');
+	    const tabs = document.querySelectorAll('.tab1');
 	    const items = document.querySelectorAll('.item');
 
 	    tabs.forEach(tab => {
