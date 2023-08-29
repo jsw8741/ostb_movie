@@ -238,7 +238,6 @@ function closeChatt(roomId) {
 		dataType : "json",
 		cache : false,
 		success : function(result, status) {
-			console.log("Button clicked!");
 			window.close();
 			
 		},
@@ -247,7 +246,7 @@ function closeChatt(roomId) {
 				alert("로그인 후 이용해 주세요");
 				location.href = '/members/login';
 			}	else {
-				alret(jqXHR.responseText);
+				alert(jqXHR.responseText);
 			}
 		}
 	});

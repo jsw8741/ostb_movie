@@ -1,6 +1,23 @@
 @charset "UTF-8";
 @import	url("https://fonts.googleapis.com/css?family=Barlow:300,400,500,600,700|Work+Sans:300,400,500,600,700");
 
+.notification-area {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.notification {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: none; /* 처음에는 숨겨진 상태로 설정 */
+}
+
+
+
 ol, ul, dl{
 	margin-bottom: 10px !important;
 }

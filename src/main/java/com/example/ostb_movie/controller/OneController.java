@@ -101,6 +101,7 @@ public class OneController {
 		return "chatt/listChatt";
 	}
 	
+	//채팅방 연결
 	@PostMapping(value = "/chatt")
 	public @ResponseBody ResponseEntity<String> chattClose(@RequestBody @Valid OneBoardFormDto oneBoardFormDto,
 			BindingResult bindingResult, Authentication authentication, @PathVariable("roomId") String roomId) {
@@ -125,15 +126,13 @@ public class OneController {
 		return new ResponseEntity<String>(roomId, HttpStatus.OK);
 	}
 	
-	
+	//채팅방 종료
 	@PostMapping("/chatt/{roomId}/chattClose")
 	public @ResponseBody ResponseEntity closeChatt(@PathVariable("roomId") String roomId, Authentication authentication) {
-		System.out.println("ssssssssssssssssss");
 		roomId = chattService.closeChatt(roomId);
-		System.out.println(roomId + "ddddddddddddddddd");
+		System.out.println("sssssss" + roomId);
 		return new ResponseEntity<String>(roomId, HttpStatus.OK);
 	}
-	
 	
 	
 }
