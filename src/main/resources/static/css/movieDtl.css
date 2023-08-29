@@ -132,3 +132,11 @@
 	width: 500px;
 	height: 750px;
 }
+
+.notPost{
+    color: white;
+    position: relative;
+    top: -30px;
+    font-size: 30px;
+    font-weight: bolder;
+}

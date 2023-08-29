@@ -41,7 +41,11 @@
 	display: flex;
 }
 
-
+.notPost{
+	color: white;
+	text-align: center;
+	top: 120px;
+}
 
 
 /* reset */
