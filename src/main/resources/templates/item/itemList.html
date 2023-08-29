@@ -5,28 +5,79 @@
 
 <th:block layout:fragment="css">
 	<style>
-	.content{
-	background-color: white;
-	}
+.store_var {
+	border-bottom: solid 2px white;
+	width: 100%;
+}
+
+.store_var h2 {
+	color: white;
+}
+
+.store_category {
+	border-bottom: solid 1px white;
+	display: flex;
+}
+
+.store_category div {
+	padding: 10px 0; width : 20%;
+	text-align: center;
+	width: 20%;
+}
+
+.store {
+	width: 60%;
+	margin: 0 auto;
+	padding-top: 100px
+}
+
+.store_main_item {
+	padding-top: 50px;
+}
+
+.store_main_item h3 {
+	padding-bottom: 5px;
+	border-bottom: 1px solid white;
+}
 </style>
 </th:block>
 
 <div layout:fragment="content">
-	<div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 header_margin">
-					<div class="titlepage">
-						<p class="margin_0">최고의 휴식, 맛있는 음식! 최고의 1석 2조 'OSTB'입니다.</p>
+	<div class=store>
+		<div class="store_var">
+			<h2>스토어</h2>
+		</div>
+		<div class="store_category">
+			<div>영화관람권</div>
+			<div>팝콘</div>
+			<div>음료</div>
+			<div>스낵</div>
+			<div>굿즈</div>
+		</div>
+
+		<div>
+			<div class="container">
+				<div class="store_main_item">
+					<h3>영화관람권</h3>
+					<th:block th:each="item, status: ${items}">
+					<div th:if="${item.categori.toString() == 'VOUCHER'}">
+							<a th:href="'/item/' + ${item.id}" th:text="${item.itemNm}"></a>
+						</div>
+					</th:block>
+
+				</div>
+				<div class="row">
+					<div class="col-md-12 header_margin">
+						<div class="titlepage"></div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<th:block th:each="item, status: ${items}">
-					<div th:if="${item.categori.toString() == 'POPCON'}">
+				<div class="row">
+					<th:block th:each="item, status: ${items}">
+						<div th:if="${item.categori.toString() == 'POPCON'}">
 							<a th:href="'/item/' + ${item.id}" th:text="${item.itemNm}"></a>
-					</div>
-				</th:block>
+						</div>
+					</th:block>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -39,7 +39,6 @@ public class ItemController {
 		model.addAttribute("items", items);
 		for (Item item : items) {
 			if (item.getCategori().toString().equals("POPCON")) {
-
 			}
 
 		}

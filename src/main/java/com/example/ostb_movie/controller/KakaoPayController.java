@@ -1,4 +1,5 @@
 package com.example.ostb_movie.controller;
+
 import java.security.Principal;
 import java.security.SecureRandom;
 import java.util.HashMap;
@@ -18,61 +19,82 @@ import com.example.ostb_movie.dto.KakaoPayReadyDto;
 import com.example.ostb_movie.dto.OrderDto;
 import com.example.ostb_movie.entity.Cart;
 import com.example.ostb_movie.entity.Order;
+import com.example.ostb_movie.repository.CartRepository;
+import com.example.ostb_movie.service.CartService;
 import com.example.ostb_movie.service.KakaoPayService;
+import com.example.ostb_movie.service.OrderService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-
-
 
 @Controller
 @RequiredArgsConstructor
 public class KakaoPayController {
 	private final KakaoPayService kakaoPayService;
-	
+	private final CartService cartService;
+	private final OrderService orderService;
 	@GetMapping("/pay/ready")
 	@ResponseBody
-	public KakaoPayReadyDto kakaoPay(@ModelAttribute OrderDto orderDto,  Model model, HttpSession session, Principal principal) {
+	public KakaoPayReadyDto kakaoPay(HttpSession session, Model model, Principal principal,
+			@RequestParam(value = "selectedItems[]", required = false) List<String> selectedItems) {
+		Long totalPrice = (long) 0;
+		// 선택된 상품 정보 출력
 		Map<String, Object> params = new HashMap<>();
-	    params.put("cartItemid", orderDto.getItemId());
-	    
-		KakaoPayReadyDto res = kakaoPayService.kakaoPay(params);
-		
-	    System.out.println("1111111111111111");
-	    // 주문 정보 생성 및 연결
-	    Order order = new Order();
-	    order.setOrderStatus(OrderStatus.CANCLE); // 예시: 주문 상태 설정
-	    System.out.println("222222222222222222");
-		
-	    // tid 값을 세션에 저장
-	    session.setAttribute("tid", res.getTid());
-	    System.out.println("33333333333333333333");
+		int conut = 0;
+		if (selectedItems != null) {
+			for (String itemId : selectedItems) {
+				Cart cart = cartService.getCartItemById(Long.parseLong(itemId));
+				String cleanedAmount = cart.getTprice().replaceAll("[^\\d]", "");
+				long longAmount = Long.parseLong(cleanedAmount);
+				if (conut == 0) {
+					params.put("itemName", cart.getItemId().getItemNm());
+				}
+				totalPrice += longAmount;
+				conut += 1;
+			}
+			params.put("itemCount", conut - 1);
+		}
+		params.put("totalPrice", totalPrice);
+		String tid = (String) session.getAttribute("tid");
 
-	    // tid 값을 success 페이지로 전달하기 위해 모델에 추가
-	    model.addAttribute("tid", res.getTid());
-	    System.out.println("44444444444444444444444444");
+		KakaoPayReadyDto res = kakaoPayService.kakaoPay(params);
+		// 주문 정보 생성 및 연결
+		Order order = new Order();
+		order.setOrderStatus(OrderStatus.CANCLE); // 예시: 주문 상태 설정
+
+		// tid 값을 세션에 저장
+		session.setAttribute("tid", res.getTid());
+		session.setAttribute("selectedItems", selectedItems);
+
+		// tid 값을 success 페이지로 전달하기 위해 모델에 추가
+		model.addAttribute("tid", res.getTid());
+		model.addAttribute("selectedItems", selectedItems);
 		return res;
 	}
-	
-	@GetMapping("/pay/success")
-	public String success(@RequestParam("pg_token")String pgToken,HttpSession session, @ModelAttribute("cart") Cart cart, Principal principal) {
-			String tid = (String) session.getAttribute("tid");
-			System.out.println("cart정보= " + cart);
-	        // 카카오 결재 요청하기
-	        KakaoPayApproveDto kakaoPayApproveDto = kakaoPayService.kakaoPayApprove(tid, pgToken);
-	        System.out.println(kakaoPayApproveDto);
-	        
 
-	        return "/";
+	@GetMapping("/pay/success")
+	public String success(@RequestParam("pg_token") String pgToken, HttpSession session, Principal principal) {
+		String tid = (String) session.getAttribute("tid");
+		List<String> selectedItems = (List<String>) session.getAttribute("selectedItems");
+		
+		for (String itemId : selectedItems) {
+			Cart cart = cartService.getCartItemById(Long.parseLong(itemId));
+			orderService.cartOrder(cart, cart.getEmail());
+			cartService.deletcart(Long.parseLong(itemId));
+			
+		}
+		// 카카오 결재 요청하기
+		KakaoPayApproveDto kakaoPayApproveDto = kakaoPayService.kakaoPayApprove(tid, pgToken);
+		session.removeAttribute("tid");
+		session.removeAttribute("params");
+		return "/";
 	}
-	
-	
+
 	private String generateRandomPayNo() {
-	    SecureRandom secureRandom = new SecureRandom();
-	    byte[] randomBytes = new byte[16];
-	    secureRandom.nextBytes(randomBytes);
-	    return new String(randomBytes);
+		SecureRandom secureRandom = new SecureRandom();
+		byte[] randomBytes = new byte[16];
+		secureRandom.nextBytes(randomBytes);
+		return new String(randomBytes);
 	}
-	
-	
+
 }

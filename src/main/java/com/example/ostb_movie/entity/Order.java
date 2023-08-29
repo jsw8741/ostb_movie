@@ -61,5 +61,15 @@ public class Order {
 
 		return order;
 	}
+	public static Order createorderCart(Cart cart, String email) {
+		Order order = new Order();
+		order.setEmail(email);
+		order.setItemId(cart.getItemId());
+		order.setTprice(cart.getTprice());
+		order.setOrderStatus(OrderStatus.ORDER);
+		order.setCount(cart.getCount());
+
+		return order;
+	}
 
 }

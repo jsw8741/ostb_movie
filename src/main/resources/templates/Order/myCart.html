@@ -79,17 +79,24 @@
 			});
 		});
 
-		$(document).on("click", "#apibtn", function(){
-			var totalPrice = document.getElementById("totalPrice").value;
-			var itemName = '팝콘';
-			
-		    var data = {
-		    		totalPrice : totalPrice,
-					itemName : itemName
-		        };
-			
+
+	    $(document).on("click", "#apibtn", function(){
+	        var selectedItems = []; // 선택된 상품들의 정보를 담을 배열
+
+	        // 각 체크박스의 정보를 가져와 배열에 추가
+	        userCouponCheckboxes.forEach(function(userCouponCheckbox) {
+	            if (userCouponCheckbox.checked) {
+	                var productId = userCouponCheckbox.value; // 상품 ID
+	                selectedItems.push(productId); // 상품 ID만 배열에 추가
+	            }
+	        });
+
+	        // AJAX 요청을 위한 데이터
+	        var data = {
+	            selectedItems: selectedItems
+	        };
+
 			$.ajax({
-				
 			    type: 'GET',
 			    url: '/pay/ready',
 			    contentType: 'application/x-www-form-urlencoded;charset=utf-8',

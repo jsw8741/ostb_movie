@@ -87,21 +87,29 @@
 	font-size: 10px;
 	color: #007bff;
 }
+
+.site-section {
+	padding-top: 50px;
+}
+
+.form-group {
+	margin: 0px;
+	--bs-gutter-x: 0;
+}
+
+.custom-select select {
+	background-image: none;
+	padding-top: 0;
+}
+
+.border div {
+	padding-top: 5px;
+}
 </style>
 </th:block>
 
 
 <div layout:fragment="content">
-	<div class="bg-light py-3">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 mb-0 header_margin">
-					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
-						class="text-black">상품 등록</strong>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<div class="site-section">
 		<div class="container">
@@ -132,17 +140,17 @@
 										type="text" class="form-control" th:field="*{itemNm}"
 										placeholder="상품명 입력">
 									<p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}"
-										class="fieldError">Incorrect Data</p>
+										class="fieldError">Data</p>
 								</div>
 							</div>
 
 							<div class="form-group row">
 								<div class="col-md-12 custom-input">
 									<label th:for="price" class="text-black"></label> <input
-										type="text" class="form-control" th:field="*{price}"
-										placeholder="가격 입력" onkeyup="inputNumberFormat(this)">
+										type="text" class="form-control" placeholder="상품명 입력"
+										th:field="*{price}" onkeyup="inputNumberFormat(this)">
 									<p th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
-										class="fieldError">Incorrect Data</p>
+										class="fieldError"></p>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -151,8 +159,7 @@
 									<textarea rows=10 class="form-control" placeholder="상품 상세내용"
 										th:field="*{itemDetail}" id="floatingTextarea"></textarea>
 									<p th:if="${#fields.hasErrors('itemDetail')}"
-										th:errors="*{itemDetail}" class="fieldError">Incorrect
-										Data</p>
+										th:errors="*{itemDetail}" class="fieldError"></p>
 								</div>
 							</div>
 							<!-- th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}" -->
