@@ -76,6 +76,13 @@
 		            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 		         </form>
             </div>
+            
+    <h1>리뷰</h1>
+    <ul>
+        <li th:each="review : ${memberReviews}">
+            <p th:text="${review.content}"></p>
+        </li>
+    </ul>
           </div>
 	</div>
 </div>

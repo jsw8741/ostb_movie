@@ -1,5 +1,8 @@
 package com.example.ostb_movie.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +46,14 @@ public class ReviewService {
 		
 		return review.getId();
 	}
+	
+	public List<ReviewDto> getReviewsByMemberId(Long memberId) {
+	    List<Review> reviews = reviewRepository.findByReview(memberId);
+	    return reviews.stream()
+	            .map(ReviewDto::of)
+	            .collect(Collectors.toList());
+	}
+
 
 
 }

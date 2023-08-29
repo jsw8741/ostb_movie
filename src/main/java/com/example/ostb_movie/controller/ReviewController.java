@@ -1,9 +1,13 @@
 package com.example.ostb_movie.controller;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReviewController {
 	private final ReviewService reviewService;
-	
+
 	//리뷰 등록
 	@PostMapping(value = "/member/myPage")
 	public String reviewNew(@Valid ReviewDto reviewDto, BindingResult bindingResult, @RequestParam("movieId") Long movieId,
@@ -52,4 +56,34 @@ public class ReviewController {
 		return "redirect:/";
 	}
 	
+	//리뷰 수정
+	@PostMapping(value = "member/mypage1")
+	public String updateReview(@Valid ReviewDto reviewDto, Model model,
+			BindingResult bindingResult) {
+	
+	if(bindingResult.hasErrors()) {
+		return "member/myPage";
+	}
+	
+	try {
+		reviewService.updateReview(reviewDto);
+	} catch (Exception e) {
+		e.printStackTrace();
+		model.addAttribute("errorMessage", "상품 수정 중 에러가 발생했습니다.");
+		return "member/myPage";
+	}
+	return "redirect:/";
+	}
+	
+	@GetMapping("/member/reviews")
+	public String getMemberReviews(Model model, Authentication authentication) {
+	    PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+	    Long memberId = principal.getMember().getId();
+
+	    List<ReviewDto> memberReviews = reviewService.getReviewsByMemberId(memberId);
+	    model.addAttribute("memberReviews", memberReviews);
+
+	    return "member/reviews";
+	}
+
 }
