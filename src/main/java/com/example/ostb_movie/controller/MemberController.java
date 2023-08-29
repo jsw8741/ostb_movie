@@ -35,7 +35,7 @@ public class MemberController {
 	@GetMapping(value = "/members/checkPw")
 	public String checkPwForm() {
 		
-		return "member/checkPw";
+		return "member/checkPwPop";
 	}
 	
 	// 현재 비밀번호 확인
@@ -50,7 +50,7 @@ public class MemberController {
 			model.addAttribute("member", member);
 			model.addAttribute("errorMessage", "비밀번호가 다릅니다!");
 			
-			return "member/myPage";
+			return "member/checkPwPop";
 		}
         
 		

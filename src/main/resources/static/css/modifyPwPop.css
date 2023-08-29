@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.pop-top {
+	background-color: black;
+	width: 706px;
+	height: 50px;
+	border-bottom: 1px solid black;
+	color: white;
+	padding-top: 23px;
+	font-size: 20px;
+}
