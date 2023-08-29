@@ -3,6 +3,10 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layouts/layout1}">
     
+<th:block layout:fragment="css">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/reviewPage.css}"/>
+</th:block>	
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,19 +14,20 @@
 
 <div layout:fragment="content">
 
-    <h1>리뷰 수정</h1>
-    <form action="/member/reviewUpdatePage/{reviewId}" method="post">
-        <input type="hidden" name="id" th:value="${review.id}" />
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        
-        <div>
-            <label for="content">내용:</label>
-            <textarea id="content" name="content" th:text="${review.content}"></textarea>
-        </div>
-        
-        <div>
-            <button type="submit">리뷰 업데이트</button>
-        </div>
-    </form>
+	<div class="modify_title">
+	    <h1 class="modify_rvreview">리뷰 수정</h1>
+	    <form th:action="'/member/reviewUpdatePage/' + ${reviewModifyDto.id}" method="post" th:object="${reviewModifyDto}">
+	        <input type="hidden" th:value="${reviewModifyDto.id}" th:field=*{id} >
+	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	        <div class="modiy_rvcontent">
+	            <label for="content">내용:</label>
+	            <textarea id="content" name="content" th:text="${reviewModifyDto.content}" th:field=*{content}></textarea>
+	        </div>
+	        
+	        <div class="modify_rvupdate">
+	            <button type="submit">리뷰 업데이트</button>
+	        </div>
+	    </form>
+	</div>
 </div>
 </html>

@@ -161,6 +161,7 @@
 	width: 775px;
 	justify-content: left;
 	margin: 0 auto;
+	height: 350px;
 }
 
 .myostb {
@@ -185,6 +186,7 @@
 .myreserv-detail {
 	font-size: 15px;
 	color: white;
+	margin-top: 10px;
 }
 
 .myreserv-contents {
@@ -211,6 +213,7 @@
 .qna-count {
 	font-size: 15px;
 	color: white;
+	margin-top: 10px;
 }
 
 .qna-contents {
@@ -233,5 +236,16 @@
 
 .modal_title {
 	margin-top: 1px;
+}
+
+.myreview {
+	width: 775px;
+	margin: 0 auto;
+	color: white;
+}
+
+.review-count {
+	color: white;
+	margin-bottom: 3px;
 }
 </style>

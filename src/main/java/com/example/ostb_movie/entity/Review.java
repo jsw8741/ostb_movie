@@ -2,6 +2,9 @@ package com.example.ostb_movie.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.example.ostb_movie.dto.ReviewModifyDto;
 
 import jakarta.persistence.Column;
@@ -36,15 +39,16 @@ public class Review {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Member member;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "movie_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Movie movie;
 
 	
 	public void updateReview(ReviewModifyDto reviewModifyDto) {
-		this.id = reviewModifyDto.getId();
 		this.content = reviewModifyDto.getContent();
 	}
 	

@@ -6,11 +6,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import com.example.ostb_movie.dto.ReviewDto;
 import com.example.ostb_movie.dto.ReviewModifyDto;
+import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.Movie;
 import com.example.ostb_movie.entity.Review;
+import com.example.ostb_movie.repository.MemberRepository;
 import com.example.ostb_movie.repository.MovieRepository;
 import com.example.ostb_movie.repository.ReviewRepository;
 
@@ -23,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class ReviewService {
 	private final ReviewRepository reviewRepository;
 	private final MovieRepository movieRepository;
+	private final MemberRepository memberRepository;
 	
 	//리뷰 등록
 	public Long saveReview(ReviewDto reviewDto) throws Exception {
@@ -40,14 +44,10 @@ public class ReviewService {
 	}
 	
 	//리뷰 업데이트
-	public Long updateReview(ReviewModifyDto reviewModifyDto) throws Exception {
-		System.out.println("aaaaaaaaaaaaaaa");
+	public void updateReview(ReviewModifyDto reviewModifyDto) throws Exception {
 		Review review = reviewRepository.findById(reviewModifyDto.getId())
 								.orElseThrow(EntityNotFoundException::new);
-		System.out.println("bbbbbbbbbbbbb");
 		review.updateReview(reviewModifyDto);
-		System.out.println("cccccccccccccc");
-		return review.getId();
 	}
 	
 	@Transactional(readOnly = true)
@@ -73,7 +73,6 @@ public class ReviewService {
 		
 		return reviewPage;
 		
-		
 	}
 	
 	//수정할 리뷰 가져오기
@@ -84,6 +83,30 @@ public class ReviewService {
 		ReviewDto reviewDto = ReviewDto.of(review);
 		
 		return reviewDto;
+	}
+	
+	//본인확인
+	public boolean validateReview(Long reviewId, String email) {
+		System.out.println(email + "BBBBBBBBBBBBBBBBBBBB");
+		Member curMember = memberRepository.findByEmail(email);
+		Review review = reviewRepository.findById(reviewId)
+							.orElseThrow(EntityNotFoundException::new);
+		
+		Member savedMember = review.getMember();
+		
+		if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public void deleteReview(Long reviewId) {
+		Review review = reviewRepository.findById(reviewId)
+				.orElseThrow(EntityNotFoundException::new);
+		
+		//delete
+		reviewRepository.delete(review);
 	}
 	
 }

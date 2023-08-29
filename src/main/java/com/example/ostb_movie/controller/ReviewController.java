@@ -1,18 +1,23 @@
 package com.example.ostb_movie.controller;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.dto.ReviewDto;
@@ -79,7 +84,7 @@ public class ReviewController {
 	public String showReviewUpdateForm(@PathVariable Long reviewId, Model model) {
 		ReviewDto reviewDto = reviewService.getModifyReview(reviewId);
 		
-		model.addAttribute("review", reviewDto);
+		model.addAttribute("reviewModifyDto", reviewDto);
 		
 		return "member/reviewUpdatePage";
 	}
@@ -94,15 +99,30 @@ public class ReviewController {
 		
 		try {
 			reviewService.updateReview(reviewModifyDto);
-			System.out.println("11111111111");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("22222222222222");
 			model.addAttribute("errorMessage", "리뷰 수정 중 에러가 발생했습니다.");
-			System.out.println("333333333333");
+			model.addAttribute("reviewModifyDto", reviewModifyDto);
 			return "redirect:/";
 		}
-		
 		return "redirect:/";
+	}
+	
+	//리뷰 삭제
+	@DeleteMapping("/member/{reviewId}/delete")
+	public @ResponseBody ResponseEntity deleteReview(@PathVariable("reviewId") Long reviewId, Authentication authentication, Model model) {
+		//본인인증
+		
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        Member member = principal.getMember();
+
+        if (!reviewService.validateReview(reviewId, member.getEmail())) {
+            return new ResponseEntity<String>("리뷰 삭제 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
+        
+        reviewService.deleteReview(reviewId);
+        
+        return new ResponseEntity<Long>(reviewId, HttpStatus.OK);
+        
 	}
 }

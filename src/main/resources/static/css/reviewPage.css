@@ -28,13 +28,17 @@
 	margin: 0 auto;
 }
 
-.review_top {
+.review_top > p {
 	display: block;
-	margin-left: 10px;
+	color: white;
 }
 
 .review_low {
 	display: flex;
+}
+
+.review_low > p {
+	color: white;
 }
 
 .fa-solid {
@@ -42,8 +46,56 @@
 }
 
 .review_button {
+	color: white;
 	font-size: 10px;
 	height: 20px;
 	margin-left: 20px;
 	margin-top: 5px;
+	
+}
+
+.review_delete {
+	font-size: 10px;
+	color: white;
+	background-color: black;
+	border: 1px solid black;
+	margin-left: 10px;
+}
+
+.my_review {
+	color: white;
+}
+
+.page-link {
+	color: white;
+	background-color: black;
+	border: none;
+}
+
+.page-link:hover {
+	background-color: black;
+	color: #29a5ff;
+}
+
+.modify_title {
+	width: 775px;
+	color: white;
+	margin: 0 auto;
+}
+
+.modify_rvreview {
+	color: white;
+	text-align: center;
+}
+
+.modiy_rvcontent {
+	margin: 0 auto;
+	display: flex;
+    justify-content: center;
+}
+
+.modify_rvupdate {
+	margin: 0 auto;
+	display: flex;
+    justify-content: center;
 }
