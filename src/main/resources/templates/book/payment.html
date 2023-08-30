@@ -32,7 +32,7 @@
 				</div>
 			</div>
 			<div class="movie_ticket_box" th:unless="${schedules.isEmpty()}">
-				<div class="first_sec" id="movieSelect">
+				<div class="pay_sec" id="movieSelect">
 					<div style="margin-bottom: 30px !important;">
 						<span class="tit">영화</span>
 					</div>
@@ -62,7 +62,6 @@
 								<span class="sub_txt mr-15 c_c4">|</span>
 								<p class="sub_txt" th:id="capacity + ${status.index}"
 									th:text="'총 ' + ${schedule.capacity} + '석'"></p>
-								<input type="hidden" th:data-capacity="${schedule.capacity}">
 							</div>
 							<div class="time_wrap">
 								<div class="time_list_wrap">
@@ -100,18 +99,6 @@
 					</div>
 				</div>
 
-				<div class="second_sec" id="seatSelect" style="border-left: 1px solid #fff; display: none;">
-		  <span class="tit">좌석선택</span>
-        <select id="seatType">
-            <option value="우대">우대</option>
-            <option value="일반">일반</option>
-            <option value="청소년">청소년</option>
-        </select>
-					
-					<div class="screen df">SCREEN</div>
-					<div id="seatDiv" style="margin: 30px 0;"></div>
-				</div>
-
 				<div class="third_sec" id="selectedMovieInfo" style="border-left: 1px solid #fff;">
 					<div class="book_info_wrap">
 						<div class="book_info_img">
@@ -147,7 +134,7 @@
 						</div>
 
 						<p class="tit">
-							<button id="paySelectBtn" class="btn st_nx">결제수단선택</button>
+							<button id="paySelectBtn" class="btn st_nx">결제하기</button>
 						</p>
 					</div>
 				</div>
