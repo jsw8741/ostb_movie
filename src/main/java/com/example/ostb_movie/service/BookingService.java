@@ -17,6 +17,7 @@ public class BookingService {
 			// 예매정보 생성, 저장
 			Book book = createBookFromRequest(paramMap);
 			List<Seat> seat = createSeatReservationsFromRequest(paramMap, book);
+			
 			// 예매정보, 좌석예약정보 DB에 저장
 			Long bookId = bookService.saveBook(book);
 			book.setId(bookId);
@@ -48,15 +49,15 @@ public class BookingService {
 	}
 	// 좌석예약정보 생성
 	private List<Seat> createSeatReservationsFromRequest(Map<String, Object> paramMap, Book book) {
-		List<Seat> seatReservations = new ArrayList<>();
+		List<Seat> seat = new ArrayList<>();
 		List<String> seatList = (List<String>) paramMap.get("seatList");
 		for (int i = 0; i < Integer.parseInt(paramMap.get("seatCnt").toString()); i++) {
 			Seat sR = new Seat();
 			sR.setPrice(10000); // 가격 설정
-//			sR.setBook(book);
-//			sR.setSeatNm(String.valueOf(seatList.get(i))); // 좌석 설정
-			seatReservations.add(sR);
+//			sR.setTheater(null); 여기서하기
+			sR.setName(String.valueOf(seatList.get(i))); // 좌석 설정
+			seat.add(sR);
 		}
-		return seatReservations;
+		return seat;
 	}
 }
