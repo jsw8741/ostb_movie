@@ -20,7 +20,8 @@
 }
 
 .store_category div {
-	padding: 10px 0; width : 20%;
+	padding: 10px 0;
+	width: 20%;
 	text-align: center;
 	width: 20%;
 }
@@ -35,9 +36,56 @@
 	padding-top: 50px;
 }
 
-.store_main_item h3 {
-	padding-bottom: 5px;
+h3 {
 	border-bottom: 1px solid white;
+	padding-bottom: 20px;
+	color: white;
+}
+
+.store_main_item {
+	padding-bottom: 5px;
+	padding-bottom: 200px;
+}
+
+.mainitemlist {
+	padding: 20px 0.5%;
+	display: flex;
+}
+
+.item_itme {
+	width: 33%;
+	height: 200px;
+	padding: 0 10px;
+}
+
+.main_item_img img {
+	height: 200px;
+	width: 100%;
+}
+
+.store_sub_item {
+	display: flex;
+}
+
+.store_sub_item div {
+	width: 50%;
+	padding: 30px 10px;
+}
+
+.sss {
+	display: flex;
+	padding: 20px;
+}
+
+.sub_item_img img {
+	width: 300px;
+	height: 200px;
+}
+.sss div{
+display: grid
+}
+.row{
+margin: 20px;
 }
 </style>
 </th:block>
@@ -59,24 +107,84 @@
 			<div class="container">
 				<div class="store_main_item">
 					<h3>영화관람권</h3>
-					<th:block th:each="item, status: ${items}">
-					<div th:if="${item.categori.toString() == 'VOUCHER'}">
-							<a th:href="'/item/' + ${item.id}" th:text="${item.itemNm}"></a>
-						</div>
-					</th:block>
+					<div class="mainitemlist">
+						<th:block th:each="item, status: ${items}">
+							<div th:if="${#strings.equals(item.item.categori, 'VOUCHER')}"
+								class="item_itme">
+								<div class="main_item_img">
+									<img th:alt="${item.ImgName}" th:src="${item.imgUrl}"
+										th:href="'/item/' + ${item.item.id}"> <a
+										th:href="'/item/' + ${item.item.id}"
+										th:text="${item.item.itemNm}"></a>
 
-				</div>
-				<div class="row">
-					<div class="col-md-12 header_margin">
-						<div class="titlepage"></div>
+								</div>
+							</div>
+						</th:block>
 					</div>
 				</div>
-				<div class="row">
-					<th:block th:each="item, status: ${items}">
-						<div th:if="${item.categori.toString() == 'POPCON'}">
-							<a th:href="'/item/' + ${item.id}" th:text="${item.itemNm}"></a>
-						</div>
-					</th:block>
+				<div class="store_sub_item">
+					<div class="row">
+						<h3>팝콘</h3>
+						<ul>
+							<th:block th:each="item, status: ${items}">
+								<li th:if="${#strings.equals(item.item.categori, 'VOUCHER')}"
+									class="sss"><span class="sub_item_img"> <img alt=""
+										th:src="${item.imgUrl}">
+								</span>
+									<div>
+										<span th:text="${item.item.itemNm}"> </span> <span
+											th:text="${item.item.price}"> </span>
+									</div></li>
+							</th:block>
+						</ul>
+					</div>
+					<div class="row">
+						<h3>팝콘</h3>
+						<ul>
+							<th:block th:each="item, status: ${items}">
+								<li th:if="${#strings.equals(item.item.categori, 'VOUCHER')}"
+									class="sss"><span class="sub_item_img"> <img alt=""
+										th:src="${item.imgUrl}">
+								</span>
+									<div>
+										<span th:text="${item.item.itemNm}"> </span> <span
+											th:text="${item.item.price}"> </span>
+									</div></li>
+							</th:block>
+						</ul>
+					</div>
+				</div>
+				<div class="store_sub_item">
+					<div class="row">
+						<h3>팝콘</h3>
+						<ul>
+							<th:block th:each="item, status: ${items}">
+								<li th:if="${#strings.equals(item.item.categori, 'VOUCHER')}"
+									class="sss"><span class="sub_item_img"> <img alt=""
+										th:src="${item.imgUrl}">
+								</span>
+									<div>
+										<span th:text="${item.item.itemNm}"> </span> <span
+											th:text="${item.item.price}"> </span>
+									</div></li>
+							</th:block>
+						</ul>
+					</div>
+					<div class="row">
+						<h3>팝콘</h3>
+						<ul>
+							<th:block th:each="item, status: ${items}">
+								<li th:if="${#strings.equals(item.item.categori, 'VOUCHER')}"
+									class="sss"><span class="sub_item_img"> <img alt=""
+										th:src="${item.imgUrl}">
+								</span>
+									<div>
+										<span th:text="${item.item.itemNm}"> </span> <span
+											th:text="${item.item.price}"> </span>
+									</div></li>
+							</th:block>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,7 @@
 package com.example.ostb_movie.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,5 +48,10 @@ public class ItemImgService {
 			savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
 		}
 	}
-
+	
+	public List<Itemimg> allItemList(){
+		List<Itemimg> allItem = itemImgRepository.findAll();
+		
+		return allItem;
+	}
 }
