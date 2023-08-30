@@ -13,11 +13,5 @@ $(window).on('load', function () {
         filterItems(dataFilter); // 필터링 함수를 호출하여 아이템을 보여줌
     });
 
-    var $grid = $(".grid").isotope({
-        itemSelector: ".box", // 모든 아이템을 대상으로 함
-        percentPosition: false,
-        masonry: {
-            columnWidth: ".all"
-        }
-    });
+    
 });

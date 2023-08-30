@@ -16,7 +16,7 @@
 		
 			<div class="video">
 				<div class="container_video">
-					<iframe id="video" width="1300" height="720" th:src="${moviePopualrList[0].trailerUrl} + '?autoplay=1&mute=1&controls=0'" 
+					<iframe id="video" width="1300" height="720" th:src="${moviePopualrList[0].trailerUrl} + '?autoplay=1&mute=1&controls=0&rel=0'" 
 					frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 				
@@ -79,6 +79,16 @@
 	<script th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyAyPYAYxIWN49JeM3vrJ_RND1V1xjjXfWQ&callback=myMap}"></script>
 	<script th:src="@{https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js}"></script>
 	<script th:inline="javascript">
+		var videoIframe = document.getElementById('video');
+	
+	    function replayVideo() {
+	    	alert('??');
+	        videoIframe.play();
+	    }
+	
+	    // 영상이 재생 완료되면 replayVideo 함수 호출
+	    videoIframe.addEventListener('ended', replayVideo);
+	
 		var swiper = new Swiper(".mySwiper", {
 	        slidesPerView: 5,
 	        spaceBetween: 50,
@@ -99,20 +109,12 @@
 	        if(!movieUrl){
 	        	$(".container_video").append(`<div id="video"style="font-size: 50px;color: white;text-align: center; z-index: 3; position: relative; margin-bottom: 650px; top: 300px;">예고편이 없습니다.</div>`);
 	        }else{	        	
-		        $(".container_video").append(`<iframe id="video" width="1300" height="720" src="${movieUrl}?autoplay=1&mute=1&controls=0" 
-						frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);
+	        	$(".container_video").append(`<iframe id="video" width="1300" height="720" src="${movieUrl}?autoplay=1&mute=1&controls=0&rel=0" 
+				frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);
 	        }
 	        
 		});
 		
-		var videoIframe = document.getElementById('video');
-	    
-		function replayVideo() {
-		    videoIframe.play();
-		}
-
-		// 영상이 재생 완료되면 replayVideo 함수 호출
-		videoIframe.addEventListener('ended', replayVideo);
 	</script>
 
 </th:block>

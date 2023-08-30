@@ -13,6 +13,10 @@
 	padding: 0;
 }
 
+.single-mega, .single-mega > li > a{
+	min-width: 130px;
+}
+
 .first_title {
 	color: black !important;
 	font-size: large !important;
@@ -28,6 +32,7 @@
 
 .classy-menu {
 	display: flex;
+	justify-content: center;
 	width: 100%;
 }
 
@@ -36,8 +41,8 @@
 }
 
 .logo_bar {
-	margin-left: 20%;
 	margin-right: 5%;
+	min-width: 90px;
 }
 
 .address {
@@ -131,8 +136,8 @@ img {
 }
 
 .classy-nav-container a {
-	-webkit-transition-duration: 500ms;
-	transition-duration: 500ms;
+	/* -webkit-transition-duration: 500ms;
+	transition-duration: 500ms; */
 	text-decoration: none;
 	outline: none;
 	font-size: 14px;
@@ -539,13 +544,15 @@ img {
 
 /* Desktop Area CSS */
 .breakpoint-off .classynav {
-	display: -webkit-box;
-	display: -ms-flexbox;
+	/* display: -webkit-box;
+	display: -ms-flexbox; */
 	display: flex;
-	-webkit-box-align: center;
+	/* -webkit-box-align: center;
 	-ms-flex-align: center;
-	-ms-grid-row-align: center;
+	-ms-grid-row-align: center; */
 	align-items: center;
+	min-width: 550px;
+	padding-top: 15px;
 }
 
 .breakpoint-off .classynav ul li .dropdown {

@@ -13,7 +13,7 @@ ol, ul, dl{
 
 .footer {
 	margin: 0 auto;
-	width: 1100px;
+	min-width: 1200px;
 	height: 200px;
 }
 
@@ -51,6 +51,7 @@ address {
 body {
 	font-family: "Barlow", sans-serif;
 	font-size: 14px;
+	min-width: 1400px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -406,6 +407,7 @@ left
 	background-color: #ffffff;
 	box-shadow: 0 3px 10px 2px rgba(0, 0, 0, 0.15);
 	height: 80px;
+	min-width: 1400px;
 }
 
 .header-area .search-form form {
@@ -532,9 +534,6 @@ left
 }
 
 .header-area .nikki-main-menu .classy-navbar {
-	padding: 0 2%;
-	-webkit-transition-duration: 500ms;
-	transition-duration: 500ms;
 	height: 80px;
 }
 
