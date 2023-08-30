@@ -66,37 +66,7 @@ public class ReviewController {
 		
 		return "redirect:/";
 	}
-	
-	//리뷰 수정
-	@PostMapping(value = "member/mypage1")
-	public String updateReview(@Valid ReviewDto reviewDto, Model model,
-			BindingResult bindingResult) {
-	
-	if(bindingResult.hasErrors()) {
-		return "member/myPage";
-	}
-	
-	try {
-		reviewService.updateReview(reviewDto);
-	} catch (Exception e) {
-		e.printStackTrace();
-		model.addAttribute("errorMessage", "상품 수정 중 에러가 발생했습니다.");
-		return "member/myPage";
-	}
-	return "redirect:/";
-	}
-	
-	@GetMapping("/member/reviews")
-	public String getMemberReviews(Model model, Authentication authentication) {
-	    PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-	    Long memberId = principal.getMember().getId();
 
-	    List<ReviewDto> memberReviews = reviewService.getReviewsByMemberId(memberId);
-	    model.addAttribute("memberReviews", memberReviews);
-
-	    return "member/reviews";
-	}
-	
 	//내가 쓴 리뷰 페이지보기
 	@GetMapping(value =  { "/member/reviewPage/{memberId}", "/member/reviewPage/{memberId}/{page}" })
 	public String reviewDtl(Model model, @PathVariable("memberId") Long memberId, @PathVariable("page") Optional<Integer> Page) {
@@ -143,8 +113,8 @@ public class ReviewController {
 	//리뷰 삭제
 	@DeleteMapping("/member/{reviewId}/delete")
 	public @ResponseBody ResponseEntity deleteReview(@PathVariable("reviewId") Long reviewId, Authentication authentication, Model model) {
-		//본인인증
 		
+		//본인인증
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
 

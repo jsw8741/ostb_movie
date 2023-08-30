@@ -61,13 +61,6 @@ public class ReviewService {
 		return reviewDto;
 	}
 	
-	public List<ReviewDto> getReviewsByMemberId(Long memberId) {
-	    List<Review> reviews = reviewRepository.findByReview(memberId);
-	    return reviews.stream()
-	            .map(ReviewDto::of)
-	            .collect(Collectors.toList());
-	}
-
 
 	// 해당 영화의 모든 리뷰 가져오기
 	public List<Review> getMovieReviewAll(Long movieId){

@@ -67,7 +67,14 @@
 				         	 <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="fieldError">Incorrect Data</p>
 			            </div>
 			           	 <button type="button" onclick="beforeSubmit()" class="create_rvbutton" style="width:100px;">리뷰등록</button>
-		            </div>
+			           	 <div th:each="review : ${reviewDto.reviews}">
+						 	<p th:text="'닉네임: ' + ${review.member.nickname}"></p>
+						    <p th:text="${review.content}"></p>
+						    <p th:text="'좋아요: ' + ${review.rvLike}"></p>
+						    <!-- 좋아요 버튼 예시 -->
+						    <button onclick="likeReview(${review.id})">좋아요</button>
+						</div>
+								            </div>
 		            <input type="hidden" name="movieId" th:value="${movieDtl.id}">
 		            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 		         </form>
