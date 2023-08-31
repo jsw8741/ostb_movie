@@ -19,7 +19,8 @@
             <div class="main-top">
               <div class="main-left">
                 <div class="images">
-                	<img th:alt="${movieDtl.movieTitle}" th:src="${movieDtl.imgUrl}">
+                	<div class="img_thumb notPost" th:if="${movieDtl.imgUrl != null and movieDtl.imgUrl.contains('null')}">포스터 준비중입니다.</div>
+                	<img th:alt="${movieDtl.movieTitle}" th:src="${movieDtl.imgUrl}" th:unless="${movieDtl.imgUrl != null and movieDtl.imgUrl.contains('null')}">
                 </div>
               </div>
               <div class="main-right">

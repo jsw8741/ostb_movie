@@ -133,6 +133,7 @@
 	height: 750px;
 }
 
+<<<<<<< HEAD
 .text-black {
   font-size: 40px;
   color: #fff;
@@ -151,3 +152,12 @@
 .rv_moviemain {
 	color: white;
 }
+=======
+.notPost{
+    color: white;
+    position: relative;
+    top: -30px;
+    font-size: 30px;
+    font-weight: bolder;
+}
+>>>>>>> 1c16049c7db12211d538ca5a514911906377ea68
