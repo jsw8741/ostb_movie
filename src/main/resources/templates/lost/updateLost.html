@@ -21,15 +21,8 @@
 
 
 <div layout:fragment="content">
-
-	<!-- tab -->
-	<!--// tab -->
-
 	<section class="wrap_con">
 		<div class="layout1">
-			<!-- list top -->
-			<!--// list top -->
-			<!-- list -->
 			<div class="acodiList acodi_type1">
 
 				<section class="wrap_board_view2">
@@ -75,14 +68,14 @@
 								</div>
 							</div>
 							<div class="btn_area btn_ac py-5">
-								<button  class="btn_typeB1" type="submit" th:value="${lostId}"
-									>
+								<button  class="btn_typeB1" type="submit" th:value="${lostId}" onClick="updateLost(this.value)">
 									<span>수정</span>
 								</button>
-								<button class="btn_typeB1" th:value="${lostId}"
-									onclick="deleteLost(this.value)">
+								
+								<button class="btn_typeB1" type="button" th:value="${lostId}" onclick="deleteLost()">
 									<span>삭제</span>
 								</button>
+								<input type="hidden" id='lostId' name="lostId" th:value="${lostId}">
 							</div>
 						</div>
 					</form>
@@ -99,111 +92,56 @@
 <th:block layout:fragment="script">
 	<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
 	<script th:inline="javascript">
-	
-	$(document).ready(function(){
-    	var errorMessage = [[${errorMessage}]];
-    	if(errorMessage != null){
-        	alert(errorMessage);
-    	}
+   	$(document).ready(function(){
+   		var errorMessage = [[${errorMessage}]];
+   	   	var successMessage = [[${successMessage}]];
+   	   	
+   	   	if(errorMessage != null){
+   	       	alert(errorMessage);
+   	   	}
+
+   	   	if(successMessage != null){
+   	       	alert(successMessage);
+   	       	window.close();
+   	   	}
 	});
 	
-	//수정하기
-function updateLost(lostId) {
-    var updateConf = confirm("수정하시겠습니까?");
-    if (!updateConf) {
-        // 취소 버튼을 눌렀을 경우
-        return;
-    }
-
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    // request URL
-    var url = "/lost/updateLost/" + lostId;
-    var lostItem = $("#lostItem").val();
-    var lostDetail = $("#lostDetail").val();
-    console.log("lostItem: " + lostItem);
-    console.log("lostDetail: " + lostDetail);
-
-    // 서버로 보내줄 데이터(반드시 JSON -> string 타입으로 바꿔줘야 한다)
-    var paramData = {
-        lostId: lostId,
-        lostItem: lostItem,
-        lostDetail: lostDetail
-    }
-    
-    var param = JSON.stringify(paramData);
-
-    $.ajax({
-        url: url, // request URL
-        type: "POST", // 전송방식
-        contentType: "application/json",
-        data: param,
-        beforeSend: function(xhr) {
-            // 데이터를 전송하기 전에 헤더에 csrf 값을 설정
-            xhr.setRequestHeader(header, token);
-        },
-        dataType: "json",
-        cache: false,
-        console.log("lostItem: " + lostItem);
-        console.log("lostDetail: " + lostDetail);
-        success: function(result, status) {
-            alert('수정이 완료되었습니다.');
-            window.close();
-        },
-        error: function(jqXHR, status, error) {
-            if (jqXHR.status == '401') {
-                alert('로그인 후 이용해주세요.');
-                location.href = '/members/login';
-            } else {
-                alert(jqXHR.responseText);
-            }
-        }
-    });
-}
-	
-	
-	
 	//삭제하기
-			function deleteFaq(faqId) {
-			const deleteConf = confirm("삭제하시겠습니까?");
-			if(!deleteConf) return; //취소버튼 누르면
-			
-			var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content");
-			
-			//request URL
-			var url = "/FAQ/deleteFAQ/" + faqId + "/delete";
-			
-			$.ajax({
-				url : url, //request URL
-				type : "DELETE", //전송방식
-				contentType : "application/json",
-				beforeSend : function(xhr) {
-					//데이터를 전송하기 전에 헤더에 csrf 값을 설정
-					xhr.setRequestHeader(header, token);
-				},
-				dataType : "json",
-				cache : false,
-				success : function(result, status) {
-					location.href = '/FAQ/list';
-				},
-				error : function(jqXHR, status, error) {
-					if(jqXHR.status == '401') {
-						alert('로그인 후 이용해주세요.');
-						location.href = '/members/login';
-					} else {
-						alert(jqXHR.responseText);
-					}
+	function deleteLost() {
+		const deleteConf = confirm("삭제하시겠습니까?");
+		if(!deleteConf) return; //취소버튼 누르면
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		var lostId = $("#lostId").val();
+		alert(lostId);
+		//request URL
+		var url = "/lost/deleteLost/" + lostId + "/delete";
+		
+		$.ajax({
+			url : url, //request URL
+			type : "DELETE", //전송방식
+			contentType : "application/json",
+			beforeSend : function(xhr) {
+				//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+				xhr.setRequestHeader(header, token);
+			},
+			dataType : "json",
+			cache : false,
+			success : function(result, status) {
+				location.href = '/FAQ/list';
+			},
+			error : function(jqXHR, status, error) {
+				if(jqXHR.status == '401') {
+					alert('로그인 후 이용해주세요.');
+					location.href = '/members/login';
+				} else {
+					alert(jqXHR.responseText);
 				}
-			});
-		}
-	
-	
-	
+			}
+		});
+	}
 	</script>
-
-
-
 </th:block>
 
 </html>

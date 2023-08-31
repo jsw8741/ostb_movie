@@ -15,6 +15,7 @@
 
 .content {
 	height: 800px !important;
+	width: 800px !important;
 }
 
 .viewpage_tit .subject {
@@ -108,6 +109,10 @@
 .btn_typeC2 {
   background-color: #007bff;
 }
+
+#btnLogout{
+	display: none;
+}
 </style>
 </th:block>
 
@@ -126,7 +131,6 @@
 		<div class="py-2 btn_ac">
 		<input class="btn_typeC2" type='text' id='mid' th:value="${createdBy}">
 		<input class="btn_typeC2" type='button' value='채팅 시작하기' id='btnLogin'>
-<!-- 		<input class="btn_typeC2" type='button' id='btnLogout' th:value="${roomId}" onclick="closeChatt(this.value)"> -->
 		<input class="btn_typeC2" type='button' id='btnLogout' value="채팅종료" th:onclick="closeChatt()">
 		<input type="hidden" id='roomId' th:value="${roomId}">
 		</div>
@@ -258,9 +262,6 @@ function closeChatt() {
 
 
 </script>
-
-
-
 </th:block>
 	
 </html>

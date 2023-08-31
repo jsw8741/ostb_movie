@@ -25,7 +25,7 @@
 						<li class="swiper-slide tab  swiper-slide-active"><a
 							href="/FAQ/list"><span>FAQ</span></a></li>
 						<li class="swiper-slide tab swiper-slide-next active"><a
-							href="/chatt/createChatt"><span>1:1 문의</span></a></li>
+							href="/chatt/mychatt"><span>1:1 문의</span></a></li>
 						<li class="swiper-slide tab"><a href="/notice/list"><span>공지사항</span></a></li>
 						<li class="swiper-slide tab "><a href="/lost/list"><span>분실물
 									문의</span></a></li>
@@ -44,16 +44,23 @@
 			class="tab_wrap swiper-container swiper-container-horizontal swiper-container-free-mode">
 			<ul class="tab_inner swiper-wrapper"
 				style="transform: translate3d(0px, 0px, 0px);">
-				<li class="swiper-slide tab active"
+				<li class="swiper-slide tab active tab1"
 					data-filter="all"><a href="#"><span>전체</span></a></li>
 
-				<li class="swiper-slide tab" data-filter="opne"><a href="#"><span
+				<li class="swiper-slide tab tab1" data-filter="opne"><a href="#"><span
 						id="cdNm1">상담중</span></a></li>
 
-				<li class="swiper-slide tab" data-filter="close"><a href="#"><span
+				<li class="swiper-slide tab tab1" data-filter="close"><a href="#"><span
 						id="cdNm2">상담종료</span></a></li>
 
 			</ul>
+			<form role="form" action="/chatt/createChatt" method="post" th:object="${oneBoardFormDto}" name="faqForm" >
+				<button class="btn_typeB1 tab_inner swiper-wrapper" type="submit" sec:authorize="hasAnyRole('ROLE_USER')"><span>등록</span></button>
+
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+			</form>
+			
 			<span class="swiper-notification" aria-live="assertive"
 				aria-atomic="true"></span>
 		</div>
@@ -85,7 +92,7 @@
 					</div>
 				</th:block>
 				
-				<th:block th:unless="${#strings.equals(oneBoard.roomStatus, 'OPEN') or #strings.equals(oneBoard.roomStatus, 'ONGOING')}">>
+				<th:block th:unless="${#strings.equals(oneBoard.roomStatus, 'OPEN') or #strings.equals(oneBoard.roomStatus, 'ONGOING')}">
 					<div class="acodiList acodi_type1 py-1 item" data-type="close">
 						<ul>
 							<li class="ac_item" th:data-target="${oneBoard.id}"
@@ -105,8 +112,6 @@
 						</ul>
 					</div>
 				</th:block>
-				<!--// list top -->
-				<!-- list -->
 			</th:block>
 		</div>
 	</section>

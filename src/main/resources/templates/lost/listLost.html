@@ -22,13 +22,10 @@
 			<div class="tab_ui type1 pageTabSwiper">
 				<div class="tab_wrap swiper-container swiper-container-horizontal">
 					<ul class="tab_inner swiper-wrapper">
-						<li class="swiper-slide tab  swiper-slide-active"><a
-							href="/FAQ/list"><span>FAQ</span></a></li>
-						<li class="swiper-slide tab swiper-slide-next"><a href="/chatt/createChatt"><span>1:1
-									문의</span></a></li>
+						<li class="swiper-slide tab  swiper-slide-active"><a href="/FAQ/list"><span>FAQ</span></a></li>
+						<li class="swiper-slide tab swiper-slide-next"><a href="/chatt/mychatt" onclick="return checkLogin();"><span>1:1 문의</span></a></li>
 						<li class="swiper-slide tab"><a href="/notice/list"><span>공지사항</span></a></li>
-						<li class="swiper-slide tab active"><a href="/lost/list"><span>분실물
-									문의</span></a></li>
+						<li class="swiper-slide tab active"><a href="/lost/list"><span>분실물 문의</span></a></li>
 					</ul>
 					<span class="swiper-notification" aria-live="assertive"
 						aria-atomic="true"></span>
@@ -44,21 +41,27 @@
 			class="tab_wrap swiper-container swiper-container-horizontal swiper-container-free-mode">
 			<ul class="tab_inner swiper-wrapper"
 				style="transform: translate3d(0px, 0px, 0px);">
-				<li class="swiper-slide tab active swiper-slide-active"><a
-					href="/FAQ/list"><span>전체</span></a></li>
+				<li class="swiper-slide tab active tab1" data-filter="all" >
+					<a href="#"><span>전체</span></a>
+				</li>
 
-				<li class="swiper-slide tab swiper-slide-next"><a
-					href="/FAQ/list/member"><span id="cdNm1">접수</span></a></li>
+				<li class="swiper-slide tab tab1" data-filter="accept">
+					<a href="#"><span id="cdNm1">접수</span></a>
+				</li>
 
-				<li class="swiper-slide tab"><a href="/FAQ/list/point"><span
-						id="cdNm2">처리중</span></a></li>
+				<li class="swiper-slide tab tab1" data-filter="processing">
+					<a href="#"><span id="cdNm2">처리중</span></a>
+				</li>
 
-				<li class="swiper-slide tab"><a href="/FAQ/list/benefit"><span
-						id="cdNm3">처리완료</span></a></li>
-
+				<li class="swiper-slide tab tab1" data-filter="completed">
+					<a href="#"><span id="cdNm3">처리완료</span></a>
+				</li>
+				
 			</ul>
+				<a href="/lost/createLost" class="btn_typeB1 tab_inner swiper-wrapper" sec:authorize="isAuthenticated()"><span>분실물 접수하기</span></a>
 			<span class="swiper-notification" aria-live="assertive"
 				aria-atomic="true"></span>
+			
 		</div>
 	</div>
 	<!--// tab -->
@@ -71,35 +74,87 @@
 					총 <em>[[${totalCount}]]건</em>
 				</div>
 			</div>
-			<div class="btn_area btn_ac py-2">
+			<!-- <div class="btn_area btn_ac py-2">
 				<a href="/lost/createLost" class="btn_typeB1"
 					sec:authorize="isAuthenticated()"><span>분실물 접수하기</span></a>
-			</div>
+			</div> -->
 			<!--// list top -->
 			<!-- list -->
 			<th:block th:each="lost, status: ${losts.getContent()}">
-				<div class="acodiList acodi_type1 py-1">
-					<ul>
-						<li class="ac_item" th:data-target="${lost.id}">
-							<div class="ac_head">
-								<span class="ic_Q">[[${lost.id}]]</span>
-								<div class="tit_area">
-									<p class="subject">
-										<span class="kinds" th:text="'[' + ${lost.lostItem} + ']'"></span>[[${lost.lostDetail}]]
-									</p>
-									<span th:classappend="${#strings.equals(lost.lostStatus, 'ACCEPT') ? 'ac_accept' : 
-              (#strings.equals(lost.lostStatus, 'PROCESSING') ? 'ac_processing' : 
-              (#strings.equals(lost.lostStatus, 'COMPLETED') ? 'ac_completed' : ''))}">[[${lost.lostStatus}]]</span>
-								</div>
-							</div> 
-							 <div class="ac_panel" th:id="${lost.id}" sec:authorize="isAuthenticated()">
-								<div class="con_area" id="pop">
-								<button class="btn_typeB1" type="button"  onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}">수정하기</button>
-								</div>
-							</div> 
-						</li>
-					</ul>
-				</div>
+				<th:block th:if="${#strings.equals(lost.lostStatus, 'ACCEPT')}">
+					<div class="acodiList acodi_type1 py-1 item" data-type="accept">
+						<ul>
+							<li class="ac_item" th:data-target="${lost.id}">
+								<div class="ac_head">
+									<span class="ic_Q">[[${lost.id}]]</span>
+									<div class="tit_area">
+										<p class="subject">
+											<span class="kinds" th:text="'[' + ${lost.lostItem} + ']'"></span>[[${lost.lostDetail}]]
+										</p>
+										<span th:classappend="${#strings.equals(lost.lostStatus, 'ACCEPT') ? 'ac_accept' : 
+	              (#strings.equals(lost.lostStatus, 'PROCESSING') ? 'ac_processing' : 
+	              (#strings.equals(lost.lostStatus, 'COMPLETED') ? 'ac_completed' : ''))}">[[${lost.lostStatus}]]</span>
+									</div>
+								</div> 
+								 <div class="ac_panel" th:id="${lost.id}" sec:authorize="isAuthenticated()">
+									<div class="con_area" id="pop">
+									<button class="btn_typeB1" type="button"  onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}">수정하기</button>
+									</div>
+								</div> 
+							</li>
+						</ul>
+					</div>
+				</th:block>
+				
+				<th:block th:if="${#strings.equals(lost.lostStatus, 'PROCESSING')}">
+					<div class="acodiList acodi_type1 py-1 item" data-type="processing">
+						<ul>
+							<li class="ac_item" th:data-target="${lost.id}">
+								<div class="ac_head">
+									<span class="ic_Q">[[${lost.id}]]</span>
+									<div class="tit_area">
+										<p class="subject">
+											<span class="kinds" th:text="'[' + ${lost.lostItem} + ']'"></span>[[${lost.lostDetail}]]
+										</p>
+										<span th:classappend="${#strings.equals(lost.lostStatus, 'ACCEPT') ? 'ac_accept' : 
+	              (#strings.equals(lost.lostStatus, 'PROCESSING') ? 'ac_processing' : 
+	              (#strings.equals(lost.lostStatus, 'COMPLETED') ? 'ac_completed' : ''))}">[[${lost.lostStatus}]]</span>
+									</div>
+								</div> 
+								 <div class="ac_panel" th:id="${lost.id}" sec:authorize="isAuthenticated()">
+									<div class="con_area" id="pop">
+									<button class="btn_typeB1" type="button"  onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}">수정하기</button>
+									</div>
+								</div> 
+							</li>
+						</ul>
+					</div>
+				</th:block>
+				
+				<th:block th:if="${#strings.equals(lost.lostStatus, 'COMPLETED')}">
+					<div class="acodiList acodi_type1 py-1 item" data-type="completed">
+						<ul>
+							<li class="ac_item" th:data-target="${lost.id}">
+								<div class="ac_head">
+									<span class="ic_Q">[[${lost.id}]]</span>
+									<div class="tit_area">
+										<p class="subject">
+											<span class="kinds" th:text="'[' + ${lost.lostItem} + ']'"></span>[[${lost.lostDetail}]]
+										</p>
+										<span th:classappend="${#strings.equals(lost.lostStatus, 'ACCEPT') ? 'ac_accept' : 
+	              (#strings.equals(lost.lostStatus, 'PROCESSING') ? 'ac_processing' : 
+	              (#strings.equals(lost.lostStatus, 'COMPLETED') ? 'ac_completed' : ''))}">[[${lost.lostStatus}]]</span>
+									</div>
+								</div> 
+								 <div class="ac_panel" th:id="${lost.id}" sec:authorize="isAuthenticated()">
+									<div class="con_area" id="pop">
+									<button class="btn_typeB1" type="button"  onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}">수정하기</button>
+									</div>
+								</div> 
+							</li>
+						</ul>
+					</div>
+				</th:block>
 			</th:block>
 
 			<!--// list -->
@@ -153,7 +208,7 @@
 
 				// 드롭다운 내용의 표시 상태를 변경합니다.
 				if (isDisplayed) {
-					dropdownContent.style.display = "none";
+					dropdownContent.style.display = "block";
 					li.classList.remove("on");
 				} else {
 					dropdownContent.style.display = "block";
@@ -161,11 +216,7 @@
 				}
 
 			});
-		});
-		
-		
-		
-		
+		});		
 		
 		function openPop(url, width, height) {
 		    var left = (screen.width - width) / 2;
@@ -178,7 +229,63 @@
 		    );
 		}
 		
-		
+		 // Add click event listener to tabs
+	    const tabs = document.querySelectorAll('.tab1');
+	    const items = document.querySelectorAll('.item');
+
+	    tabs.forEach(tab => {
+	    	 tab.addEventListener('click', function () {
+	    	        // Remove active class from all tabs
+	    	        tabs.forEach(t => {
+	    	            t.classList.remove('active');
+	    	        });
+
+	    	        // Add active class to the clicked tab
+	    	        tab.classList.add('active');
+
+	    	        const filter = tab.getAttribute('data-filter');
+	    	        
+	    	        // Hide all items
+	    	        items.forEach(item => {
+	    	            item.style.display = 'none';
+	    	        });
+
+	    	        // Show items based on selected filter
+	    	        if (filter === 'all') {
+	    	            items.forEach(item => {
+	    	                item.style.display = 'block';
+	    	            });
+	    	        } else {
+	    	            items.forEach(item => {
+	    	                if (item.getAttribute('data-type') === filter) {
+	    	                    item.style.display = 'block';
+	    	                }
+	    	            });
+	    	        }
+	    	    });
+	    	});
+	    
+	    async function checkLogin() {
+		    try {
+		        const response = await fetch("/check-login", {
+		            method: "GET",
+		            credentials: "include" // 쿠키를 전송하기 위해 필요한 옵션
+		        });
+
+		        const data = await response.json();
+		        if (data.isAuthenticated) {
+		            // 로그인된 상태라면 링크를 클릭한 후 이동
+		            return true;
+		        } else {
+		            alert("로그인이 필요합니다."); // 또는 원하는 메시지 출력
+		            window.location.href = "/login/loginForm"; // 로그인 페이지로 리다이렉트
+		            return false; // 링크를 클릭해도 이동하지 않음
+		        }
+		    } catch (error) {
+		        console.error("로그인 여부 확인 중 오류:", error);
+		        // 에러 발생 시 어떻게 처리할지 정의
+		    }
+		}
 	</script>
 
 

@@ -22,7 +22,7 @@
 				<div class="tab_wrap swiper-container swiper-container-horizontal">
 					<ul class="tab_inner swiper-wrapper">
 								<li class="swiper-slide tab  swiper-slide-active"><a href="/FAQ/list"><span>FAQ</span></a></li>
-								<li class="swiper-slide tab swiper-slide-next"><a href="/chatt/createChatt"><span>1:1 문의</span></a></li>
+								<li class="swiper-slide tab swiper-slide-next"><a href="/chatt/mychatt" onclick="return checkLogin();"><span>1:1 문의</span></a></li>
 								<li class="swiper-slide tab active"><a href="/notice/list" ><span>공지사항</span></a></li>
 								<li class="swiper-slide tab"><a href="/lost/list"><span>분실물 문의</span></a></li>
 					</ul>
@@ -108,6 +108,28 @@
         	alert(errorMessage);
     	}
 	});
+	
+	async function checkLogin() {
+	    try {
+	        const response = await fetch("/check-login", {
+	            method: "GET",
+	            credentials: "include" // 쿠키를 전송하기 위해 필요한 옵션
+	        });
+
+	        const data = await response.json();
+	        if (data.isAuthenticated) {
+	            // 로그인된 상태라면 링크를 클릭한 후 이동
+	            return true;
+	        } else {
+	            alert("로그인이 필요합니다."); // 또는 원하는 메시지 출력
+	            window.location.href = "/login/loginForm"; // 로그인 페이지로 리다이렉트
+	            return false; // 링크를 클릭해도 이동하지 않음
+	        }
+	    } catch (error) {
+	        console.error("로그인 여부 확인 중 오류:", error);
+	        // 에러 발생 시 어떻게 처리할지 정의
+	    }
+	}
 	</script>
 
 
