@@ -1,7 +1,6 @@
 package com.example.ostb_movie.service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -38,8 +37,8 @@ public class BookService {
 	}
 
 	// 좌석 예약 DB에 저장
-	public void insertSeat(List<Seat> listSR) {
-		seatRepository.saveAll(listSR);
+	public void insertSeat(Seat listSR) {
+		seatRepository.save(listSR);
 	}
 
 	/*

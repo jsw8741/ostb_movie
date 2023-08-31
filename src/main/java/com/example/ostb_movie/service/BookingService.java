@@ -1,23 +1,40 @@
 package com.example.ostb_movie.service;
+
 import java.time.LocalDate;
 import java.util.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.ostb_movie.entity.*;
 import lombok.RequiredArgsConstructor;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class BookingService {
 	private final BookService bookService;
 	private final TheaterService theaterService;
+
 	// 티켓 예매정보 처리
 	public void submitTicketing(Map<String, Object> paramMap) {
 		try {
 			// 예매정보 생성, 저장
 			Book book = createBookFromRequest(paramMap);
-			List<Seat> seat = createSeatReservationsFromRequest(paramMap, book);
-			
+			List<Seat> seatLsit = createSeatReservationsFromRequest(paramMap, book);
+			String seatFianl = null;
+			Seat seat = new Seat();
+			int count = 0;
+			for (Seat seats : seatLsit) {
+				if (count == 0) {
+					seatFianl = seats.getName();
+					seat.setPrice(seats.getPrice());
+				} else {
+					seatFianl += ", " + seats.getName();
+				}
+				count++;
+			}
+
+			seat.setName(seatFianl);
+
 			// 예매정보, 좌석예약정보 DB에 저장
 			Long bookId = bookService.saveBook(book);
 			book.setId(bookId);
@@ -26,6 +43,7 @@ public class BookingService {
 			e.printStackTrace();
 		}
 	}
+
 	// 예매정보 생성
 	private Book createBookFromRequest(Map<String, Object> paramMap) {
 		Book book = new Book();
@@ -39,6 +57,7 @@ public class BookingService {
 		book.setTotalPrice(Integer.parseInt(paramMap.get("totalPrice").toString()));
 		return book;
 	}
+
 	// 예매번호 만들기
 	private static String createBookNo() {
 		String uniqKey = "OSTB"; // 고유문자
@@ -47,6 +66,7 @@ public class BookingService {
 		String bookNo = LocalDate.now().toString().replace("-", "") + "-" + uniqKey + String.format("%04d", randomNo);
 		return bookNo;
 	}
+
 	// 좌석예약정보 생성
 	private List<Seat> createSeatReservationsFromRequest(Map<String, Object> paramMap, Book book) {
 		List<Seat> seat = new ArrayList<>();

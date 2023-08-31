@@ -1,16 +1,15 @@
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap')
+	;
 
 .content {
 	height: 100% !important;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.content p,
-.content a,
-.content span,
-.content label {
+.content p, .content a, .content span, .content label {
 	color: #fff;
 }
 
@@ -37,10 +36,9 @@
 }
 
 /* 상영스케줄 */
-
 .scrollable-container::-webkit-scrollbar {
 	display: none;
-	width: 0 !important;
+	width: 0;
 }
 
 .scrollable-container {
@@ -207,7 +205,8 @@
 	margin-top: 0;
 }
 
-.time_wrap .time_list_wrap .time_list input[type="radio"]:checked+label {
+.time_wrap .time_list_wrap .time_list input[type="radio"]:checked+label
+	{
 	border: 1px solid #29a5ff;
 	background: rgba(41, 165, 255, 0.24);
 }
@@ -259,9 +258,7 @@
 	border: 1px solid #fff;
 }
 
-.form_area label,
-.form_area input,
-.form_area select {
+.form_area label, .form_area input, .form_area select {
 	font-size: 1.2em;
 	display: flex;
 	justify-content: center;
@@ -273,20 +270,10 @@
 }
 
 /* 예매 */
-
-.first_sec {
+.first_sec, .second_sec, .pay_sec {
 	float: left;
-	width: 66.67%;
-	padding: 30px;
-	box-sizing: border-box;
-	overflow-y: auto;
-	height: 550px;
-}
-
-.second_sec {
-	float: left;
-	width: 33.33%;
-	padding: 30px;
+	width: 60%;
+	padding: 50px;
 	box-sizing: border-box;
 	overflow-y: auto;
 	height: 550px;
@@ -294,8 +281,8 @@
 
 .third_sec {
 	float: left;
-	width: 33.33%;
-	padding: 30px;
+	width: 40%;
+	padding: 50px;
 	box-sizing: border-box;
 	overflow-y: auto;
 	height: 550px;
@@ -358,7 +345,6 @@
 }
 
 /* 예매 */
-
 .boxClr {
 	height: 20px;
 	width: 20px;
@@ -384,9 +370,9 @@
 	background-color: #fff;
 	margin: 30px 0;
 	width: 100%;
-	height: 100px;
+	height: 50px;
 	transform: rotateX(-45deg);
-	box-shadow: 0 3px 10px rgb(255 255 255 / 70%);
+	box-shadow: 0 3px 10px rgb(255 255 255/ 70%);
 	align-items: center;
 	color: black;
 }

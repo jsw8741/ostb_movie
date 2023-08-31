@@ -1,5 +1,7 @@
 package com.example.ostb_movie.entity;
 
+import java.time.LocalDateTime;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -19,7 +21,7 @@ public class Seat {
 
 	private String name; // 좌석이름
 	
-	private String type; // 좌석타입
+	// private String type; // 좌석타입
 
 	private int price; // 가격
 

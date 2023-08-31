@@ -26,14 +26,6 @@ public class Payment {
 
 	private int totalPrice; // 총금액
 
-	/*
-	 * @OneToOne
-	 * 
-	 * @JoinColumn(name = "book_id")
-	 * 
-	 * @OnDelete(action = OnDeleteAction.CASCADE) private Book book;
-	 */
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id") // 결제랑 연결된 회원 정보
 	@OnDelete(action = OnDeleteAction.CASCADE)

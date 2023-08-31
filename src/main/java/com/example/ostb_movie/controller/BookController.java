@@ -3,6 +3,7 @@ package com.example.ostb_movie.controller;
 import java.time.LocalDate;
 import java.util.*;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 public class BookController {
 	private final TheaterService theaterService;
 	private final MovieService movieService;
-	private final BookService bookService;
 	private final BookingService bookingService;
 	private final SeatService seatService;
 
@@ -132,11 +132,13 @@ public class BookController {
 		return "book/ticketing";
 	}
 
-	 // 티켓예매
+	// 티켓예매
 	@PostMapping(value = "/book/tickeing")
 	@ResponseBody
-	public Map<String, Object> submitTicketing(@RequestBody Map<String, Object> paramMap, Model model) {
+	public Map<String, Object> submitTicketing(@RequestBody Map<String, Object> paramMap, Model model,
+			Authentication authentication) {
 		Map<String, Object> resultMap = new HashMap<>();
+
 		try {
 			// 예매정보 처리
 			bookingService.submitTicketing(paramMap);
@@ -155,6 +157,19 @@ public class BookController {
 			// 상영관의 좌석 예약 정보 조회
 			List<String> list = seatService.getSeatList(paramMap.get("theaterId").toString());
 			resultMap.put("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
+
+	// 결제처리
+	@PostMapping(value = "/book/payment")
+	@ResponseBody
+	public Map<String, Object> submitTicketing(@RequestBody Map<String, Object> paramMap, Model model) {
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			// 결제정보 저장 처리 로직
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

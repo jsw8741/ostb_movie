@@ -17,7 +17,4 @@ public class SeatService {
 		return seatRepository.getSeatList(theaterId);
 		
 	}
-	
-	
-
 }

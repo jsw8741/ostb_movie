@@ -1,6 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
+
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 
 <th:block layout:fragment="css">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/book.css}" />
@@ -12,39 +18,43 @@
 		<div class="inner">
 			<p class="box_tit df">상영정보 등록</p>
 			<div class="box_content df">
-				<form class="form_area" action="/book/theater/new" th:object="${theaterFormDto}" method="post">
+				<form class="form_area" action="/book/theater/new"
+					th:object="${theaterFormDto}" method="post">
 					<input type="hidden" th:field="*{id}" />
 					<div class="form_wrap">
 						<label for="movie">영화</label>
 						<div class="df" style="padding-bottom: 12px;">
 							<img id="poster" src="" alt="" width="50%" />
 						</div>
-						<select id="movie" class="form_area_input" th:field="*{movie}" onchange="updatePoster()"
-							required>
+						<select id="movie" class="form_area_input" th:field="*{movie}"
+							onchange="updatePoster()" required>
 							<option value="">상영할 영화를 선택해 주세요.</option>
-							<option th:each="movie : ${movies}" th:if="${movie.status.id == 3}" th:value="${movie.id}"
-								th:data-runtime="${movie.runTime}" th:data-imgurl="${movie.imgUrl}"
-								th:data-imgalt="${movie.movieTitle}" th:text="${movie.movieTitle}"></option>
+							<option th:each="movie : ${movies}"
+								th:if="${movie.status.id == 3}" th:value="${movie.id}"
+								th:data-runtime="${movie.runTime}"
+								th:data-imgurl="${movie.imgUrl}"
+								th:data-imgalt="${movie.movieTitle}"
+								th:text="${movie.movieTitle}"></option>
 						</select>
 					</div>
 					<div class="form_wrap">
 						<label for="age">연령등급</label>
 						<div class="df" style="align-items: center;">
 							<input type="radio" th:field="*{age}" th:value="전체" required />
-							<label class="age_grade age age_all" for="age">전체</label>
-							<input type="radio" th:field="*{age}" th:value="12" required />
-							<label class="age_grade age age_12" for="age">12</label>
-							<input type="radio" th:field="*{age}" th:value="15" required />
-							<label class="age_grade age age_15" for="age">15</label>
-							<input type="radio" th:field="*{age}" th:value="18" required />
-							<label class="age_grade age age_18" for="age">18</label>
-							<input type="radio" th:field="*{age}" th:value="19" required />
-							<label class="age_grade age age_19" for="age">19</label>
+							<label class="age_grade age age_all" for="age">전체</label> <input
+								type="radio" th:field="*{age}" th:value="12" required /> <label
+								class="age_grade age age_12" for="age">12</label> <input
+								type="radio" th:field="*{age}" th:value="15" required /> <label
+								class="age_grade age age_15" for="age">15</label> <input
+								type="radio" th:field="*{age}" th:value="18" required /> <label
+								class="age_grade age age_18" for="age">18</label> <input
+								type="radio" th:field="*{age}" th:value="19" required /> <label
+								class="age_grade age age_19" for="age">19</label>
 						</div>
 					</div>
 					<div class="form_wrap">
-						<label for="theaterInfo">상영관</label>
-						<select id="theaterInfo" class="form_area_input" th:field="*{theaterInfo}"
+						<label for="theaterInfo">상영관</label> <select id="theaterInfo"
+							class="form_area_input" th:field="*{theaterInfo}"
 							onchange="updateCapacity()" required>
 							<option value="">상영관을 선택해 주세요.</option>
 							<option th:value="'1관 6층'">1관 6층</option>
@@ -58,25 +68,27 @@
 						</select>
 					</div>
 					<div class="form_wrap">
-						<label for="capacity">수용인원</label>
-						<input id="capacityInput" class="form_area_input" type="number" th:field="*{capacity}" required
-							readonly />
+						<label for="capacity">수용인원</label> <input id="capacityInput"
+							class="form_area_input" type="number" th:field="*{capacity}"
+							required readonly />
 					</div>
 					<div class="form_wrap">
-						<label for="startTime">상영시작</label>
-						<input id="startTimeInput" class="form_area_input" type="datetime-local" th:field="*{startTime}"
-							oninput="updateEndTime()" required
+						<label for="startTime">상영시작</label> <input id="startTimeInput"
+							class="form_area_input" type="datetime-local"
+							th:field="*{startTime}" oninput="updateEndTime()" required
 							th:min="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd''T''HH:mm')}" />
 					</div>
 					<div class="form_wrap">
-						<label for="endTime">상영종료</label>
-						<input id="endTimeInput" class="form_area_input" type="datetime-local" th:field="*{endTime}"
-							required th:min="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd''T''HH:mm')}" />
+						<label for="endTime">상영종료</label> <input id="endTimeInput"
+							class="form_area_input" type="datetime-local"
+							th:field="*{endTime}" required
+							th:min="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd''T''HH:mm')}" />
 					</div>
 					<div class="df">
 						<button class="bttn" type="submit">등록</button>
 					</div>
-					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}">
 				</form>
 			</div>
 		</div>
@@ -86,6 +98,7 @@
 <th:block layout:fragment="script">
 	<script type="text/javascript" th:src="@{/js/theaterForm.js}"></script>
 	<script>
+		
 	</script>
 </th:block>
 

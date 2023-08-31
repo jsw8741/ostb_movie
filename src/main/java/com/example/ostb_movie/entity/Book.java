@@ -33,19 +33,4 @@ public class Book {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Payment payment;
 
-
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinColumn(name = "theater_id")
-	 * 
-	 * @OnDelete(action = OnDeleteAction.CASCADE) private Theater theater;
-	 */
-
-	/*
-	 * @OneToMany(mappedBy = "book")
-	 * 
-	 * @OnDelete(action = OnDeleteAction.CASCADE) private List<SeatReservation>
-	 * seatReservationList = new ArrayList<SeatReservation>();
-	 */
 }

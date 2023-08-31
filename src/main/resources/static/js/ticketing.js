@@ -2,7 +2,19 @@ var seatCnt = 0; // 선택한 좌석수 저장
 var movieId = 0; // 선택한 영화id 저장
 var seatNum = 0; // 총 좌석수 저장
 
+
 $("#paySelectBtn").on("click", function() {
+	$("#seatSelect").css("display", "none");
+	$("#totalPrice").css("display", "none");
+	$("#total").css("display", "none");
+	$("#paySelectWrap").css("display", "none");
+	
+	$("#paySelect").css("display", "block");
+	$("#payBtnWrap").css("display", "block");
+	
+	});
+
+$("#payBtn").on("click", function() {
 	// 예매 정보를 담는 data 객체를 생성한다
 	var data = {
 		theaterId: movieId,
@@ -15,6 +27,7 @@ $("#paySelectBtn").on("click", function() {
 	for (var i = 1; i <= Number(seatNum); i++) {
 		if ($("#seat" + i).hasClass("changeRed")) data.seatList.push(i);
 	}
+	
 	// ajax로 티켓 예매 정보 전송
 	$.ajax({
 		type: "POST",
@@ -29,7 +42,7 @@ $("#paySelectBtn").on("click", function() {
 		},
 		success: function(data) {
 			// debugger
-			var redirectUrl = "/";
+			var redirectUrl = "/book/pyment";
 
 			window.location.href = redirectUrl;
 		},
@@ -39,6 +52,49 @@ $("#paySelectBtn").on("click", function() {
 		}
 	});
 });
+
+/*
+
+$("#paySelectBtn").on("click", function() {
+	// 예매 정보를 담는 data 객체를 생성한다
+	var data = {
+		theaterId: movieId,
+		totalPrice: seatCnt * 10000,
+		seatList: [],
+		seatCnt: seatCnt
+	}
+
+	// 선택한 좌석 정보를 data 객체에 추가
+	for (var i = 1; i <= Number(seatNum); i++) {
+		if ($("#seat" + i).hasClass("changeRed")) data.seatList.push(i);
+	}
+	
+	// ajax로 티켓 예매 정보 전송
+	$.ajax({
+		type: "POST",
+		url: "/book/tickeing",
+		contentType: "application/json",
+		data: JSON.stringify(data),
+		beforeSend: function(jqXHR, setting) {
+			// CSRF 토큰 헤더에 추가
+			var header = $("meta[name='_csrf_header']").attr("content");
+			var token = $("meta[name='_csrf']").attr("content");
+			jqXHR.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			// debugger
+			var redirectUrl = "/book/pyment";
+
+			window.location.href = redirectUrl;
+		},
+		error: function(error) {
+			debugger
+			console.log(error);
+		}
+	});
+});
+
+*/
 
 // 좌석 클릭할때 호출되는 함수
 function clickSeat(idx) {
@@ -130,7 +186,7 @@ function getSeatData(seatNum) {
 
       $("#seatDiv").html(html);
       $("#seatSelect").css("display", "block");
-      $("#movieSelect").css("width", "33.33%");
+      $("#movieSelect").css("display", "none");
 
     },
     error: function(error) {
