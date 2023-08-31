@@ -2205,6 +2205,7 @@ video {
     min-width: 280px;
     padding: 0 30px;
     margin: 0 auto;
+    margin-top: 100px;
 }
 
 em {

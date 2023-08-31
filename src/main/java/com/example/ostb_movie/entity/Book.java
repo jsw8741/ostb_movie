@@ -3,8 +3,6 @@ package com.example.ostb_movie.entity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.example.ostb_movie.service.BookService;
-
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.*;
