@@ -110,4 +110,19 @@ public class ReviewService {
 		reviewRepository.delete(review);
 	}
 	
+	//리뷰에 좋아요 추가
+	public int increaseLikeCount(Long reviewId) {
+		Review review = reviewRepository.findById(reviewId)
+				.orElseThrow(EntityNotFoundException::new);
+		
+		if(review != null) {
+			int newLikeCount = review.getRvLike() + 1;
+			review.setRvLike(newLikeCount);
+			reviewRepository.save(review);
+			return newLikeCount;
+		}
+		
+		return 0;
+	}
+	
 }

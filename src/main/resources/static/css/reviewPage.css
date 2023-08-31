@@ -104,3 +104,11 @@
 	display: flex;
     justify-content: center;
 }
+
+.page-link {
+	background-color: black;
+}
+
+.pagination-page {
+	background-color: black !important;
+}

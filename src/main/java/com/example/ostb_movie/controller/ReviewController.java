@@ -1,7 +1,8 @@
 package com.example.ostb_movie.controller;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -126,5 +127,19 @@ public class ReviewController {
         
         return new ResponseEntity<Long>(reviewId, HttpStatus.OK);
         
+	}
+	
+	//리뷰에 좋아요 추가
+	@PostMapping("/member/{reviewId}/like")
+	public ResponseEntity<Long> likeReview(@PathVariable Long reviewId, Authentication authentication) {
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        Member member = principal.getMember();
+		//좋아요 증가 로직 처리
+		int updatedLikeCount = reviewService.increaseLikeCount(reviewId);
+		
+		//업데이트된 좋아요 수를 JSON 형태로 응답
+		Map<String, Object> response = new HashMap<>();
+		response.put("updatedLikeCount", updatedLikeCount);
+		return new ResponseEntity<Long>(member.getId(), HttpStatus.OK);
 	}
 }

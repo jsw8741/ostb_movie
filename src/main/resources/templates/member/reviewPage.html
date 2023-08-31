@@ -28,9 +28,12 @@
 					<div class="review_low">
 						<p th:text="${#temporals.format(review.reviewDate, 'yyyy-MM-dd')}"></p>
 						&nbsp&nbsp&nbsp&nbsp
-						<i class="fa-solid fa-thumbs-up" style="color: #29A5FF; cursor: pointer;" onclick="likeReview(${review.id})"></i>
+						<button th:value="${review.id}" onclick="likeReview(this.value)" 
+						style="background-color: black; border: 1px solid black; margin-bottom: 25px;">
+							<i class="fa-solid fa-thumbs-up" style="color: #29A5FF; cursor: pointer;"></i>
+						</button>
 						&nbsp&nbsp
-						<p th:text="${review.rvLike}" id="likeCount_${review.id}"></p>
+						<p th:text="${review.rvLike}" id="likeCount_${review.id}"></p>	
 						<a class="rv_modify" th:href="'/member/reviewUpdatePage/' + ${review.id}">수정하기</a>
 							<p>
 								<button class="review_delete" th:value="${review.id}" onclick="deleteReview(this.value)">삭제하기</button>
@@ -42,31 +45,41 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 text-center">
-               		<nav
-					th:with="start=${(reviews.number/maxPage)*maxPage + 1}
+			    <nav
+			        th:with="start=${(reviews.number/maxPage)*maxPage + 1}
 			                 ,end=(${(reviews.totalPages == 0) ? 1 : (start + (maxPage - 1) < reviews.totalPages ? start + (maxPage - 1) : reviews.totalPages)})"
-							aria-label="Page navigation example">
-							<ul class="pagination d-flex justify-content-center">
-								<li class="page-review" th:classappend="${reviews.first}?'disabled'">
-									<a class="page-link"
-									th:href="@{'/member/reviewPage/' + ${memberId} +'/' + ${reviews.number - 1}}">이전</a>
-								</li>
-								
-								<li class="page-review"
-									th:each="page: ${#numbers.sequence(start, end)}"
-									th:classappend="${reviews.number eq page-1}?'active':''">
-									<a
-									class="page-link" th:inline="text"
-									th:href="@{'/member/reviewPage/' + ${memberId} + '/' + ${page - 1}}">[[${page}]]</a>
-								</li>
-								
-								<li class="page-review" th:classappend="${reviews.last}?'disabled'">
-									<a class="page-link"
-									th:href="@{'/member/reviewPage/' + ${memberId} + '/' + ${reviews.number + 1}}">다음</a>
-								</li>
-							</ul>
-					</nav>
+			        aria-label="Page navigation example">
+			        <pagination>
+			            <ul class="pagination d-flex justify-content-center">
+			            
+			                <li class="pagination-page page-item" 
+			                    th:classappend="${reviews.first}?'disabled'">
+			                    <a class="page-link"
+			                    th:href="@{'/member/reviewPage/' + ${memberId} +'/' + ${reviews.number - 1}}" 
+			                    style="background-color: black; color: wh">이전</a>
+			                </li>
+			                
+			                <li class="pagination-page page-item"
+			                    th:each="page: ${#numbers.sequence(start, end)}"
+			                    th:classappend="${reviews.number eq page-1}?'active':''">
+			                    <a class="page-link" 
+			                    th:inline="text"
+			                    th:href="@{'/member/reviewPage/' + ${memberId} + '/' + ${page - 1}}"
+			                    style="background-color: black;">[[${page}]]</a>
+			                </li>
+			                
+			                <li class="pagination-page page-item"
+			                    th:classappend="${reviews.last}?'disabled'">
+			                    <a class="page-link"
+			                    th:href="@{'/member/reviewPage/' + ${memberId} + '/' + ${reviews.number + 1}}"
+			                    style="background-color: black;">다음</a>
+			                </li>
+			                
+			            </ul>
+			        </pagination>
+			    </nav>
 			</div>
+
 		</div>
 
 	</section>
@@ -75,6 +88,7 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 	function deleteReview(reviewId) {
+		alert(reviewId);
 		const deleteConf = confirm("삭제하시겠습니까?");
 		if(!deleteConf) return; //취소버튼 누르면
 		
@@ -113,21 +127,22 @@
 	function likeReview(reviewId) {
 	    var token = $("meta[name='_csrf']").attr("content");
 	    var header = $("meta[name='_csrf_header']").attr("content");
-
-	    var url = "/member/" + reviewId + "/like"; // 좋아요 요청을 처리하는 URL
+	    
+		
+	    
+	    
+	    var url = "/member/" + reviewId + "/like"; // 실제로 사용하는 좋아요 엔드포인트로 변경
 
 	    $.ajax({
 	        url: url,
-	        type: "POST",
+	        type: "POST", // 좋아요 증가를 위해 POST 요청 사용
 	        beforeSend: function(xhr) {
 	            xhr.setRequestHeader(header, token);
 	        },
 	        dataType: "json",
 	        cache: false,
-	        success: function(result, status) {
-	            // 서버에서 좋아요 수를 업데이트한 결과를 받아와서 갱신
-	            var newLikeCount = result.updatedLikeCount;
-	            $("#likeCount_" + reviewId).text(newLikeCount);
+	        success: function(memberId, status) {
+	            location.href = '/member/reviewPage/' + memberId;
 	        },
 	        error: function(jqXHR, status, error) {
 	            if (jqXHR.status == '401') {
@@ -139,7 +154,6 @@
 	        }
 	    });
 	}
-	</script>
 	</script>
 </th:block>	
 </html>
