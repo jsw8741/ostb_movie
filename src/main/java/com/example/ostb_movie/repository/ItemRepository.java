@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.example.ostb_movie.dto.ItemFormDto;
 import com.example.ostb_movie.dto.ItemImgDto;
+import com.example.ostb_movie.dto.MainItemDto;
 import com.example.ostb_movie.entity.Item;
 
 public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositoryCustom {
@@ -26,4 +28,5 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositor
 	@Modifying
 	@Query(value = "delete from item where item_id = :itemId", nativeQuery = true)
 	void deleteByitemIdByNative(@Param("itemId") long item);
+	
 }

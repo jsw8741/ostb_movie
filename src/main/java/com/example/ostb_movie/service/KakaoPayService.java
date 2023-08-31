@@ -21,9 +21,8 @@ import lombok.RequiredArgsConstructor;
 public class KakaoPayService {
 
 	public KakaoPayReadyDto kakaoPay(Map<String, Object> params) {
-		
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "KakaoAK 826f9676e26b9186cb6767cddf17d62b");
+		headers.set("Authorization", "KakaoAK a729a14eaa765b52faa416faff03f519");
 		headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
 		MultiValueMap<String, Object> payParams = new LinkedMultiValueMap<String, Object>();
@@ -31,32 +30,33 @@ public class KakaoPayService {
 		payParams.add("cid", "TC0ONETIME");
 		payParams.add("partner_order_id", "partner_order_id");
 		payParams.add("partner_user_id", "partner_user_id");
-		payParams.add("item_name", params.get("itemName"));
+		if(params.get("itemCount").equals(0)) {
+			payParams.add("item_name", "OSTB("+params.get("itemName")+")"); 
+		}else {
+			payParams.add("item_name", "OSTB("+params.get("itemName") +" 외" + params.get("itemCount") + ")");
+		}
 		payParams.add("quantity", "1");
-		payParams.add("total_amount", params.get("totalPrice"));
+		payParams.add("total_amount", params.get("totalPrice")); //가격
 		payParams.add("tax_free_amount", "0");
 		payParams.add("approval_url", "http://localhost/pay/success");
 		payParams.add("cancel_url", "http://localhost/pay/cancel");
 		payParams.add("fail_url", "http://localhost/pay/fail");
-		
+
 		HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(payParams, headers);
 		
 		RestTemplate template = new RestTemplate();
 		String url = "https://kapi.kakao.com/v1/payment/ready";
 		KakaoPayReadyDto res = template.postForObject(url, request, KakaoPayReadyDto.class);
-		
 		return res;
 	}
 	
 	
 	public KakaoPayApproveDto kakaoPayApprove(String tid, String pgToken) {
-		System.out.println("못온거 맞지????");
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "KakaoAK 826f9676e26b9186cb6767cddf17d62b");
+		headers.set("Authorization", "KakaoAK a729a14eaa765b52faa416faff03f519");
 		headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		
 		MultiValueMap<String, Object> payParams = new LinkedMultiValueMap<String, Object>();
-		System.out.println(tid + "dddddddddddddddd");
 		
 		payParams.add("cid", "TC0ONETIME");
 		payParams.add("tid", tid);
@@ -70,7 +70,6 @@ public class KakaoPayService {
 		String url = "https://kapi.kakao.com/v1/payment/approve";
 		
 		KakaoPayApproveDto res = template.postForObject(url, request, KakaoPayApproveDto.class);
-		
 		return res;
 	}
 }

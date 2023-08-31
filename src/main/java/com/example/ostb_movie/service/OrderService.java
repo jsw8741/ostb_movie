@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ostb_movie.dto.OrderDto;
+import com.example.ostb_movie.entity.Cart;
 import com.example.ostb_movie.entity.Item;
 import com.example.ostb_movie.entity.Order;
 import com.example.ostb_movie.repository.ItemImgRepository;
@@ -48,9 +49,12 @@ public class OrderService {
 		orderRepository.save(orderItem);
 
 		return orderItem.getId();
-
 	}
-
+	public void cartOrder(Cart cart, String email) {
+		Order orderItem = Order.createorderCart(cart, email);
+		
+		orderRepository.save(orderItem);
+	}
 	public void deletItems(Long itemId) {
 		orderRepository.deleteByitemId(itemId);
 

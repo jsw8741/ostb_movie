@@ -2,7 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
-
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 <th:block layout:fragment="css">
 	<style>
 .store_var {
@@ -68,13 +71,15 @@ h3 {
 }
 
 .main_item_img {
-	background : white;
+	background: white;
 	border-radius: 20px;
 	text-align: center;
 }
-.main_item_img > a:hover{
-color: #29A5FF
+
+.main_item_img>a:hover {
+	color: #29A5FF
 }
+
 .main_item_img img {
 	height: 200px;
 	width: 100%;
@@ -131,8 +136,8 @@ color: #29A5FF
 			<h2>스토어</h2>
 		</div>
 		<div class="store_category">
-			<a href="/item/items/VOUCHER">영화관람권</a> <a href="#">팝콘</a> <a href="#">음료</a> <a
-				href="#">스낵</a> <a href="#">굿즈</a>
+			<a href="/item/items/VOUCHER" >영화 관람권</a> <a href="#">팝콘</a> <a
+				href="#">음료</a> <a href="#">스낵</a> <a href="#">굿즈</a>
 		</div>
 
 		<div>
@@ -156,81 +161,13 @@ color: #29A5FF
 						</th:block>
 					</div>
 				</div>
-				<div class="store_sub_item">
-					<div class="row">
-						<h3>팝콘</h3>
-						<ul class="sub_item">
-							<th:block th:each="item, status: ${items}"
-								th:if="${#strings.equals(item.item.categori, 'POPCON')}">
-								<li class="sss"><span class="sub_item_img"> <img
-										alt="" th:src="${item.imgUrl}">
-								</span>
-									<div>
-										<span th:text="${item.item.itemNm}"> </span> <span
-											th:text="${item.item.price}"> </span>
-									</div></li>
-							</th:block>
-						</ul>
-					</div>
-					<div class="row">
-						<h3>음료</h3>
-						<ul class="sub_item">
-							<th:block th:each="item, status: ${items}"
-								th:if="${#strings.equals(item.item.categori, 'POPCON')}">
-								<li class="sss"><span class="sub_item_img"> <img
-										alt="" th:src="${item.imgUrl}">
-								</span>
-									<div>
-										<span th:text="${item.item.itemNm}"> </span> <span
-											th:text="${item.item.price}"> </span>
-									</div></li>
-							</th:block>
-						</ul>
-					</div>
-				</div>
-				<div class="store_sub_item">
-					<div class="row">
-						<h3>스낵</h3>
-						<ul class="sub_item">
-							<th:block th:each="item, status: ${items}"
-								th:if="${#strings.equals(item.item.categori, 'POPCON')}">
-								<li class="sss"><span class="sub_item_img"> <img
-										alt="" th:src="${item.imgUrl}">
-								</span>
-									<div>
-										<span th:text="${item.item.itemNm}"> </span> <span
-											th:text="${item.item.price}"> </span>
-									</div></li>
-							</th:block>
-						</ul>
-					</div>
-					<div class="row">
-						<h3>굿즈</h3>
-						<ul class="sub_item">
-							<th:block th:each="item, status: ${items}"
-								th:if="${#strings.equals(item.item.categori, 'POPCON')}">
-								<li class="sss"><span class="sub_item_img"> <img
-										alt="" th:src="${item.imgUrl}">
-								</span>
-									<div>
-										<span th:text="${item.item.itemNm}"> </span> <span
-											th:text="${item.item.price}"> </span>
-									</div></li>
-							</th:block>
-						</ul>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-<!-- 각 페이지의 스크립트가 작성될 위치 -->
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		
 	</script>
-
 </th:block>
-
 </html>

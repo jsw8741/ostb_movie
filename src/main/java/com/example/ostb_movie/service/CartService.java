@@ -57,8 +57,9 @@ public class CartService {
 
 	}
 
-	public void deletcart(Long itemId) {
-		cartRepository.deleteByitemId(itemId);
+	public void deletcart(Long cartid) {
+		System.out.println("asdasd");
+		cartRepository.deleteByitemId(cartid);
 
 	}
 	public List<Cart> getCartItem(String email) {

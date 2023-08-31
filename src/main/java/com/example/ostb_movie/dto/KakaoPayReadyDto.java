@@ -1,5 +1,7 @@
 package com.example.ostb_movie.dto;
 
+import java.util.Map;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
