@@ -2,6 +2,9 @@ package com.example.ostb_movie.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +12,7 @@ import lombok.*;
 @Table(name = "payment")
 @Getter
 @Setter
-public class Payment{
+public class Payment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "payment_id")
@@ -19,11 +22,20 @@ public class Payment{
 
 	private String paymentType; // 결제타입
 
-	private int discount; // 할인가격
+	private int discount; // 할인
 
-	private int amount; // 총결제금액
+	private int totalPrice; // 총금액
 
-	@ManyToOne
+	/*
+	 * @OneToOne
+	 * 
+	 * @JoinColumn(name = "book_id")
+	 * 
+	 * @OnDelete(action = OnDeleteAction.CASCADE) private Book book;
+	 */
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id") // 결제랑 연결된 회원 정보
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Member member;
 }

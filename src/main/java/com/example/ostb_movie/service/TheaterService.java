@@ -20,20 +20,28 @@ public class TheaterService {
 	private final TheaterRepository theaterRepository;
 
 	// 상영시간표
-	public List<Theater> getTheaterSchedulesByDate(LocalDate date) {
-		LocalDateTime start = date.atStartOfDay();
-		LocalDateTime end = date.atTime(23, 59, 59);
+	public List<Theater> getTheaterSchedulesByDate(LocalDate date, Boolean state) {
+		LocalDate now = LocalDate.now();
+		LocalDateTime start = LocalDateTime.of(now, LocalTime.now());
+		LocalDateTime end = LocalDateTime.of(now.plusDays(30), LocalTime.now());
+		
+		if(state) {
+			start = date.atStartOfDay();
+			end = date.atTime(23, 59, 59);
+		}
+		
 		Sort sort = Sort.by(Sort.Direction.ASC, "startTime");
 		return theaterRepository.findByStartTimeBetween(start, end, sort);
 	}
 
-	// 상영 정보 등록
+	// 상영정보 등록
 	public Long saveTheater(TheaterFormDto theaterFormDto) throws Exception {
 		Theater theater = theaterFormDto.createTheater();
 		theaterRepository.save(theater);
 		return theater.getId();
 	}
-
+	
+	// 상영정보
 	@Transactional(readOnly = true)
 	public TheaterFormDto getTheaterDtl(Long theaterId) {
 		Theater theater = theaterRepository.findById(theaterId).orElseThrow(EntityNotFoundException::new);
@@ -41,11 +49,17 @@ public class TheaterService {
 		return theaterFormDto;
 	}
 
-	// 상영 정보 수정
-	public Long updateTheater(TheaterFormDto theaterFormDto) {
+	// 상영정보 수정
+	@Transactional
+	public void updateTheater(TheaterFormDto theaterFormDto) {
 		Theater theater = theaterRepository.findById(theaterFormDto.getId()).orElseThrow(EntityNotFoundException::new);
 		theater.updateTheater(theaterFormDto);
-		return theater.getId();
+		theaterRepository.save(theater);
 	}
 
-}
+	// 상영정보 삭제
+	@Transactional
+	public void deleteTheater(Long theaterId) {
+		theaterRepository.deleteById(theaterId);
+	}
+};

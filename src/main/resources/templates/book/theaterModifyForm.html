@@ -11,7 +11,6 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/book.css}" />
 </th:block>
 
-
 <div layout:fragment="content">
 	<div class="container">
 		<div class="inner">
@@ -28,10 +27,9 @@
 						<select id="movie" class="form_area_input" th:field="*{movie}" onchange="updatePoster()"
 							required>
 							<option value="">상영할 영화를 선택해 주세요.</option>
-							<option th:each="movie : ${movies}" th:value="${movie.id}"
+							<option th:each="movie : ${movies}" th:if="${movie.status.id == 3}" th:value="${movie.id}"
 								th:data-runtime="${movie.runTime}" th:data-imgurl="${movie.imgUrl}"
-								th:data-imgalt="${movie.movieTitle.substring(1, movie.movieTitle.length() - 1)}"
-								th:text="${movie.movieTitle.substring(1, movie.movieTitle.length() - 1)}"></option>
+								th:data-imgalt="${movie.movieTitle}" th:text="${movie.movieTitle}"></option>
 						</select>
 					</div>
 					<div class="form_wrap">
@@ -70,14 +68,15 @@
 							readonly />
 					</div>
 					<div class="form_wrap">
-						<label for="startTime">상영 시작 시간</label>
+						<label for="startTime">상영시작</label>
 						<input id="startTimeInput" class="form_area_input" type="datetime-local" th:field="*{startTime}"
-							oninput="updateEndTime()" required />
+							oninput="updateEndTime()" required
+							th:min="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd''T''HH:mm')}" />
 					</div>
 					<div class="form_wrap">
-						<label for="endTime">상영종료 시간</label>
+						<label for="endTime">상영종료</label>
 						<input id="endTimeInput" class="form_area_input" type="datetime-local" th:field="*{endTime}"
-							required />
+							required th:min="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd''T''HH:mm')}" />
 					</div>
 					<div class="df">
 						<button class="bttn" type="submit">수정</button>

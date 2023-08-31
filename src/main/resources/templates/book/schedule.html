@@ -10,42 +10,46 @@
 	<div class="container">
 		<div class="inner">
 			<p class="box_tit">상영시간표</p>
-			<div class="scrollable-container">
-				<form class="date" action="/book/schedule" method="get">
-					<input type="hidden" name="viewDate" id="selectedDate">
-				</form>
-				<div class="date">
-					<div class="calendar-icon">
-						<i class="fa-regular fa-calendar-days"></i>
-						<div class="year-month"></div>
-					</div>
-					<div class="calendar"></div>
+			<form class="date" action="/book/schedule" method="get">
+				<input type="hidden" name="viewDate" id="selectedDate">
+			</form>
+			<div class="date" style="margin-bottom: 50px;">
+				<div class="calendar-icon">
+					<i class="fa-regular fa-calendar-days"></i>
+					<div class="year-month"></div>
 				</div>
+				<div class="calendar"></div>
+			</div>
+			<div class="scrollable-container">
 				<div id="scheduleList">
-					<div th:each="schedule : ${schedules}">
-						<div th:if="${schedule.movie != null}" style="margin-top: 50px;">
+					<div th:if="${schedules.isEmpty()}">
+						<span class="tit c_c4">상영 일정이 없습니다.</span>
+					</div>
+					<div th:each="schedule, status : ${schedules}">
+						<div th:if="${status.first or schedule.movie.id != schedules[status.index - 1].movie.id}">
 							<div class="tit_group">
 								<p class="age mr-15" th:text="${schedule.age}"></p>
-								<p class="tit mr-15"
-									th:text="${schedule.movie.movieTitle.substring(1, schedule.movie.movieTitle.length() - 1)}">
-								</p>
-								<p class="sub_txt">
-									<span class="mr-15 c_c4" th:text="${schedule.movie.runTime} + '분'"></span>
-								</p>
-							</div>
-							<div class="tit_group">
-								<p class="sub_txt mr-15" th:text="${schedule.theaterInfo}"></p>
+								<p class="tit mr-15" th:text="${schedule.movie.movieTitle}"></p>
+								<p class="sub_txt mr-15 c_c4"
+									th:text="${#strings.substringBefore(schedule.movie.genres, ' ')}"></p>
 								<span class="sub_txt mr-15 c_c4">|</span>
-								<p class="sub_txt" th:text="'총 ' + ${schedule.capacity} + '석'"></p>
+								<p class="sub_txt mr-15 c_c4" th:text="${schedule.movie.releaseDate} + ' 개봉'"></p>
+								<span class="sub_txt mr-15 c_c4">|</span>
+								<p class="sub_txt mr-15 c_c4" th:text="${schedule.movie.runTime} + '분'"></p>
 							</div>
+						</div>
+						<div class="tit_group">
+							<p class="sub_txt mr-15" th:text="${schedule.theaterInfo}"></p>
+							<span class="sub_txt mr-15 c_c4">|</span>
+							<p class="sub_txt" th:text="'총 ' + ${schedule.capacity} + '석'"></p>
 						</div>
 						<div class="time_wrap">
 							<div class="time_list_wrap">
 								<div class="time_list"
 									th:class="${schedule.startTime lt #temporals.createNow()} ? 'time_list off' : 'time_list on'">
-									<input type="radio" th:id="${#temporals.format(schedule.startTime, 'yyyyMMddHHmm')}"
-										name="movie_time">
-									<label th:for="${#temporals.format(schedule.startTime, 'yyyyMMddHHmm')}">
+									<input type="radio" th:id="${schedule.id}" th:name="${schedule.id}"
+										th:disabled="${schedule.startTime lt #temporals.createNow()}" />
+									<label th:for="${schedule.id}">
 										<p class="start" th:text="${#temporals.format(schedule.startTime, 'HH:mm')}">
 										</p>
 										<p class="end" th:text="${'~' + #temporals.format(schedule.endTime, 'HH:mm')}">
@@ -54,7 +58,7 @@
 									<p class="sub_txt status" th:if="${schedule.startTime lt #temporals.createNow()}">
 										예매마감</p>
 									<p class="sub_txt status"
-										th:unless="${schedule.startTime lt #temporals.createNow()}">예매가능</p>
+										th:unless="${schedule.startTime lt #temporals.createNow()}"></p>
 								</div>
 							</div>
 						</div>

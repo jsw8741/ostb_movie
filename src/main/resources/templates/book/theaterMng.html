@@ -1,100 +1,114 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
 
 <th:block layout:fragment="css">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/book.css}" />
 	<style>
-table {
-	width: 100%;
-	text-align: center;
-	border: 1px solid #fff;
-	border-spacing: 1px;
-	margin: auto;
-}
+		.find {
+			background-color: transparent;
+			border: none;
+			color: #fff;
+			margin-left: 15px;
+			font-weight: bold;
+		}
 
-caption {
-	font-weight: bold;
-}
+		table {
+			width: 100%;
+			text-align: center;
+			border: 1px solid #fff;
+			border-spacing: 1px;
+			margin: auto;
+			color: #fff;
+		}
 
-table td {
-	padding: 10px;
-}
+		caption {
+			font-weight: bold;
+		}
 
-table th {
-	background-color: fff;
-	color: #fff;
-	padding: 10px;
-}
+		table td {
+			padding: 50px 10px;
+		}
 
-img {
-	width: 90px;
-	height: 180px;
-}
+		table th {
+			background-color: fff;
+			color: #fff;
+			padding: 10px;
+		}
 
-.update, .delete {
-	border: none;
-	padding: 5px 10px;
-	color: #fff;
-	font-weight: bold;
-}
+		img {
+			width: 120px;
+			height: 180px;
+		}
 
-.update, .delete {
-	background-color: transparent;
-}
+		.update,
+		.delete {
+			border: none;
+			padding: 5px 10px;
+			color: #fff;
+			font-weight: bold;
+			background-color: transparent;
+		}
 
-.tablefoot {
-	padding: 0;
-	border-bottom: 1px solid #fff;
-}
-</style>
+		.update:hover,
+		.delete:hover {
+			color: #29a5ff;
+		}
+	</style>
 </th:block>
 
 <div layout:fragment="content">
-
 	<div class="container">
 		<div class="inner">
 			<p class="box_tit df">상영정보 관리</p>
 			<div class="box_content_2">
-				<form>
-					<!-- 
-				<form th:action="@{'/book/theatherMng/' + ${theater.number}}" method="get"
-					th:object="${mngs}">  -->
-					<table>
-						<thead>
-							<tr>
-								<th class="tit"></th>
-								<th class="tit">제목</th>
-								<th class="tit">상영관</th>
-								<th class="tit">수용인원</th>
-								<th class="tit">상영 시작 시간</th>
-								<th class="tit">상영종료 시간</th>
-								<th class="tit"></th>
-							</tr>
-						</thead>
-						<tbody>
-					<tr>
-								<!--
-							<tr th:each="mng, status: ${mngs.getContents()}">  -->
-								<td><img src="" alt="img"></td>
-								<td class="sub_txt"></td>
-								<td class="sub_txt"></td>
-								<td class="sub_txt"></td>
-								<td class="sub_txt"></td>
-								<td class="sub_txt"></td>
-								<td class="sub_txt">
-									<button class="delete">삭제</button>
-									<button class="update">수정</button>
-								</td>
-							</tr>
-
-						</tbody>
-						<tfoot>
-							<td colspan="7" class="tablefoot"></td>
-						</tfoot>
-
-					</table>
+				<form th:action="@{/book/theaterMng}" method="get" style="margin-bottom: 50px;">
+					<input type="date" name="viewDate" th:value="${viewDate}" />
+					<button type="submit" class="find">조회</button>
+				</form>
+				<table>
+					<thead style="border-bottom: 1px solid #fff;">
+						<tr>
+							<th class="tit"></th>
+							<th class="tit">상영등급</th>
+							<th class="tit">영화제목</th>
+							<th class="tit">상영관</th>
+							<th class="tit">상영시작</th>
+							<th class="tit">상영종료</th>
+							<th class="tit"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${schedules.isEmpty()}">
+							<td colspan="7" class="tit c_c4">등록된 상영정보가 없습니다.</td>
+						</tr>
+						<tr th:each="schedule : ${schedules}" th:unless="${schedules.isEmpty()}">
+							<td><img th:src="${schedule.movie.imgUrl}" alt="${schedule.movie.movieTitle}"></td>
+							<td class="sub_txt">
+								<span th:switch="${schedule.age}">
+									<span th:case="'전체'">전체관람가</span>
+									<span th:case="'12'">12세 이상 관람가</span>
+									<span th:case="'15'">15세 이상 관람가</span>
+									<span th:case="'18'">청소년관람불가</span>
+									<span th:case="'19'">청소년관람불가</span>
+								</span>
+							</td>
+							<td class="sub_txt" th:text="${schedule.movie.movieTitle}"></td>
+							<td class="sub_txt" th:text="${schedule.theaterInfo}"></td>
+							<td class="sub_txt" th:text="${#temporals.format(schedule.startTime, 'yyyy-MM-dd HH:mm')}">
+							</td>
+							<td class="sub_txt" th:text="${#temporals.format(schedule.endTime, 'yyyy-MM-dd HH:mm')}">
+							</td>
+							<td class="sub_txt">
+								<a th:href="@{/book/theater/{theaterId}(theaterId=${schedule.id})}"
+									class="update mr-15">수정</a>
+								<span class="mr-15 c_c4">|</span>
+								<a th:href="@{/book/theater/delete/{theaterId}(theaterId=${schedule.id})}"
+									class="delete" onclick="return confirm('상영정보를 삭제합니다.')">삭제</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 
 				</form>
 			</div>
@@ -105,7 +119,8 @@ img {
 
 <th:block layout:fragment="script">
 	<script>
-		
+
 	</script>
 </th:block>
+
 </html>

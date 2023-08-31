@@ -1,7 +1,10 @@
 @charset "UTF-8";
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 .content {
 	height: 100% !important;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .content p,
@@ -25,7 +28,8 @@
 
 .df {
 	display: flex;
-	justify-content: center
+	justify-content: center;
+	text-align: center;
 }
 
 .c_c4 {
@@ -33,16 +37,18 @@
 }
 
 /* 상영스케줄 */
+
 .scrollable-container::-webkit-scrollbar {
 	display: none;
+	width: 0 !important;
 }
 
 .scrollable-container {
+	scrollbar-width: none;
 	overflow: scroll;
-	max-height: 720px;
+	max-height: 550px;
 	overflow-y: scroll;
 	-ms-overflow-style: none;
-	scrollbar-width: none;
 }
 
 .box_tit {
@@ -52,7 +58,7 @@
 }
 
 .inner {
-	padding: 150px 0;
+	padding: 100px 0;
 }
 
 .date {
@@ -169,7 +175,7 @@
 }
 
 .time_wrap .time_list_wrap .time_list {
-	width: calc(10% - 10px);
+	width: 130px;
 	margin-right: 10px;
 	margin-bottom: 10px;
 	display: block;
@@ -266,4 +272,121 @@
 	margin: 0 8px;
 }
 
-/* 상영관, 상영영화 관리 */
+/* 예매 */
+
+.first_sec {
+	float: left;
+	width: 66.67%;
+	padding: 30px;
+	box-sizing: border-box;
+	overflow-y: auto;
+	height: 550px;
+}
+
+.second_sec {
+	float: left;
+	width: 33.33%;
+	padding: 30px;
+	box-sizing: border-box;
+	overflow-y: auto;
+	height: 550px;
+}
+
+.third_sec {
+	float: left;
+	width: 33.33%;
+	padding: 30px;
+	box-sizing: border-box;
+	overflow-y: auto;
+	height: 550px;
+}
+
+.movie_ticket_box {
+	border: 1px solid #fff;
+	box-sizing: border-box;
+	display: flex;
+	width: 100%;
+	overflow: hidden;
+}
+
+.movie_ticket_box .time_wrap .time_list_wrap .time_list {
+	width: 130px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	display: block;
+	float: left;
+	text-align: center;
+	position: relative;
+}
+
+.book_info_wrap {
+	display: flex;
+	align-items: center;
+}
+
+.book_info_img {
+	flex: 0 0 auto;
+	margin-right: 30px;
+}
+
+.book_info_con {
+	flex: 1 1 auto;
+}
+
+.info_list {
+	display: flex;
+}
+
+.total_box {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+	padding-top: 170px;
+}
+
+.total_box .btn {
+	width: 180px;
+	height: 60px;
+	background-color: #29a5ff;
+	color: #fff;
+	border-radius: .25rem;
+	font-size: 1.1rem;
+	font-weight: 700;
+	cursor: pointer;
+	border: none;
+}
+
+/* 예매 */
+
+.boxClr {
+	height: 20px;
+	width: 20px;
+	background-color: azure;
+	color: black !important;
+}
+
+.changeRed {
+	background-color: #DC2121 !important;
+	color: white !important;
+}
+
+.changeGreen {
+	background-color: green !important;
+	color: white !important;
+}
+
+#seatDiv {
+	text-align: center;
+}
+
+.screen {
+	background-color: #fff;
+	margin: 30px 0;
+	width: 100%;
+	height: 100px;
+	transform: rotateX(-45deg);
+	box-shadow: 0 3px 10px rgb(255 255 255 / 70%);
+	align-items: center;
+	color: black;
+}
