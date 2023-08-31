@@ -39,7 +39,7 @@
 		                                    <span class="rank_num" th:text="${status.index} + 1"></span>
 		                                </div>
 		                                <div class="poster_info" th:data-id="${popular.id}">
-										    <a href="#" class="link_story" data-tiara-layer="poster" th:text="${popular.description}"></a>
+										    <a th:href="'/movie/detail/' + ${popular.id}" class="link_story" data-tiara-layer="poster" th:text="${popular.description}"></a>
 										</div>
 		                            </div>
 		                            <div class="thumb_cont">
@@ -65,7 +65,7 @@
 		                                        <img th:src="${nowPlaying.imgUrl}" class="img_thumb" th:alt="${nowPlaying.movieTitle}">
 		                                </div>
 		                                <div class="poster_info" th:data-id="${nowPlaying.id}">
-										    <a href="#" class="link_story" data-tiara-layer="poster" th:text="${nowPlaying.description}"></a>
+										    <a th:href="'/movie/detail/' + ${nowPlaying.id}" class="link_story" data-tiara-layer="poster" th:text="${nowPlaying.description}"></a>
 										</div>
 		                            </div>
 		                            <div class="thumb_cont">
@@ -88,10 +88,11 @@
 		                        <div class="item_poster">
 		                            <div class="thumb_item">
 		                                <div class="poster_movie">
-		                                        <img th:src="${upComming.imgUrl}" class="img_thumb" th:alt="${upComming.movieTitle}">
+		                                        <div class="img_thumb notPost" th:if="${upComming.imgUrl != null and upComming.imgUrl.contains('null')}">포스터 준비중입니다.</div>
+		                                        <img th:src="${upComming.imgUrl}" class="img_thumb" th:alt="${upComming.movieTitle}" th:unless="${upComming.imgUrl != null and upComming.imgUrl.contains('null')}">
 		                                </div>
 		                                <div class="poster_info" th:data-id="${upComming.id}">
-										    <a href="#" class="link_story" data-tiara-layer="poster" th:text="${upComming.description}"></a>
+										    <a th:href="'/movie/detail/' + ${upComming.id}" class="link_story" data-tiara-layer="poster" th:text="${upComming.description}"></a>
 										</div>
 		                            </div>
 		                            <div class="thumb_cont">

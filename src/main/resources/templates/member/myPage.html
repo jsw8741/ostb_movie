@@ -5,13 +5,8 @@
 	
 <th:block layout:fragment="css">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/memberInfo.css}"/>
+
 </th:block>	
-	
-<head>
-<meta name="_csrf" th:content="${_csrf.token}" />
-<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-<script src="https://kit.fontawesome.com/17ee3c24a2.js" crossorigin="anonymous"></script>
-</head>
 
 <div layout:fragment="content">
 
@@ -29,6 +24,9 @@
 										<span class="mp-nickname">닉네임:<i>[[${member.nickname}]]</i>
 										</span>
 										<button class="fa-solid fa-pen authorId_btn" ></button>
+										<div th:unless="${#strings.equals(member.password, 'SNS 로그인')}">
+											<a class="pwPop">비밀번호 변경하기</a>	
+										</div>
 										<div>
 											<h4 class="main-grade">등급: VIP
 												<button class="grade-ok" type='button' id="modal_btn">등급별 혜택 확인</button>
@@ -53,7 +51,6 @@
 
 						</div>
 					</div>
-					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 			</div>
 		</div>
 		<div class="modal_background"></div>
@@ -94,6 +91,7 @@
 	</section>
 </div>
 <th:block layout:fragment="script">
+	<script src="https://kit.fontawesome.com/17ee3c24a2.js" crossorigin="anonymous"></script>
 	<script>
 	//모달창 열기
 	function modalOpen() {
@@ -118,9 +116,20 @@
 		e.preventDefault();
 		
 		let popUrl = "/members/infoPop";
-		let popOption = "width = 650px, height=550px, top=300px, left=300px, scrollbars=yes";
+		let popOption = "width = 650px, height=550px, scrollbars=yes";
 		
 		window.open(popUrl,"프로필 변경",popOption);
+		
+	});
+	
+	$('.pwPop').on("click",function(p){
+		
+		p.preventDefault();
+		
+		let pwCheckUrl = "/members/checkPw";
+		let popOption = "width = 650px, height=200px, top=300px, left=300px, scrollbars=no";
+		
+		window.open(pwCheckUrl,"비밀번호 확인",popOption);
 		
 	});
 

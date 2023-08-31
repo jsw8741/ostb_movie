@@ -13,6 +13,7 @@ import com.example.ostb_movie.auth.OAuth2UserInfo;
 import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.constant.Role;
 import com.example.ostb_movie.entity.Member;
+import com.example.ostb_movie.repository.MemberRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 @RequiredArgsConstructor
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
-	private final com.example.ostb_movie.repository.MemberRepository memberRepository;
+	private final MemberRepository memberRepository;
     
     @Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {

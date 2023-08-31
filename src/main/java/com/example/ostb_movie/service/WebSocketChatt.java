@@ -31,6 +31,7 @@ public class WebSocketChatt {
 	    public void onOpen(Session session, @PathParam("roomId") String roomId) {
 	        roomSessions.computeIfAbsent(roomId, key -> Collections.synchronizedSet(new HashSet<>()))
 	            .add(session);
+	        chattService.updateChatt(roomId);
 	    }
 
 	    @OnMessage
@@ -45,6 +46,5 @@ public class WebSocketChatt {
 	    public void onClose(Session session,@PathParam("roomId") String roomId) {
 	        Set<Session> clientsInRoom = roomSessions.getOrDefault(roomId, Collections.emptySet());
 	        clientsInRoom.remove(session);
-	        chattService.updateChatt(roomId);
 	    }
 }
