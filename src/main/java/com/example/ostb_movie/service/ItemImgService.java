@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
+import com.example.ostb_movie.constant.Categori;
 import com.example.ostb_movie.entity.Itemimg;
 import com.example.ostb_movie.repository.ItemImgRepository;
 
@@ -52,6 +53,10 @@ public class ItemImgService {
 	public List<Itemimg> allItemList(){
 		List<Itemimg> allItem = itemImgRepository.findAll();
 		
+		return allItem;
+	}
+	public List<Itemimg> ItemList(Categori categori){
+		List<Itemimg> allItem = itemImgRepository.findByCategori(categori);
 		return allItem;
 	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.ostb_movie.constant.Categori;
 import com.example.ostb_movie.dto.ItemFormDto;
 import com.example.ostb_movie.dto.ItemSearchDto;
 import com.example.ostb_movie.dto.MainItemDto;
@@ -37,18 +38,22 @@ public class ItemController {
 
 	// 상품 리스트
 	@GetMapping(value = "/item/items")
-	public String itemShopList(Model model, ItemSearchDto itemSearchDto, Optional<Integer> page) {
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
+	public String itemShopList(Model model) {
 		List<Itemimg> items = itemimgService.allItemList();
 
 		model.addAttribute("items", items);
 		for (Itemimg item : items) {
-			System.out.println(item.getItem().getItemNm()+"asdasdasdas");
-			
 		}
-		model.addAttribute("itemSearchDto", itemSearchDto);
-		model.addAttribute("maxPage", 5);
 		return "item/itemList";
+	}
+
+	@GetMapping(value = "/item/items/{category}" )
+	public String itemShopList(Model model ,  @PathVariable("category") Categori categori) {
+		List<Itemimg> items = itemimgService.ItemList(categori);
+		model.addAttribute("items", items);
+		for (Itemimg item : items) {
+		}
+		return "item/itemCategory";
 	}
 
 	// 상품 등록페이지
