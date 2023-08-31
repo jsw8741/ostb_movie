@@ -47,12 +47,24 @@ public class ItemController {
 		return "item/itemList";
 	}
 
-	@GetMapping(value = "/item/items/{category}" )
-	public String itemShopList(Model model ,  @PathVariable("category") Categori categori) {
+	@GetMapping(value = "/item/items/{category}")
+	public String itemShopList(Model model, @PathVariable("category") Categori categori) {
 		List<Itemimg> items = itemimgService.ItemList(categori);
-		model.addAttribute("items", items);
+		if (categori.toString() == "VOUCHER") {
+			model.addAttribute("categori", "상품권");
+		} else if (categori.toString() == "POPCON") {
+			model.addAttribute("categori", "팝콘");
+		} else if (categori.toString() == "SNACK") {
+			model.addAttribute("categori", "스낵");
+		} else if (categori.toString() == "GOODS") {
+			model.addAttribute("categori", "굿즈");
+		} else if (categori.toString() == "DRINK") {
+			model.addAttribute("categori", "음료");
+		}
 		for (Itemimg item : items) {
 		}
+		model.addAttribute("categoryName", categori);
+		model.addAttribute("items", items);
 		return "item/itemCategory";
 	}
 
