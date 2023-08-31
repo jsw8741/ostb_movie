@@ -22,7 +22,7 @@
 						<div class="tab_wrap swiper-container swiper-container-horizontal">
 							<ul class="tab_inner swiper-wrapper">
 								<li class="swiper-slide tab active swiper-slide-active"><a href="/FAQ/list"><span>FAQ</span></a></li>
-								<li class="swiper-slide tab swiper-slide-next"><a href="/chatt/createChatt"><span>1:1 문의</span></a></li>
+								<li class="swiper-slide tab swiper-slide-next"><a href="/chatt/mychatt" onclick="return checkLogin();"><span>1:1 문의</span></a></li>
 								<li class="swiper-slide tab"><a href="/notice/list" ><span>공지사항</span></a></li>
 								<li class="swiper-slide tab"><a href="/lost/list"><span>분실물 문의</span></a></li>
 							</ul>
@@ -48,35 +48,35 @@
 						
 						
 					</ul>
-				<span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+					
+					<a href="/FAQ/createFAQ" class="btn_typeB1 tab_inner swiper-wrapper" sec:authorize="hasAnyRole('ROLE_USER')"><span>FAQ 등록</span></a>
+					
+					<span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
 			</div>
 			<!--// tab -->
 			
 			<section class="wrap_con">
-				<div class="layout1">
-					<!-- list top -->
+				<div class="layout1" th:if="${faqs.isEmpty()}">					
+					<h3 style="color: white;font-size: 30px;text-align: center;bottom: 30px;position: relative;">등록된 글이 없습니다.</h3>	
+				</div>
+				
+				<div class="layout1" th:if="${not faqs.isEmpty()}">
 					<div class="list_top_ui">
-						<div class="list_total">총 <em>[[${totalCount}]]건</em></div>
-						<!-- 검색어 입력 시 -->
-						<!-- <div class="list_total"><em>‘백화점’</em> 에 대한 검색결과 <em>72건</em></div> -->
-						
+						<div class="list_total">총 <em>[[${totalCount}]]건</em></div>						
 						<div class="search_area">
 							<div class="search_bundle">
 								<div class="inp_search">
-									<form name="faqDtlForm" id="faqDtlForm" method="post" action="/cu/cmct/faqDtlList.nhd">
+									<!-- <form name="faqDtlForm" id="faqDtlForm" method="post" action="/cu/cmct/faqDtlList.nhd">
 										<input type="hidden" name="pageSize" id="pageSize" value="10">
 										<input type="hidden" name="pageIndex" id="pageIndex" value="0">
 										<input type="hidden" name="faqTypeGbcd" id="faqTypeGbcd" value="">
 										<input type="search" name="searchStr" id="searchStr" class="inp_self" placeholder="검색어를입력해주세요.">
 										<button type="button" class="btn_search" onclick="doSearch( '');"><span class="hidden"></span></button>
-									</form>
+									</form> -->
 								</div>
 							</div>
 						</div>
 					</div>
-					<!--// list top -->
-
-					<!-- list -->
 					
 							<th:block th:each="faq, status: ${faqs.getContent()}">
 						<div class="acodiList acodi_type1 py-1">
@@ -94,7 +94,7 @@
 											<div class="con_area">
 											[[${faq.faqContent}]]
 											<br>
-											<a class="faqupdate" sec:authorize="isAuthenticated()" th:href="'/members/centers/' + ${faq.Id}">수정하기</a>
+											<a class="faqupdate" sec:authorize="isAuthenticated()" th:href="'/FAQ/updateFAQ/' + ${faq.Id}">수정하기</a>
 											</div>
 										</div>
 									</li>
@@ -172,6 +172,27 @@ if (isDisplayed) {
 });
 
 
+async function checkLogin() {
+    try {
+        const response = await fetch("/check-login", {
+            method: "GET",
+            credentials: "include" // 쿠키를 전송하기 위해 필요한 옵션
+        });
+
+        const data = await response.json();
+        if (data.isAuthenticated) {
+            // 로그인된 상태라면 링크를 클릭한 후 이동
+            return true;
+        } else {
+            alert("로그인이 필요합니다."); // 또는 원하는 메시지 출력
+            window.location.href = "/login/loginForm"; // 로그인 페이지로 리다이렉트
+            return false; // 링크를 클릭해도 이동하지 않음
+        }
+    } catch (error) {
+        console.error("로그인 여부 확인 중 오류:", error);
+        // 에러 발생 시 어떻게 처리할지 정의
+    }
+}
 
 
 
