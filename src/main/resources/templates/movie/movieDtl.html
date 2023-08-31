@@ -67,23 +67,23 @@
 				         	 <input type="text" class="form-control" th:field="*{content}">
 				         	 <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="fieldError">Incorrect Data</p>
 			            </div>
-			           	 <button type="button" onclick="beforeSubmit()" class="btn btn-primary mb-3" style="width:100px;">리뷰등록</button>
-			           	 <button class="review_modify" type='button' id="modal_btn">수정</button>
-		            </div>
-		           	<div class="modal_background"></div>
-					<div class="modal_wrap">
-					<div class="modal_title"><p class="modal_text">리뷰수정</p></div>
-		 				<div class="modal_close">X</div>
-		  			  	<div class="text">
-		      				수정 어쩌구
-		  				</div>
-					</div>
+			           	 <button type="button" onclick="beforeSubmit()" class="create_rvbutton" style="width:100px;">리뷰등록</button>
+			           	 <div th:each="review : ${reviewDto.reviews}">
+						 	<p th:text="'닉네임: ' + ${review.member.nickname}"></p>
+						    <p th:text="${review.content}"></p>
+						    <p th:text="'좋아요: ' + ${review.rvLike}"></p>
+						    <!-- 좋아요 버튼 예시 -->
+						    <button onclick="likeReview(${review.id})">좋아요</button>
+						</div>
+								            </div>
 		            <input type="hidden" name="movieId" th:value="${movieDtl.id}">
 		            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 		         </form>
             </div>
-
-          </div>
+            
+    <div class="movie">
+    </div>
+    </div>
 	</div>
 </div>
 
@@ -110,23 +110,6 @@
 		}
 		f.submit();
 	}
-	
-	//모달창 열기
-	function modalOpen() {
-	    document.querySelector('.modal_wrap').style.display = 'block';
-	    document.querySelector('.modal_background').style.display = 'block';
-	}
-
-	// 모달창 끄기
-	function modalClose() {
-	    document.querySelector('.modal_wrap').style.display = 'none';
-	    document.querySelector('.modal_background').style.display = 'none';
-	}
-
-
-	//버튼 클릭리스너 달기
-	document.querySelector('#modal_btn').addEventListener('click', modalOpen);
-	document.querySelector('.modal_close').addEventListener('click', modalClose);
 	
 	</script>
 </th:block>

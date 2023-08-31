@@ -100,12 +100,12 @@ public class MemberController {
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
         
+        Member updateMember = memberService.findMember(member.getEmail());
+        
         MypageFormDto mypageFormDto = MypageFormDto.of(member);
         
-		model.addAttribute("member",member);
+		model.addAttribute("member",updateMember);
 		model.addAttribute("mypageFormDto",mypageFormDto);
-		
-		
 		
 		return "member/myPagePop";
 	}

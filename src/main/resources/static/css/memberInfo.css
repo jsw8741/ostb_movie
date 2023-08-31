@@ -162,6 +162,7 @@
 	width: 775px;
 	justify-content: left;
 	margin: 0 auto;
+	height: 350px;
 }
 
 .myostb {
@@ -186,6 +187,7 @@
 .myreserv-detail {
 	font-size: 15px;
 	color: white;
+	margin-top: 10px;
 }
 
 .myreserv-contents {
@@ -212,6 +214,7 @@
 .qna-count {
 	font-size: 15px;
 	color: white;
+	margin-top: 10px;
 }
 
 .qna-contents {
@@ -236,6 +239,19 @@
 	margin-top: 1px;
 }
 
+<<<<<<< HEAD
+.myreview {
+	width: 775px;
+	margin: 0 auto;
+	color: white;
+}
+
+.review-count {
+	color: white;
+	margin-bottom: 3px;
+}
+</style>
+=======
 .pwPop{
 	font-size: 11px;
 	color: #29a5ff;
@@ -246,3 +262,4 @@
 	color: #0669b1;
 	cursor: pointer;
 }
+>>>>>>> 1c16049c7db12211d538ca5a514911906377ea68

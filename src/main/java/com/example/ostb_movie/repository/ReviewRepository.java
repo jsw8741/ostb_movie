@@ -11,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import com.example.ostb_movie.entity.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-	
 	// 회원이 쓴 리뷰 리스트
 	@Query("select r from Review r where r.member.id = :member_id")
 	Page<Review> getMyReviewPage(@Param("member_id") Long memberId, Pageable pageable);

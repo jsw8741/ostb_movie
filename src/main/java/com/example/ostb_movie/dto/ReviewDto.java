@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.Movie;
 import com.example.ostb_movie.entity.Review;
+import com.querydsl.core.annotations.QueryProjection;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
