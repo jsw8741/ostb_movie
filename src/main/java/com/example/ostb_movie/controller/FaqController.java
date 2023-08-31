@@ -1,6 +1,5 @@
 package com.example.ostb_movie.controller;
 
-import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -62,7 +61,7 @@ public class FaqController {
 			model.addAttribute("errorMessage", "FAQ등록 중 에러가 발생했습니다.");
 			return "/FAQ/createFAQ";
 		}
-		return "redirect:/FAQ/createFAQ";
+		return "redirect:/FAQ/list"; 
 	}
 	
 	// faq 리스트
@@ -105,20 +104,23 @@ public class FaqController {
 		
 		try {
 			faqService.updateFaq(faqFormDto);
+			return "redirect:/FAQ/list"; 
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "FAQ 수정 중 에러가 발생했습니다.");
 			return "FAQ/updateFAQ";
 		}
-		return "redirect:/FAQ/listFAQ";
+		
 	}
 	
 	// faq 삭제(delete)
 	@DeleteMapping("/FAQ/deleteFAQ/{faqId}/delete")
-	public @ResponseBody ResponseEntity deleteFaq(@PathVariable("faqId") Long faqId, Principal principal) {
-		
+	public @ResponseBody ResponseEntity deleteFaq(@PathVariable("faqId") Long faqId, Authentication authentication) {
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        Member member = principal.getMember();
+        
 		//1. 본인인증
-		if(!faqService.validateFaq(faqId, principal.getName())) {
+		if(!faqService.validateFaq(faqId, member.getEmail())) {
 			return new ResponseEntity<String>("FAQ 삭제 권한이 없습니다.", HttpStatus.FORBIDDEN);
 		}
 		

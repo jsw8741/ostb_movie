@@ -3,7 +3,6 @@ package com.example.ostb_movie.entity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.example.ostb_movie.dto.BookDto;
 import com.example.ostb_movie.service.BookService;
 
 import jakarta.persistence.*;
@@ -34,15 +33,6 @@ public class Book {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Payment payment;
 
-	public static Book createBook(BookDto bookDto) {
-		Book book = new Book();
-		book.setBookNo(bookDto.getBookNo());
-		book.setTotalPrice(bookDto.getTotalPrice());
-		book.setSeat(bookDto.getSeat());
-		book.setPayment(bookDto.getPayment());
-
-		return book;
-	}
 
 	/*
 	 * @ManyToOne(fetch = FetchType.LAZY)

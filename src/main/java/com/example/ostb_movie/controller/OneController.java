@@ -81,6 +81,7 @@ public class OneController {
         long memberId = member.getId();
         List<OneBoard> oneBoards = chattService.getOneBoard(memberId);
         
+        model.addAttribute("oneBoardFormDto",new OneBoardFormDto());
         model.addAttribute("oneBoards", oneBoards);
 		
 		return "chatt/mychatt";

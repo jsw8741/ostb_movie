@@ -120,10 +120,11 @@ public class NoticeController {
 	
 	// notice 삭제(delete)
 	@DeleteMapping("/notice/update/{noticeId}/delete")
-	public @ResponseBody ResponseEntity deleteNotice(@PathVariable("noticeId") Long noticeId, Principal principal) {
-		
+	public @ResponseBody ResponseEntity deleteNotice(@PathVariable("noticeId") Long noticeId, Authentication authentication) {
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        Member member = principal.getMember();
 		//1. 본인인증
-		if(!noticeService.validateFaq(noticeId, principal.getName())) {
+		if(!noticeService.validateFaq(noticeId, member.getEmail())) {
 			return new ResponseEntity<String>("공지사항 삭제 권한이 없습니다.", HttpStatus.FORBIDDEN);
 		}
 		

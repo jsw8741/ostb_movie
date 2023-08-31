@@ -7807,7 +7807,10 @@ textarea.form-control-lg {
 }
 
 .bg-white {
-    background-color: #fff !important
+    background-color: #fff !important;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
 }
 
 .bg-transparent {

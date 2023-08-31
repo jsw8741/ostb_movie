@@ -139,12 +139,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>hotel</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-</dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.ostb_movie.dto.BookDto;
 import com.example.ostb_movie.entity.*;
 import com.example.ostb_movie.repository.*;
 
