@@ -58,7 +58,11 @@
 				</li>
 				
 			</ul>
-				<a href="/lost/createLost" class="btn_typeB1 tab_inner swiper-wrapper" sec:authorize="isAuthenticated()"><span>분실물 접수하기</span></a>
+			
+			<div class="layout1" th:if="${losts.isEmpty()}">			
+				<h3 style="color: white;font-size: 30px;text-align: center;bottom: 30px;position: relative;">등록된 글이 없습니다.</h3>
+				<a href="/lost/createLost" class="btn_typeB1 tab_inner swiper-wrapper" style="margin-left: 0px;" sec:authorize="hasAnyRole('ROLE_USER')"><span>분실물 접수</span></a>	
+			</div>
 			<span class="swiper-notification" aria-live="assertive"
 				aria-atomic="true"></span>
 			
@@ -67,17 +71,17 @@
 	<!--// tab -->
 
 	<section class="wrap_con">
-		<div class="layout1">
+		<div class="layout2" th:if="${not losts.isEmpty()}">
 			<!-- list top -->
 			<div class="list_top_ui">
 				<div class="list_total">
 					총 <em>[[${totalCount}]]건</em>
+					<a href="/lost/createLost" class="btn_typeB1 tab_inner swiper-wrapper" sec:authorize="hasAnyRole('ROLE_USER')"><span>분실물 접수</span></a>
 				</div>
 			</div>
-			<!-- <div class="btn_area btn_ac py-2">
-				<a href="/lost/createLost" class="btn_typeB1"
-					sec:authorize="isAuthenticated()"><span>분실물 접수하기</span></a>
-			</div> -->
+			<div class="btn_area btn_ac py-2">
+				
+			</div>
 			<!--// list top -->
 			<!-- list -->
 			<th:block th:each="lost, status: ${losts.getContent()}">
@@ -96,9 +100,12 @@
 	              (#strings.equals(lost.lostStatus, 'COMPLETED') ? 'ac_completed' : ''))}">[[${lost.lostStatus}]]</span>
 									</div>
 								</div> 
-								 <div class="ac_panel" th:id="${lost.id}" sec:authorize="isAuthenticated()">
-									<div class="con_area" id="pop">
-									<button class="btn_typeB1" type="button"  onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}">수정하기</button>
+								 <div class="ac_panel" th:id="${lost.id}" style="padding: 0;">
+									<div class="con_area" id="pop" style="display: flex;">
+										<a class="faqupdate" style="bottom: 10px;position: relative;" th:href="'/lost/modifyLost/' + ${lost.id}" th:if="${lost.member.id} == ${currentMember.id}">수정하기</a>
+										<th:block sec:authorize="hasAnyRole('ROLE_ADMIN')">
+											<button class="btn_typeB1" type="button" onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}" style="min-width: 120px;margin-left: 1042px;margin-bottom: 20px;font-size: 14px;">상태수정</button>
+										</th:block>
 									</div>
 								</div> 
 							</li>
@@ -118,12 +125,15 @@
 										</p>
 										<span th:classappend="${#strings.equals(lost.lostStatus, 'ACCEPT') ? 'ac_accept' : 
 	              (#strings.equals(lost.lostStatus, 'PROCESSING') ? 'ac_processing' : 
-	              (#strings.equals(lost.lostStatus, 'COMPLETED') ? 'ac_completed' : ''))}">[[${lost.lostStatus}]]</span>
+	              (#strings.equals(lost.lostStatus, 'COMPLETED') ? 'ac_completed' : ''))}" style="left: 1053px;">[[${lost.lostStatus}]]</span>
 									</div>
 								</div> 
-								 <div class="ac_panel" th:id="${lost.id}" sec:authorize="isAuthenticated()">
-									<div class="con_area" id="pop">
-									<button class="btn_typeB1" type="button"  onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}">수정하기</button>
+								 <div class="ac_panel" th:id="${lost.id}" style="padding: 0;">
+									<div class="con_area" id="pop" style="display: flex;">
+										<a class="faqupdate" style="bottom: 10px;position: relative;" th:href="'/lost/modifyLost/' + ${lost.id}" th:if="${lost.member.id} == ${currentMember.id}">수정하기</a>
+										<th:block sec:authorize="hasAnyRole('ROLE_ADMIN')">
+											<button class="btn_typeB1" type="button" onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}" style="min-width: 120px;margin-left: 1042px;margin-bottom: 20px;font-size: 14px;">상태수정</button>
+										</th:block>
 									</div>
 								</div> 
 							</li>
@@ -146,10 +156,13 @@
 	              (#strings.equals(lost.lostStatus, 'COMPLETED') ? 'ac_completed' : ''))}">[[${lost.lostStatus}]]</span>
 									</div>
 								</div> 
-								 <div class="ac_panel" th:id="${lost.id}" sec:authorize="isAuthenticated()">
-									<div class="con_area" id="pop">
-									<button class="btn_typeB1" type="button"  onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}">수정하기</button>
-									</div>
+								 <div class="ac_panel" th:id="${lost.id}" style="padding: 0;">
+									<!-- <div class="con_area" id="pop" style="display: flex;">
+										<a class="faqupdate" style="bottom: 10px;position: relative;" th:href="'/lost/modifyLost/' + ${lost.id}" th:if="${lost.member.id} == ${currentMember.id}">수정하기</a>
+										<th:block sec:authorize="hasAnyRole('ROLE_ADMIN')">
+											<button class="btn_typeB1" type="button" onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}" style="min-width: 120px;margin-left: 1042px;margin-bottom: 10px;font-size: 14px;">상태수정</button>
+										</th:block>
+									</div> -->
 								</div> 
 							</li>
 						</ul>
@@ -208,7 +221,7 @@
 
 				// 드롭다운 내용의 표시 상태를 변경합니다.
 				if (isDisplayed) {
-					dropdownContent.style.display = "block";
+					dropdownContent.style.display = "none";
 					li.classList.remove("on");
 				} else {
 					dropdownContent.style.display = "block";

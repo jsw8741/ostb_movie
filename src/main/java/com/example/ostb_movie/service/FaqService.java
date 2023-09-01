@@ -24,71 +24,110 @@ public class FaqService {
 	
 	
 	//faq 테이블에 faq등록(insert)
-		public Long saveFaq(FaqFormDto faqFormDto, String email) {
-			Member member = memberRepository.findByEmail(email);
-			Faq faq = faqFormDto.createFaq(member);
-			faqRepository.save(faq);
-			return faq.getId();
-		}
+	public Long saveFaq(FaqFormDto faqFormDto, String email) {
+		Member member = memberRepository.findByEmail(email);
+		Faq faq = faqFormDto.createFaq(member);
+		faqRepository.save(faq);
+		return faq.getId();
+	}
 		
 		
 	//faq 가져오기
-		@Transactional(readOnly = true)
-		public Page<Faq> getMainFaqDtl(Pageable pageable) {
-			Page<Faq> faqPage = faqRepository.findAllByOrderByIdDesc(pageable);
-			Long totalCount = faqRepository.count();
-			return faqPage;
-		}
-		
-		
+	@Transactional(readOnly = true)
+	public Page<Faq> getMainFaqDtl(Pageable pageable) {
+		Page<Faq> faqPage = faqRepository.findAllByOrderByIdDesc(pageable);
+		Long totalCount = faqRepository.count();
+		return faqPage;
+	}
 		
 	//faq 수정하기
-		public Long updateFaq(FaqFormDto faqFormDto) {
-			Faq faq = faqRepository.findById(faqFormDto.getId()).orElseThrow(EntityNotFoundException::new);
-			faq.updateFaq(faqFormDto);
-			return faq.getId();
-		}
+	public Long updateFaq(FaqFormDto faqFormDto) {
+		Faq faq = faqRepository.findById(faqFormDto.getId()).orElseThrow(EntityNotFoundException::new);
+		faq.updateFaq(faqFormDto);
+		return faq.getId();
+	}
 		
 	//본인확인
-		@Transactional(readOnly = true)
-		public boolean validateFaq(Long faqId, String email) {
-			Member curMember = memberRepository.findByEmail(email);
-			Faq faq = faqRepository.findById(faqId).orElseThrow(EntityNotFoundException::new);
-			Member savedMember = faq.getMember();
-			if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
-				return false;
-			}
-			return true;
+	@Transactional(readOnly = true)
+	public boolean validateFaq(Long faqId, String email) {
+		Member curMember = memberRepository.findByEmail(email);
+		Faq faq = faqRepository.findById(faqId).orElseThrow(EntityNotFoundException::new);
+		Member savedMember = faq.getMember();
+		if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
+			return false;
 		}
+		return true;
+	}
 		
 	//faq 삭제
-		public void deleteFaq(Long faqId) {
-			Faq faq = faqRepository.findById(faqId).orElseThrow(EntityNotFoundException::new);
-			faqRepository.delete(faq);
-		}
+	public void deleteFaq(Long faqId) {
+		Faq faq = faqRepository.findById(faqId).orElseThrow(EntityNotFoundException::new);
+		faqRepository.delete(faq);
+	}
 		
 	//faq 회원
-		@Transactional(readOnly = true)
-		public Page<Faq> getFaqMember(Pageable pageable) {
-			return faqRepository.getFaqMember(pageable);
-		}
+	@Transactional(readOnly = true)
+	public Page<Faq> getFaqMember(Pageable pageable) {
+		return faqRepository.getFaqMember(pageable);
+	}
 		
 	//faq 포인트
-		@Transactional(readOnly = true)
-		public Page<Faq> getFaqPoint(Pageable pageable) {
-			return faqRepository.getFaqPoint(pageable);
-		}
+	@Transactional(readOnly = true)
+	public Page<Faq> getFaqPoint(Pageable pageable) {
+		return faqRepository.getFaqPoint(pageable);
+	}
 		
 	//faq 혜택
-		@Transactional(readOnly = true)
-		public Page<Faq> getFaqBenefit(Pageable pageable) {
-			return faqRepository.getFaqBenefit(pageable);
-		}
+	@Transactional(readOnly = true)
+	public Page<Faq> getFaqBenefit(Pageable pageable) {
+		return faqRepository.getFaqBenefit(pageable);
+	}
 		
 	//faq 친구
-		@Transactional(readOnly = true)
-		public Page<Faq> getFaqFrend(Pageable pageable) {
-			return faqRepository.getFaqFrend(pageable);
-		}
+	@Transactional(readOnly = true)
+	public Page<Faq> getFaqFrend(Pageable pageable) {
+		return faqRepository.getFaqFrend(pageable);
+	}
 		
+	// 수정할 faq 가져오기
+	public Faq getModifFaq (Long faqId) {
+		Faq faq = faqRepository.findById(faqId).orElseThrow(EntityNotFoundException::new);
+		
+		return faq;
+	}
+	
+	// faq 전체 총 갯수 조회
+	public Long getTotalFaqcount() {
+		Long totalCount = faqRepository.count();
+		
+		return totalCount;
+	}
+	
+	// faq 멤버 종류 갯수 조회
+	public Long getMemberFaqcount() {
+		Long memverCount = faqRepository.getFaqMemberTotal();
+		
+		return memverCount;
+	}
+	
+	// faq 포인트 종류 갯수 조회
+	public Long getPointFaqcount() {
+		Long pointCount = faqRepository.getFaqPointTotal();
+		
+		return pointCount;
+	}
+	
+	// faq 혜택 종류 갯수 조회
+	public Long getBenefitFaqcount() {
+		Long benefitCount = faqRepository.getFaqBenefitTotal();
+		
+		return benefitCount;
+	}
+	
+	// faq 혜택 종류 갯수 조회
+	public Long getFrendCountFaqcount() {
+		Long frendCount = faqRepository.getFaqFrendTotal();
+		
+		return frendCount;
+	}
 }

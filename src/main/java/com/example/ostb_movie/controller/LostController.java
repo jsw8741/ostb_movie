@@ -66,11 +66,15 @@ public class LostController {
 
 	// lost 리스트
 	@GetMapping(value = { "/lost/list", "/lost/list/{page}" })
-	public String faqMainList(Model model, @PathVariable("page") Optional<Integer> page) {
+	public String faqMainList(Model model, @PathVariable("page") Optional<Integer> page, Authentication authentication) {
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        Member currentMember = principal.getMember();
+		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
 		Page<Lost> losts = lostService.getMainLostDtl(pageable);
 		Long totalCount = lostRepository.count();
 
+		model.addAttribute("currentMember", currentMember);
 		model.addAttribute("losts", losts);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("maxPage", 5);
@@ -78,7 +82,7 @@ public class LostController {
 		return "lost/listLost";
 	}
 
-	// lost 수정페이지 보기
+	// lost 상태 수정페이지 보기
 	@GetMapping(value = "/lost/updateLost/{lostId}")
 	public String lostDtl(@PathVariable("lostId") Long lostId, Model model, RedirectAttributes redirectAttributes) {
 
@@ -92,7 +96,6 @@ public class LostController {
 	        return "lost/listLost";
 	    }
 
-	    System.out.println(redirectAttributes.getFlashAttributes().get("successMessage") + "MMM");
 	    return "lost/updateLost";
 	}
 

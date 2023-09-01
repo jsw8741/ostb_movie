@@ -6,6 +6,13 @@
 <!-- 각 페이지의 CSS가 작성될 위치 -->
 <th:block layout:fragment="css">
 <link rel="stylesheet" th:href="@{/css/FAQ.css}">
+
+<style>
+	.fieldError{
+		color: red;
+		margin-top: 10px;
+	}
+</style>
 </th:block>
 
 
@@ -65,19 +72,16 @@
 													<option th:value="'혜택'" th:text="혜택" >혜택</option>
 													<option th:value="'친구'" th:text="친구" >친구</option>
 										</select>
-										<p th:if="${#fields.hasErrors('faqRole')}" th:errors="*{faqRole}"
-										class="fieldError">Incorrect Data</p>
+										<p th:if="${#fields.hasErrors('faqRole')}" th:errors="*{faqRole}" style="color: red;margin-top: 10px;" class="fieldError">Incorrect Data</p>
 									</div>
 									<div class="inp_bundle custId">
 										<input type="text" id="faqTitle" name="faqTitle"  class="inp flex"  th:field="*{faqTitle}" placeholder="제목">
-										<p th:if="${#fields.hasErrors('faqTitle')}" th:errors="*{faqTitle}"
-								class="fieldError">Incorrect Data</p>
 									</div>
+										<p th:if="${#fields.hasErrors('faqTitle')}" th:errors="*{faqTitle}" class="fieldError">Incorrect Data</p>
 									<div class="inp_bundle mt custPwd textarea" >
 										<textarea id="faqContent" name="faqContent"class="inp flex py-3" th:field="*{faqContent}" placeholder="컨텐츠 내용"></textarea>
-										<p th:if="${#fields.hasErrors('faqTitle')}" th:errors="*{faqContent}"
-								class="fieldError">Incorrect Data</p>
 									</div>
+										<p th:if="${#fields.hasErrors('faqContent')}" th:errors="*{faqContent}" class="fieldError">Incorrect Data</p>
 							</div>
 						</div>
 					</div>

@@ -13,7 +13,7 @@
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 
-<div layout:fragment="content">
+<div layout:fragment="content" style="padding-top: 150px;">
 	<div class="wrap">
           <div class="main">
             <div class="main-top">
@@ -54,7 +54,7 @@
             	<div class="main-bottom">
 	            	<p>예고편</p>
 	            	<div class="video">
-	            		<iframe id="video" width="1280" height="720" th:src="${movieDtl.trailerUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	            		<iframe id="video" width="1170" height="720" th:src="${movieDtl.trailerUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 	            	</div>
 	            </div>
             </th:block>
