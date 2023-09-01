@@ -19,8 +19,6 @@ public class ReviewDto {
 	@NotNull(message = "내용은 필수로 입력해야합니다")
 	private String content;
 	
-	private int rvLike;
-	
 	private LocalDateTime reviewDate;
 	
 	private Member member;

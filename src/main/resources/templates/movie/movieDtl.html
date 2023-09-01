@@ -58,27 +58,22 @@
 	            	</div>
 	            </div>
             </th:block>
-            
-            <div>
-            	 <form action="/member/myPage" method="post" class="contact-form" th:object="${reviewDto}" name="review" enctype="multipart/form-data">
-		            <div style="height: 200px; width: 1200px; margin: 0 auto;">
-			            <div>
-							<label th:for="review" class="text-black" style="text-align: center;">리뷰</label> 
-				         	 <input type="text" class="form-control" th:field="*{content}">
-				         	 <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="fieldError">Incorrect Data</p>
-			            </div>
-			           	 <button type="button" onclick="beforeSubmit()" class="create_rvbutton" style="width:100px;">리뷰등록</button>
-			           	 <div th:each="review : ${reviewDto.reviews}">
-						 	<p th:text="'닉네임: ' + ${review.member.nickname}"></p>
-						    <p th:text="${review.content}"></p>
-						    <p th:text="'좋아요: ' + ${review.rvLike}"></p>
-						    <!-- 좋아요 버튼 예시 -->
-						    <button onclick="likeReview(${review.id})">좋아요</button>
-						</div>
-								            </div>
-		            <input type="hidden" name="movieId" th:value="${movieDtl.id}">
-		            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-		         </form>
+            <div class="regist_review">
+				<button class="openModalBtn" id="openModalBtn">리뷰등록</button>
+					<div id="myModal" class="modal">
+					  <div class="modal-content">
+					    <span class="close">&times;</span>
+					    <p>리뷰를 작성해주세요.</p>
+					   	<form th:action="'/movie/detail/' + ${movieDtl.id}" method="post" class="contact-form" th:object="${reviewDto}" name="review" enctype="multipart/form-data">
+					  	 	<div>
+				         		 <input type="text" class="form-control" th:field="*{content}">
+				         	<input type="hidden" name="movieId" th:value="${movieDtl.id}">
+						    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" >
+			          	  </div>
+					    <button type="button" onclick="beforeSubmit()" class="create_rvbutton">작성완료!</button>
+				        </form>
+					  </div>
+					</div>
             </div>
             
     <div class="movie">
@@ -110,6 +105,26 @@
 		}
 		f.submit();
 	}
+	
+	// 열기 버튼 클릭 시 모달 열기
+	document.getElementById("openModalBtn").addEventListener("click", function() {
+	  var modal = document.getElementById("myModal");
+	  modal.style.display = "block";
+	  modal.style.alignItems = "center"; // 수직 가운데 정렬
+	  modal.style.justifyContent = "center"; // 수평 가운데 정렬
+	});
+
+	// 모달 닫기 버튼 클릭 시 모달 닫기
+	document.querySelector(".close").addEventListener("click", function() {
+	  document.getElementById("myModal").style.display = "none";
+	});
+
+	// 모달 외부 클릭 시 모달 닫기
+	window.addEventListener("click", function(event) {
+	  if (event.target == document.getElementById("myModal")) {
+	    document.getElementById("myModal").style.display = "none";
+	  }
+	});
 	
 	</script>
 </th:block>

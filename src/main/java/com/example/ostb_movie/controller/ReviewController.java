@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.dto.ReviewDto;
@@ -39,10 +40,11 @@ public class ReviewController {
 	private final ReviewService reviewService;
 
 	//리뷰 등록
-	@PostMapping(value = "/member/myPage")
+	@PostMapping(value = "/movie/detail/{originId}")
 	public String reviewNew(@Valid ReviewDto reviewDto, BindingResult bindingResult, @RequestParam("movieId") Long movieId,
 			Model model, Authentication authentication) {
 		if(bindingResult.hasErrors()) {
+			System.out.println("WWWWWWWWWWWWWW");
 			return "member/myPage";
 		}
 		
@@ -62,6 +64,7 @@ public class ReviewController {
 			reviewService.saveReview(reviewDto);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "리뷰 등록 중 에러가 발생했습니다.");
+			System.out.println("QQQQQQQQQQQQQQQQ");
 			return "member/myPage";
 		}
 		
@@ -69,7 +72,7 @@ public class ReviewController {
 	}
 
 	//내가 쓴 리뷰 페이지보기
-	@GetMapping(value =  { "/member/reviewPage/{memberId}", "/member/reviewPage/{memberId}/{page}" })
+	@GetMapping(value =  { "/member/reviewPage/{memberId}", "/member/reviewPage/{memberId}/{page}" } )
 	public String reviewDtl(Model model, @PathVariable("memberId") Long memberId, @PathVariable("page") Optional<Integer> Page) {
 		Pageable pageable = PageRequest.of(Page.isPresent() ? Page.get() : 0, 6);
 		
@@ -129,17 +132,22 @@ public class ReviewController {
         
 	}
 	
-	//리뷰에 좋아요 추가
+	//리뷰에 좋아요
 	@PostMapping("/member/{reviewId}/like")
-	public ResponseEntity<Long> likeReview(@PathVariable Long reviewId, Authentication authentication) {
+	public ResponseEntity<Long> likeReview(@PathVariable Long reviewId, Authentication authentication, Model model) {
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
-		//좋아요 증가 로직 처리
-		int updatedLikeCount = reviewService.increaseLikeCount(reviewId);
+		
+        
+        try {
+        	reviewService.increaseLikeCount(reviewId, member.getId());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("reviewId" + reviewId);
+		}
 		
 		//업데이트된 좋아요 수를 JSON 형태로 응답
-		Map<String, Object> response = new HashMap<>();
-		response.put("updatedLikeCount", updatedLikeCount);
 		return new ResponseEntity<Long>(member.getId(), HttpStatus.OK);
 	}
 }

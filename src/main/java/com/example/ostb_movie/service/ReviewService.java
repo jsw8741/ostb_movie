@@ -9,15 +9,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
+import com.example.ostb_movie.constant.LikeStatus;
 import com.example.ostb_movie.dto.ReviewDto;
 import com.example.ostb_movie.dto.ReviewModifyDto;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.Movie;
 import com.example.ostb_movie.entity.Review;
+import com.example.ostb_movie.entity.ReviewLike;
 import com.example.ostb_movie.repository.MemberRepository;
 import com.example.ostb_movie.repository.MovieRepository;
+import com.example.ostb_movie.repository.ReviewLikeRepository;
 import com.example.ostb_movie.repository.ReviewRepository;
 
+import groovyjarjarantlr4.v4.parse.ANTLRParser.sync_return;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +32,7 @@ public class ReviewService {
 	private final ReviewRepository reviewRepository;
 	private final MovieRepository movieRepository;
 	private final MemberRepository memberRepository;
+	private final ReviewLikeRepository reviewLikeRepository;
 	
 	//리뷰 등록
 	public Long saveReview(ReviewDto reviewDto) throws Exception {
@@ -111,18 +116,31 @@ public class ReviewService {
 	}
 	
 	//리뷰에 좋아요 추가
-	public int increaseLikeCount(Long reviewId) {
-		Review review = reviewRepository.findById(reviewId)
-				.orElseThrow(EntityNotFoundException::new);
+	public void increaseLikeCount(Long reviewId, Long memberId) {
 		
-		if(review != null) {
-			int newLikeCount = review.getRvLike() + 1;
-			review.setRvLike(newLikeCount);
-			reviewRepository.save(review);
-			return newLikeCount;
+		ReviewLike reviewLike = reviewLikeRepository.likeToggle(memberId, reviewId);
+		
+		if(reviewLike != null) {
+	        if(reviewLike.getLikeStatus().equals(LikeStatus.BEFORELIKE)) {
+	        	reviewLike.setReviewLike(reviewLike.getReviewLike() + 1);
+	        	reviewLike.setLikeStatus(LikeStatus.AFTERLIKE);
+	        }else {
+				reviewLike.setReviewLike(reviewLike.getReviewLike() - 1);
+				reviewLike.setLikeStatus(LikeStatus.BEFORELIKE);
+			}
 		}
-		
-		return 0;
 	}
+	
+	//좋아요 상태 확인
+    public boolean toggleLike(Long memberId, Long reviewId) {
+        // ReviewLike 엔티티를 통해 좋아요 상태 확인
+        ReviewLike reviewLike = reviewLikeRepository.likeToggle(memberId, reviewId);
+        
+        if(reviewLike.getLikeStatus().equals(LikeStatus.BEFORELIKE)) {
+        	return false;
+        }else {
+			return true;
+		}
+    }
 	
 }

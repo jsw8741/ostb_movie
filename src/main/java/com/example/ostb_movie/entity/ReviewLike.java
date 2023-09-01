@@ -1,14 +1,15 @@
 package com.example.ostb_movie.entity;
 
-import java.time.LocalDateTime;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.example.ostb_movie.dto.ReviewModifyDto;
+import com.example.ostb_movie.constant.LikeStatus;
 
+import groovy.transform.ToString;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,41 +20,30 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
-@Table(name = "review")
+@Table(name = "review_like")
 @Getter
 @Setter
 @ToString
-public class Review {
+public class ReviewLike {
 	@Id
-	@Column(name = "review_id")
+	@Column(name = "review_like_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String content;
+	private int reviewLike;
 	
-	private LocalDateTime reviewDate;
+	@Enumerated(EnumType.STRING)
+	private LikeStatus likeStatus;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Member member;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "movie_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Movie movie;
-	
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "review_like_id")
+	@JoinColumn(name = "review_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private ReviewLike reviewLike;
-	
-	public void updateReview(ReviewModifyDto reviewModifyDto) {
-		this.content = reviewModifyDto.getContent();
-	}
-	
-	
+	private Review review;
 }
