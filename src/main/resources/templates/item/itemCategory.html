@@ -8,6 +8,27 @@
 </head>
 <th:block layout:fragment="css">
 	<style>
+h3 {
+	border-bottom: 1px solid white;
+	padding-bottom: 20px;
+	color: white;
+	text-align: left;
+}
+
+a:hover {
+	color: white !important;
+}
+
+a {
+	color: black;
+}
+
+.store {
+	width: 60%;
+	margin: 0 auto;
+	padding-top: 100px
+}
+
 .store_var {
 	border-bottom: solid 2px white;
 	width: 100%;
@@ -34,98 +55,44 @@
 	font-size: 17px;
 }
 
-.store {
-	width: 60%;
-	margin: 0 auto;
-	padding-top: 100px
-}
-
-a:hover {
-	color: #29A5FF !important;
-}
-
 .store_main_item {
 	padding-top: 50px;
 }
 
-h3 {
-	border-bottom: 1px solid white;
-	padding-bottom: 20px;
-	color: white;
-}
-
 .store_main_item {
-	padding-bottom: 5px;
-	padding-bottom: 100px;
+	text-align: center;
+	margin: 20px;
 }
 
 .mainitemlist {
-	padding: 20px 0.5%;
 	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10px;
+}
+
+.item_item {
+	flex: 0 0 calc(33.33% - 20px);
+	margin: 10px;
+	padding: 10px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.item_img {
+	height: 190px;
+	width: 100%;
+	border-radius: 25px;
 }
 
 .item_itme {
 	width: 33%;
-	height: 200px;
-	padding: 0 10px;
+	padding: 40px;
 }
 
 .main_item_img {
-	background: white;
-	border-radius: 20px;
-	text-align: center;
-}
-
-.main_item_img>a:hover {
-	color: #29A5FF
-}
-
-.main_item_img img {
-	height: 200px;
-	width: 100%;
-	border-radius: 30px;
-}
-
-.main_item_img a:nth-child(n+2) {
-	color: black;
-	position: relative;
-	bottom: 35px;
-}
-
-.store_sub_item {
-	display: flex;
-}
-
-.store_sub_item div {
-	width: 50%;
-	padding: 30px 10px;
-}
-
-.sss {
-	display: flex;
-	padding: 20px;
-}
-
-.sub_item li:nth-child(n+3) {
-	display: none;
-}
-
-.mainitemlist div:nth-child(n+5) {
-	display: none;
-}
-
-.sub_item_img img {
-	width: 300px;
-	height: 200px;
-	border-radius: 30px;
-}
-
-.sss div {
-	display: grid
-}
-
-.row {
-	margin: 20px;
+	border-radius: 25px;
+	margin-top: 10px;
+	background-color: white;
+	margin-top: 10px;
 }
 </style>
 </th:block>
@@ -136,26 +103,27 @@ h3 {
 			<h2>스토어</h2>
 		</div>
 		<div class="store_category">
-			<a href="/item/items/VOUCHER" >영화 관람권</a> <a href="#">팝콘</a> <a
-				href="#">음료</a> <a href="#">스낵</a> <a href="#">굿즈</a>
+			<a href="/item/items/VOUCHER">영화 관람권</a> <a href="/item/items/POPCON">팝콘</a>
+			<a href="/item/items/DRINK">음료</a> <a href="/item/items/SNACK">스낵</a>
+			<a href="/item/items/GOODS">굿즈</a>
 		</div>
 
 		<div>
 			<div class="container">
 				<div class="store_main_item">
-					<h3>영화관람권</h3>
+					<h3 th:text="${#strings.toString(categori)}"></h3>
 					<div class="mainitemlist">
 						<th:block th:each="item : ${items}"
-							th:if="${#strings.equals(item.item.categori, 'VOUCHER')}">
+							th:if="${#strings.equals(item.item.categori, #strings.toString(categoryName))}">
 							<div class="item_itme">
 								<div class="main_item_img">
 									<a th:href="'/item/' + ${item.item.id}"> <img
-										th:alt="${item.ImgName}" th:src="${item.imgUrl}"
-										th:href="'/item/' + ${item.item.id}"></a> <a
-										th:href="'/item/' + ${item.item.id}"
+										class="item_img" th:alt="${item.ImgName}"
+										th:src="${item.imgUrl}" th:href="'/item/' + ${item.item.id}"></a>
+									<a th:href="'/item/' + ${item.item.id}"
 										th:text="${item.item.itemNm}"></a> <br> <a
-										th:href="'/item/' + ${item.item.id}"
-										th:text="${item.item.price}"></a>
+										th:href="'/item/' + ${item.item.id}">[[${#numbers.formatInteger(item.item.price,
+										0, 'COMMA')}]]원</a>
 								</div>
 							</div>
 						</th:block>

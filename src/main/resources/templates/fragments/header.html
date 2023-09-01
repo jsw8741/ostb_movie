@@ -210,13 +210,15 @@
 																href="/chatt/list">- 채팅</a></li>
 														</ul>
 													</div></li>
-												<li sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"><a href="#">관리자</a>
+												<li
+													sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"><a
+													href="#">관리자</a>
 													<div class="megamenu">
 														<ul class="single-mega cn-col-5">
 															<li><p>관리자</p></li>
 															<li><a href="/admin/itemform">- 상품 등록</a></li>
 															<li><a href="/admin/items">- 상품관리</a></li>
-															<li><a href="#">- 상영관 등록</a></li>
+															<li><a href="/admin/members">- 회원 등록</a></li>
 															<li><a sec:authorize="isAuthenticated()"
 																href="/chatt/mychatt">- 이메일 문의</a></li>
 															<li><a
@@ -236,6 +238,8 @@
 											</ul>
 										</div>
 										<div class="header_bar">
+											<a href="/order/myCart"> <i class="fa-solid fa-cart-shopping"></i>
+											</a>
 											<!-- <i class=" fa-solid fa-lock fa"></i> <i
 												class=" fa-solid fa-user-plus fa"></i> -->
 										</div>

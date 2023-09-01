@@ -37,6 +37,7 @@ public class KakaoPayController {
 	@ResponseBody
 	public KakaoPayReadyDto kakaoPay(HttpSession session, Model model, Principal principal,
 			@RequestParam(value = "selectedItems[]", required = false) List<String> selectedItems) {
+		
 		Long totalPrice = (long) 0;
 		// 선택된 상품 정보 출력
 		Map<String, Object> params = new HashMap<>();

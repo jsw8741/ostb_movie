@@ -21,7 +21,6 @@ public class MemberImgService {
 	
 	private void saveMemberProfileImg(Member member, MultipartFile memberImgFile) throws Exception {
 		String oriImgName = memberImgFile.getOriginalFilename();
-		System.out.println(oriImgName + "LLLLLLLLLLL");
 		String imgName = "";
 		String memberImg = "";
 		

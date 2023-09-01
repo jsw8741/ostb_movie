@@ -3,78 +3,23 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
 
-<!-- 각 페이지의 CSS가 작성될 위치 -->
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
 <th:block layout:fragment="css">
 	<style>
-select {
-	margin: 2px;
-	width: 33.33%;
-}
-
-a {
-	/* 	cursor: pointer */
-	
-}
-
-.pagination {
-	padding: 20px 0;
-	position: relative;
-	right: 8px;
-}
-
-.table {
-	color: white;
-	height: 250px;
-}
-
-.delete_item {
-	width: 10% !important;
-}
-
-.output {
-	padding-top: 100px;
-}
-
-.border {
-	padding: 20px;
-	height: 500px
-}
-
-.searchbar div {
-	height: 55px;
-}
-
-#searchBy {
-	height: 57px;
-	position: relative;
-	bottom: 2px;
-}
-
-#searchBtn {
-	height: 55px;
-	width: 80px;
-}
-
-.Item_id {
-	left: 20px;
-	position: relative;
-}
-
-.itemMng {
-	top: 15px;
-	position: relative;
-}
 </style>
 </th:block>
 
 <div layout:fragment="content">
-
 	<div class="site-section">
 		<div class="container">
 			<div class="row">
 				<div class="output">
-					<form th:action="@{'/admin/items/' + ${items.number}}" method="get"
-						th:object="${items}">
+					<form th:action="@{'/admin/members/' + ${members.number}}"
+						method="get" th:object="${members}">
 						<div class="col-md-12">
 							<table class="table table-responsive-md">
 								<thead>
@@ -88,18 +33,15 @@ a {
 								</thead>
 								<tbody>
 									<!-- 초기화된 데이터를 출력한다. -->
-									<tr th:each="item, status: ${items.getContent()}"
+									<tr th:each="member, status: ${members.getContent()}"
 										class="itemMng">
-										<th th:text="${item.id}" scope="row" class="Item_id"></th>
-										<td><a th:href="'/admin/item/' + ${item.id}"
-											th:text="${item.itemNm}"></a></td>
-										<td th:text="${item.categori}"></td>
-										<td>[[${#numbers.formatInteger(item.price, 0,
-											'COMMA')}]]원</td>
-										<td><a th:href="'/admin/item/delete/' + ${item.id}"
+										<th th:text="${member.id}" scope="row" class="Item_id"></th>
+										<td><a th:href="'/admin/member/' + ${member.id}"
+											th:text="${member.name}"></a></td>
+										<td th:text="${member.role}"></td>
+										<td><a th:href="'/admin/item/delete/' + ${member.id}"
 											class="delete_item"><i
 												class="fa-regular fa-trash-can fa-bounce"></i> </a></td>
-										<!-- hover 했을때 fa-bounce 클래스 더하기 -->
 									</tr>
 								</tbody>
 							</table>
@@ -108,34 +50,34 @@ a {
 							<!-- start(페이지 시작 번호) = (현제 페이지 번호 / 보여줄 페이지수) * 보여줄 페이지 수 + 1 -->
 							<!-- end(페이지 끝 번호) = start + (보여줄 페이지 수 - 1)-->
 							<nav
-								th:with="start=${(items.number/maxPage)*maxPage + 1}
-							,end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})"
+								th:with="start=${(members.number/maxPage)*maxPage + 1}
+							,end=(${(members.totalPages == 0) ? 1 : (start + (maxPage - 1) < members.totalPages ? start + (maxPage - 1) : members.totalPages)})"
 								aria-label="Page navigation example">
 								<ul class="pagination d-flex justify-content-center">
 									<li class="page-item"
-										th:classappend="${items.first}?'disabled'"><a
+										th:classappend="${members.first}?'disabled'"><a
 										class="page-link"
-										th:onclick="'javascript:page(' + ${items.number - 1} +')'">이전</a>
+										th:onclick="'javascript:page(' + ${members.number - 1} +')'">이전</a>
 									</li>
 									<li class="page-item"
 										th:each="page: ${#numbers.sequence(start, end)}"
-										th:classappend="${items.number eq page-1}?'active':''"><a
+										th:classappend="${members.number eq page-1}?'active':''"><a
 										class="page-link" th:inline="text"
 										th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a>
 									</li>
-									<li class="page-item" th:classappend="${items.last}?'disabled'">
+									<li class="page-item" th:classappend="${members.last}?'disabled'">
 										<a class="page-link"
-										th:onclick="'javascript:page(' + ${items.number + 1} +')'">다음</a>
+										th:onclick="'javascript:page(' + ${members.number + 1} +')'">다음</a>
 									</li>
 								</ul>
 							</nav>
-							<div class="row searchbar" th:object="${itemSearchDto}"
+							<div class="row searchbar" th:object="${memberSearchDto}"
 								style="height: 40px;">
 								<div class="col-lg-2"></div>
 								<div class="col-lg-5" style="display: flex;">
 									<select th:field="*{searchBy}" class="form-control">
-										<option value="itemNm">상품명</option>
-										<option value="categori">카테고리</option>
+										<option value="name">이름</option>
+										<option value="role">권한</option>
 									</select>
 								</div>
 								<div class="col-lg-3">
@@ -155,7 +97,6 @@ a {
 	</div>
 </div>
 
-<!-- 각 페이지의 스크립트가 작성될 위치 -->
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		$(document).ready(function() {
@@ -171,7 +112,7 @@ a {
 			var searchBy = $("#searchBy").val();
 			var searchQuery = $("#searchQuery").val();
 			// 주소 이동
-			location.href = "/admin/items/" + page + "&searchBy=" + searchBy
+			location.href = "/admin/members/" + page + "&searchBy=" + searchBy
 					+ "&searchQuery=" + searchQuery;
 		}
 	</script>

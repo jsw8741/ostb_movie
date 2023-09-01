@@ -8,15 +8,30 @@
 .store_var {
 	border-bottom: solid 2px white;
 	width: 100%;
+	padding-top: 50px;
 }
 
-.store_var h2 {
+.store_sub_item div:nth-child(1) {
+	margin-right: 50px
+}
+
+.store_sub_item div:nth-child(2) {
+	margin-left: 50px
+}
+
+span {
 	color: white;
+}
+
+.store_sub_item>div {
+	width: 50%;
+	margin-left: 0;
 }
 
 .store_category {
 	border-bottom: solid 1px white;
 	display: flex;
+	justify-content: space-between
 }
 
 .store_category a {
@@ -45,9 +60,7 @@ a:hover {
 	padding-top: 50px;
 }
 
-h3 {
-	border-bottom: 1px solid white;
-	padding-bottom: 20px;
+h3, h2 {
 	color: white;
 }
 
@@ -68,13 +81,15 @@ h3 {
 }
 
 .main_item_img {
-	background : white;
+	background: white;
 	border-radius: 20px;
 	text-align: center;
 }
-.main_item_img > a:hover{
-color: #29A5FF
+
+.main_item_img>a:hover {
+	color: #29A5FF
 }
+
 .main_item_img img {
 	height: 200px;
 	width: 100%;
@@ -87,16 +102,26 @@ color: #29A5FF
 	bottom: 35px;
 }
 
+.item_header {
+	border-bottom: 1px solid white;
+	display: flex;
+	justify-content: space-between;
+}
+
 .store_sub_item {
 	display: flex;
 }
 
 .store_sub_item div {
-	width: 50%;
-	padding: 30px 10px;
+	padding: 10px;
 }
 
-.sss {
+.item_header i {
+	color: white;
+	font-size: 30px;
+}
+
+.item_li {
 	display: flex;
 	padding: 20px;
 }
@@ -110,17 +135,13 @@ color: #29A5FF
 }
 
 .sub_item_img img {
-	width: 300px;
+	width: 200px;
 	height: 200px;
 	border-radius: 30px;
 }
 
-.sss div {
+.item_li div {
 	display: grid
-}
-
-.row {
-	margin: 20px;
 }
 </style>
 </th:block>
@@ -131,14 +152,18 @@ color: #29A5FF
 			<h2>스토어</h2>
 		</div>
 		<div class="store_category">
-			<a href="/item/items/VOUCHER">영화관람권</a> <a href="#">팝콘</a> <a href="#">음료</a> <a
-				href="#">스낵</a> <a href="#">굿즈</a>
+			<a href="/item/items/VOUCHER">영화 관람권</a> <a href="/item/items/POPCON">팝콘</a>
+			<a href="/item/items/DRINK">음료</a> <a href="/item/items/SNACK">스낵</a>
+			<a href="/item/items/GOODS">굿즈</a>
 		</div>
 
 		<div>
 			<div class="container">
 				<div class="store_main_item">
-					<h3>영화관람권</h3>
+					<div class="item_header">
+						<h3>영화관람권</h3>
+						<i class="fa-solid fa-circle-plus"></i>
+					</div>
 					<div class="mainitemlist">
 						<th:block th:each="item : ${items}"
 							th:if="${#strings.equals(item.item.categori, 'VOUCHER')}">
@@ -149,8 +174,8 @@ color: #29A5FF
 										th:href="'/item/' + ${item.item.id}"></a> <a
 										th:href="'/item/' + ${item.item.id}"
 										th:text="${item.item.itemNm}"></a> <br> <a
-										th:href="'/item/' + ${item.item.id}"
-										th:text="${item.item.price}"></a>
+										th:href="'/item/' + ${item.item.id}">[[${#numbers.formatInteger(item.item.price,
+										0, 'COMMA')}]]원</a>
 								</div>
 							</div>
 						</th:block>
@@ -158,31 +183,41 @@ color: #29A5FF
 				</div>
 				<div class="store_sub_item">
 					<div class="row">
-						<h3>팝콘</h3>
+						<div class="item_header">
+							<h3>팝콘</h3>
+							<a href="/item/items/POPCON"> <i
+								class="fa-solid fa-circle-plus"></i>
+							</a>
+						</div>
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
 								th:if="${#strings.equals(item.item.categori, 'POPCON')}">
-								<li class="sss"><span class="sub_item_img"> <img
+								<li class="item_li"><span class="sub_item_img"> <img
 										alt="" th:src="${item.imgUrl}">
 								</span>
 									<div>
-										<span th:text="${item.item.itemNm}"> </span> <span
-											th:text="${item.item.price}"> </span>
+										<span th:text="${item.item.itemNm}"> </span> <span>[[${#numbers.formatInteger(item.item.price,
+											0, 'COMMA')}]]원 </span>
 									</div></li>
 							</th:block>
 						</ul>
 					</div>
 					<div class="row">
-						<h3>음료</h3>
+						<div class="item_header">
+							<h3>음료</h3>
+							<a href="/item/items/DRINK"> <i
+								class="fa-solid fa-circle-plus"></i>
+							</a>
+						</div>
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
-								th:if="${#strings.equals(item.item.categori, 'POPCON')}">
-								<li class="sss"><span class="sub_item_img"> <img
+								th:if="${#strings.equals(item.item.categori, 'DRINK')}">
+								<li class="item_li"><span class="sub_item_img"> <img
 										alt="" th:src="${item.imgUrl}">
 								</span>
 									<div>
-										<span th:text="${item.item.itemNm}"> </span> <span
-											th:text="${item.item.price}"> </span>
+										<span th:text="${item.item.itemNm}"> </span>  <span>[[${#numbers.formatInteger(item.item.price,
+											0, 'COMMA')}]]원 </span>
 									</div></li>
 							</th:block>
 						</ul>
@@ -190,31 +225,41 @@ color: #29A5FF
 				</div>
 				<div class="store_sub_item">
 					<div class="row">
-						<h3>스낵</h3>
+						<div class="item_header">
+							<h3>스낵</h3>
+							<a href="/item/items/SNAK"> <i
+								class="fa-solid fa-circle-plus"></i>
+							</a>
+						</div>
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
-								th:if="${#strings.equals(item.item.categori, 'POPCON')}">
-								<li class="sss"><span class="sub_item_img"> <img
+								th:if="${#strings.equals(item.item.categori, 'SNAK')}">
+								<li class="item_li"><span class="sub_item_img"> <img
 										alt="" th:src="${item.imgUrl}">
 								</span>
 									<div>
-										<span th:text="${item.item.itemNm}"> </span> <span
-											th:text="${item.item.price}"> </span>
+										<span th:text="${item.item.itemNm}"> </span>  <span>[[${#numbers.formatInteger(item.item.price,
+											0, 'COMMA')}]]원 </span>
 									</div></li>
 							</th:block>
 						</ul>
 					</div>
 					<div class="row">
-						<h3>굿즈</h3>
+						<div class="item_header">
+							<h3>굿즈</h3>
+							<a href="/item/items/GOODS"> <i
+								class="fa-solid fa-circle-plus"></i>
+							</a>
+						</div>
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
-								th:if="${#strings.equals(item.item.categori, 'POPCON')}">
-								<li class="sss"><span class="sub_item_img"> <img
+								th:if="${#strings.equals(item.item.categori, 'GOODS')}">
+								<li class="item_li"><span class="sub_item_img"> <img
 										alt="" th:src="${item.imgUrl}">
 								</span>
 									<div>
-										<span th:text="${item.item.itemNm}"> </span> <span
-											th:text="${item.item.price}"> </span>
+										<span th:text="${item.item.itemNm}"> </span>  <span>[[${#numbers.formatInteger(item.item.price,
+											0, 'COMMA')}]]원 </span>
 									</div></li>
 							</th:block>
 						</ul>
