@@ -6,6 +6,7 @@ import java.util.Map;
 import java.security.Principal;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +30,7 @@ import com.example.ostb_movie.dto.ReviewModifyDto;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.Movie;
 import com.example.ostb_movie.entity.Review;
+import com.example.ostb_movie.entity.ReviewLike;
 import com.example.ostb_movie.service.ReviewService;
 
 import jakarta.validation.Valid;
@@ -44,7 +46,6 @@ public class ReviewController {
 	public String reviewNew(@Valid ReviewDto reviewDto, BindingResult bindingResult, @RequestParam("movieId") Long movieId,
 			Model model, Authentication authentication) {
 		if(bindingResult.hasErrors()) {
-			System.out.println("WWWWWWWWWWWWWW");
 			return "member/myPage";
 		}
 		
@@ -64,7 +65,6 @@ public class ReviewController {
 			reviewService.saveReview(reviewDto);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "리뷰 등록 중 에러가 발생했습니다.");
-			System.out.println("QQQQQQQQQQQQQQQQ");
 			return "member/myPage";
 		}
 		
@@ -131,23 +131,18 @@ public class ReviewController {
         return new ResponseEntity<Long>(reviewId, HttpStatus.OK);
         
 	}
-	
-	//리뷰에 좋아요
+
+	//리뷰에 좋아요 추가
 	@PostMapping("/member/{reviewId}/like")
-	public ResponseEntity<Long> likeReview(@PathVariable Long reviewId, Authentication authentication, Model model) {
+	public ResponseEntity<Long> likeReview(@PathVariable Long reviewId, Authentication authentication) {
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
-		
-        
-        try {
-        	reviewService.increaseLikeCount(reviewId, member.getId());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("reviewId" + reviewId);
-		}
-		
+		//좋아요 증가 로직 처리
+		int updatedLikeCount = reviewService.increaseLikeCount(reviewId);
+
 		//업데이트된 좋아요 수를 JSON 형태로 응답
+		Map<String, Object> response = new HashMap<>();
+		response.put("updatedLikeCount", updatedLikeCount);
 		return new ResponseEntity<Long>(member.getId(), HttpStatus.OK);
 	}
 }

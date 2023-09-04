@@ -51,8 +51,10 @@ public class ReviewService {
 	
 	//리뷰 업데이트
 	public void updateReview(ReviewModifyDto reviewModifyDto) throws Exception {
+		
 		Review review = reviewRepository.findById(reviewModifyDto.getId())
 								.orElseThrow(EntityNotFoundException::new);
+		
 		review.updateReview(reviewModifyDto);
 	}
 	
@@ -116,31 +118,18 @@ public class ReviewService {
 	}
 	
 	//리뷰에 좋아요 추가
-	public void increaseLikeCount(Long reviewId, Long memberId) {
-		
-		ReviewLike reviewLike = reviewLikeRepository.likeToggle(memberId, reviewId);
-		
-		if(reviewLike != null) {
-	        if(reviewLike.getLikeStatus().equals(LikeStatus.BEFORELIKE)) {
-	        	reviewLike.setReviewLike(reviewLike.getReviewLike() + 1);
-	        	reviewLike.setLikeStatus(LikeStatus.AFTERLIKE);
-	        }else {
-				reviewLike.setReviewLike(reviewLike.getReviewLike() - 1);
-				reviewLike.setLikeStatus(LikeStatus.BEFORELIKE);
-			}
+	public int increaseLikeCount(Long reviewId) {
+		Review review = reviewRepository.findById(reviewId)
+				.orElseThrow(EntityNotFoundException::new);
+
+		if(review != null) {
+			int newLikeCount = review.getRvLike() + 1;
+			review.setRvLike(newLikeCount);
+			reviewRepository.save(review);
+			return newLikeCount;
 		}
+
+		return 0;
 	}
-	
-	//좋아요 상태 확인
-    public boolean toggleLike(Long memberId, Long reviewId) {
-        // ReviewLike 엔티티를 통해 좋아요 상태 확인
-        ReviewLike reviewLike = reviewLikeRepository.likeToggle(memberId, reviewId);
-        
-        if(reviewLike.getLikeStatus().equals(LikeStatus.BEFORELIKE)) {
-        	return false;
-        }else {
-			return true;
-		}
-    }
 	
 }

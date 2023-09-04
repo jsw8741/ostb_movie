@@ -25,7 +25,7 @@ public class MypageFormDto {
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
-	private List<Long> memberImgIds = new ArrayList<>();
+//	private List<Long> memberImgIds = new ArrayList<>();
 	
 	public Member createMypage() {
 		return modelMapper.map(this, Member.class);

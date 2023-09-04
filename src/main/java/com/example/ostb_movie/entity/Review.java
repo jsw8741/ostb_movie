@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.example.ostb_movie.dto.ReviewDto;
 import com.example.ostb_movie.dto.ReviewModifyDto;
 
 import jakarta.persistence.Column;
@@ -46,10 +47,14 @@ public class Review {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Movie movie;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "review_like_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private ReviewLike reviewLike;
+	private int rvLike;
+	
+
+	public void updateReview(ReviewDto reviewDto) {
+		this.content = reviewDto.getContent();
+		this.rvLike = reviewDto.getRvLike();
+		this.reviewDate = reviewDto.getReviewDate();
+	}
 	
 	public void updateReview(ReviewModifyDto reviewModifyDto) {
 		this.content = reviewModifyDto.getContent();

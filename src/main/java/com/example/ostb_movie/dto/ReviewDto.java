@@ -25,6 +25,8 @@ public class ReviewDto {
 	
 	private Movie movie;
 	
+	private int rvLike;
+	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
 	public Review createReview() {
