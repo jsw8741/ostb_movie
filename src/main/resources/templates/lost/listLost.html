@@ -103,7 +103,7 @@
 								 <div class="ac_panel" th:id="${lost.id}" style="padding: 0;">
 									<div class="con_area" id="pop" style="display: flex;">
 										<a class="faqupdate" style="bottom: 10px;position: relative;" th:href="'/lost/modifyLost/' + ${lost.id}" th:if="${lost.member.id} == ${currentMember.id}">수정하기</a>
-										<th:block sec:authorize="hasAnyRole('ROLE_ADMIN')">
+										<th:block sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MASTER')">
 											<button class="btn_typeB1" type="button" onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}" style="min-width: 120px;margin-left: 1042px;margin-bottom: 20px;font-size: 14px;">상태수정</button>
 										</th:block>
 									</div>
@@ -131,7 +131,7 @@
 								 <div class="ac_panel" th:id="${lost.id}" style="padding: 0;">
 									<div class="con_area" id="pop" style="display: flex;">
 										<a class="faqupdate" style="bottom: 10px;position: relative;" th:href="'/lost/modifyLost/' + ${lost.id}" th:if="${lost.member.id} == ${currentMember.id}">수정하기</a>
-										<th:block sec:authorize="hasAnyRole('ROLE_ADMIN')">
+										<th:block sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MASTER')">
 											<button class="btn_typeB1" type="button" onclick="openPop('/lost/updateLost/' + this.value, 1200, 400);" th:value="${lost.id}" style="min-width: 120px;margin-left: 1042px;margin-bottom: 20px;font-size: 14px;">상태수정</button>
 										</th:block>
 									</div>
@@ -183,17 +183,17 @@
 					<ul class="pagination">
 						<li class="pagination-page page-item"
 							th:classappend="${losts.first}?'disabled'"><a
-							class="page-link" th:href="@{'/FAQ/list/' + ${losts.number-1}}">이전</a></li>
+							class="page-link" th:href="@{'/lost/list/' + ${losts.number-1}}">이전</a></li>
 
 						<li class="pagination-page page-item"
 							th:each="page: ${#numbers.sequence(start, end)}"
 							th:classappend="${losts.number eq page-1}?'active':''"><a
 							class="page-link" th:inline="text"
-							th:href="@{'/FAQ/list/' + ${page-1}}">[[${page}]]</a></li>
+							th:href="@{'/lost/list/' + ${page-1}}">[[${page}]]</a></li>
 
 						<li class="pagination-page page-item"
 							th:classappend="${losts.last}?'disabled'"><a
-							class="page-link" th:href="@{'/FAQ/list/' + ${losts.number+1}}">다음</a></li>
+							class="page-link" th:href="@{'/lost/list/' + ${losts.number+1}}">다음</a></li>
 					</ul>
 					</pagination>
 				</nav>

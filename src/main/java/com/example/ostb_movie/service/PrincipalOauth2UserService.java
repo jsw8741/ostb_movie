@@ -52,7 +52,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
      if(member == null){
     	 member = Member.oauth2Register()
         		 .email(email).name(username).password(password).role(role)
-                 .provider(provider).providerId(providerId)
+                 .provider(provider).providerId(providerId).point((long) 100).totalPay((long) 0)
                  .build();
      }
      

@@ -34,6 +34,10 @@ public class MemberFormDto {
 	
 	private String birth;
 	
+	private Long point;
+	
+	private Long totalPay;
+	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
 	//entity -> dto

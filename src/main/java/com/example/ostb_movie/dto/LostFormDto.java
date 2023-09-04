@@ -3,7 +3,6 @@ package com.example.ostb_movie.dto;
 import org.modelmapper.ModelMapper;
 
 import com.example.ostb_movie.constant.LostStatus;
-import com.example.ostb_movie.entity.Faq;
 import com.example.ostb_movie.entity.Lost;
 import com.example.ostb_movie.entity.Member;
 

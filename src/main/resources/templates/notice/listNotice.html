@@ -36,7 +36,7 @@
 				<div class="tab_ui type2 tabSwiper py-5" th:if="${notices.isEmpty()}">
 					<div class="layout2">			
 							<h3 style="color: white;font-size: 30px;text-align: center;bottom: 30px;position: relative;">등록된 글이 없습니다.</h3>
-							<a href="/notice/create" class="btn_typeB1 tab_inner swiper-wrapper" style="margin-left: 0px;" sec:authorize="hasAnyRole('ROLE_USER')"><span>공지사항 등록</span></a>	
+							<a href="/notice/create" class="btn_typeB1 tab_inner swiper-wrapper" style="margin-left: 0px;" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MASTER')"><span>공지사항 등록</span></a>	
 					</div>
 				</div>
 				
@@ -45,7 +45,7 @@
 					<!-- list top -->
 					<div class="list_top_ui">
 						<div class="list_total">총 <em>[[${totalCount}]]건</em>
-							<a href="/notice/create" class="btn_typeB1" sec:authorize="isAuthenticated()" style="width: 180px;margin-left: 983px;"><span>공지사항 등록</span></a>
+							<a href="/notice/create" class="btn_typeB1" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MASTER')" style="width: 180px;margin-left: 983px;"><span>공지사항 등록</span></a>
 						</div>
 						<!-- 검색어 입력 시 -->
 						
