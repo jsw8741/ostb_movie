@@ -120,7 +120,7 @@ public class ItemController {
 		return "item/itemMng";
 	}
 
-//상품 수정 창
+	//상품 수정 창
 	@GetMapping(value = "/admin/item/{itemId}")
 	public String itemDtl(@PathVariable("itemId") Long itemid, Model model) {
 

@@ -10,6 +10,62 @@
 
 <th:block layout:fragment="css">
 	<style>
+.container {
+	padding-top: 200px
+}
+.form-control{
+	width: 488px;
+}
+.pagination {
+	padding: 20px 0;
+	position: relative;
+	right: 8px;
+}
+
+.table {
+	color: white;
+	height: 250px;
+	width: 1100px;
+	margin: 0 auto;
+}
+
+.delete_item {
+	width: 10% !important;
+}
+
+.output {
+	padding-top: 100px;
+}
+
+.border {
+	padding: 20px;
+	height: 500px
+}
+
+.searchbar div {
+	height: 55px;
+}
+
+#searchBy {
+	height: 57px;
+	position: relative;
+	bottom: 2px;
+}
+
+#searchBtn {
+	height: 55px;
+	width: 80px;
+}
+
+.Item_id {
+	left: 20px;
+	position: relative;
+}
+
+.itemMng {
+	top: 15px;
+	position: relative;
+}
 </style>
 </th:block>
 
@@ -24,11 +80,10 @@
 							<table class="table table-responsive-md">
 								<thead>
 									<tr class="table_bar">
-										<th scope="col">상품번호</th>
-										<th scope="col">상품명</th>
-										<th scope="col">카테고리</th>
-										<th scope="col">가격</th>
-										<th scope="col">삭제</th>
+										<th scope="col">회원번호</th>
+										<th scope="col">이름</th>
+										<th scope="col">이메일</th>
+										<th scope="col">권한</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -38,17 +93,11 @@
 										<th th:text="${member.id}" scope="row" class="Item_id"></th>
 										<td><a th:href="'/admin/member/' + ${member.id}"
 											th:text="${member.name}"></a></td>
+										<td th:text="${member.email}"></td>
 										<td th:text="${member.role}"></td>
-										<td><a th:href="'/admin/item/delete/' + ${member.id}"
-											class="delete_item"><i
-												class="fa-regular fa-trash-can fa-bounce"></i> </a></td>
 									</tr>
 								</tbody>
 							</table>
-
-							<!-- 페이징버튼 -->
-							<!-- start(페이지 시작 번호) = (현제 페이지 번호 / 보여줄 페이지수) * 보여줄 페이지 수 + 1 -->
-							<!-- end(페이지 끝 번호) = start + (보여줄 페이지 수 - 1)-->
 							<nav
 								th:with="start=${(members.number/maxPage)*maxPage + 1}
 							,end=(${(members.totalPages == 0) ? 1 : (start + (maxPage - 1) < members.totalPages ? start + (maxPage - 1) : members.totalPages)})"
@@ -65,8 +114,9 @@
 										class="page-link" th:inline="text"
 										th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a>
 									</li>
-									<li class="page-item" th:classappend="${members.last}?'disabled'">
-										<a class="page-link"
+									<li class="page-item"
+										th:classappend="${members.last}?'disabled'"><a
+										class="page-link"
 										th:onclick="'javascript:page(' + ${members.number + 1} +')'">다음</a>
 									</li>
 								</ul>

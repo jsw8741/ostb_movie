@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -117,10 +118,11 @@ public class MemberController {
 
 		return "member/myPagePop";
 	}
-	//회원 관리창
+
+	// (Master)회원 관리창
 	@GetMapping(value = { "/admin/members", "/admin/members/{page}" })
-	public String memberManage(MemberSearchDto memberSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
-		System.out.println("qwio3ury7oihgypu948qty7q26098f");
+	public String memberManage(MemberSearchDto memberSearchDto, @PathVariable("page") Optional<Integer> page,
+			Model model) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
 
 		Page<Member> members = memberService.getAdminMemberPage(memberSearchDto, pageable);
@@ -130,17 +132,49 @@ public class MemberController {
 
 		return "member/memberMng";
 	}
-	//회원 수정창
-	/*
-	 * @GetMapping(value = "/admin/member/{memberId}") public String
-	 * memberDtl(@PathVariable("memberId") Long memberId, Model model) { try {
-	 * MemberFormDto memberFormDto= memberService.getMemberDtl(memberId);
-	 * model.addAttribute("memberFormDto", memberFormDto); } catch (Exception e) {
-	 * e.printStackTrace(); model.addAttribute("errorMessage",
-	 * "상품 수정정보를 불러오는중 에러가 발생했습니다."); model.addAttribute("memberFormDto", new
-	 * MemberFormDto()); return "member/memberForm"; } return
-	 * "member/memberModifyForm"; }
-	 */
+
+	// (Master)회원 수정창
+	@GetMapping(value = "/admin/member/{memberId}")
+	public String memberDtl(@PathVariable("memberId") Long memberId, Model model) {
+		try {
+			
+			Member member = memberService.MemberId(memberId);
+			
+			MemberFormDto memberFormDto = MemberFormDto.of(member);
+			model.addAttribute("memberid",memberId);
+			model.addAttribute("member", memberFormDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "회원 수정정보를 불러오는중 에러가 발생했습니다.");
+			return "redirect:/admin/members/";
+		}
+		
+		return "member/memberModifyMaster";
+		}
+	
+	@PostMapping(value = "/admin/modify/member/{memberId}")
+	public String memberUpdate(@Valid MemberFormDto member, @PathVariable("memberId") Long memberId,@RequestParam("plusPoint") Long point, Model model, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "redirect:/admin/member/" + memberId;
+		}
+		Member member2 =memberService.MemberId(memberId);
+		try {
+			if(point != null) {
+				member.setPoint(point + member2.getPoint());
+				
+			}else {
+				member.setPoint(member2.getPoint());
+			}
+			memberService.updateAdminMember(member);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errormessage", "회원정보 수정 중 에러가 발생했습니다.");
+			return "redirect:/admin/members";
+
+		}
+		return "redirect:/";
+	}
+
 	// 마이페이지 수정
 	@PostMapping(value = "/members/infoPop")
 	public String popProfile(@Valid MypageFormDto mypageFormDto, Authentication authentication, Model model,

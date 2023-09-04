@@ -33,14 +33,6 @@ public class OrderController {
 	private final OrderService orderService;
 	private final CartService cartService;
 
-	@GetMapping(value = "/order")
-	public String orderForm(Model model) {
-		System.out.println("asdasd");
-		model.addAttribute("OrderDto", new OrderDto());
-		model.addAttribute("cartDto", new CartDto());
-		return "order/orderForm"; // orderForm.html 페이지를 반환
-	}
-
 	@PostMapping(value = "/order")
 	public String order(@Valid OrderDto orderDto, BindingResult bindingResult, Authentication authentication,
 			@RequestParam("itemId") Long ItemId) {
@@ -107,7 +99,8 @@ public class OrderController {
 		String email = member.getEmail();
 		List<Cart> carts = cartService.getCartItem(email);
 		List<Cart> orderList = new ArrayList<>();
-
+		for(Cart cart : carts) {
+		}
 		model.addAttribute("carts", carts);
 		model.addAttribute("orderList", orderList);
 		return "Order/myCart";

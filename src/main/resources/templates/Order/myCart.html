@@ -8,49 +8,209 @@
 </head>
 <th:block layout:fragment="css">
 	<style>
-/* 스타일 설정 */
+a:hover {
+	color: white !important;
+}
+
+a {
+	color: black;
+}
+
+.content {
+	padding-top: 200px;
+}
+
+.cart {
+	width: 1141px;
+	margin: 0 auto;
+}
+
+.store {
+	width: 60%;
+	margin: 0 auto;
+	padding-top: 100px
+}
+
+.store_var {
+	border-bottom: solid 2px white;
+	width: 100%;
+}
+
+.store_var h2 {
+	color: white;
+}
+
+.store_category {
+	border-bottom: solid 1px white;
+	display: flex;
+}
+
+.store_category a {
+	padding: 10px 0;
+	width: 20%;
+	text-align: center;
+	color: white !important;
+}
+
+.store_category a:hover {
+	color: #29A5FF !important;
+	font-size: 17px;
+}
+
+.cart_form {
+	padding-top: 50px;
+}
+
+.cart_Stage {
+	display: flex;
+	height: 200px;
+}
+
+.step_icon {
+	font-size: 50px;
+	position: relative;
+	top: 17%;
+	margin-right: 20px;
+	color: red;
+}
+
+.cart_Stage>div {
+	display: flex;
+}
+
+.step>p {
+	position: relative;
+	top: 8%;
+	left: 2%;
+	color: red;
+}
+
+.next {
+	font-size: 80px;
+	position: relative;
+	bottom: 13px;
+	font-weight: 100;
+	padding: 0 30px;
+}
+
+h3 {
+	color: red;
+}
 </style>
 </th:block>
 
 <div layout:fragment="content">
-	<div class="bg-light py-3">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 mb-0 header_margin">
-					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
-						class="text-black">장바구니</strong>
-				</div>
-			</div>
+	<div class="cart">
+		<div class="store_var">
+			<h2>스토어</h2>
+		</div>
+		<div class="store_category">
+			<a href="/item/items/VOUCHER">영화 관람권</a> <a href="/item/items/POPCON">팝콘</a>
+			<a href="/item/items/DRINK">음료</a> <a href="/item/items/SNACK">스낵</a>
+			<a href="/item/items/GOODS">굿즈</a>
 		</div>
 		<div class="site-section">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<h2 class="h3 mb-3 text-black">장바구니</h2>
-						<div class="p-3 p-lg-5 border"></div>
+				<div class="row"><div class="col-md-12">
+							<h2 class="h3 mb-3 text-black">장바구니</h2>
+							<div class="p-3 p-lg-5 border"></div>
+							<form th:action="@{/order/cartsign}" method="post" id="formcart">
+								<div th:each="cart, status : ${carts}">
+									<label> <input type="checkbox" id="userCoupon"
+										th:name="selectedItems" th:value="${cart.id}" /> <span
+										th:text="${cart.itemId.itemNm}"></span> <span
+										th:text="${cart.count}"></span> <span
+										th:text="${cart.itemId.price}"></span>
+									</label>
+								</div>
+								<button type="submit">선택한 항목 주문하기</button>
+								<input type="hidden" th:name="${_csrf.parameterName}"
+									th:value="${_csrf.token}" /> <input type="hidden" value="2124" />
+								<input type="hidden" id="ssds" value="212422" />
+								<button type="button" id="apibtn">카카오페이로 결제하기</button>
+							</form>
+							<h2 id="totalPrice" class="text-primary h4"></h2>
+						</div>
+					<div class="cart_form">
+						<div class="cart_Stage">
+							<div>
+								<div>
+									<i class="fa-solid fa-cart-shopping step_icon"></i>
+								</div>
+								<div class="step">
+									<p>step 01</p>
+									<h3>장바구니</h3>
+								</div>
+							</div>
+							<div class="next">></div>
+							<div>
+								<div>
+									<i class="fa-solid fa-gift step_icon"></i>
+								</div>
+								<div class="step">
+									<p>step 02</p>
+									<h3>선물하기</h3>
+								</div>
+							</div>
+							<div class="next">></div>
+							<div>
+								<div>
+									<i class="fa-solid fa-credit-card step_icon"></i>
+								</div>
+								<div class="step">
+									<p>step 03</p>
+									<h3>결제하기</h3>
+								</div>
+							</div>
+							<div class="next">></div>
+							<div>
+								<div>
+									<i class="fa-solid fa-check step_icon"></i>
+								</div>
+								<div class="step">
+									<p>step 04</p>
+									<h3>결제완료</h3>
+								</div>
+							</div>
+						</div>
 						<form th:action="@{/order/cartsign}" method="post" id="formcart">
-							<div th:each="cart, status : ${carts}">
-								<label> <input type="checkbox" id="userCoupon"
-									th:name="selectedItems" th:value="${cart.id}" /> <span
-									th:text="${cart.itemId.itemNm}"></span> <span
-									th:text="${cart.count}"></span> <span
-									th:text="${cart.itemId.price}"></span>
-								</label>
+							<div>
+								<table class="table table-responsive-md">
+									<thead>
+										<tr class="table_bar">
+											<th scope="col">선택</th>
+											<th scope="col">상품명</th>
+											<th scope="col">판매금액</th>
+											<th scope="col">수량</th>
+											<th scope="col">구매금액</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="cart, status : ${carts}">
+											<td><input type="checkbox" id="userCoupon"
+												th:name="selectedItems" th:value="${cart.id}" ></td>
+											<td th:text="${cart.itemId.itemNm}"></td>
+											<td th:text="${cart.itemId.price}"></td>
+											<td th:text="${cart.count}"></td>
+											<td th:text="${cart.tprice}"></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 							<button type="submit">선택한 항목 주문하기</button>
 							<input type="hidden" th:name="${_csrf.parameterName}"
-								th:value="${_csrf.token}" /> <input type="hidden"
-								value="2124" /> <input type="hidden" id="ssds" value="212422" />
+								th:value="${_csrf.token}" /> <input type="hidden" value="2124" />
+							<input type="hidden" id="ssds" value="212422" />
 							<button type="button" id="apibtn">카카오페이로 결제하기</button>
 						</form>
 						<h2 id="totalPrice" class="text-primary h4"></h2>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
 </div>
-
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		document.addEventListener("DOMContentLoaded", function() {
@@ -79,44 +239,51 @@
 			});
 		});
 
+		$(document)
+				.on(
+						"click",
+						"#apibtn",
+						function() {
+							var selectedItems = []; // 선택된 상품들의 정보를 담을 배열
 
-	    $(document).on("click", "#apibtn", function(){
-	        var selectedItems = []; // 선택된 상품들의 정보를 담을 배열
+							// 각 체크박스의 정보를 가져와 배열에 추가
+							userCouponCheckboxes.forEach(function(
+									userCouponCheckbox) {
+								if (userCouponCheckbox.checked) {
+									var productId = userCouponCheckbox.value; // 상품 ID
+									selectedItems.push(productId); // 상품 ID만 배열에 추가
+								}
+							});
 
-	        // 각 체크박스의 정보를 가져와 배열에 추가
-	        userCouponCheckboxes.forEach(function(userCouponCheckbox) {
-	            if (userCouponCheckbox.checked) {
-	                var productId = userCouponCheckbox.value; // 상품 ID
-	                selectedItems.push(productId); // 상품 ID만 배열에 추가
-	            }
-	        });
+							// AJAX 요청을 위한 데이터
+							var data = {
+								selectedItems : selectedItems
+							};
 
-	        // AJAX 요청을 위한 데이터
-	        var data = {
-	            selectedItems: selectedItems
-	        };
+							$
+									.ajax({
+										type : 'GET',
+										url : '/pay/ready',
+										contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+										data : data,
+										success : function(res) {
+											var box = res.next_redirect_pc_url;
+											var popupWidth = 500;
+											var popupHeight = 800;
+											var left = (screen.width - popupWidth) / 2;
+											var top = (screen.height - popupHeight) / 2;
+											var popupOptions = "width="
+													+ popupWidth + ",height="
+													+ popupHeight + ",top="
+													+ top + ",left=" + left;
+											window.open(box, "KakaoPay",
+													popupOptions);
 
-			$.ajax({
-			    type: 'GET',
-			    url: '/pay/ready',
-			    contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-			    data: data,
-				success:function(res){
-		            var box = res.next_redirect_pc_url;
-		            var popupWidth = 500;
-		            var popupHeight = 800;
-		            var left = (screen.width - popupWidth) / 2;
-		            var top = (screen.height - popupHeight) / 2;
-		            var popupOptions = "width=" + popupWidth + ",height=" + popupHeight + ",top=" + top + ",left=" + left;
-		            window.open(box, "KakaoPay", popupOptions);
-					
-					
-				}
-			})
-		});
-	 	
+										}
+									})
+						});
 	</script>
 
 
-	</th:block>
-	</html>
+</th:block>
+</html>
