@@ -169,13 +169,12 @@ h3, h2 {
 							th:if="${#strings.equals(item.item.categori, 'VOUCHER')}">
 							<div class="item_itme">
 								<div class="main_item_img">
-									<a th:href="'/item/' + ${item.item.id}"> <img
-										th:alt="${item.ImgName}" th:src="${item.imgUrl}"
-										th:href="'/item/' + ${item.item.id}"></a> <a
-										th:href="'/item/' + ${item.item.id}"
-										th:text="${item.item.itemNm}"></a> <br> <a
-										th:href="'/item/' + ${item.item.id}">[[${#numbers.formatInteger(item.item.price,
-										0, 'COMMA')}]]원</a>
+									<a th:href="'/item/' + ${item.item.id}"> 
+										<img th:alt="${item.ImgName}" th:src="${item.imgUrl}" th:href="'/item/' + ${item.item.id}">
+									</a>
+									<a th:href="'/item/' + ${item.item.id}"	th:text="${item.item.itemNm}"></a> 
+									<br>
+									<a th:href="'/item/' + ${item.item.id}">[[${#numbers.formatInteger(item.item.price, 0, 'COMMA')}]]원</a>
 								</div>
 							</div>
 						</th:block>

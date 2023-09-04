@@ -36,26 +36,24 @@ public class KakaoPayController {
 	@GetMapping("/pay/ready")
 	@ResponseBody
 	public KakaoPayReadyDto kakaoPay(HttpSession session, Model model, Principal principal,
-			@RequestParam(value = "selectedItems[]", required = false) List<String> selectedItems) {
+			@RequestParam(value = "selectedItems[]", required = false) List<String> selectedItems,@RequestParam(value = "totalprice", required = false) Long totalprice ) {
+		System.err.println(totalprice + "jjjjjjjjjjjj");
 		
-		Long totalPrice = (long) 0;
 		// 선택된 상품 정보 출력
 		Map<String, Object> params = new HashMap<>();
+		Long totalPrice = totalprice;
+		params.put("totalPrice", totalPrice);
 		int conut = 0;
 		if (selectedItems != null) {
 			for (String itemId : selectedItems) {
 				Cart cart = cartService.getCartItemById(Long.parseLong(itemId));
-				String cleanedAmount = cart.getTprice().replaceAll("[^\\d]", "");
-				long longAmount = Long.parseLong(cleanedAmount);
 				if (conut == 0) {
 					params.put("itemName", cart.getItemId().getItemNm());
 				}
-				totalPrice += longAmount;
 				conut += 1;
 			}
 			params.put("itemCount", conut - 1);
 		}
-		params.put("totalPrice", totalPrice);
 		String tid = (String) session.getAttribute("tid");
 
 		KakaoPayReadyDto res = kakaoPayService.kakaoPay(params);

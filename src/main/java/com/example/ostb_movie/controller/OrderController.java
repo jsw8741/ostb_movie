@@ -103,12 +103,17 @@ public class OrderController {
 		}
 		model.addAttribute("carts", carts);
 		model.addAttribute("orderList", orderList);
+	    System.err.println(member.getPoint()+"sss");
+	    model.addAttribute("member", member);
 		return "Order/myCart";
 	}
 
 	@PostMapping("/order/cartsign")
-	public String addToOrder(@RequestParam(name = "selectedItems", required = false) List<Long> selectedItems,
+	public String addToOrder(@RequestParam(name = "selectedItems", required = false) List<Long> selectedItems,Authentication authentication,
 	        Model model) {
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+		Member member = principal.getMember();
+
 		List<Cart> orderList = new ArrayList<>();
 	    if (selectedItems != null && !selectedItems.isEmpty()) {
 	        for (Long itemId : selectedItems) {

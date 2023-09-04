@@ -65,6 +65,7 @@ public class ItemController {
 		}
 		model.addAttribute("categoryName", categori);
 		model.addAttribute("items", items);
+		System.err.println("sssssssssssssss"+categori);
 		return "item/itemCategory";
 	}
 
