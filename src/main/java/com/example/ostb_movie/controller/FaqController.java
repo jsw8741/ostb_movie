@@ -48,7 +48,7 @@ public class FaqController {
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
 		if(bindingResult.hasErrors()) {
-			return "/FAQ/createFAQ";
+			return "FAQ/createFAQ";
 		}
 		
 		try {
@@ -57,7 +57,7 @@ public class FaqController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "FAQ등록 중 에러가 발생했습니다.");
-			return "/FAQ/createFAQ";
+			return "FAQ/createFAQ";
 		}
 		return "redirect:/FAQ/list"; 
 	}
