@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
+import com.example.ostb_movie.dto.MypageFormDto;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.repository.MemberRepository;
 
@@ -47,23 +48,31 @@ public class MemberImgService {
 		return memberImg;
 	}
 	
-	public void UpdateMemberImg(Long memberId, MultipartFile memberImgFile)
+	public void UpdateMemberImg(MypageFormDto mypageFormDto, Long memberId, MultipartFile memberImgFile)
 			throws Exception {
+		String imgName = null;
+		String memberImg = null;
+		Member saveMemberImg = memberRepository.findById(memberId)
+				.orElseThrow(EntityNotFoundException::new);
 		if(!memberImgFile.isEmpty()) {
-			
-			Member saveMemberImg = memberRepository.findById(memberId)
-												.orElseThrow(EntityNotFoundException::new);
-			
 			if(!StringUtils.isEmpty(saveMemberImg.getMemberImg())) {
 				fileService.deleteFile(memberImgLocation + "/" + saveMemberImg.getImgName());
 			}
 			
-			String oriImgName = memberImgFile.getOriginalFilename();
-			String imgName = fileService.profileUploadFile(memberImgLocation, oriImgName
-					, memberImgFile.getBytes());
-			String memberImg = "/images/profile/" + imgName;
+			
+			if(memberImgFile.getOriginalFilename().isEmpty()) {
+				
+			}else {
+				String oriImgName = memberImgFile.getOriginalFilename();
+				imgName = fileService.profileUploadFile(memberImgLocation, oriImgName
+						, memberImgFile.getBytes());
+				memberImg = "/images/profile/" + imgName;
+			}
 			
 			saveMemberImg.updateMemberImg(imgName, memberImg);
+		}else {
+			saveMemberImg.setMemberImg(mypageFormDto.getImgUrl());
+			return;
 		}
 	}
 }

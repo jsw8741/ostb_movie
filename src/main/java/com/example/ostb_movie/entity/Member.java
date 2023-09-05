@@ -120,5 +120,11 @@ public class Member{
         this.provider = provider;
         this.providerId = providerId;
     }
+    
+    public Member nickNameUpdate(String nickname) {
+		this.nickname = nickname;
+		
+		return this;
+	}
 
 }

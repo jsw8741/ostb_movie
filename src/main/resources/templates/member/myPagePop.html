@@ -85,8 +85,8 @@
 			<input th:field="*{nickname}">
 			<input type="hidden" th:field="*{name}">
 			<input type="hidden" th:field="*{email}">
-			<input type="hidden" th:field="*{imgUrl}">
 			<input type="hidden" th:field="*{id}">
+			<input type="hidden" th:field="*{imgName}" th:value="${member.imgName}">
 		</div>
 		<div class="pop-img">
 			<p>프로필이미지</p>
@@ -94,11 +94,10 @@
 		</div>
 		<div class="pop-bottom">
 			<p style="font-size: 13px;">JPG, GIF, BMP 파일만 등록 가능합니다.(최대 3M)</p>
-			<div class="form-group row" th:if="${not #lists.isEmpty(member.memberImg)}">
-				<label for="formFile" class="form-label" 
-  				th:text="${not #strings.isEmpty(member.imgName)} 
-  				? ${member.imgName} : '프로필이미지'"></label>
+			<div class="form-group row">
+				<label for="formFile" class="form-label" th:text="${not #strings.isEmpty(member.imgName)} ? ${member.imgName}"></label>
 				<input class="form-control" type="file" id="formFileMultiple" name="memberImg">
+				<input type="hidden" th:value="${member.imgName}" th:field="*{imgUrl}">
 			</div>
 		</div>
 	</div>

@@ -105,7 +105,6 @@ public class MemberController {
         Member updateMember = memberService.findMember(member.getEmail());
         
         MypageFormDto mypageFormDto = MypageFormDto.of(updateMember);
-        
 		model.addAttribute("member",updateMember);
 		model.addAttribute("mypageFormDto",mypageFormDto);
 		
@@ -118,28 +117,36 @@ public class MemberController {
 			Model model, BindingResult bindingResult, 
 			@RequestParam("memberImg") MultipartFile memberImgFile
 			, RedirectAttributes redirectAttributes) {
-		System.err.println(memberImgFile);
 		
 		if(bindingResult.hasErrors()) {
 			return "member/myPagePop";
 		}
-		
-		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-        Member member = principal.getMember();
         
-		if(memberImgFile.isEmpty()) {
-			model.addAttribute("errorMessage", "이미지가 존재하지 않습니다.");
+		if(memberImgFile.isEmpty() && mypageFormDto.getId() == null) {
+			model.addAttribute("errorMessage", "상품 이미지는 필수입니다.");
 			return "member/myPagePop";
 		}
 		
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+		Member member = principal.getMember();
+			
 		try {
-			memberService.updateMember(mypageFormDto, memberImgFile);
-			redirectAttributes.addFlashAttribute("successMessage", "프로필 수정이 완료되었습니다.");
+//			if (mypageFormDto.getImgUrl().equals("") || (mypageFormDto.getImgUrl() == null)) {
+			if(memberImgFile.isEmpty() || memberImgFile == null) {	
+				member = memberService.nickNameUpdate(mypageFormDto, member.getId());
+				redirectAttributes.addFlashAttribute("successMessage", "프로필 수정이 완료되었습니다.");
+				return "redirect:/members/infoPop";
+			} else {
+				memberService.updateMember(mypageFormDto, memberImgFile);
+				redirectAttributes.addFlashAttribute("successMessage", "프로필 수정이 완료되었습니다.");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "프로필 등록 중 에러가 발생했습니다.");
 			return "member/myPagePop";
 		}
+		
+		
 		
 		Member updateMember = memberService.findMember(member.getEmail());
 		model.addAttribute("member",updateMember);

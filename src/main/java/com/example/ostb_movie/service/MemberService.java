@@ -92,8 +92,19 @@ public class MemberService implements UserDetailsService{
 		member.updateMember(mypageFormDto);
 		
 		Long memberId = mypageFormDto.getId();
-		memberImgService.UpdateMemberImg(memberId, memberImgFile);
+		memberImgService.UpdateMemberImg(mypageFormDto, memberId, memberImgFile);
 		
 		return member.getId();
+	}
+	
+	// 닉네임만 업디에트
+	public Member nickNameUpdate(MypageFormDto mypageFormDto, Long memberId) {		
+		Member member = memberRepository.findById(mypageFormDto.getId())
+				.orElseThrow(EntityNotFoundException::new);
+		
+		member = member.nickNameUpdate(mypageFormDto.getNickname());
+		
+		memberRepository.save(member);
+		return member;
 	}
 }

@@ -1,8 +1,5 @@
 package com.example.ostb_movie.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 
 import com.example.ostb_movie.entity.Member;
@@ -20,6 +17,8 @@ public class MypageFormDto {
 	private String email;
 	
 	private String imgUrl;
+	
+	private String imgName;
 	
 	private String nickname;
 	
