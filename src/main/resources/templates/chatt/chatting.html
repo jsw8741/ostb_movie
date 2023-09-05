@@ -130,7 +130,7 @@
 			</p>
 		</div>
 		<div class="py-2 btn_ac">
-		<input class="btn_typeC2" type='text' id='mid' th:value="${member.name}">
+		<input class="btn_typeC2" type='text' id='mid' th:value="${member.name}" disabled="disabled">
 		<input class="btn_typeC2" type='button' value='채팅 시작하기' id='btnLogin'>
 		<input class="btn_typeC2" type='button' id='btnLogout' value="채팅종료" th:onclick="closeChatt()">
 		<input type="hidden" id='roomId' th:value="${roomId}">
