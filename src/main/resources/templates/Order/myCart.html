@@ -15,10 +15,17 @@ a:hover {
 a {
 	color: black;
 }
-h4{
-color: #29A5FF;
 
+h4 {
+	color: #29A5FF;
 }
+
+H6 {
+	position: relative;
+	top: 10px;
+	color: white;
+}
+
 .content {
 	padding-top: 200px;
 }
@@ -74,7 +81,7 @@ color: #29A5FF;
 	position: relative;
 	top: 17%;
 	margin-right: 20px;
-	color: red;
+	color: #29A5ff;
 }
 
 .cart_Stage>div {
@@ -85,7 +92,7 @@ color: #29A5FF;
 	position: relative;
 	top: 8%;
 	left: 2%;
-	color: red;
+	color: white;
 }
 
 .next {
@@ -97,23 +104,27 @@ color: #29A5FF;
 }
 
 h3 {
-	color: red;
+	color: white;	
 }
-.table_bar{
+
+.table_bar {
 	background-color: #959595;
 }
-.price_bar{
+
+.price_bar {
 	display: flex;
 	justify-content: space-between;
 	background-color: #959595;
-	width: 100%;	
+	width: 100%;
 }
-.price_bar > div{
+
+.price_bar>div {
 	color: white;
 }
-.price_table{
-display: flex;
-justify-content: space-between;
+
+.price_table {
+	display: flex;
+	justify-content: space-between;
 }
 </style>
 </th:block>
@@ -131,26 +142,6 @@ justify-content: space-between;
 		<div class="site-section">
 			<div class="container">
 				<div class="row">
-					<!-- <div class="col-md-12">
-							<h2 class="h3 mb-3 text-black">장바구니</h2>
-							<div class="p-3 p-lg-5 border"></div>
-							<form th:action="@{/order/cartsign}" method="post" id="formcart">
-								<div th:each="cart, status : ${carts}">
-									<label> <input type="checkbox" id="userCoupon"
-										th:name="selectedItems" th:value="${cart.id}" /> <span
-										th:text="${cart.itemId.itemNm}"></span> <span
-										th:text="${cart.count}"></span> <span
-										th:text="${cart.itemId.price}"></span>
-									</label>
-								</div>
-								<button type="submit">선택한 항목 주문하기</button>
-								<input type="hidden" th:name="${_csrf.parameterName}"
-									th:value="${_csrf.token}" /> <input type="hidden" value="2124" />
-								<input type="hidden" id="ssds" value="212422" />
-								<button type="button" id="apibtn">카카오페이로 결제하기</button>
-							</form>
-							<h2 id="totalPrice" class="text-primary h4"></h2>
-						</div> -->
 					<div class="cart_form">
 						<div class="cart_Stage">
 							<div>
@@ -196,7 +187,7 @@ justify-content: space-between;
 						<form th:action="@{/order/cartsign}" method="post" id="formcart">
 							<div>
 								<table class="table table-responsive-md">
-									<h4 >구매상품 정보</h4>
+									<h4>구매상품 정보</h4>
 									<thead>
 										<tr class="table_bar">
 											<th scope="col">선택</th>
@@ -209,7 +200,7 @@ justify-content: space-between;
 									<tbody>
 										<tr th:each="cart, status : ${carts}">
 											<td><input type="checkbox" id="userCoupon"
-												th:name="selectedItems" th:value="${cart.id}" ></td>
+												th:name="selectedItems" th:value="${cart.id}"></td>
 											<td th:text="${cart.itemId.itemNm}"></td>
 											<td th:text="${cart.itemId.price}"></td>
 											<td th:text="${cart.count}"></td>
@@ -218,11 +209,8 @@ justify-content: space-between;
 									</tbody>
 								</table>
 							</div>
-							<div>
-
-
-							</div>
-							<input type="hidden" th:text="${member.point}" id="my_point">
+							<div></div>
+							<input type="hidden" th:value="${member.point}" id="my_point">
 							<div>
 								<div class="price_bar">
 									<div>총 상품 금액</div>
@@ -230,29 +218,38 @@ justify-content: space-between;
 									<div>총 결제 금액</div>
 								</div>
 								<div class="price_table">
-									<div><h2 id="totalPrice" class="text-primary h2"></h2></div>
-									<div><i class="fa-solid fa-minus"></i></div>
-									<div><select name="quantity" id="quantitySelect">
-										<option value="0">선택</option>
-									</select></div>
-									<div><i class="fa-solid fa-equals"></i></div>
-									<div><h2 id="lastPrice" class="text-primary h2"></h2></div>
+									<div>
+										<h2 id="items_Price" class="text-primary h2"></h2>
+									</div>
+									<div>
+										<i class="fa-solid fa-minus"></i>
+									</div>
+									<div>
+										<select name="quantity" id="quantitySelect">
+											<option value="0">선택</option>
+										</select>
+									</div>
+									<div>
+										<i class="fa-solid fa-equals"></i>
+									</div>
+									<div>
+										<h2 id="totalPrice" class="text-primary h2"></h2>
+									</div>
 								</div>
 							</div>
 							<button type="button" id="hideButton">선물하기</button>
 							<button type="button" id="apibtn">카카오페이로 결제하기</button>
 							<input type="hidden" th:name="${_csrf.parameterName}"
 								th:value="${_csrf.token}" />
-						</form>	
-					</div>	
+						</form>
+					</div>
 					<div id="giftForm" style="display: none;">
-						<div>선물 하기</div>
+						<h6>선물 하기</h6>
 						<div>
-							<h2>받는 사람의 이메일</h2>
-							<input type="text" id="gitf_email">
-							<input type="text" id="akf">
+							<h4>받는 사람의 이메일</h4>
+							<input type="text" id="gitf_email" placeholder="이메일을 적어주세요!">
 						</div>
-						<button type="button" id="apibtn">카카오페이로 결제하기</button>
+						<button type="button" id="giftbtn">카카오페이로 결제하기</button>
 					</div>
 				</div>
 			</div>
@@ -261,9 +258,15 @@ justify-content: space-between;
 </div>
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-		const hideButton = document.getElementById("hideButton");
-		const giftForm = document.getElementById("giftForm");
-		const apibtn = document.getElementById("apibtn");
+	//선물하기 버튼 클릭시 이메일 입력창
+		var hideButton = document.getElementById("hideButton");
+		var giftForm = document.getElementById("giftForm");
+		var apibtn = document.getElementById("apibtn");
+		var myPointInput = document.getElementById("my_point"); // my_point 엘리먼트 가져오기
+		var maxQuantity = Math.floor(parseInt(myPointInput.value) / 100) * 100; // 최대값 설정 (십의 자리에서 내림)
+		var itemsPrice = document.getElementById("items_Price");
+		 var quantitySelect = document.getElementById("quantitySelect");
+		var totalPrice = document.getElementById("totalPrice");
 		hideButton.addEventListener("click", function() {
 			// 버튼 숨기기
 			hideButton.style.display = "none";
@@ -271,106 +274,123 @@ justify-content: space-between;
 			// 선물 폼 보이기
 			giftForm.style.display = "block";
 		});	
-
-
-		const userCouponCheckboxes = document.querySelectorAll("input[id='userCoupon']");
+		//선택된 상품의 총 가격 구하기
+		var userCouponCheckboxes = document.querySelectorAll("input[id='userCoupon']");
 		userCouponCheckboxes.forEach(function(userCouponCheckbox, index) {
-			userCouponCheckbox.addEventListener("change", function() {
+		userCouponCheckbox.addEventListener("change", function() {
         // 현재 체크박스의 부모 td 엘리먼트를 가져옴
-        const currentTd = userCouponCheckbox.parentElement;
-		
+        var currentTd = userCouponCheckbox.parentElement;
         // 현재 체크박스 다음에 있는 td 엘리먼트를 가져옴
-        const nextTd = currentTd.nextElementSibling;
-		const nextTd2 = nextTd.nextElementSibling;
+        var nextTd = currentTd.nextElementSibling;
+        var nextTd2 = nextTd.nextElementSibling;
 		var productPrice =  nextTd2.textContent.trim();
-		const nextTd3 = nextTd2.nextElementSibling;
+		var nextTd3 = nextTd2.nextElementSibling;
 		var productCount = nextTd3.textContent.trim();
 		
-		if (userCouponCheckbox.checked) {
+		
+		if (userCouponCheckbox.checked ) {
 			totalSelectedPrice += productPrice * productCount;
         } else {
 			totalSelectedPrice -= productPrice * productCount;
         }
-        totalPriceElement.textContent = totalSelectedPrice.toLocaleString() + "원";
-        // 가져온 값을 콘솔에 출력 (또는 원하는 다른 작업 수행)
-    });
-});
-const myPointInput = document.getElementById("my_point"); // my_point 엘리먼트 가져오기
-const maxQuantity = Math.floor(parseInt(myPointInput.value) / 100) * 100; // 최대값 설정 (십의 자리에서 내림)
-const quantitySelect = document.getElementById("quantitySelect"); // quantitySelect 엘리먼트 가져오기
-alert(maxQuantity);
-// 100 단위로 옵션 생성
-for (let i = 100; i <= maxQuantity; i += 100) {
-    const option = document.createElement("option");
-    option.value = i;
-    option.text = i + "원";
-    quantitySelect.appendChild(option);
-}
-		document.addEventListener("DOMContentLoaded", function() {
-			totalPriceElement.textContent =  totalSelectedPrice + "원";
+		itemsPrice.textContent =  totalSelectedPrice.toLocaleString()+ "원";
+        var price = totalSelectedPrice.toLocaleString().replace("원", "").replace(",", "");
+        var point = quantitySelect.value;
+        var total = price - point;
+        totalPrice.textContent = total.toLocaleString()+"원";
+    		});
 		});
-		const totalPriceElement = document.getElementById("totalPrice"); // totalPrice 엘리먼트 가져오기
-		let totalSelectedPrice = 0; // 초기 상품 가격 합계 설정
-		userCouponCheckboxes.forEach(function(userCouponCheckbox) {
-			userCouponCheckbox.addEventListener("click", function() {
-				const productPrice = parseInt(userCouponCheckbox.parentElement
-						.querySelector("span:last-child").textContent);
-				const productCount = parseInt(userCouponCheckbox.parentElement
-						.querySelector("span:nth-child(3)").textContent);
-				// 체크박스 옆에 있는 상품 가격과 수량 가져오기
-				if (userCouponCheckbox.checked) {
-					totalSelectedPrice += productPrice * productCount;
-				} else {
-					totalSelectedPrice -= productPrice * productCount;
-				}
-				totalPriceElement.textContent =  totalSelectedPrice.toLocaleString() + "원";
-			});
-		});
+	    // 선택된 옵션이 변경될 때 실행되는 함수
+	        
+		for (let i = 100; i <= maxQuantity; i += 100) {
+		    const option = document.createElement("option");
+		    option.value = i;
+		    option.text = i + "원";
+		    quantitySelect.appendChild(option);
+		}
+		var totalSelectedPrice = 0; // 초기 상품 가격 합계 설정
 
-		$(document)
-				.on(
-						"click",
+		$(document).on(	"click",
 						"#apibtn",
 						function() {
+							var totalPriceElement = document.getElementById("totalPrice");
 							var selectedItems = []; // 선택된 상품들의 정보를 담을 배열
-							// 각 체크박스의 정보를 가져와 배열에 추가
-							const totalPrice = totalPriceElement.textContent.replace("원", "").replace(",", ""); // 텍스트에서 "원" 및 쉼표 제거
+							var totalPrice = totalPriceElement.textContent.replace("원", "").replace(",", ""); // 텍스트에서 "원" 및 쉼표 제거
 							userCouponCheckboxes.forEach(function(
 									userCouponCheckbox) {
 								if (userCouponCheckbox.checked) {
 									var productId = userCouponCheckbox.value; // 상품 ID
 									selectedItems.push(productId); // 상품 ID만 배열에 추가
-								}
-							});
-
-							// AJAX 요청을 위한 데이터
+								}});
 							var data = {
 								selectedItems : selectedItems,
 								 totalprice : totalPrice
 							};
+							$.ajax({
+								type : 'GET',
+								url : '/pay/ready',
+								contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+								data : data,
+								success : function(res) {
+									var box = res.next_redirect_pc_url;
+									var popupWidth = 500;
+									var popupHeight = 800;
+									var left = (screen.width - popupWidth) / 2;
+									var top = (screen.height - popupHeight) / 2;
+									var popupOptions = "width="
+											+ popupWidth + ",height="
+											+ popupHeight + ",top="
+											+ top + ",left=" + left;
+									window.open(box, "KakaoPay",
+									popupOptions);
+								}})});
+		
+		document.addEventListener("DOMContentLoaded", function() {
+			itemsPrice.textContent =  totalSelectedPrice.toLocaleString()+ "원";
+			totalPriceElement.textContent =  totalSelectedPrice + "원";
+		});
+		$(document).on(	"click",
+				"#giftbtn",
+				function() {
+					var selectedItems = []; // 선택된 상품들의 정보를 담을 배열
+					var totalPrice = 2222; // 텍스트에서 "원" 및 쉼표 제거
+					var email =  document.getElementById("gitf_email");
+					var giftEmail = $("#gift_email").val()
+					userCouponCheckboxes.forEach(function(
+							userCouponCheckbox) {
+						if (userCouponCheckbox.checked) {
+							var productId = userCouponCheckbox.value; // 상품 ID
+							selectedItems.push(productId); // 상품 ID만 배열에 추가
+						}});
+					// AJAX 요청을 위한 데이터
+					var data = {
+						selectedItems : selectedItems,
+						totalprice : totalPrice,
+						email : giftEmail
+					};
+					$.ajax({
+						type : 'GET',
+						url : '/pay/ready',
+						contentType : 'application/x-www-form-urlencoded;charset=utf-8',
+						data : data,
+						success : function(res) {
+							var box = res.next_redirect_pc_url;
+							var popupWidth = 500;
+							var popupHeight = 800;
+							var left = (screen.width - popupWidth) / 2;
+							var top = (screen.height - popupHeight) / 2;
+							var popupOptions = "width="
+									+ popupWidth + ",height="
+									+ popupHeight + ",top="
+									+ top + ",left=" + left;
+							window.open(box, "KakaoPay",
+							popupOptions);
+						}})});
 
-							$
-									.ajax({
-										type : 'GET',
-										url : '/pay/ready',
-										contentType : 'application/x-www-form-urlencoded;charset=utf-8',
-										data : data,
-										success : function(res) {
-											var box = res.next_redirect_pc_url;
-											var popupWidth = 500;
-											var popupHeight = 800;
-											var left = (screen.width - popupWidth) / 2;
-											var top = (screen.height - popupHeight) / 2;
-											var popupOptions = "width="
-													+ popupWidth + ",height="
-													+ popupHeight + ",top="
-													+ top + ",left=" + left;
-											window.open(box, "KakaoPay",
-													popupOptions);
-
-										}
-									})
-						});
+document.addEventListener("DOMContentLoaded", function() {
+	itemsPrice.textContent =  totalSelectedPrice.toLocaleString()+ "원";
+	totalPriceElement.textContent =  totalSelectedPrice + "원";
+});
 	</script>
 
 </th:block>

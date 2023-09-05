@@ -35,10 +35,10 @@ public class KakaoPayController {
 	private final OrderService orderService;
 	@GetMapping("/pay/ready")
 	@ResponseBody
-	public KakaoPayReadyDto kakaoPay(HttpSession session, Model model, Principal principal,
-			@RequestParam(value = "selectedItems[]", required = false) List<String> selectedItems,@RequestParam(value = "totalprice", required = false) Long totalprice ) {
-		System.err.println(totalprice + "jjjjjjjjjjjj");
-		
+	public KakaoPayReadyDto kakaoPay(HttpSession session, Model model,
+			@RequestParam(value = "selectedItems[]", required = false) List<String> selectedItems,@RequestParam(value = "totalprice", required = false) Long totalprice,@RequestParam(value = "email", required = false) String email) {
+		if (email != "") {
+		}
 		// 선택된 상품 정보 출력
 		Map<String, Object> params = new HashMap<>();
 		Long totalPrice = totalprice;
@@ -55,12 +55,10 @@ public class KakaoPayController {
 			params.put("itemCount", conut - 1);
 		}
 		String tid = (String) session.getAttribute("tid");
-
 		KakaoPayReadyDto res = kakaoPayService.kakaoPay(params);
 		// 주문 정보 생성 및 연결
 		Order order = new Order();
 		order.setOrderStatus(OrderStatus.CANCLE); // 예시: 주문 상태 설정
-
 		// tid 값을 세션에 저장
 		session.setAttribute("tid", res.getTid());
 		session.setAttribute("selectedItems", selectedItems);
@@ -80,7 +78,6 @@ public class KakaoPayController {
 			Cart cart = cartService.getCartItemById(Long.parseLong(itemId));
 			orderService.cartOrder(cart, cart.getEmail());
 			cartService.deletcart(Long.parseLong(itemId));
-			
 		}
 		// 카카오 결재 요청하기
 		KakaoPayApproveDto kakaoPayApproveDto = kakaoPayService.kakaoPayApprove(tid, pgToken);
@@ -88,12 +85,12 @@ public class KakaoPayController {
 		session.removeAttribute("params");
 		return "/";
 	}
-
 	private String generateRandomPayNo() {
 		SecureRandom secureRandom = new SecureRandom();
 		byte[] randomBytes = new byte[16];
 		secureRandom.nextBytes(randomBytes);
 		return new String(randomBytes);
 	}
-
+	
+	
 }
