@@ -38,7 +38,7 @@ public class KakaoPayService {
 		payParams.add("quantity", "1");
 		payParams.add("total_amount", params.get("totalPrice")); //가격
 		payParams.add("tax_free_amount", "0");
-		payParams.add("approval_url", "http://localhost/pay/successss");
+		payParams.add("approval_url", "http://localhost/pay/success");
 		payParams.add("cancel_url", "http://localhost/pay/cancel");
 		payParams.add("fail_url", "http://localhost/pay/fail");
 

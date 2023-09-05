@@ -191,8 +191,8 @@ h3, h2 {
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
 								th:if="${#strings.equals(item.item.categori, 'POPCON')}">
-								<li class="item_li"><span class="sub_item_img"> <img
-										alt="" th:src="${item.imgUrl}">
+								<li class="item_li"><span class="sub_item_img"> <a th:href="'/item/' + ${item.item.id}"><img
+										alt="item" th:src="${item.imgUrl}"></a>
 								</span>
 									<div>
 										<span th:text="${item.item.itemNm}"> </span> <span>[[${#numbers.formatInteger(item.item.price,
@@ -211,8 +211,8 @@ h3, h2 {
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
 								th:if="${#strings.equals(item.item.categori, 'DRINK')}">
-								<li class="item_li"><span class="sub_item_img"> <img
-										alt="" th:src="${item.imgUrl}">
+								<li class="item_li"><span class="sub_item_img"> <a th:href="'/item/' + ${item.item.id}"> <img
+										alt="item" th:src="${item.imgUrl}"></a>
 								</span>
 									<div>
 										<span th:text="${item.item.itemNm}"> </span>  <span>[[${#numbers.formatInteger(item.item.price,
@@ -233,8 +233,8 @@ h3, h2 {
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
 								th:if="${#strings.equals(item.item.categori, 'SNAK')}">
-								<li class="item_li"><span class="sub_item_img"> <img
-										alt="" th:src="${item.imgUrl}">
+								<li class="item_li"><span class="sub_item_img"> <a th:href="'/item/' + ${item.item.id}"> <img
+										alt="item" th:src="${item.imgUrl}"></a>
 								</span>
 									<div>
 										<span th:text="${item.item.itemNm}"> </span>  <span>[[${#numbers.formatInteger(item.item.price,
@@ -253,8 +253,8 @@ h3, h2 {
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
 								th:if="${#strings.equals(item.item.categori, 'GOODS')}">
-								<li class="item_li"><span class="sub_item_img"> <img
-										alt="" th:src="${item.imgUrl}">
+								<li class="item_li"><span class="sub_item_img"> <a th:href="'/item/' + ${item.item.id}"> <img
+										alt="item" th:src="${item.imgUrl}"></a>
 								</span>
 									<div>
 										<span th:text="${item.item.itemNm}"> </span>  <span>[[${#numbers.formatInteger(item.item.price,

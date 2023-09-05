@@ -21,6 +21,7 @@ import com.example.ostb_movie.dto.OrderDto;
 import com.example.ostb_movie.entity.Cart;
 import com.example.ostb_movie.entity.Item;
 import com.example.ostb_movie.entity.Member;
+import com.example.ostb_movie.entity.Order;
 import com.example.ostb_movie.service.CartService;
 import com.example.ostb_movie.service.OrderService;
 
@@ -99,30 +100,46 @@ public class OrderController {
 		String email = member.getEmail();
 		List<Cart> carts = cartService.getCartItem(email);
 		List<Cart> orderList = new ArrayList<>();
-		for(Cart cart : carts) {
+		for (Cart cart : carts) {
 		}
 		model.addAttribute("carts", carts);
 		model.addAttribute("orderList", orderList);
-	    System.err.println(member.getPoint()+"sss");
-	    model.addAttribute("member", member);
+		model.addAttribute("member", member);
 		return "Order/myCart";
 	}
 
 	@PostMapping("/order/cartsign")
-	public String addToOrder(@RequestParam(name = "selectedItems", required = false) List<Long> selectedItems,Authentication authentication,
-	        Model model) {
+	public String addToOrder(@RequestParam(name = "selectedItems", required = false) List<Long> selectedItems,
+			Authentication authentication, Model model) {
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 		Member member = principal.getMember();
 
 		List<Cart> orderList = new ArrayList<>();
-	    if (selectedItems != null && !selectedItems.isEmpty()) {
-	        for (Long itemId : selectedItems) {
-	            Cart selectedCart = cartService.getCartItemById(itemId);
-	            orderList.add(selectedCart);
-	        }
-	        model.addAttribute("orderList", orderList);
-	    }
+		if (selectedItems != null && !selectedItems.isEmpty()) {
+			for (Long itemId : selectedItems) {
+				Cart selectedCart = cartService.getCartItemById(itemId);
+				orderList.add(selectedCart);
+			}
+			model.addAttribute("orderList", orderList);
+		}
 
-	    return "Order/myCart";
+		return "Order/myCart";
+	}
+
+	@GetMapping(value = "/order/orderList")
+	public String OrderList(Model model, Authentication authentication) {
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+		Member member = principal.getMember();
+		String email = member.getEmail();
+
+		List<Order> AllList = orderService.findAllOrders(email);
+		List<Order> NoUsedList = orderService.NoUsedOrder(email);
+		for(Order order : AllList) {
+			
+		}
+		model.addAttribute("AllList", AllList);
+		model.addAttribute("NoUsedList", NoUsedList);
+		model.addAttribute("member", member);
+		return "Order/MyOrderList";
 	}
 }

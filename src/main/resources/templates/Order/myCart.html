@@ -104,7 +104,7 @@ H6 {
 }
 
 h3 {
-	color: white;	
+	color: white;
 }
 
 .table_bar {
@@ -247,9 +247,11 @@ h3 {
 						<h6>선물 하기</h6>
 						<div>
 							<h4>받는 사람의 이메일</h4>
-							<input type="text" id="gitf_email" placeholder="이메일을 적어주세요!">
+							<input type="text" id="emailInput" oninput="validateEmail()"
+								placeholder="이메일을 적어주세요!">
+							<p id="emailError" style="color: red;"></p>
 						</div>
-						<button type="button" id="giftbtn">카카오페이로 결제하기</button>
+						<button type="button" id="giftbtn" disabled>카카오페이로 결제하기</button>
 					</div>
 				</div>
 			</div>
@@ -265,7 +267,7 @@ h3 {
 		var myPointInput = document.getElementById("my_point"); // my_point 엘리먼트 가져오기
 		var maxQuantity = Math.floor(parseInt(myPointInput.value) / 100) * 100; // 최대값 설정 (십의 자리에서 내림)
 		var itemsPrice = document.getElementById("items_Price");
-		 var quantitySelect = document.getElementById("quantitySelect");
+		var quantitySelect = document.getElementById("quantitySelect");
 		var totalPrice = document.getElementById("totalPrice");
 		hideButton.addEventListener("click", function() {
 			// 버튼 숨기기
@@ -276,28 +278,29 @@ h3 {
 		});	
 		//선택된 상품의 총 가격 구하기
 		var userCouponCheckboxes = document.querySelectorAll("input[id='userCoupon']");
+		
 		userCouponCheckboxes.forEach(function(userCouponCheckbox, index) {
 		userCouponCheckbox.addEventListener("change", function() {
-        // 현재 체크박스의 부모 td 엘리먼트를 가져옴
-        var currentTd = userCouponCheckbox.parentElement;
-        // 현재 체크박스 다음에 있는 td 엘리먼트를 가져옴
-        var nextTd = currentTd.nextElementSibling;
-        var nextTd2 = nextTd.nextElementSibling;
-		var productPrice =  nextTd2.textContent.trim();
-		var nextTd3 = nextTd2.nextElementSibling;
-		var productCount = nextTd3.textContent.trim();
-		
-		
-		if (userCouponCheckbox.checked ) {
-			totalSelectedPrice += productPrice * productCount;
-        } else {
-			totalSelectedPrice -= productPrice * productCount;
-        }
-		itemsPrice.textContent =  totalSelectedPrice.toLocaleString()+ "원";
-        var price = totalSelectedPrice.toLocaleString().replace("원", "").replace(",", "");
-        var point = quantitySelect.value;
-        var total = price - point;
-        totalPrice.textContent = total.toLocaleString()+"원";
+	        // 현재 체크박스의 부모 td 엘리먼트를 가져옴
+	        var currentTd = userCouponCheckbox.parentElement;
+	        // 현재 체크박스 다음에 있는 td 엘리먼트를 가져옴
+	        var nextTd = currentTd.nextElementSibling;
+	        var nextTd2 = nextTd.nextElementSibling;
+			var productPrice =  nextTd2.textContent.trim();
+			var nextTd3 = nextTd2.nextElementSibling;
+			var productCount = nextTd3.textContent.trim();
+			
+			
+			if (userCouponCheckbox.checked ) {
+					totalSelectedPrice += productPrice * productCount;
+		        } else {
+					totalSelectedPrice -= productPrice * productCount;
+		       	 		}
+				itemsPrice.textContent =  totalSelectedPrice.toLocaleString()+ "원";
+		        var price = totalSelectedPrice.toLocaleString().replace("원", "").replace(",", "");
+		        var point = quantitySelect.value;
+		        var total = price - point;
+		        totalPrice.textContent = total.toLocaleString()+"원";
     		});
 		});
 	    // 선택된 옵션이 변경될 때 실행되는 함수
@@ -352,10 +355,10 @@ h3 {
 		$(document).on(	"click",
 				"#giftbtn",
 				function() {
+					var totalPriceElement = document.getElementById("totalPrice");
 					var selectedItems = []; // 선택된 상품들의 정보를 담을 배열
-					var totalPrice = 2222; // 텍스트에서 "원" 및 쉼표 제거
-					var email =  document.getElementById("gitf_email");
-					var giftEmail = $("#gift_email").val()
+					var totalPrice = totalPriceElement.textContent.replace("원", "").replace(",", ""); // 텍스트에서 "원" 및 쉼표 제거
+					var giftEmail = $("#emailInput").val()
 					userCouponCheckboxes.forEach(function(
 							userCouponCheckbox) {
 						if (userCouponCheckbox.checked) {
@@ -391,6 +394,24 @@ document.addEventListener("DOMContentLoaded", function() {
 	itemsPrice.textContent =  totalSelectedPrice.toLocaleString()+ "원";
 	totalPriceElement.textContent =  totalSelectedPrice + "원";
 });
+//이메일 정규식
+function validateEmail() {
+            const emailInput = document.getElementById("emailInput");
+            const emailError = document.getElementById("emailError");
+            const giftbtn = document.getElementById("giftbtn");
+            const emailValue = emailInput.value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(emailValue)) {
+                emailInput.style.border = "1px solid red";
+                emailError.textContent = "이메일 형식으로 입력해주세요.";
+                giftbtn.disabled = true; // 이메일이 유효하지 않으면 버튼 비활성화
+            } else {
+                emailInput.style.border = "1px solid #ccc";
+                emailError.textContent = "";
+                giftbtn.disabled = false; // 이메일이 유효하면 버튼 활성화
+            }
+        }
 	</script>
 
 </th:block>

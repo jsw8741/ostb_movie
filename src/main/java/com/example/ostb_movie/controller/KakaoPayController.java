@@ -37,8 +37,7 @@ public class KakaoPayController {
 	@ResponseBody
 	public KakaoPayReadyDto kakaoPay(HttpSession session, Model model,
 			@RequestParam(value = "selectedItems[]", required = false) List<String> selectedItems,@RequestParam(value = "totalprice", required = false) Long totalprice,@RequestParam(value = "email", required = false) String email) {
-		if (email != "") {
-		}
+		
 		// 선택된 상품 정보 출력
 		Map<String, Object> params = new HashMap<>();
 		Long totalPrice = totalprice;
@@ -55,6 +54,7 @@ public class KakaoPayController {
 			params.put("itemCount", conut - 1);
 		}
 		String tid = (String) session.getAttribute("tid");
+		
 		KakaoPayReadyDto res = kakaoPayService.kakaoPay(params);
 		// 주문 정보 생성 및 연결
 		Order order = new Order();
@@ -62,7 +62,9 @@ public class KakaoPayController {
 		// tid 값을 세션에 저장
 		session.setAttribute("tid", res.getTid());
 		session.setAttribute("selectedItems", selectedItems);
-
+		if (email != null) {
+			session.setAttribute("email", email);
+		}
 		// tid 값을 success 페이지로 전달하기 위해 모델에 추가
 		model.addAttribute("tid", res.getTid());
 		model.addAttribute("selectedItems", selectedItems);

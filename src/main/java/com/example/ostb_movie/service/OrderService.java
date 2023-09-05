@@ -55,8 +55,16 @@ public class OrderService {
 		
 		orderRepository.save(orderItem);
 	}
-	public void deletItems(Long itemId) {
+	public void deleteItems(Long itemId) {
 		orderRepository.deleteByitemId(itemId);
 
+	}
+	public List<Order> findAllOrders(String eamil){
+		List<Order> UsedOrder = orderRepository.findAllOrders(eamil);
+		return UsedOrder;
+	}
+	public List<Order> NoUsedOrder(String eamil){
+		List<Order> UsedOrder = orderRepository.findNoUsedOrder(eamil);
+		return UsedOrder;
 	}
 }

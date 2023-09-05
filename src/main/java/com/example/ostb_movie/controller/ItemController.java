@@ -40,7 +40,6 @@ public class ItemController {
 	@GetMapping(value = "/item/items")
 	public String itemShopList(Model model) {
 		List<Itemimg> items = itemimgService.allItemList();
-
 		model.addAttribute("items", items);
 		for (Itemimg item : items) {
 		}
@@ -61,11 +60,8 @@ public class ItemController {
 		} else if (categori.toString() == "DRINK") {
 			model.addAttribute("categori", "음료");
 		}
-		for (Itemimg item : items) {
-		}
 		model.addAttribute("categoryName", categori);
 		model.addAttribute("items", items);
-		System.err.println("sssssssssssssss"+categori);
 		return "item/itemCategory";
 	}
 
@@ -162,7 +158,7 @@ public class ItemController {
 	// 아이템 삭제
 	@GetMapping(value = "/admin/item/delete/{itemId}")
 	public String Facilitiesdelete(@PathVariable("itemId") Long itemId, Model model) {
-		orderService.deletItems(itemId);
+		orderService.deleteItems(itemId);
 		itemService.deleteByitemIdByNative(itemId);
 		return "redirect:/";
 	}
