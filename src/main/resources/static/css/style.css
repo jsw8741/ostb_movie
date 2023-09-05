@@ -2396,3 +2396,7 @@ blockquote.shortcodes {
 .contact-form-area textarea.form-control {
 	height: 120px;
 }
+
+.bg-white{
+	top : 0;
+}

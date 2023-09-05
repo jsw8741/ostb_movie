@@ -39,18 +39,18 @@ public class MovieService {
     	getApi(popularUrl, 1, popularStatus);
     }
     
-    // 개봉 예정
-    public void getUpComing() {
-    	String upComingUrl = "https://api.themoviedb.org/3/movie/upcoming?api_key=d0f57e4e20e63bfcf331ff49a646c74c&language=ko-KR&page=1&region=US";
-    	MovieStatus upComingStatus = movieStatusRepository.getStatus("개봉예정");
-    	getApi(upComingUrl, 100, upComingStatus);
-    }
-    
     // 상영중
     public void getNowPlaying() {
     	String nowPlatingUrl = "https://api.themoviedb.org/3/movie/now_playing?api_key=d0f57e4e20e63bfcf331ff49a646c74c&language=ko-KR&page=1&region=KR";
     	MovieStatus nowPlayingStatus = movieStatusRepository.getStatus("상영중");
-    	getApi(nowPlatingUrl, 200, nowPlayingStatus);
+    	getApi(nowPlatingUrl, 100, nowPlayingStatus);
+    }
+    
+    // 개봉 예정
+    public void getUpComing() {
+    	String upComingUrl = "https://api.themoviedb.org/3/movie/upcoming?api_key=d0f57e4e20e63bfcf331ff49a646c74c&language=ko-KR&page=1&region=US";
+    	MovieStatus upComingStatus = movieStatusRepository.getStatus("개봉예정");
+    	getApi(upComingUrl, 200, upComingStatus);
     }
     
     // Api로 영화 등록

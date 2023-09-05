@@ -39,6 +39,7 @@ public class LoginController {
 		if(authentication != null) {
 			PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 	        Member member = principal.getMember();
+	        System.out.println();
 	        if(member != null) {
 	        	MemberFormDto memberFormDto = MemberFormDto.of(member);
 	        	model.addAttribute("memberFormDto", memberFormDto);
@@ -119,7 +120,7 @@ public class LoginController {
 			member = memberService.findMember(email);
 			// 소셜 로그인 / 회원은 불가능 
 			if(member.getPassword().equals("SNS 로그인")) {
-				model.addAttribute("SNSerrorMessage", "소셜가입 회원은 비밀번호 변경이 불가능합니다.\n간편 로그인을 이용해주세요.");
+				model.addAttribute("SNSerrorMessage", "소셜가입 회원은 비밀번호 찾기/변경이 불가능합니다.\n간편 로그인을 이용해주세요.");
 				return "/login/loginForm";
 			}else {
 			// 2. 입력한 메일로 임시 비밀번호 전송

@@ -6,6 +6,11 @@
 <!-- 각 페이지의 CSS가 작성될 위치 -->
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/FAQ.css}">
+	<style>
+		.ac_accept{
+			left: 1057px;
+		}
+	</style>
 </th:block>
 
 
@@ -23,7 +28,7 @@
 				<div class="tab_wrap swiper-container swiper-container-horizontal">
 					<ul class="tab_inner swiper-wrapper">
 						<li class="swiper-slide tab  swiper-slide-active"><a href="/FAQ/list"><span>FAQ</span></a></li>
-						<li class="swiper-slide tab swiper-slide-next"><a href="/chatt/mychatt" onclick="return checkLogin();"><span>1:1 문의</span></a></li>
+						<li class="swiper-slide tab active"><a href="/chatt/mychatt" onclick="return checkLogin();"><span>1:1 문의</span></a></li>
 						<li class="swiper-slide tab"><a href="/notice/list"><span>공지사항</span></a></li>
 						<li class="swiper-slide tab "><a href="/lost/list"><span>분실물 문의</span></a></li>
 					</ul>
@@ -36,7 +41,7 @@
 	</div>
 
 	<!-- tab -->
-	<div class="tab_ui type2 tabSwiper py-5">
+	<div class="tab_ui type2 tabSwiper py-5" style="padding-bottom: 10px !important;">
 		<div
 			class="tab_wrap swiper-container swiper-container-horizontal swiper-container-free-mode">
 			<ul class="tab_inner swiper-wrapper"
@@ -52,7 +57,7 @@
 
 			</ul>
 			<form role="form" action="/chatt/createChatt" method="post" th:object="${oneBoardFormDto}" name="faqForm" >
-				<button class="btn_typeB1 tab_inner swiper-wrapper" type="submit" sec:authorize="hasAnyRole('ROLE_USER')"><span>등록</span></button>
+				<button class="btn_typeB1 tab_inner swiper-wrapper" type="submit" sec:authorize="hasAnyRole('ROLE_USER')" style="margin-left: 1053px;"><span>등록</span></button>
 
 				<input type="hidden" th:field="*{id}" />
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -64,7 +69,7 @@
 	</div>
 	<!--// tab -->
 	<section class="wrap_con">
-		<div class="layout1">
+		<div class="layout2">
 			<!-- list top -->
 			<th:block th:each="oneBoard : ${oneBoards}">
 				<th:block th:if="${#strings.equals(oneBoard.roomStatus, 'OPEN') or #strings.equals(oneBoard.roomStatus, 'ONGOING')}">
@@ -73,7 +78,7 @@
 							<li class="ac_item" th:data-target="${oneBoard.id}"
 								th:id="${oneBoard.id}">
 								<div class="ac_head"
-									onclick="openPop('/chatt/' + this.getAttribute('data-target'), 800, 800);"
+									onclick="openPop('/chatt/' + this.getAttribute('data-target'), 1000, 800);"
 									th:data-target="${oneBoard.id}">
 									<span class="ic_Q">[[${oneBoard.id}]]</span>
 									<div class="tit_area">
@@ -146,9 +151,11 @@
 		function openPop(url, width, height) {
 			var left = (screen.width - width) / 2;
 			var top = (screen.height - height) / 2;
-
-			window.open(url, 'popupwindow', 'scrollbars=yes,width=' + width
-					+ ',height=' + height + ',top=' + top + ',left=' + left);
+			let popOption = "width = 1010px, height=800px, top=300px, left=300px, scrollbars=no";
+			
+			window.open(url,"1:1 문의",popOption);
+			/* window.open(url, 'popupwindow', 'scrollbars=yes,width=' + width
+					+ ',height=' + height + ',top=' + top + ',left=' + left); */
 		}
 		
 		

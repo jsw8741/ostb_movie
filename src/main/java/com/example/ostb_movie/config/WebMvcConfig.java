@@ -1,5 +1,6 @@
 package com.example.ostb_movie.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -7,7 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer{
 
-String uploadPath = "file:///C:/movie/"; // 업로드할 경로
+	@Value("${uploadPath}")
+	String uploadPath; // 업로드할 경로
 	
 	// 웹 브라우저에서 URL이 /images로 시작하는 경우 uploadPath에 설정한 폴더를 기준으로 파일을 읽어온다.
 	@Override
@@ -15,9 +17,4 @@ String uploadPath = "file:///C:/movie/"; // 업로드할 경로
 		registry.addResourceHandler("/images/**")
 				.addResourceLocations(uploadPath);		
 	}
-	
-	
-	
-	
-	
 }

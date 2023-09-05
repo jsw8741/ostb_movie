@@ -1,5 +1,6 @@
 package com.example.ostb_movie.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
@@ -15,7 +16,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional
 public class MemberImgService {
-	private String memberImgLocation = "C:/movie/profile";
+	@Value("${profileImgLocation}")
+	private String profileImgLocation;
 	private final MemberRepository memberRepository;
 	private final FileService fileService;
 	
@@ -39,7 +41,7 @@ public class MemberImgService {
 		String memberImg = "";
 		if(!StringUtils.isEmpty(oriImgName)) {
 			imgName = fileService.profileUploadFile(
-					memberImgLocation, oriImgName, memberImgFile.getBytes());
+					profileImgLocation, oriImgName, memberImgFile.getBytes());
 			memberImg = "/images/profile/" + imgName;
 		}
 		
@@ -54,11 +56,11 @@ public class MemberImgService {
 												.orElseThrow(EntityNotFoundException::new);
 			
 			if(!StringUtils.isEmpty(saveMemberImg.getMemberImg())) {
-				fileService.deleteFile(memberImgLocation + "/" + saveMemberImg.getImgName());
+				fileService.deleteFile(profileImgLocation + "/" + saveMemberImg.getImgName());
 			}
 			
 			String oriImgName = memberImgFile.getOriginalFilename();
-			String imgName = fileService.profileUploadFile(memberImgLocation, oriImgName
+			String imgName = fileService.profileUploadFile(profileImgLocation, oriImgName
 					, memberImgFile.getBytes());
 			String memberImg = "/images/profile/" + imgName;
 			

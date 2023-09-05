@@ -2,7 +2,6 @@ package com.example.ostb_movie.service;
 
 import java.util.List;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
-import com.example.ostb_movie.dto.MemberFormDto;
 import com.example.ostb_movie.dto.MypageFormDto;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.repository.MemberRepository;
@@ -64,6 +62,13 @@ public class MemberService implements UserDetailsService{
 	public Member updatePassword(Member member) {
 		memberRepository.save(member);
 		return member;
+	}
+	
+	// 관리자 리스트
+	public List<Member> getAdminList(){
+		List<Member> adminList = memberRepository.getMasterList();
+		
+		return adminList;
 	}
 	
 	@Override

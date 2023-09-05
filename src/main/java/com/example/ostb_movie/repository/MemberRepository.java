@@ -1,5 +1,6 @@
 package com.example.ostb_movie.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +19,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Member getMemberEmail(@Param("name") String name, @Param("phone") String phone);
 
 	Optional<Member> findById(Member member);
+	
+	@Query("select m from Member m where m.role = 'ROLE_MASTER'")
+	List<Member> getMasterList();
     
 }
