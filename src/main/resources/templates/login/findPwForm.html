@@ -17,13 +17,13 @@
 		<div class="Login__wrap">
 			<div class="Login__content">
 				<h3>비밀번호 찾기</h3>
-			<form role="form" action="/login/find/pw" method="post">
+			<form role="form" action="/login/find/pw" method="post" name="findPwForm">
 				<div class="Login__content-input">
-					<input type="email" name="email" class="Input__normal" placeholder="이메일을 입력해주세요">
+					<input type="email" name="email" class="Input__normal" placeholder="이메일을 입력해주세요" id="emailInput" oninput="validateEmail()">
 				</div>
-				
+				<p id="emailError" class="errorInput" style="color: red;"></p>
 				<div class="Login__content-btn">
-					<button type="submit" class="Login__content-btn-login">찾기</button>
+					<button type="button" class="Login__content-btn-login" onclick="beforSubmit()">찾기</button>
 				</div>
 				
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -41,6 +41,41 @@
 	if(errorMessage != null){
 		alert(errorMessage);
 	} 
+	
+	function beforSubmit(){
+		const f = document.findPwForm;
+		
+		// 이메일 확인
+		if(!f.email.value){
+			alert('이메일을 입력해주세요.');
+			f.email.focus();
+			return;
+		}else if(!validateEmail()){
+			alert('이메일 형식으로 입력해주세요.');
+			f.email.focus();
+			return;
+		}
+		
+		f.submit();
+	}
+	
+	// 이메일 정규식 확인
+	function validateEmail() {
+        const emailInput = document.getElementById("emailInput");
+        const emailError = document.getElementById("emailError");
+        const emailValue = emailInput.value;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(emailValue)) {
+            emailInput.style.border = "1px solid red";
+            emailError.textContent = "이메일 형식으로 입력해주세요.";
+            return false;
+        } else {
+            emailInput.style.border = "1px solid #ccc";
+            emailError.textContent = "";
+            return true;
+        }
+    }
 	
 	</script>
 </th:block>

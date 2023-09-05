@@ -55,6 +55,11 @@ public class MemberService implements UserDetailsService{
 	// 이메일로 회원 정보 찾기
 	public Member findMember(String email) {
 		Member member = memberRepository.findByEmail(email);
+		
+		if(member == null) {
+			throw new IllegalStateException("가입된 정보가 없습니다.");
+		}
+		
 		return member;
 	}
 	

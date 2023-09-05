@@ -146,7 +146,7 @@ public class FaqController {
         Member currentMember = principal.getMember();
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-		Page<Faq> faqs = faqService.getMainFaqDtl(pageable);
+		Page<Faq> faqs = faqService.getFaqMember(pageable);
 		Long totalCount = faqService.getTotalFaqcount();
 		
 		model.addAttribute("currentMember", currentMember);
@@ -164,7 +164,7 @@ public class FaqController {
         Member currentMember = principal.getMember();
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-		Page<Faq> faqs = faqService.getMainFaqDtl(pageable);
+		Page<Faq> faqs = faqService.getFaqPoint(pageable);
 		Long totalCount = faqService.getTotalFaqcount();
 		
 		model.addAttribute("currentMember", currentMember);
@@ -182,7 +182,7 @@ public class FaqController {
         Member currentMember = principal.getMember();
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-		Page<Faq> faqs = faqService.getMainFaqDtl(pageable);
+		Page<Faq> faqs = faqService.getFaqBenefit(pageable);
 		Long totalCount = faqService.getTotalFaqcount();
 		
 		model.addAttribute("currentMember", currentMember);
@@ -200,7 +200,7 @@ public class FaqController {
         Member currentMember = principal.getMember();
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-		Page<Faq> faqs = faqService.getMainFaqDtl(pageable);
+		Page<Faq> faqs = faqService.getFaqFrend(pageable);
 		Long totalCount = faqService.getTotalFaqcount();
 		
 		model.addAttribute("currentMember", currentMember);

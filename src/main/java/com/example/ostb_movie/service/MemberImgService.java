@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class MemberImgService {
 	@Value("${profileImgLocation}")
-	private String profileImgLocation;
+	private String memberImgLocation;
 	private final MemberRepository memberRepository;
 	private final FileService fileService;
 	
@@ -40,7 +40,7 @@ public class MemberImgService {
 		String memberImg = "";
 		if(!StringUtils.isEmpty(oriImgName)) {
 			imgName = fileService.profileUploadFile(
-					profileImgLocation, oriImgName, memberImgFile.getBytes());
+					memberImgLocation, oriImgName, memberImgFile.getBytes());
 			memberImg = "/images/profile/" + imgName;
 		}
 		
@@ -55,11 +55,11 @@ public class MemberImgService {
 												.orElseThrow(EntityNotFoundException::new);
 			
 			if(!StringUtils.isEmpty(saveMemberImg.getMemberImg())) {
-				fileService.deleteFile(profileImgLocation + "/" + saveMemberImg.getImgName());
+				fileService.deleteFile(memberImgLocation + "/" + saveMemberImg.getImgName());
 			}
 			
 			String oriImgName = memberImgFile.getOriginalFilename();
-			String imgName = fileService.profileUploadFile(profileImgLocation, oriImgName
+			String imgName = fileService.profileUploadFile(memberImgLocation, oriImgName
 					, memberImgFile.getBytes());
 			String memberImg = "/images/profile/" + imgName;
 			

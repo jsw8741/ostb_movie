@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional
 public class ItemImgService {
-	
 	@Value("${itemImgLocation}")
 	private String itemImgLocation;
 	private final ItemImgRepository itemImgRepository;
