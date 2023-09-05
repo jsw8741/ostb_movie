@@ -97,7 +97,7 @@ public class MemberService implements UserDetailsService{
 		return member.getId();
 	}
 	
-	// 닉네임만 업디에트
+	// 닉네임만 업데이트
 	public Member nickNameUpdate(MypageFormDto mypageFormDto, Long memberId) {		
 		Member member = memberRepository.findById(mypageFormDto.getId())
 				.orElseThrow(EntityNotFoundException::new);

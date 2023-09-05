@@ -124,58 +124,6 @@
    	       	window.close();
    	   	}
 	
-  /*   function bindDomEvent(){
-        $(".custom-file-input").on("change", function() {
-            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
-            var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
-            fileExt = fileExt.toLowerCase(); //소문자 변환
-
-            if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
-                alert("이미지 파일만 등록이 가능합니다.");
-                return;
-            }
-
-            $(this).siblings(".custom-file-label").html(fileName);
-        });
-    }
-    
-	let enrollForm = $("#enrollForm") */
-	
-	/* 취소 버튼 */
-	/* $("#cancelBtn").click(function(){
-		
-		location.href="/localhost/members/info"
-		
-	}); */
-
-	/* 프로필 등록 버튼 */
-	/* $("#enrollBtn").on("click",function(e){
-		
-		e.preventDefault();
-		
-		enrollForm.submit();
-		
-	});
-	
-	 $(document).ready(function(){
-		
-		let eResult = '<c:out value="${enroll_result}"/>';
-		
-		checkResult(eResult);
-		
-		function checkResult(result){
-			
-			if(result === ''){
-				return;
-			}
-			
-			alert("프로필 사진'"+ eResult +"'을 등록하였습니다.");
-			
-		}
-
-	}); */
-
-	
 	</script>
 </th:block>
 

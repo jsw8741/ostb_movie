@@ -131,7 +131,6 @@ public class MemberController {
 		Member member = principal.getMember();
 			
 		try {
-//			if (mypageFormDto.getImgUrl().equals("") || (mypageFormDto.getImgUrl() == null)) {
 			if(memberImgFile.isEmpty() || memberImgFile == null) {	
 				member = memberService.nickNameUpdate(mypageFormDto, member.getId());
 				redirectAttributes.addFlashAttribute("successMessage", "프로필 수정이 완료되었습니다.");
