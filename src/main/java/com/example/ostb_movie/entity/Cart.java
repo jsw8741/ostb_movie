@@ -1,14 +1,11 @@
 package com.example.ostb_movie.entity;
 
-import java.time.LocalDateTime;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.example.ostb_movie.constant.CartStatus;
-import com.example.ostb_movie.constant.OrderStatus;
 import com.example.ostb_movie.dto.CartDto;
-import com.example.ostb_movie.dto.OrderDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,17 +23,17 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "Cart")
+@Table(name = "cart")
 @Getter
 @Setter
 @ToString
 public class Cart {
 	@Id
-	@Column(name = "Cart_id")
+	@Column(name = "cart_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String Email;
+	private String email;
 
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToOne(fetch = FetchType.LAZY)

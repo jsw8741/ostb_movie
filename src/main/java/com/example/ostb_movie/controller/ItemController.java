@@ -69,7 +69,7 @@ public class ItemController {
 	@GetMapping("/admin/itemform")
 	public String loginForm(Model model) {
 		model.addAttribute("itemFormDto", new ItemFormDto());
-		return "/item/itemForm";
+		return "item/itemForm";
 	}
 
 	// 상품 등록하기

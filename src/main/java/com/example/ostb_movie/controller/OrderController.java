@@ -104,7 +104,7 @@ public class OrderController {
 		model.addAttribute("carts", carts);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("member", member);
-		return "Order/myCart";
+		return "order/myCart";
 	}
 
 	@PostMapping("/order/cartsign")
@@ -122,7 +122,7 @@ public class OrderController {
 			model.addAttribute("orderList", orderList);
 		}
 
-		return "Order/myCart";
+		return "order/myCart";
 	}
 
 	@GetMapping(value = "/order/orderList")
@@ -137,6 +137,6 @@ public class OrderController {
 		model.addAttribute("AllList", AllList);
 		model.addAttribute("NoUsedList", NoUsedList);
 		model.addAttribute("member", member);
-		return "Order/MyOrderList";
+		return "order/myOrderList";
 	}
 }
