@@ -234,8 +234,8 @@
 										<div class="header_bar">
 											<!-- <i class=" fa-solid fa-lock fa"></i> <i
 												class=" fa-solid fa-user-plus fa"></i> -->
-											<a href="/order/myCart"> <i
-												class="fa-solid fa-cart-shopping"></i>
+											<a href="/order/myCart" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"> 
+											<i class="fa-solid fa-cart-shopping"></i>
 											</a>
 										</div>
 									</div>
@@ -249,8 +249,7 @@
 	</div>
 
 	<script th:inline="javascript">
-		async
-		function checkLogin() {
+		async function checkLogin() {
 			try {
 				const response = await
 				fetch("/check-login", {

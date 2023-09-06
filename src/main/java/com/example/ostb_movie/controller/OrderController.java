@@ -100,8 +100,7 @@ public class OrderController {
 		String email = member.getEmail();
 		List<Cart> carts = cartService.getCartItem(email);
 		List<Cart> orderList = new ArrayList<>();
-		for (Cart cart : carts) {
-		}
+		
 		model.addAttribute("carts", carts);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("member", member);
@@ -134,9 +133,7 @@ public class OrderController {
 
 		List<Order> AllList = orderService.findAllOrders(email);
 		List<Order> NoUsedList = orderService.NoUsedOrder(email);
-		for(Order order : AllList) {
-			
-		}
+		
 		model.addAttribute("AllList", AllList);
 		model.addAttribute("NoUsedList", NoUsedList);
 		model.addAttribute("member", member);
