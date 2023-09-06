@@ -106,8 +106,6 @@ public class ItemController {
 	// 상품 관리 창
 	@GetMapping(value = { "/admin/items", "/admin/items/{page}" })
 	public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
-		System.err.println("ssss" + page.toString());
-		System.err.println("ssss" + itemSearchDto.getSearchBy() + itemSearchDto.getSearchQuery());
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
 
 		Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);

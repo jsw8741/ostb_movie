@@ -146,19 +146,24 @@ button {
 	border: none;
 	border-radius: 5px;
 	background-color: #29A5FF;
-	color: #fff; 
+	color: #fff;
 	font-size: 16px;
-	cursor: pointer; 
+	cursor: pointer;
 	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button:hover {
-	background-color: #FF5722; 
-	color: #fff; 
+	background-color: #FF5722;
+	color: #fff;
 }
 
 #apibtn {
 	background-color: #FF5722;
+}
+
+.mainbutton {
+	width: 300px;
+	margin: 0 auto;
 }
 </style>
 </th:block>
@@ -287,6 +292,8 @@ button:hover {
 						</div>
 						<button type="button" id="giftbtn" disabled>카카오페이로 결제하기</button>
 					</div>
+					<button type="button" id="main_button" class="mainbutton"
+						style="display: none;">결제 완료</button>
 				</div>
 			</div>
 		</div>
@@ -446,6 +453,19 @@ function validateEmail() {
                 giftbtn.disabled = false; // 이메일이 유효하면 버튼 활성화
             }
         }
+//결제완료 버튼
+$(document).ready(function() {
+    $("#giftbtn").click(function() {
+        $("#main_button").show();
+    });
+    $("#apibtn").click(function() {
+        $("#main_button").show();
+    });
+});
+//버튼 누를시 메인이동
+$("#main_button").click(function() {
+    window.location.href = "/";
+});
 	</script>
 
 </th:block>

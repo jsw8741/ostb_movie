@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.ostb_movie.constant.OrderStatus;
 import com.example.ostb_movie.dto.KakaoPayApproveDto;
@@ -72,7 +73,8 @@ public class KakaoPayController {
 	}
 
 	@GetMapping("/pay/success")
-	public String success(@RequestParam("pg_token") String pgToken, HttpSession session, Principal principal) {
+	public String success(@RequestParam("pg_token") String pgToken, HttpSession session, Principal principal,
+			RedirectAttributes redirectAttributes) {
 		String tid = (String) session.getAttribute("tid");
 		List<String> selectedItems = (List<String>) session.getAttribute("selectedItems");
 
@@ -86,7 +88,9 @@ public class KakaoPayController {
 		KakaoPayApproveDto kakaoPayApproveDto = kakaoPayService.kakaoPayApprove(tid, pgToken);
 		session.removeAttribute("tid");
 		session.removeAttribute("params");
-		return "/";
+		redirectAttributes.addFlashAttribute("successMessage", "결제가 완료되었습니다.");
+
+		return "redirect:/members/pay/success";
 	}
 
 	private String generateRandomPayNo() {
