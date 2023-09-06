@@ -96,16 +96,25 @@ public class MemberService implements UserDetailsService{
 	// 1. 지금 접속한 멤버 찾기
 	// 2. 찾은 멤버로 업데이트 메소드 실행
 	public Long updateMember(MypageFormDto mypageFormDto, MultipartFile memberImgFile) throws Exception {
-		System.out.println(mypageFormDto.getId() + "asdasd");
 		
 		Member member = memberRepository.findById(mypageFormDto.getId())
 										.orElseThrow(EntityNotFoundException::new);
 		member.updateMember(mypageFormDto);
 		
 		Long memberId = mypageFormDto.getId();
-		memberImgService.UpdateMemberImg(memberId, memberImgFile);
-		memberRepository.save(member);
+		memberImgService.UpdateMemberImg(mypageFormDto, memberId, memberImgFile);
 		
 		return member.getId();
+	}
+	
+	// 닉네임만 업데이트
+	public Member nickNameUpdate(MypageFormDto mypageFormDto, Long memberId) {		
+		Member member = memberRepository.findById(mypageFormDto.getId())
+				.orElseThrow(EntityNotFoundException::new);
+		
+		member = member.nickNameUpdate(mypageFormDto.getNickname());
+		
+		memberRepository.save(member);
+		return member;
 	}
 }

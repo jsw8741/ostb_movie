@@ -10,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.dto.MypageFormDto;
@@ -95,15 +97,14 @@ public class MemberController {
 	
 	//팝업
 	@GetMapping(value = "/members/infoPop")
-	public String pop(Authentication authentication, Model model) {
+	public String pop(Authentication authentication, Model model, RedirectAttributes redirectAttributes) {
 		
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
         
         Member updateMember = memberService.findMember(member.getEmail());
         
-        MypageFormDto mypageFormDto = MypageFormDto.of(member);
-        
+        MypageFormDto mypageFormDto = MypageFormDto.of(updateMember);
 		model.addAttribute("member",updateMember);
 		model.addAttribute("mypageFormDto",mypageFormDto);
 		
@@ -114,31 +115,41 @@ public class MemberController {
 	@PostMapping(value = "/members/infoPop")
 	public String popProfile(@Valid MypageFormDto mypageFormDto, Authentication authentication,
 			Model model, BindingResult bindingResult, 
-			@RequestParam("memberImg") MultipartFile memberImgFile) {
+			@RequestParam("memberImg") MultipartFile memberImgFile
+			, RedirectAttributes redirectAttributes) {
 		
 		if(bindingResult.hasErrors()) {
 			return "member/myPagePop";
 		}
-		
-		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-        Member member = principal.getMember();
         
-		if(memberImgFile.isEmpty()) {
-			model.addAttribute("errorMessage", "이미지가 존재하지 않습니다.");
+		if(memberImgFile.isEmpty() && mypageFormDto.getId() == null) {
+			model.addAttribute("errorMessage", "상품 이미지는 필수입니다.");
 			return "member/myPagePop";
 		}
 		
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+		Member member = principal.getMember();
+			
 		try {
-			memberService.updateMember(mypageFormDto, memberImgFile);
+			if(memberImgFile.isEmpty() || memberImgFile == null) {	
+				member = memberService.nickNameUpdate(mypageFormDto, member.getId());
+				redirectAttributes.addFlashAttribute("successMessage", "프로필 수정이 완료되었습니다.");
+				return "redirect:/members/infoPop";
+			} else {
+				memberService.updateMember(mypageFormDto, memberImgFile);
+				redirectAttributes.addFlashAttribute("successMessage", "프로필 수정이 완료되었습니다.");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "프로필 등록 중 에러가 발생했습니다.");
 			return "member/myPagePop";
 		}
 		
+		
+		
 		Member updateMember = memberService.findMember(member.getEmail());
 		model.addAttribute("member",updateMember);
 		model.addAttribute("mypageFormDto",mypageFormDto);
-		return "member/myPage";
+		return "redirect:/members/infoPop";
 	}
 }
