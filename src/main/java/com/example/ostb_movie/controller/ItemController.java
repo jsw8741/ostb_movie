@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.ostb_movie.constant.Categori;
 import com.example.ostb_movie.dto.ItemFormDto;
 import com.example.ostb_movie.dto.ItemSearchDto;
-import com.example.ostb_movie.dto.MainItemDto;
 import com.example.ostb_movie.dto.OrderDto;
 import com.example.ostb_movie.entity.Item;
 import com.example.ostb_movie.entity.Itemimg;
@@ -41,8 +40,7 @@ public class ItemController {
 	public String itemShopList(Model model) {
 		List<Itemimg> items = itemimgService.allItemList();
 		model.addAttribute("items", items);
-		for (Itemimg item : items) {
-		}
+		
 		return "item/itemList";
 	}
 

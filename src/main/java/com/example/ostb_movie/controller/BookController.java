@@ -17,7 +17,6 @@ import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.constant.PaymentStatus;
 import com.example.ostb_movie.dto.*;
 import com.example.ostb_movie.entity.*;
-import com.example.ostb_movie.repository.SeatRepository;
 import com.example.ostb_movie.service.*;
 
 import jakarta.servlet.http.HttpSession;
@@ -31,7 +30,6 @@ public class BookController {
 	private final BookService bookService;
 	private final PaymentService paymentService;
 	private final KakaoPayService kakaoPayService;
-	private final MemberService memberService;
 
 	// 상영시간표 페이지
 	@GetMapping(value = "/movie/schedule")

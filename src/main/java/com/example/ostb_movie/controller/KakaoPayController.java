@@ -9,17 +9,14 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ostb_movie.constant.OrderStatus;
 import com.example.ostb_movie.dto.KakaoPayApproveDto;
 import com.example.ostb_movie.dto.KakaoPayReadyDto;
-import com.example.ostb_movie.dto.OrderDto;
 import com.example.ostb_movie.entity.Cart;
 import com.example.ostb_movie.entity.Order;
-import com.example.ostb_movie.repository.CartRepository;
 import com.example.ostb_movie.service.CartService;
 import com.example.ostb_movie.service.KakaoPayService;
 import com.example.ostb_movie.service.OrderService;
