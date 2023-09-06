@@ -1,5 +1,6 @@
 package com.example.ostb_movie.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -22,7 +23,10 @@ import com.example.ostb_movie.dto.MemberFormDto;
 import com.example.ostb_movie.dto.MemberSearchDto;
 import com.example.ostb_movie.dto.MypageFormDto;
 import com.example.ostb_movie.entity.Member;
+import com.example.ostb_movie.entity.Payment;
 import com.example.ostb_movie.service.MemberService;
+import com.example.ostb_movie.service.PaymentService;
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +37,8 @@ public class MemberController {
 
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
-
+	private final PaymentService paymentService;
+	
 	// 현재 비밀번호 확인 화면
 	@GetMapping(value = "/members/checkPw")
 	public String checkPwForm() {
@@ -77,20 +82,28 @@ public class MemberController {
 		}
 
 	}
-
-	// 마이페이지 화면
-	@GetMapping(value = "/members/info")
+	
+	//마이페이지 화면
+	@GetMapping(value =  "/members/info")
 	public String newMyPage(Authentication authentication, Model model) {
-
-		// 현재 로그인한 회원 정보 가져오기
+		
+		//현재 로그인한 회원 정보 가져오기
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-		Member member = principal.getMember();
-
-		Member updateMember = memberService.findMember(member.getEmail());
-		model.addAttribute("member", updateMember);
-
+        Member member = principal.getMember();
+        String email = member.getEmail();
+		
+        Member updateMember = memberService.findMember(member.getEmail());
+        
+        // 예매내역 목록
+        List<Payment> ticket = paymentService.getTicketList(email);
+        List<Payment> completed = paymentService.getCompleteList(email);
+        
+        model.addAttribute("member",updateMember);
+        
+		model.addAttribute("ticket", ticket);
+		model.addAttribute("completed", completed);
+		
 		return "member/myPage";
-
 	}
 	
 	// (Master)회원 관리창
