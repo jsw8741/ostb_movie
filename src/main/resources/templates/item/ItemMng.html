@@ -11,11 +11,6 @@ select {
 	width: 33.33%;
 }
 
-a {
-	/* 	cursor: pointer */
-	
-}
-
 .pagination {
 	padding: 20px 0;
 	position: relative;
@@ -69,7 +64,7 @@ width: 485px;}
 </style>
 </th:block>
 
-<div layout:fragment="content">
+<div layout:fragment="content" style="padding-top: 150px;">
 
 	<div class="site-section">
 		<div class="container">
@@ -100,7 +95,7 @@ width: 485px;}
 											'COMMA')}]]원</td>
 										<td><a th:href="'/admin/item/delete/' + ${item.id}"
 											class="delete_item"><i
-												class="fa-regular fa-trash-can fa-bounce"></i> </a></td>
+												class="fa-regular fa-trash-can"></i> </a></td>
 										<!-- hover 했을때 fa-bounce 클래스 더하기 -->
 									</tr>
 								</tbody>

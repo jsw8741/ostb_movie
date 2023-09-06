@@ -1,6 +1,5 @@
 package com.example.ostb_movie.controller;
 
-import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -91,7 +90,7 @@ public class NoticeController {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "공지사항 정보를 가져오는 중 에러가 발생했습니다.");
 			model.addAttribute("notice", new Notice());
-			return "/notice/list";
+			return "notice/list";
 		}
 		
 		return "notice/updateNotice";
@@ -103,7 +102,7 @@ public class NoticeController {
 	public String noticeUpdate(@Valid NoticeFormDto noticeFormDto, Model model, BindingResult bindingResult) {
 		
 		if(bindingResult.hasErrors()) {
-			return "/notice/list";
+			return "notice/list";
 		}
 		
 		
@@ -112,7 +111,7 @@ public class NoticeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "공지사항 수정 중 에러가 발생했습니다.");
-			return "/notice/list";
+			return "notice/list";
 		}
 		return "redirect:/notice/list";
 	}
@@ -145,7 +144,7 @@ public class NoticeController {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "공지사항 상세정보를 가져오는 중 에러가 발생했습니다.");
 			model.addAttribute("notice", new Notice());
-			return "/notice/listNotice";
+			return "notice/listNotice";
 		}
 		
 		return "notice/readNotice";

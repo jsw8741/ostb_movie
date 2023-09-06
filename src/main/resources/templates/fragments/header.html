@@ -34,8 +34,8 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">예매</p></li>
-															<li><a href="#">- 빠른예매</a></li>
-															<li><a href="/book/schedule">- 상영시간표</a></li>
+															<li><a href="/book/ticketing">- 빠른예매</a></li>
+															<li><a href="/movie/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">스토어</p></li>
@@ -43,7 +43,7 @@
 															<li><a href="/item/items/TICKET">- 영화관람권</a></li>
 															<li><a href="/item/items/VOUCHER">- 상품권</a></li>
 															<li><a href="/item/items/GOODS">- 굿즈</a></li>
-															<li><a href="/item/items/SNAK">- 스낵</a></li>
+															<li><a href="/item/items/SNACK">- 스낵</a></li>
 															<li><a href="/item/items/DRINK">- 음료</a></li>
 														</ul>
 														<!-- <ul class="single-mega cn-col-5">
@@ -71,8 +71,8 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">예매</p></li>
-															<li><a href="#">- 빠른예매</a></li>
-															<li><a href="/book/schedule">- 상영시간표</a></li>
+															<li><a href="/book/ticketing">- 빠른예매</a></li>
+															<li><a href="/movie/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">스토어</p></li>
@@ -80,7 +80,7 @@
 															<li><a href="/item/items/TICKET">- 영화관람권</a></li>
 															<li><a href="/item/items/VOUCHER">- 상품권</a></li>
 															<li><a href="/item/items/GOODS">- 굿즈</a></li>
-															<li><a href="/item/items/SNAK">- 스낵</a></li>
+															<li><a href="/item/items/SNACK">- 스낵</a></li>
 															<li><a href="/item/items/DRINK">- 음료</a></li>
 														</ul>
 
@@ -99,7 +99,7 @@
 																onclick="return checkLogin();">- 채팅 문의</a></li>
 														</ul>
 													</div></li>
-												<li><a href="#">스토어</a>
+												<li><a href="/item/items">스토어</a>
 													<div class="megamenu">
 														<ul class="single-mega cn-col-7">
 														</ul>
@@ -109,8 +109,8 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">예매</p></li>
-															<li><a href="#">- 빠른예매</a></li>
-															<li><a href="/book/schedule">- 상영시간표</a></li>
+															<li><a href="/book/ticketing">- 빠른예매</a></li>
+															<li><a href="/movie/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">스토어</p></li>
@@ -118,7 +118,7 @@
 															<li><a href="/item/items/TICKET">- 영화관람권</a></li>
 															<li><a href="/item/items/VOUCHER">- 상품권</a></li>
 															<li><a href="/item/items/GOODS">- 굿즈</a></li>
-															<li><a href="/item/items/SNAK">- 스낵</a></li>
+															<li><a href="/item/items/SNACK">- 스낵</a></li>
 															<li><a href="/item/items/DRINK">- 음료</a></li>
 														</ul>
 
@@ -179,8 +179,8 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">예매</p></li>
-															<li><a href="#">- 빠른예매</a></li>
-															<li><a href="/book/schedule">- 상영시간표</a></li>
+															<li><a href="/book/ticketing">- 빠른예매</a></li>
+															<li><a href="/movie/schedule">- 상영시간표</a></li>
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">스토어</p></li>
@@ -188,7 +188,7 @@
 															<li><a href="/item/items/TICKET">- 영화관람권</a></li>
 															<li><a href="/item/items/VOUCHER">- 상품권</a></li>
 															<li><a href="/item/items/GOODS">- 굿즈</a></li>
-															<li><a href="/item/items/SNAK">- 스낵</a></li>
+															<li><a href="/item/items/SNACK">- 스낵</a></li>
 															<li><a href="/item/items/DRINK">- 음료</a></li>
 														</ul>
 
@@ -215,7 +215,7 @@
 															<li><a href="/admin/itemform">- 상품 등록</a></li>
 															<li><a href="/admin/items">- 상품관리</a></li>
 															<li><a href="/admin/members">- 회원관리</a></li>
-															<li><a href="#">- 상영관 등록</a></li>
+															<li><a href="/admin/theater/new">- 상영관 등록</a></li>
 															<li><a href="/lost/list">- 분실물 관리</a></li>
 															<li><a href="/chatt/list">- 채팅 관리</a></li>
 														</ul>
@@ -234,8 +234,8 @@
 										<div class="header_bar">
 											<!-- <i class=" fa-solid fa-lock fa"></i> <i
 												class=" fa-solid fa-user-plus fa"></i> -->
-											<a href="/order/myCart" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"> 
-											<i class="fa-solid fa-cart-shopping"></i>
+											<a href="/order/myCart"> <i
+												class="fa-solid fa-cart-shopping"></i>
 											</a>
 										</div>
 									</div>
@@ -249,7 +249,8 @@
 	</div>
 
 	<script th:inline="javascript">
-		async function checkLogin() {
+		async
+		function checkLogin() {
 			try {
 				const response = await
 				fetch("/check-login", {

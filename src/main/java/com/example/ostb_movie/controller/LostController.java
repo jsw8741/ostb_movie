@@ -47,7 +47,7 @@ public class LostController {
         Member member = principal.getMember();
 		
 		if (bindingResult.hasErrors()) {
-			return "/lost/createLost";
+			return "lost/createLost";
 		}
 
 		try {
@@ -56,7 +56,7 @@ public class LostController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "분신물 등록 중 에러가 발생했습니다.");
-			return "/lost/createLost";
+			return "lost/createLost";
 		}
 		return "redirect:/lost/list";
 	}
