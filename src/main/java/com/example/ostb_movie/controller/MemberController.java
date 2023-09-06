@@ -26,7 +26,6 @@ import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.Payment;
 import com.example.ostb_movie.service.MemberService;
 import com.example.ostb_movie.service.PaymentService;
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
