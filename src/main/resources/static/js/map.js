@@ -1,4 +1,7 @@
 /** google_map js **/
+var map;
+var marker;
+
 function myMap() {
     var mapProp = {
         center: new google.maps.LatLng(37.4502889, 126.7029031),
@@ -39,5 +42,11 @@ function myMap() {
       map,
     });
   });
+  
+  google.maps.event.addDomListener(window, 'resize', function () {
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center);
+    });
 }
 

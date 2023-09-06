@@ -211,10 +211,4 @@ public class FaqController {
 		return "FAQ/faqFrend";
 	}
 	
-	
-	
-	
-	
-	
-	
 }
