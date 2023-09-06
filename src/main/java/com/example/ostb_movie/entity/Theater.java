@@ -1,14 +1,13 @@
 package com.example.ostb_movie.entity;
 
 import java.time.LocalDateTime;
-import java.util.*;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.example.ostb_movie.dto.TheaterFormDto;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
@@ -33,13 +32,9 @@ public class Theater extends BaseEntity {
 	private String age; // 연령등급
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "movie_id") // 해당하는 상영관과 연결된 영화 정보
+	@JoinColumn(name = "movie_id") // 해당하는 상영관과 연결된 영화
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Movie movie;
-
-//	@OneToMany(mappedBy = "theater")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	private List<Book> bookList = new ArrayList<Book>();
 
 	public void updateTheater(TheaterFormDto theaterFormDto) {
 		this.theaterInfo = theaterFormDto.getTheaterInfo();

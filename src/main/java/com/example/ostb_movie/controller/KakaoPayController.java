@@ -75,14 +75,14 @@ public class KakaoPayController {
 	@GetMapping("/pay/success")
 	public String success(@RequestParam("pg_token") String pgToken, HttpSession session, Principal principal) {
 		String tid = (String) session.getAttribute("tid");
+		System.out.println("asdasdasd");
 		List<String> selectedItems = (List<String>) session.getAttribute("selectedItems");
+			for (String itemId : selectedItems) {
+				Cart cart = cartService.getCartItemById(Long.parseLong(itemId));
+				orderService.cartOrder(cart, cart.getEmail());
+				cartService.deletcart(Long.parseLong(itemId));
+			}	
 		
-		for (String itemId : selectedItems) {
-			Cart cart = cartService.getCartItemById(Long.parseLong(itemId));
-			orderService.cartOrder(cart, cart.getEmail());
-			cartService.deletcart(Long.parseLong(itemId));
-			
-		}
 		// 카카오 결재 요청하기
 		KakaoPayApproveDto kakaoPayApproveDto = kakaoPayService.kakaoPayApprove(tid, pgToken);
 		session.removeAttribute("tid");

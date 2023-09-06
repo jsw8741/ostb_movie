@@ -1,12 +1,9 @@
 package com.example.ostb_movie.dto;
 
 import java.time.LocalDateTime;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.example.ostb_movie.entity.*;
-
 import lombok.*;
 
 @Getter

@@ -10,7 +10,7 @@
 			border: none;
 			color: #fff;
 			margin-left: 15px;
-			font-weight: bold;
+			font-weight: 500;
 		}
 
 		table {
@@ -46,13 +46,16 @@
 			border: none;
 			padding: 5px 10px;
 			color: #fff;
-			font-weight: bold;
 			background-color: transparent;
 		}
 
 		.update:hover,
 		.delete:hover {
 			color: #29a5ff;
+		}
+
+		.sub_txt {
+			font-weight: 500 !important;
 		}
 	</style>
 </th:block>
@@ -62,7 +65,7 @@
 		<div class="inner">
 			<p class="box_tit df">상영정보 관리</p>
 			<div class="box_content_2">
-				<form th:action="@{/book/theaterMng}" method="get" style="margin-bottom: 50px;">
+				<form th:action="@{/admin/theaterMng}" method="get" style="margin-bottom: 50px;">
 					<input type="date" name="viewDate" th:value="${viewDate}" />
 					<button type="submit" class="find">조회</button>
 				</form>
@@ -100,10 +103,10 @@
 							<td class="sub_txt" th:text="${#temporals.format(schedule.endTime, 'yyyy-MM-dd HH:mm')}">
 							</td>
 							<td class="sub_txt">
-								<a th:href="@{/book/theater/{theaterId}(theaterId=${schedule.id})}"
+								<a th:href="@{/admin/theater/{theaterId}(theaterId=${schedule.id})}"
 									class="update mr-15">수정</a>
 								<span class="mr-15 c_c4">|</span>
-								<a th:href="@{/book/theater/delete/{theaterId}(theaterId=${schedule.id})}"
+								<a th:href="@{/admin/theater/delete/{theaterId}(theaterId=${schedule.id})}"
 									class="delete" onclick="return confirm('상영정보를 삭제합니다.')">삭제</a>
 							</td>
 						</tr>
