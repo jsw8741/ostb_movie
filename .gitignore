@@ -35,3 +35,6 @@ build/
 **/application-oauth.properties
 **/email.properties
 **/ItemController.java
+
+# KakaoPayService.java 파일을 Git 저장소에서 제외
+src/main/java/com/example/ostb_movie/service/KakaoPayService.java

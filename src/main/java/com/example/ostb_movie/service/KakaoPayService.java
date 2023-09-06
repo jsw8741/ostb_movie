@@ -39,12 +39,12 @@ public class KakaoPayService {
 		payParams.add("total_amount", params.get("totalPrice")); //가격
 		payParams.add("tax_free_amount", "0");
 		if(params.get("int") == "1") {
-			payParams.add("approval_url", "http://localhost/bookpay/success");
+			payParams.add("approval_url", "http://ec2-3-39-194-146.ap-northeast-2.compute.amazonaws.com/bookpay/success");
 		}else {
-			payParams.add("approval_url", "http://localhost/pay/success");
+			payParams.add("approval_url", "http://ec2-3-39-194-146.ap-northeast-2.compute.amazonaws.com/pay/success");
 		}
-		payParams.add("cancel_url", "http://localhost/pay/cancel");
-		payParams.add("fail_url", "http://localhost/pay/fail");
+		payParams.add("cancel_url", "http://ec2-3-39-194-146.ap-northeast-2.compute.amazonaws.com/pay/cancel");
+		payParams.add("fail_url", "http://ec2-3-39-194-146.ap-northeast-2.compute.amazonaws.com/pay/fail");
 
 		HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<>(payParams, headers);
 		
