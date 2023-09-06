@@ -10,12 +10,8 @@
 <div layout:fragment="content">
 	<div class="container">
 		<div class="inner">
-
-			<a href="/book/theater/new">상영등록</a> <br /> <br /> <a
-				href="/book/ticketing">예매</a> <br /> <br />
-
 			<p class="box_tit">상영시간표</p>
-			<form class="date" action="/book/schedule" method="get">
+			<form class="date" action="/movie/schedule" method="get">
 				<input type="hidden" name="viewDate" id="selectedDate">
 			</form>
 			<div class="date" style="margin-bottom: 50px;">
@@ -55,10 +51,8 @@
 							<div class="time_list_wrap">
 								<div class="time_list"
 									th:class="${schedule.startTime lt #temporals.createNow()} ? 'time_list off' : 'time_list on'">
-									<input type="radio" th:id="${schedule.id}"
-										th:name="${schedule.id}"
-										th:disabled="${schedule.startTime lt #temporals.createNow()}" />
-									<label th:for="${schedule.id}">
+									<input type="radio" id="selectedMovie" name="selectedMovie">
+									<label for="selectedMovie">
 										<p class="start"
 											th:text="${#temporals.format(schedule.startTime, 'HH:mm')}">
 										</p>

@@ -1,55 +1,197 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
+
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 
 <th:block layout:fragment="css">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/book.css}" />
 </th:block>
+
 <div layout:fragment="content">
 	<div class="container">
 		<div class="inner">
 			<p class="box_tit">예매내역</p>
-			<div class="movie_ticket_box history_contents">
+			<div class="movie_ticket_box">
 				<div class="left_conts">
-					<div class="page_tab">
-						<a href="history" class="rin2"><button type="button" class="on" style="cursor: pointer;">관람
-								가능 예매내역</button></a> <a href="history?tab=1" class="rin2"><button type="button"
-								style="cursor: pointer;">지난 예매내역</button></a> <a href="history?tab=2"
-							class="rin2"><button type="button" style="cursor: pointer;">취소 예매내역</button></a> <a
-							href="history?tab=3" class="rin2"><button type="button" style="cursor: pointer;">취소 및
-								환불규정</button></a>
-					</div>
-					<div id="resvList" class="tab_desc tabType1">
+					<ul class="ul-div" id="tabButtons">
+						<li><button class="tab-btn active-tab" data-tab="tab1">전체
+								예매내역</button></li>
+						<li><button class="tab-btn" data-tab="tab2">취소 예매내역</button></li>
+						<li><button class="tab-btn" data-tab="tab3">취소 및
+								환불규정</button></li>
+					</ul>
 
-						<div class="msg_box">
-							<p>내역이 없습니다.</p>
+					<div class="section" id="tab1" style="display: block;">
+						<div th:if="${#lists.size(completed) == 0}"
+							style="padding: 165px 0;">
+							<i class="fa-solid fa-circle-exclamation c_c4 df"
+								style="font-size: 2rem;"></i> <br /> <span class="tit c_c4 df">내역이
+								없습니다.</span>
+						</div>
+						<div th:unless="${#lists.size(completed) == 0}">
+							<span class="sub_txt">전체 예매내역</span> <span class="sub_txt"
+								style="color: #29a5ff;"
+								th:text="${#lists.size(completed)} + '건'"></span>
+							<table class="table" style="margin-top: 16px !important;">
+								<thead style="border-top: 1px solid #fff !important;">
+									<tr>
+										<th scope="col">예매내역</th>
+										<th scope="col">예매번호</th>
+										<th scope="col">결제일시</th>
+										<th scope="col">결제방법 / 금액</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="payment : ${completed}">
+										<td><span
+											th:text="${payment.book.seat.theater.movie.movieTitle} + ' / '"></span>
+											<span
+											th:text="${payment.book.seat.theater.theaterInfo} + ' / '"></span>
+											<span
+											th:text="${#temporals.format(payment.book.seat.theater.startTime, 'yyyy-MM-dd HH:mm')} + ' / '"></span>
+											<span
+											th:text="${#lists.size(#strings.arraySplit(payment.book.seat.seatNm, ',')) + '명'}"></span>
+										</td>
+										<td th:text="${payment.book.bookNo}"></td>
+										<td
+											th:text="${#temporals.format(payment.paymentDate, 'yyyy-MM-dd HH:mm')}">
+										</td>
+										<td
+											th:text="${payment.paymentMethode} + ' / ' + ${payment.book.price} + '원'">
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<!-- end of :: wrap -->
+
+					<div class="section" id="tab2" style="display: none;">
+						<div th:if="${#lists.size(canceled) == 0}"
+							style="padding: 165px 0;">
+							<i class="fa-solid fa-circle-exclamation c_c4 df"
+								style="font-size: 2rem;"></i> <br /> <span class="tit c_c4 df">내역이
+								없습니다.</span>
+						</div>
+						<div th:unless="${#lists.size(canceled) == 0}">
+							<span class="sub_txt">취소 예매내역</span> <span class="sub_txt"
+								style="color: #29a5ff;" th:text="${#lists.size(canceled)} + '건'"></span>
+							<table class="table" style="margin-top: 16px !important;">
+								<thead style="border-top: 1px solid #fff !important;">
+									<tr>
+										<th scope="col">예매내역</th>
+										<th scope="col">예매번호</th>
+										<th scope="col">취소일시</th>
+										<th scope="col">결제방법 / 금액</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="payment : ${canceled}">
+										<td><span
+											th:text="${payment.book.seat.theater.movie.movieTitle} + ' / '"></span>
+											<span
+											th:text="${payment.book.seat.theater.theaterInfo} + ' / '"></span>
+											<span
+											th:text="${#temporals.format(payment.book.seat.theater.startTime, 'yyyy-MM-dd HH:mm')} + ' / '"></span>
+											<span
+											th:text="${#lists.size(#strings.arraySplit(payment.book.seat.seatNm, ',')) + '명'}"></span>
+										</td>
+										<td th:text="${payment.book.bookNo}"></td>
+										<td th:text="${payment.updateTime}"></td>
+										<td
+											th:text="${payment.paymentMethode} + ' / ' + ${payment.book.price} + '원'">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="section" id="tab3" style="display: none;">
+						<span class="sub_txt">영화예매 취소 및 취소 시 환불 안내</span>
+						<ul class="cancel_info">
+							<li>•&nbsp;&nbsp;[예매내역 > 전체 예매내역]에서 [예매 취소] 버튼을 누르면 예매가
+								취소됩니다.</li>
+							<li>•&nbsp;&nbsp;취소 가능 시간이 지난 예매내역은 [예매 취소] 버튼이 사라집니다.</li>
+							<li>•&nbsp;&nbsp;예매내역에 안내된 취소 가능 시간이 지나면 취소할 수 없습니다.</li>
+							<li>•&nbsp;&nbsp;단, 관람 당일 영화 <span
+								style="text-decoration: underline; text-decoration-color: red; color: red;">상영시간
+									20분 전까지만 취소 및 교환 환불 가능</span>합니다.
+							</li>
+							<li>•&nbsp;&nbsp;이는 영화관람 표준 약관에 준하게 됩니다.</li>
+							<li>•&nbsp;&nbsp;예매 완료 후에는 일부만 취소하실 수 없습니다.</li>
+							<li>•&nbsp;&nbsp;예매내역 전체를 취소하신 후 원하는 장수만큼 다시 예매해야 합니다. 단,
+								재예매 시 좌석이 매진될 수 있습니다.</li>
+							<li>•&nbsp;&nbsp;카카오페이머니나 카카오 포인트를 사용하신 경우 각각의 잔액으로 원복 됩니다.</li>
+							<li>•&nbsp;&nbsp;카드 결제를 하신 경우는 카드사 정책에 따라 승인 취소가 진행되며 3일 이후
+								매입 취소 시 영업일 기준 3~10일 소요됩니다.</li>
+						</ul>
+					</div>
 				</div>
 				<div class="right_conts">
-					<div class="area">
-						<p class="sec_tit">영화 관람 방법</p>
-						<ul>
-							<li>예매번호 확인</li>
-							<li>관람 극장 매표소 또는 무인발권기에서 입장권 발권</li>
-							<li>영화관람</li>
-						</ul>
-						<div class="msg_box">
-							<p>•&nbsp;&nbsp;&nbsp;취소가능일시 이후에는 인터넷&amp;모바일로 예매 취소가 불가합니다.</p>
-							<a href="/PETC/mypage?tab=3"><button type="button" style="color: #fff;">취소 유의사항
-									보기</button>
-								<i class="fa-solid fa-angle-right"></i></a>
-						</div>
+					<span class="tit">영화 관람 방법</span>
+					<ul class="list-group text-center">
+						<li class="list-group-item">예매번호 확인</li>
+						<li class="list-group-item">매표소 또는 무인 발권기에서 입장권 발권</li>
+						<li class="list-group-item">영화관람</li>
+					</ul>
+					<div
+						style="border-top: 1px solid darkgray; margin: 30px 0; display: flex; justify-content: space-between;">
+						<p class="msg">•&nbsp;&nbsp;취소 가능일 이후에는 인터넷&nbsp;&&nbsp;모바일로
+							예매 취소가 불가합니다.</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
 
 <th:block layout:fragment="script">
+	<script th:inline="javascript">
+	$(document).ready(function(){
+   		var errorMessage = [[${errorMessage}]];
+   	   	var successMessage = [[${successMessage}]];
+   	   	
+   	   	if(errorMessage != null){
+   	       	alert(errorMessage);
+   	   	}
+
+   	   	if(successMessage != null){
+   	       	alert(successMessage);
+   	       	window.close();
+   	   	}
+	});
+		// 탭 클릭 이벤트
+		document.addEventListener('DOMContentLoaded', function () {
+			const tabButtons = document.getElementById('tabButtons');
+			const tabSections = document.querySelectorAll('.section');
+
+			tabButtons.addEventListener('click', function (event) {
+				if (event.target.tagName === 'BUTTON') {
+					const tabId = event.target.getAttribute('data-tab');
+
+					// 모든 탭 버튼, 섹션을 숨긴다
+					const buttons = tabButtons.querySelectorAll('button');
+					for (let i = 0; i < buttons.length; i++) {
+						buttons[i].classList.remove('active-tab');
+					}
+
+					for (let i = 0; i < tabSections.length; i++) {
+						tabSections[i].style.display = 'none';
+					}
+
+					// 클릭한 버튼, 섹션을 보이게 처리한다
+					event.target.classList.add('active-tab');
+					document.getElementById(tabId).style.display = 'block';
+				}
+			});
+		});
+	</script>
+
 </th:block>
 
 </html>

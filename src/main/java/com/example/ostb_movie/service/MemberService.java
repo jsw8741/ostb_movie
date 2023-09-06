@@ -98,4 +98,5 @@ public class MemberService implements UserDetailsService{
 		
 		return member.getId();
 	}
+
 }

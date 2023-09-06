@@ -3,11 +3,6 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
 
-<head>
-<meta name="_csrf" th:content="${_csrf.token}" />
-<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-</head>
-
 <th:block layout:fragment="css">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/book.css}" />
 </th:block>
@@ -18,7 +13,7 @@
 		<div class="inner">
 			<p class="box_tit df">상영정보 등록</p>
 			<div class="box_content df">
-				<form class="form_area" action="/book/theater/new"
+				<form class="form_area" action="/admin/theater/new"
 					th:object="${theaterFormDto}" method="post">
 					<input type="hidden" th:field="*{id}" />
 					<div class="form_wrap">
@@ -98,7 +93,12 @@
 <th:block layout:fragment="script">
 	<script type="text/javascript" th:src="@{/js/theaterForm.js}"></script>
 	<script>
-		
+	$(document).ready(function () {
+		var errorMessage = [[${errorMessage}]];
+		if (errorMessage != null) {
+			alert(errorMessage);
+		}
+	}
 	</script>
 </th:block>
 

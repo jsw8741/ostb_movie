@@ -17,7 +17,6 @@
 </style>
 </th:block>
 
-
 <div layout:fragment="content">
 	<div class="container">
 		<div class="inner">
@@ -49,7 +48,8 @@
 								th:if="${status.first or schedule.movie.id != schedules[status.index - 1].movie.id}">
 								<div class="tit_group" style="margin: 0">
 									<p class="age mr-15" th:text="${schedule.age}"></p>
-									<p class="tit mr-15" th:text="${schedule.movie.movieTitle}"></p>
+									<p class="tit mr-15 movieTitle"
+										th:text="${schedule.movie.movieTitle}"></p>
 								</div>
 								<div class="tit_group">
 									<p class="sub_txt mr-15 c_c4"
@@ -83,9 +83,11 @@
 											th:disabled="${schedule.startTime lt #temporals.createNow()}" />
 										<p style="display: none;" th:id="title + ${status.index}"
 											th:text="${schedule.movie.movieTitle}"></p>
+										<p style="display: none;" th:id="memberId"
+											th:text="${member.id}"></p>
 										<p style="display: none;" th:id="movieImg + ${status.index}"
 											th:text="${schedule.movie.imgUrl}"></p>
-										<p style="display: none;" th:id="movieId + ${status.index}"
+										<p style="display: none;" th:id="theaterId + ${status.index}"
 											th:text="${schedule.id}"></p>
 										<p style="display: none;" th:id="startTime + ${status.index}"
 											th:text="${#temporals.format(schedule.startTime, 'yyyy-MM-dd HH:mm')}"></p>
@@ -110,7 +112,8 @@
 				</div>
 
 				<div class="second_sec" id="seatSelect" style="display: none;">
-					<span class="tit">좌석선택</span>
+					<span class="tit">인원 / 좌석</span> <span class="seat-info">*
+						최대 6명 선택 가능</span>
 
 					<!-- type별 가격 다른 부분은 생각해볼것
 					
@@ -121,40 +124,54 @@
 					</select>
 				
 					 -->
-
 					<div class="screen df">SCREEN</div>
-					<div id="seatDiv" style="margin: 50px 0;"></div>
+					<div id="seatDiv"></div>
+					<div
+						style="display: flex; align-items: center; justify-content: flex-end; padding: 60px 0;">
+						<span class="seat-icon"></span>
+						<p class="seat-icon-info">선택가능</p>
+						<span class="seat-icon sel-seat"></span>
+						<p class="seat-icon-info">현재선택</p>
+						<span class="seat-icon done-seat"></span>
+						<p class="seat-icon-info">선택불가</p>
+					</div>
 				</div>
 
 				<div class="pay_sec" id="paySelect" style="display: none;">
 					<div>
 						<span class="tit">결제수단선택</span>
-						<details style="margin: 30px 0 !important;">
+						<!-- <details style="margin: 30px 0 !important;">
 							<summary class="tit">할인쿠폰</summary>
-							<select>
+							<select id="coupon">
 								<option value="">사용하실 쿠폰을 선택해 주세요.</option>
 								<option value=""></option>
 
 							</select>
-						</details>
+						</details> -->
 						<details style="margin: 30px 0 !important;">
-							<summary class="tit">관람권</summary>
-							<select>
-								<option value="">사용하실 관람권을 선택해 주세요.</option>
+							<summary style="margin-bottom: 10px !important;" class="tit">관람권</summary>
+							<select id="voucher">
+								<option value="">사용할 관람권을 선택해 주세요.</option>
 								<option value=""></option>
 							</select>
 						</details>
 						<details style="margin: 30px 0 !important;">
-							<summary class="tit">포인트</summary>
-							<span style="display: flex;">사용하실 포인트를 입력해 주세요.</span>
-							<input type="number"><button>사용</button>
+							<summary style="margin-bottom: 10px !important;" class="tit">포인트</summary>
+							<span style="margin-right: 8px;" th:if="${member.point == null}">보유
+								포인트 0원</span>
+							<span style="margin-right: 8px;"
+								th:unless="${member.point == null}"
+								th:text="'보유 포인트 ' + ${member.point} + '원'"></span>
+							<input placeholder="사용할 포인트" type="number" id="pointInput">
+							<button id="usePointBtn" class="sub_txt">사용</button>
+							<br />
 						</details>
 
 						<div style="margin: 30px 0 !important;">
 							<span class="tit"
-								style="display: flex; margin-bottom: 30px !important;">최종결제수단</span>
-							<input type="radio" style="margin-right: 0 8px 0 0;"
-								value="payment" /> <label class="sub_tit" for="payment">카카오페이</label>
+								style="display: flex; margin-bottom: 10px !important;">최종결제수단</span>
+							<input type="radio" value="카카오페이" checked onclick="return false" /> <label
+								style="margin-left: 8px;" class="tit" for="카카오페이">카카오페이</label>
 
 						</div>
 					</div>
@@ -164,15 +181,17 @@
 						<div
 							style="display: flex; align-items: center; align-content: center; flex-direction: column; justify-content: center;">
 							<span class="tit" style="display: flex;">결제하실 금액</span> <span
-								class="df">0원</span>
+								class="df" id="payTotalPrice">0원</span>
 						</div>
 						<div>
-							<span class="sub_tit">할인내역</span> <span class="tit"
-								style="display: flex;">총 할인금액</span> <span class="df">0원</span>
+							<span class="sub_txt">할인내역</span> <span class="tit"
+								style="display: flex;">총 할인금액</span> <span class="df"
+								id="discountPrice">0원</span>
 						</div>
 						<div>
-							<span class="sub_tit">결제내역</span> <span class="tit"
-								style="display: flex;">남은 결제금액</span> <span class="df">0원</span>
+							<span class="sub_txt">결제내역</span> <span class="tit"
+								style="display: flex;">남은 결제금액</span> <span class="df"
+								id="finalPrice">0원</span>
 						</div>
 
 					</div>
@@ -180,6 +199,13 @@
 
 				<div class="third_sec" id="selectedMovieInfo"
 					style="border-left: 1px solid #fff;">
+					<div
+						style="display: flex; justify-content: flex-end; align-items: center;">
+						<button id="resetBtn" class="sub_txt">
+							초기화<i class="fa-solid fa-arrow-rotate-left"
+								style="padding-left: 5px;"></i>
+						</button>
+					</div>
 					<div class="book_info_wrap">
 						<div class="book_info_img">
 							<img id="getImgUrl"
@@ -191,19 +217,19 @@
 								<p class="tit getTitle">-</p>
 								<div class="info_list">
 									<p class="sub_txt c_c4 mr-15">상영</p>
-									<p class="sub_txt getWhere"></p>
+									<p class="sub_txt getWhere">-</p>
 								</div>
 								<div class="info_list">
 									<p class="sub_txt c_c4 mr-15">일시</p>
-									<p class="sub_txt getDate"></p>
+									<p class="sub_txt getDate">-</p>
 								</div>
 								<div class="info_list">
 									<p class="sub_txt c_c4 mr-15">인원</p>
-									<p class="sub_txt count" id="reservationCnt"></p>
+									<p class="sub_txt count" id="reservationCnt">-</p>
 								</div>
 								<div class="info_list">
 									<p class="sub_txt c_c4 mr-15">좌석</p>
-									<p class="sub_txt getSeat"></p>
+									<p class="sub_txt getSeat">-</p>
 								</div>
 							</div>
 						</div>
