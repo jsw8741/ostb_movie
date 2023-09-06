@@ -93,7 +93,7 @@ public class OrderController {
 	}
 
 	@GetMapping(value = "/order/myCart")
-	public String myCart(Model model, Authentication authentication, @ModelAttribute("CartDto") CartDto cartDto,
+	public String myCart(Model model, Authentication authentication,CartDto cartDto,
 			BindingResult bindingResult) {
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 		Member member = principal.getMember();

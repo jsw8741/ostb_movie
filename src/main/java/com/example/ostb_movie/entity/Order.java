@@ -26,14 +26,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders")
 @Getter
 @Setter
 @ToString
 public class Order {
 
 	@Id
-	@Column(name = "Order_id")
+	@Column(name = "order_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 

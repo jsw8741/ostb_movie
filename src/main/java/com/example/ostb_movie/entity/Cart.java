@@ -33,7 +33,7 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String email;
+	private String Email;
 
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToOne(fetch = FetchType.LAZY)
