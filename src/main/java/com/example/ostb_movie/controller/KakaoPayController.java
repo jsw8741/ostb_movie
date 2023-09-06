@@ -88,7 +88,7 @@ public class KakaoPayController {
 		KakaoPayApproveDto kakaoPayApproveDto = kakaoPayService.kakaoPayApprove(tid, pgToken);
 		session.removeAttribute("tid");
 		session.removeAttribute("params");
-		redirectAttributes.addFlashAttribute("successMessage", "결제가 완료되었습니다.");
+		redirectAttributes.addFlashAttribute("successMessage", "결제완료 버튼을 눌러주세요.");
 
 		return "redirect:/members/pay/success";
 	}

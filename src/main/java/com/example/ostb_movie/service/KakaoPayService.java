@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 public class KakaoPayService {
 
 	public KakaoPayReadyDto kakaoPay(Map<String, Object> params) {
-		System.out.println("2222222222");
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "KakaoAK a729a14eaa765b52faa416faff03f519");
 		headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");

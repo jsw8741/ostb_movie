@@ -16,10 +16,10 @@ import com.example.ostb_movie.entity.Order;
 
 public interface CartRepository extends JpaRepository<Cart,Long>{
 	@Modifying
-	@Query(value = "delete from Cart where cart_id = :cartId", nativeQuery = true)
+	@Query(value = "delete from cart where cart_id = :cartId", nativeQuery = true)
 	void deleteByitemId(@Param("cartId") long cartId);
 	
 
-	@Query(value = "select * from Cart where email = :email", nativeQuery = true)
+	@Query(value = "select * from cart where email = :email", nativeQuery = true)
 	List<Cart> getCartItem(@Param("email") String email);
 }

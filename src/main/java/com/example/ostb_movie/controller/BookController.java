@@ -176,7 +176,6 @@ public class BookController {
 	@ResponseBody
 	public KakaoPayReadyDto kakaoPayReady(HttpSession session, Model model, Principal principal,
 			@RequestParam Map<String, Object> paramMap) {
-		System.out.println("1111111111111111111");
 		Map<String, Object> params = new HashMap<>();
 
 		Long theaterId = Long.parseLong(String.valueOf(paramMap.get("theaterId")));
@@ -316,7 +315,7 @@ public class BookController {
 	@GetMapping(value = "/members/pay/success")
 	public String paySuccess() {
 		
-		return "/paySuccess";
+		return "paySuccess";
 	}
 
 }
