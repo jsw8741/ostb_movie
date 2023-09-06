@@ -92,24 +92,7 @@ public class MemberController {
 		return "member/myPage";
 
 	}
-
-	// 팝업
-	@GetMapping(value = "/members/infoPop")
-	public String pop(Authentication authentication, Model model) {
-
-		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-		Member member = principal.getMember();
-
-		Member updateMember = memberService.findMember(member.getEmail());
-
-		MypageFormDto mypageFormDto = MypageFormDto.of(member);
-
-		model.addAttribute("member", updateMember);
-		model.addAttribute("mypageFormDto", mypageFormDto);
-
-		return "member/myPagePop";
-	}
-
+	
 	// (Master)회원 관리창
 	@GetMapping(value = { "/admin/members", "/admin/members/{page}" })
 	public String memberManage(MemberSearchDto memberSearchDto, @PathVariable("page") Optional<Integer> page,
@@ -215,9 +198,6 @@ public class MemberController {
 				model.addAttribute("errorMessage", "프로필 등록 중 에러가 발생했습니다.");
 				return "member/myPagePop";
 			}
-			
-			
-			
 			Member updateMember = memberService.findMember(member.getEmail());
 			model.addAttribute("member",updateMember);
 			model.addAttribute("mypageFormDto",mypageFormDto);
