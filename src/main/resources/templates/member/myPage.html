@@ -2,77 +2,104 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
-	
+
 <th:block layout:fragment="css">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/memberInfo.css}"/>
-</th:block>	
+	<link rel="stylesheet" type="text/css" th:href="@{/css/memberInfo.css}" />
+</th:block>
 
 <div layout:fragment="content">
 
 	<section class="contact-section spad">
 		<div class="container">
 			<div class="row">
-					<div class="col-lg-8">
-						<div class="room-details-item">
-							<div class="rd-text">
-								<div class="rd-title">
-									<img class="profile" th:src="${member.memberImg}"/>
-									<div class="box-contents">
-										<h3 th:text="${member.name} + 님"></h3>
-										<em class="mp-email">[[${member.email}]]</em>
-										<span class="mp-nickname">닉네임:<i>[[${member.nickname}]]</i>
-										</span>
-										<button class="fa-solid fa-pen authorId_btn" ></button>
-										<div th:unless="${#strings.equals(member.password, 'SNS 로그인')}">
-											<a class="pwPop">비밀번호 변경하기</a>	
-										</div>
-										<div>
-											<h4 class="main-grade">등급: VIP
-												<button class="grade-ok" type='button' id="modal_btn">등급별 혜택 확인</button>
-											</h4>
-										</div>
+				<div class="col-lg-8">
+					<div class="room-details-item">
+						<div class="rd-text">
+							<div class="rd-title">
+								<img class="profile" th:src="${member.memberImg}" />
+								<div class="box-contents">
+									<h3 th:text="${member.name} + 님"></h3>
+									<em class="mp-email">[[${member.email}]]</em> <span
+										class="mp-nickname">닉네임:<i>[[${member.nickname}]]</i>
+									</span>
+									<button class="fa-solid fa-pen authorId_btn"></button>
+									<div th:unless="${#strings.equals(member.password, 'SNS 로그인')}">
+										<a class="pwPop">비밀번호 변경하기</a>
 									</div>
-								</div>
-								<div class="mycoupon">
-									<div class="coupon-title">
-										<h3 class="coupon-info">MY COUPON</h3>
-										<div class="coupon-detail">
-											<strong>OSTB 할인쿠폰</strong>
-											<strong class="coupon-count">1개</strong>
-										</div>
-									</div>
-									<div class="myVIP">
-										<h3 class="VIP-grade">VIP 점수</h3>
-										<strong>VIP누적 점수 43000/49999점</strong>
+									<div>
+										<h4 class="main-grade">
+											등급: VIP
+											<button class="grade-ok" type='button' id="modal_btn">등급별
+												혜택 확인</button>
+										</h4>
 									</div>
 								</div>
 							</div>
-
+							<div class="mycoupon">
+								<div class="coupon-title">
+									<h3 class="coupon-info">MY COUPON</h3>
+									<div class="coupon-detail">
+										<strong>OSTB 할인쿠폰</strong> <strong class="coupon-count">1개</strong>
+									</div>
+								</div>
+								<div class="myVIP">
+									<h3 class="VIP-grade">VIP 점수</h3>
+									<strong>VIP누적 점수 43000/49999점</strong>
+								</div>
+							</div>
 						</div>
+
 					</div>
+				</div>
 			</div>
 		</div>
 		<div class="modal_background"></div>
 		<div class="modal_wrap">
-		<div class="modal_title"><p class="modal_text">회원등급안내</p></div>
-		    <div class="modal_close">X</div>
-		    <div class="text">
-		       <img class="VIPlogo" alt="VIP로고" src="/images/VIPlogo.png">
-		       <P class="modal_vip">고객님은 <b>VIP</b>등급입니다.<br>VVIP선정 기준 충족 시 다음달 즉시 승급됩니다.<br>매월 1일~9일까지는 등급 조정 기간으로
-		       등급 확인이 어려우며, 하단에 표시된 VIP점수는 전월 말일까지의 <br>실적으로 집계됩니다. 매월 10일 이후 고객님의 VIP <br>승급 여부를 확인하실 수 있습니다.
-		       <br>※<b>VIP선정 기준 - 구매금액의 1% 적립</b><br>누적 포인트 0 ~ 29999점까지는 일반 회원입니다.<br>누적 포인트 30000 ~ 49999점까지는 VIP회원입니다.
-		       <br>누적 포인트가 50000점 이상이면 VVIP회원입니다.</P>
-		    </div>
+			<div class="modal_title">
+				<p class="modal_text">회원등급안내</p>
+			</div>
+			<div class="modal_close">X</div>
+			<div class="text">
+				<img class="VIPlogo" alt="VIP로고" src="/images/VIPlogo.png">
+				<P class="modal_vip">
+					고객님은 <b>VIP</b>등급입니다.<br>VVIP선정 기준 충족 시 다음달 즉시 승급됩니다.<br>매월
+					1일~9일까지는 등급 조정 기간으로 등급 확인이 어려우며, 하단에 표시된 VIP점수는 전월 말일까지의 <br>실적으로
+					집계됩니다. 매월 10일 이후 고객님의 VIP <br>승급 여부를 확인하실 수 있습니다. <br>※<b>VIP선정
+						기준 - 구매금액의 1% 적립</b><br>누적 포인트 0 ~ 29999점까지는 일반 회원입니다.<br>누적
+					포인트 30000 ~ 49999점까지는 VIP회원입니다. <br>누적 포인트가 50000점 이상이면
+					VVIP회원입니다.
+				</P>
+			</div>
 		</div>
 		<div class="mypage">
 			<h3 class="myostb">MY OSTB HOME</h3>
-			<p class ="ostb-caution">예매번호로만 티켓을 찾을 수 있으니 반드시 확인
-				부탁드립니다.</p>
-			<h4 class="myreserv">	
-				MY 예매내역 &nbsp; <a href="/members/reserv" class=myreserv-detail>0건</a>
+			<p class="ostb-caution">
+				예매번호로만 티켓을 찾을 수 있으니 반드시 확인 부탁드립니다.<br />해당 페이지에서는 최근 예매내역 중 3개까지만
+				확인하실 수 있습니다.
+			</p>
+			<h4 class="myreserv">
+				MY 예매내역 &nbsp; <a href="/members/reserv" class=myreserv-detail>더보기</a>
 			</h4>
-			<div class="myreserv-contents">
+			<div th:if="${#lists.size(ticket) == 0}" class="myreserv-contents">
 				<p>고객님의 최근 예매 내역이 존재하지 않습니다.</p>
+			</div>
+			<div th:unless="${#lists.size(ticket) == 0}"
+				class="myreserv-contents"
+				style="display: flex; flex-direction: column; justify-content: center;">
+				<div th:each="ticket : ${ticket}">
+					<ul
+						style="margin: 0 !important; padding: 0 0 0 25px; color: #fff; font-size: 14px;">
+						<li style="margin: 0; padding: 0;"><span
+							th:text="${ticket.book.seat.theater.movie.movieTitle} + ' / '"></span>
+							<span th:text="${ticket.book.seat.theater.theaterInfo} + ' / '"></span>
+							<span th:text="${ticket.book.bookNo} + ' / '"></span>
+							<span
+							th:text="${#temporals.format(ticket.book.seat.theater.startTime, 'yyyy-MM-dd HH:mm')} + ' / '"></span>
+							<span
+							th:text="${#lists.size(#strings.arraySplit(ticket.book.seat.seatNm, ',')) + '명'}"></span>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<br>
 			<h4 class="myqna">
@@ -83,76 +110,88 @@
 			</div>
 			<br>
 		</div>
-			<h4 class="myreview">
-				MY REVIEW &nbsp; <a class="review-count" th:href="'/member/reviewPage/' + ${member.id}">더보기</a>
-			</h4>
+		<h4 class="myreview" style="padding-top: 35px;">
+			MY REVIEW &nbsp; <a class="review-count"
+				th:href="'/member/reviewPage/' + ${member.id}">더보기</a>
+		</h4>
 
 	</section>
 </div>
 <th:block layout:fragment="script">
-	<script src="https://kit.fontawesome.com/17ee3c24a2.js" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/17ee3c24a2.js"
+		crossorigin="anonymous"></script>
 	<script>
-	
-	
-	//모달창 열기
-	function modalOpen() {
-	    document.querySelector('.modal_wrap').style.display = 'block';
-	    document.querySelector('.modal_background').style.display = 'block';
-	}
+		//모달창 열기
+		function modalOpen() {
+			document.querySelector('.modal_wrap').style.display = 'block';
+			document.querySelector('.modal_background').style.display = 'block';
+		}
 
-	// 모달창 끄기
-	function modalClose() {
-	    document.querySelector('.modal_wrap').style.display = 'none';
-	    document.querySelector('.modal_background').style.display = 'none';
-	}
+		// 모달창 끄기
+		function modalClose() {
+			document.querySelector('.modal_wrap').style.display = 'none';
+			document.querySelector('.modal_background').style.display = 'none';
+		}
 
+		//버튼 클릭리스너 달기
+		document.querySelector('#modal_btn').addEventListener('click',
+				modalOpen);
+		document.querySelector('.modal_close').addEventListener('click',
+				modalClose);
 
-	//버튼 클릭리스너 달기
-	document.querySelector('#modal_btn').addEventListener('click', modalOpen);
-	document.querySelector('.modal_close').addEventListener('click', modalClose);
-	
+		$('.authorId_btn')
+				.on(
+						"click",
+						function(e) {
 
-	$('.authorId_btn').on("click",function(e){
-		
-		e.preventDefault();
-		
-		let popUrl = "/members/infoPop";
-		let popOption = "width = 570px, height=600px, top=300px, left=300px, scrollbars=yes";
-		window.open(popUrl,"프로필 변경",popOption);
-		
-	});
-	
-	$('.pwPop').on("click",function(p){
-		
-		p.preventDefault();
-		
-		let pwCheckUrl = "/members/checkPw";
-		let popOption = "width = 650px, height=200px, top=300px, left=300px, scrollbars=no";
-		
-		window.open(pwCheckUrl,"비밀번호 확인",popOption);
-		
-	});
-	
-    function bindDomEvent(){
-        $(".custom-file-input").on("change", function() {
-            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
-            var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
-            fileExt = fileExt.toLowerCase(); //소문자 변환
+							e.preventDefault();
 
-            if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
-                alert("이미지 파일만 등록이 가능합니다.");
-                // 파일 선택을 초기화하고 에러 메시지를 표시
-                $(this).val(""); // 파일 선택 초기화
-                $(this).siblings(".custom-file-label").html("Choose file"); // 파일 선택 라벨 초기화
-                // 기본 이미지 파일 경로를 지정
-                $("#profileImage").attr("src", "/images/profile.png");
-                return;
-            }
+							let popUrl = "/members/infoPop";
+							let popOption = "width = 570px, height=600px, top=300px, left=300px, scrollbars=yes";
+							window.open(popUrl, "프로필 변경", popOption);
 
-            $(this).siblings(".custom-file-label").html(fileName);
-        });
-    }
+						});
 
+		$('.pwPop')
+				.on(
+						"click",
+						function(p) {
+
+							p.preventDefault();
+
+							let pwCheckUrl = "/members/checkPw";
+							let popOption = "width = 650px, height=200px, top=300px, left=300px, scrollbars=no";
+
+							window.open(pwCheckUrl, "비밀번호 확인", popOption);
+
+						});
+
+		function bindDomEvent() {
+			$(".custom-file-input").on(
+					"change",
+					function() {
+						var fileName = $(this).val().split("\\").pop(); //이미지 파일명
+						var fileExt = fileName.substring(fileName
+								.lastIndexOf(".") + 1); // 확장자 추출
+						fileExt = fileExt.toLowerCase(); //소문자 변환
+
+						if (fileExt != "jpg" && fileExt != "jpeg"
+								&& fileExt != "gif" && fileExt != "png"
+								&& fileExt != "bmp") {
+							alert("이미지 파일만 등록이 가능합니다.");
+							// 파일 선택을 초기화하고 에러 메시지를 표시
+							$(this).val(""); // 파일 선택 초기화
+							$(this).siblings(".custom-file-label").html(
+									"Choose file"); // 파일 선택 라벨 초기화
+							// 기본 이미지 파일 경로를 지정
+							$("#profileImage").attr("src",
+									"/images/profile.png");
+							return;
+						}
+
+						$(this).siblings(".custom-file-label").html(fileName);
+					});
+		}
 	</script>
 </th:block>
 </html>

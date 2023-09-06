@@ -20,7 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.dto.MypageFormDto;
 import com.example.ostb_movie.entity.Member;
+import com.example.ostb_movie.entity.Payment;
 import com.example.ostb_movie.service.MemberService;
+import com.example.ostb_movie.service.PaymentService;
 import com.fasterxml.jackson.annotation.JacksonInject.Value;
 
 import jakarta.validation.Valid;
@@ -32,6 +34,7 @@ public class MemberController {
 
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
+	private final PaymentService paymentService;
 	
 	// 현재 비밀번호 확인 화면
 	@GetMapping(value = "/members/checkPw")
@@ -87,9 +90,18 @@ public class MemberController {
 		//현재 로그인한 회원 정보 가져오기
 		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         Member member = principal.getMember();
+        String email = member.getEmail();
 		
         Member updateMember = memberService.findMember(member.getEmail());
-		model.addAttribute("member",updateMember);
+        
+        // 예매내역 목록
+        List<Payment> ticket = paymentService.getTicketList(email);
+        List<Payment> completed = paymentService.getCompleteList(email);
+        
+        model.addAttribute("member",updateMember);
+        
+		model.addAttribute("ticket", ticket);
+		model.addAttribute("completed", completed);
 		
 		return "member/myPage";
 		

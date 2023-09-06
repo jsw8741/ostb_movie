@@ -16,6 +16,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PaymentService {
 	private final PaymentRepository paymentRepository;
+	
+	// 마이페이지 예매내역 
+	@Transactional(readOnly = true)
+	public List<Payment> getTicketList(String email) {
+		return paymentRepository.getTicketList(email);
+	}
 
 	// 예매완료 목록 조회
 	@Transactional(readOnly = true)
