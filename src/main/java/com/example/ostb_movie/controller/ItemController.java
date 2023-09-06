@@ -59,6 +59,8 @@ public class ItemController {
 			model.addAttribute("categori", "굿즈");
 		} else if (categori.toString() == "DRINK") {
 			model.addAttribute("categori", "음료");
+		}	else if (categori.toString() == "TICKET") {
+			model.addAttribute("categori", "영화관람권");
 		}
 		model.addAttribute("categoryName", categori);
 		model.addAttribute("items", items);
@@ -106,7 +108,8 @@ public class ItemController {
 	// 상품 관리 창
 	@GetMapping(value = { "/admin/items", "/admin/items/{page}" })
 	public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
-
+		System.err.println("ssss" + page.toString());
+		System.err.println("ssss" + itemSearchDto.getSearchBy() + itemSearchDto.getSearchQuery());
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
 
 		Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);

@@ -64,6 +64,8 @@ a {
 	top: 15px;
 	position: relative;
 }
+.form-control{
+width: 485px;}
 </style>
 </th:block>
 
@@ -164,15 +166,11 @@ a {
 				page(0);
 			});
 		});
-		// 페이징버튼 눌렀을때 검색어와 selectbox를 get방식으로 주소 이동시켜준다
 		function page(page) {
-			// 입력한 값을 전부 가져온다
-			var searchDateType = $("#searchDateType").val();
+			
 			var searchBy = $("#searchBy").val();
-			var searchQuery = $("#searchQuery").val();
-			// 주소 이동
-			location.href = "/admin/items/" + page + "&searchBy=" + searchBy
-					+ "&searchQuery=" + searchQuery;
+		    var searchQuery = $("#searchQuery").val();
+		    location.href = "/admin/items/" + page + "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
 		}
 	</script>
 </th:block>

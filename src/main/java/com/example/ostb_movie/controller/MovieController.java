@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.ostb_movie.dto.ReviewDto;
+import com.example.ostb_movie.entity.Itemimg;
 import com.example.ostb_movie.entity.Movie;
 import com.example.ostb_movie.entity.MovieStatus;
 import com.example.ostb_movie.entity.Review;
+import com.example.ostb_movie.service.ItemImgService;
 import com.example.ostb_movie.service.MovieService;
 import com.example.ostb_movie.service.MovieStatusService;
 import com.example.ostb_movie.service.ReviewService;
@@ -27,10 +29,12 @@ public class MovieController {
 	private final MovieService movieService;
 	private final MovieStatusService movieStatusService;
 	private final ReviewService reviewService;
+	private final ItemImgService itemImgService;
 	
 	@GetMapping(value = "/")
 	public String movieHome(Model model, Authentication authentication){
-		
+		List<Itemimg> items = itemImgService.allItemList();
+		model.addAttribute("items", items);
 		// 로그인되지 않은 상태
 		if (authentication == null || !authentication.isAuthenticated()) {
 

@@ -8,13 +8,15 @@
 </head>
 <th:block layout:fragment="css">
 	<style>
+	.content{
+	padding-top: 150px;}
 .fieldError {
 	color: #bd2130;
 }
 
 .h5 {
 	margin-top: 10px;
-	color: #06BBCC;
+	color: white;
 }
 
 .custom-select {
@@ -126,11 +128,12 @@
 							<div class="form-group row">
 								<div class="col-md-12 custom-select">
 									<select class="form-select " th:field="*{categori}">
-										<option value="VOUCHER">상품권</option>
+										<option value="TICKET">영화관람권</option>
 										<option value="POPCON">팝콘</option>
 										<option value="SNACK">스낵</option>
 										<option value="DRINK">음료</option>
 										<option value="GOODS">굿즈</option>
+										<option value="VOUCHER">상품권</option>
 									</select>
 								</div>
 							</div>

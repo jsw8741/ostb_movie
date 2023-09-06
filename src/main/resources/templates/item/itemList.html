@@ -4,11 +4,15 @@
 	layout:decorate="~{layouts/layout1}">
 
 <th:block layout:fragment="css">
+
 	<style>
+.content {
+	padding-top: 100px;
+}
+
 .store_var {
 	border-bottom: solid 2px white;
 	width: 100%;
-	padding-top: 50px;
 }
 
 .store_sub_item div:nth-child(1) {
@@ -117,7 +121,6 @@ h3, h2 {
 }
 
 .item_header i {
-	color: white;
 	font-size: 30px;
 }
 
@@ -143,18 +146,31 @@ h3, h2 {
 .item_li div {
 	display: grid
 }
+
+.category_items {
+	color: white;
+}
+
+.category_items:hover {
+	color: #29A5ff;
+}
+
+.item_li>div>span:nth-child(1) {
+	color: white;
+	margin-top: 50px;
+}
 </style>
 </th:block>
 
 <div layout:fragment="content">
 	<div class=store>
 		<div class="store_var">
-			<h2>스토어</h2>
+			<a href="/item/items"><h2>스토어</h2></a>
 		</div>
 		<div class="store_category">
-			<a href="/item/items/VOUCHER">영화 관람권</a> <a href="/item/items/POPCON">팝콘</a>
+			<a href="/item/items/TICKET">영화 관람권</a> <a href="/item/items/POPCON">팝콘</a>
 			<a href="/item/items/DRINK">음료</a> <a href="/item/items/SNACK">스낵</a>
-			<a href="/item/items/GOODS">굿즈</a>
+			<a href="/item/items/GOODS">굿즈</a> <a href="/item/items/VOUCHER">상품권</a>
 		</div>
 
 		<div>
@@ -162,19 +178,22 @@ h3, h2 {
 				<div class="store_main_item">
 					<div class="item_header">
 						<h3>영화관람권</h3>
-						<i class="fa-solid fa-circle-plus"></i>
+						<a href="/item/items/TICKET" class="category_items"> <i
+							class="fa-solid fa-circle-plus"></i>
+						</a>
 					</div>
 					<div class="mainitemlist">
 						<th:block th:each="item : ${items}"
-							th:if="${#strings.equals(item.item.categori, 'VOUCHER')}">
+							th:if="${#strings.equals(item.item.categori, 'TICKET')}">
 							<div class="item_itme">
 								<div class="main_item_img">
-									<a th:href="'/item/' + ${item.item.id}"> 
-										<img th:alt="${item.ImgName}" th:src="${item.imgUrl}" th:href="'/item/' + ${item.item.id}">
-									</a>
-									<a th:href="'/item/' + ${item.item.id}"	th:text="${item.item.itemNm}"></a> 
-									<br>
-									<a th:href="'/item/' + ${item.item.id}">[[${#numbers.formatInteger(item.item.price, 0, 'COMMA')}]]원</a>
+									<a th:href="'/item/' + ${item.item.id}"> <img
+										th:alt="${item.ImgName}" th:src="${item.imgUrl}"
+										th:href="'/item/' + ${item.item.id}">
+									</a> <a th:href="'/item/' + ${item.item.id}"
+										th:text="${item.item.itemNm}"></a> <br> <a
+										th:href="'/item/' + ${item.item.id}">[[${#numbers.formatInteger(item.item.price,
+										0, 'COMMA')}]]원</a>
 								</div>
 							</div>
 						</th:block>
@@ -184,15 +203,16 @@ h3, h2 {
 					<div class="row">
 						<div class="item_header">
 							<h3>팝콘</h3>
-							<a href="/item/items/POPCON"> <i
+							<a href="/item/items/POPCON" class="category_items"> <i
 								class="fa-solid fa-circle-plus"></i>
 							</a>
 						</div>
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
 								th:if="${#strings.equals(item.item.categori, 'POPCON')}">
-								<li class="item_li"><span class="sub_item_img"> <a th:href="'/item/' + ${item.item.id}"><img
-										alt="item" th:src="${item.imgUrl}"></a>
+								<li class="item_li"><span class="sub_item_img"> <a
+										th:href="'/item/' + ${item.item.id}"><img alt="item"
+											th:src="${item.imgUrl}"></a>
 								</span>
 									<div>
 										<span th:text="${item.item.itemNm}"> </span> <span>[[${#numbers.formatInteger(item.item.price,
@@ -204,18 +224,19 @@ h3, h2 {
 					<div class="row">
 						<div class="item_header">
 							<h3>음료</h3>
-							<a href="/item/items/DRINK"> <i
+							<a href="/item/items/DRINK" class="category_items"> <i
 								class="fa-solid fa-circle-plus"></i>
 							</a>
 						</div>
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
 								th:if="${#strings.equals(item.item.categori, 'DRINK')}">
-								<li class="item_li"><span class="sub_item_img"> <a th:href="'/item/' + ${item.item.id}"> <img
-										alt="item" th:src="${item.imgUrl}"></a>
+								<li class="item_li"><span class="sub_item_img"> <a
+										th:href="'/item/' + ${item.item.id}"> <img alt="item"
+											th:src="${item.imgUrl}"></a>
 								</span>
 									<div>
-										<span th:text="${item.item.itemNm}"> </span>  <span>[[${#numbers.formatInteger(item.item.price,
+										<span th:text="${item.item.itemNm}"> </span> <span>[[${#numbers.formatInteger(item.item.price,
 											0, 'COMMA')}]]원 </span>
 									</div></li>
 							</th:block>
@@ -226,18 +247,19 @@ h3, h2 {
 					<div class="row">
 						<div class="item_header">
 							<h3>스낵</h3>
-							<a href="/item/items/SNAK"> <i
+							<a href="/item/items/SNAK" class="category_items"> <i
 								class="fa-solid fa-circle-plus"></i>
 							</a>
 						</div>
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
 								th:if="${#strings.equals(item.item.categori, 'SNAK')}">
-								<li class="item_li"><span class="sub_item_img"> <a th:href="'/item/' + ${item.item.id}"> <img
-										alt="item" th:src="${item.imgUrl}"></a>
+								<li class="item_li"><span class="sub_item_img"> <a
+										th:href="'/item/' + ${item.item.id}"> <img alt="item"
+											th:src="${item.imgUrl}"></a>
 								</span>
 									<div>
-										<span th:text="${item.item.itemNm}"> </span>  <span>[[${#numbers.formatInteger(item.item.price,
+										<span th:text="${item.item.itemNm}"> </span> <span>[[${#numbers.formatInteger(item.item.price,
 											0, 'COMMA')}]]원 </span>
 									</div></li>
 							</th:block>
@@ -246,22 +268,47 @@ h3, h2 {
 					<div class="row">
 						<div class="item_header">
 							<h3>굿즈</h3>
-							<a href="/item/items/GOODS"> <i
+							<a href="/item/items/GOODS" class="category_items"> <i
 								class="fa-solid fa-circle-plus"></i>
 							</a>
 						</div>
 						<ul class="sub_item">
 							<th:block th:each="item, status: ${items}"
 								th:if="${#strings.equals(item.item.categori, 'GOODS')}">
-								<li class="item_li"><span class="sub_item_img"> <a th:href="'/item/' + ${item.item.id}"> <img
-										alt="item" th:src="${item.imgUrl}"></a>
+								<li class="item_li"><span class="sub_item_img"> <a
+										th:href="'/item/' + ${item.item.id}"> <img alt="item"
+											th:src="${item.imgUrl}"></a>
 								</span>
 									<div>
-										<span th:text="${item.item.itemNm}"> </span>  <span>[[${#numbers.formatInteger(item.item.price,
+										<span th:text="${item.item.itemNm}"> </span> <span>[[${#numbers.formatInteger(item.item.price,
 											0, 'COMMA')}]]원 </span>
 									</div></li>
 							</th:block>
 						</ul>
+					</div>
+				</div>
+				<div class="store_main_item">
+					<div class="item_header">
+						<h3>상품권</h3>
+						<a href="/item/items/VOUCHER" class="category_items"> <i
+							class="fa-solid fa-circle-plus"></i>
+						</a>
+					</div>
+					<div class="mainitemlist">
+						<th:block th:each="item : ${items}"
+							th:if="${#strings.equals(item.item.categori, 'VOUCHER')}">
+							<div class="item_itme">
+								<div class="main_item_img">
+									<a th:href="'/item/' + ${item.item.id}"> <img
+										th:alt="${item.ImgName}" th:src="${item.imgUrl}"
+										th:href="'/item/' + ${item.item.id}">
+									</a> <a th:href="'/item/' + ${item.item.id}"
+										th:text="${item.item.itemNm}"></a> <br> <a
+										th:href="'/item/' + ${item.item.id}">[[${#numbers.formatInteger(item.item.price,
+										0, 'COMMA')}]]원</a>
+								</div>
+							</div>
+						</th:block>
 					</div>
 				</div>
 			</div>

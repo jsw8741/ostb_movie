@@ -8,6 +8,9 @@
 </head>
 <th:block layout:fragment="css">
 	<style>
+.content{
+	padding-top: 100px;
+}
 h3 {
 	border-bottom: 1px solid white;
 	padding-bottom: 20px;
@@ -100,12 +103,12 @@ a {
 <div layout:fragment="content">
 	<div class=store>
 		<div class="store_var">
-			<h2>스토어</h2>
+			<a href="/item/items"><h2>스토어</h2></a>
 		</div>
 		<div class="store_category">
-			<a href="/item/items/VOUCHER">영화 관람권</a> <a href="/item/items/POPCON">팝콘</a>
+			<a href="/item/items/TICKET">영화 관람권</a> <a href="/item/items/POPCON">팝콘</a>
 			<a href="/item/items/DRINK">음료</a> <a href="/item/items/SNACK">스낵</a>
-			<a href="/item/items/GOODS">굿즈</a>
+			<a href="/item/items/GOODS">굿즈</a> <a href="/item/items/VOUCHER">상품권</a>
 		</div>
 
 		<div>

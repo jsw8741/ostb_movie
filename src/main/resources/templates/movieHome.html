@@ -61,8 +61,55 @@
 		</div>
 	
         
-        <div>
-        	건이 아이템
+        <div class="item">
+        	<div class="item_list">
+				<div class="item_header">
+					<h3>팝콘</h3>
+					<a href="/item/items/POPCON" class="category_items"> <i class="fa-solid fa-circle-plus"></i></a>
+				</div>
+				<ul class="sub_item">
+					<th:block th:each="item, status: ${items}"th:if="${#strings.equals(item.item.categori, 'POPCON')}">
+						<li class="item_li">
+						<span class="sub_item_img"> <a th:href="'/item/' + ${item.item.id}"> <img alt="item" th:src="${item.imgUrl}"></a></span>
+						<div>
+							<span th:text="${item.item.itemNm}"> </span> <span>[[${#numbers.formatInteger(item.item.price, 0, 'COMMA')}]]원 </span>
+						</div>
+						</li>
+					</th:block>
+				</ul>
+			</div>
+        	<div class="item_list">
+				<div class="item_header">
+					<h3>영화관람권</h3>
+					<a href="/item/items/TICKET" class="category_items"> <i class="fa-solid fa-circle-plus"></i></a>
+				</div>
+				<ul class="sub_item">
+					<th:block th:each="item, status: ${items}"th:if="${#strings.equals(item.item.categori, 'TICKET')}">
+						<li class="item_li">
+						<span class="sub_item_img"> <a th:href="'/item/' + ${item.item.id}"> <img alt="item" th:src="${item.imgUrl}"></a></span>
+						<div>
+							<span th:text="${item.item.itemNm}"> </span> <span>[[${#numbers.formatInteger(item.item.price, 0, 'COMMA')}]]원 </span>
+						</div>
+						</li>
+					</th:block>
+				</ul>
+			</div>
+        	<div class="item_list">
+				<div class="item_header">
+					<h3>굿즈</h3>
+					<a href="/item/items/GOODS" class="category_items"> <i class="fa-solid fa-circle-plus"></i></a>
+				</div>
+				<ul class="sub_item">
+					<th:block th:each="item, status: ${items}"th:if="${#strings.equals(item.item.categori, 'GOODS')}">
+						<li class="item_li">
+						<span class="sub_item_img"> <a th:href="'/item/' + ${item.item.id}"> <img alt="item" th:src="${item.imgUrl}"></a></span>
+						<div>
+							<span th:text="${item.item.itemNm}"> </span> <span>[[${#numbers.formatInteger(item.item.price, 0, 'COMMA')}]]원 </span>
+						</div>
+						</li>
+					</th:block>
+				</ul>
+			</div>
         </div>
         
         
