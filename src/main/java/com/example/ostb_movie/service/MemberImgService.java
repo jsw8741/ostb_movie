@@ -17,8 +17,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional
 public class MemberImgService {
-//	@Value("${profileImgLocation}")
-	private String memberImgLocation = "C:/movie/profile";
+	@Value("${profileImgLocation}")
+	private String memberImgLocation;
+//	private String memberImgLocation = "C:/movie/profile";
 	private final MemberRepository memberRepository;
 	private final FileService fileService;
 	
