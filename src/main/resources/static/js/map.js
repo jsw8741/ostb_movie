@@ -1,7 +1,4 @@
 /** google_map js **/
-var map;
-var marker;
-
 function myMap() {
     var mapProp = {
         center: new google.maps.LatLng(37.4502889, 126.7029031),
@@ -15,9 +12,7 @@ function myMap() {
     map: map,
     label: "ostb movie",
     icon: {
-        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-        labelOrigin: new google.maps.Point(20, 47),
-        anchor: new google.maps.Point(50,32)
+        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
     }
   });
   
@@ -42,11 +37,5 @@ function myMap() {
       map,
     });
   });
-  
-  google.maps.event.addDomListener(window, 'resize', function () {
-        var center = map.getCenter();
-        google.maps.event.trigger(map, "resize");
-        map.setCenter(center);
-    });
 }
 
