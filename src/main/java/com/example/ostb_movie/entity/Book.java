@@ -3,10 +3,9 @@ package com.example.ostb_movie.entity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.example.ostb_movie.service.BookService;
+import com.example.ostb_movie.constant.PaymentStatus;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
@@ -21,31 +20,26 @@ public class Book {
 
 	private String bookNo; // 예매번호
 
-	private int totalPrice; // 총금액
+	private int discount; // 할인
+
+	private int price; // 금액
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "seat_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Seat seat;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "payment_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Payment payment;
+	// 할인 적용된 총금액
+	public int calculateTotalPrice() {
+		int totalPrice = this.price;
 
+		totalPrice -= this.discount;
 
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinColumn(name = "theater_id")
-	 * 
-	 * @OnDelete(action = OnDeleteAction.CASCADE) private Theater theater;
-	 */
+		if (totalPrice < 0) {
+			totalPrice = 0;
+		}
 
-	/*
-	 * @OneToMany(mappedBy = "book")
-	 * 
-	 * @OnDelete(action = OnDeleteAction.CASCADE) private List<SeatReservation>
-	 * seatReservationList = new ArrayList<SeatReservation>();
-	 */
+		return totalPrice;
+	}
+
 }

@@ -17,19 +17,15 @@ public class Seat {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String name; // 좌석이름
-	
-	private String type; // 좌석타입
+	private String seatNm; // 좌석이름
 
-	private int price; // 가격
+	// private String type; // 좌석타입
+
+	// private int price; // 가격
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "theater_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Theater theater;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "book_id")
-//	@OnDelete(action = OnDeleteAction.CASCADE)
-//	private Book book;
+
 }

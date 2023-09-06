@@ -62,5 +62,15 @@ public class LostService {
 		Lost lost = lostRepository.findById(lostId).orElseThrow(EntityNotFoundException::new);
 		lostRepository.delete(lost);
 	}
+	
+	// lost 갯수
+	public Long count() {
+		return lostRepository.count();
+	}
+	
+	// lost 가져오기
+	public Lost getLost(Long lostId) {
+		return lostRepository.findById(lostId).orElseThrow(EntityNotFoundException::new);
+	}
 
 }

@@ -142,5 +142,11 @@ public class Member{
         this.totalPay = totalPay;
         
     }
+    
+    public Member nickNameUpdate(String nickname) {
+		this.nickname = nickname;
+		
+		return this;
+	}
 
 }

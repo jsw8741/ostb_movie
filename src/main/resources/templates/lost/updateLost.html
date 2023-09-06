@@ -16,11 +16,23 @@
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/FAQ.css}">
 	<link rel="stylesheet" th:href="@{/css/lost.css}">
+	<style>	
+		.status_box{
+			display: flex;
+			justify-content: center;
+		}
+		
+		.status_box_title{
+			line-height: 80px;
+			color: white;
+			margin-right: 10px;
+		}
+</style>
 </th:block>
 
 
 
-<div layout:fragment="content">
+<div layout:fragment="content" >
 	<section class="wrap_con">
 		<div class="layout1">
 			<div class="acodiList acodi_type1">
@@ -35,7 +47,7 @@
 							<!-- 컨텐츠 불러오는 영역 -->
 							<div class="wrap_box">
 								<div class="inner600">
-									<div class="board_list_type1">
+									<!-- <div class="board_list_type1">
 										<ul class="col3 clear">
 
 											<li>
@@ -49,12 +61,14 @@
 
 
 										</ul>
-									</div>
-									<div class="login_input text-right">
+									</div> -->
+									<div class="login_input text-right status_box">
+										<h3 class="status_box_title">상태관리</h3>
+									
 										<div class="select_ui py-3">
 											<select th:for="lostStatus" name="lostStatus" id="lostStatus"
 												th:field="*{lostStatus}">
-												<option value="">상태선택</option>
+												<option value="" disabled>상태선택</option>
 												<option th:value="'ACCEPT'" th:text="ACCEPT">ACCEPT</option>
 												<option th:value="'PROCESSING'" th:text="PROCESSING">PROCESSING</option>
 												<option th:value="'COMPLETED'" th:text="COMPLETED">COMPLETED</option>

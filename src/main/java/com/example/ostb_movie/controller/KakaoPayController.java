@@ -33,11 +33,14 @@ public class KakaoPayController {
 	private final KakaoPayService kakaoPayService;
 	private final CartService cartService;
 	private final OrderService orderService;
+
 	@GetMapping("/pay/ready")
 	@ResponseBody
 	public KakaoPayReadyDto kakaoPay(HttpSession session, Model model,
-			@RequestParam(value = "selectedItems[]", required = false) List<String> selectedItems,@RequestParam(value = "totalprice", required = false) Long totalprice,@RequestParam(value = "email", required = false) String email) {
-		
+			@RequestParam(value = "selectedItems[]", required = false) List<String> selectedItems,
+			@RequestParam(value = "totalprice", required = false) Long totalprice,
+			@RequestParam(value = "email", required = false) String email) {
+
 		// 선택된 상품 정보 출력
 		Map<String, Object> params = new HashMap<>();
 		Long totalPrice = totalprice;
@@ -54,7 +57,7 @@ public class KakaoPayController {
 			params.put("itemCount", conut - 1);
 		}
 		String tid = (String) session.getAttribute("tid");
-		
+
 		KakaoPayReadyDto res = kakaoPayService.kakaoPay(params);
 		// 주문 정보 생성 및 연결
 		Order order = new Order();
@@ -75,11 +78,12 @@ public class KakaoPayController {
 	public String success(@RequestParam("pg_token") String pgToken, HttpSession session, Principal principal) {
 		String tid = (String) session.getAttribute("tid");
 		List<String> selectedItems = (List<String>) session.getAttribute("selectedItems");
-		
+
 		for (String itemId : selectedItems) {
 			Cart cart = cartService.getCartItemById(Long.parseLong(itemId));
 			orderService.cartOrder(cart, cart.getEmail());
 			cartService.deletcart(Long.parseLong(itemId));
+
 		}
 		// 카카오 결재 요청하기
 		KakaoPayApproveDto kakaoPayApproveDto = kakaoPayService.kakaoPayApprove(tid, pgToken);
@@ -87,12 +91,12 @@ public class KakaoPayController {
 		session.removeAttribute("params");
 		return "/";
 	}
+
 	private String generateRandomPayNo() {
 		SecureRandom secureRandom = new SecureRandom();
 		byte[] randomBytes = new byte[16];
 		secureRandom.nextBytes(randomBytes);
 		return new String(randomBytes);
 	}
-	
-	
+
 }

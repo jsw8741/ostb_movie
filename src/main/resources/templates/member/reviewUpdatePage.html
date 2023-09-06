@@ -15,17 +15,17 @@
 <div layout:fragment="content">
 
 	<div class="modify_title">
-	    <h1 class="modify_rvreview">리뷰 수정</h1>
+	    <h1 class="modify_rvreview" style="margin-bottom: 100px;">리뷰 수정</h1>
 	    <form th:action="'/member/reviewUpdatePage/' + ${reviewModifyDto.id}" method="post" th:object="${reviewModifyDto}">
 	        <input type="hidden" th:value="${reviewModifyDto.id}" th:field=*{id} >
 	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	        <div class="modiy_rvcontent">
-	            <label for="content">내용:</label>
+	            <label for="content" style="margin-right: 10px;">내용</label>
 	            <textarea id="content" name="content" th:text="${reviewModifyDto.content}" th:field=*{content}></textarea>
 	        </div>
 	        
 	        <div class="modify_rvupdate">
-	            <button type="submit">리뷰 업데이트</button>
+	            <button type="submit" style="background-color: black; color: white; border: 1px solid black; margin-top: 10px; margin-right: 30px;">리뷰 업데이트</button>
 	        </div>
 	    </form>
 	</div>

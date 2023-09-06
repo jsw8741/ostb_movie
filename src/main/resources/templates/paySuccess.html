@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>결제완료</title>
+
+<style type="text/css">
+* {
+background: black;
+}
+</style>
+</head>
+<body>
+
+
+<script th:inline="javascript">
+	var errorMessage = [[${errorMessage}]];
+   	var successMessage = [[${successMessage}]];
+   	
+   	if(errorMessage != null){
+       	alert(errorMessage);
+   	}
+
+   	if(successMessage != null){
+       	alert(successMessage);
+       	window.close();
+   	}
+</script>
+</body>
+</html>

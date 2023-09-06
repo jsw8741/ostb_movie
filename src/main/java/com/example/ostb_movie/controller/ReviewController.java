@@ -6,6 +6,7 @@ import java.util.Map;
 import java.security.Principal;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.ostb_movie.auth.PrincipalDetails;
 import com.example.ostb_movie.dto.ReviewDto;
@@ -28,6 +30,7 @@ import com.example.ostb_movie.dto.ReviewModifyDto;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.Movie;
 import com.example.ostb_movie.entity.Review;
+import com.example.ostb_movie.entity.ReviewLike;
 import com.example.ostb_movie.service.ReviewService;
 
 import jakarta.validation.Valid;
@@ -39,7 +42,7 @@ public class ReviewController {
 	private final ReviewService reviewService;
 
 	//리뷰 등록
-	@PostMapping(value = "/member/myPage")
+	@PostMapping(value = "/movie/detail/{originId}")
 	public String reviewNew(@Valid ReviewDto reviewDto, BindingResult bindingResult, @RequestParam("movieId") Long movieId,
 			Model model, Authentication authentication) {
 		if(bindingResult.hasErrors()) {
@@ -69,7 +72,7 @@ public class ReviewController {
 	}
 
 	//내가 쓴 리뷰 페이지보기
-	@GetMapping(value =  { "/member/reviewPage/{memberId}", "/member/reviewPage/{memberId}/{page}" })
+	@GetMapping(value =  { "/member/reviewPage/{memberId}", "/member/reviewPage/{memberId}/{page}" } )
 	public String reviewDtl(Model model, @PathVariable("memberId") Long memberId, @PathVariable("page") Optional<Integer> Page) {
 		Pageable pageable = PageRequest.of(Page.isPresent() ? Page.get() : 0, 6);
 		
@@ -128,7 +131,7 @@ public class ReviewController {
         return new ResponseEntity<Long>(reviewId, HttpStatus.OK);
         
 	}
-	
+
 	//리뷰에 좋아요 추가
 	@PostMapping("/member/{reviewId}/like")
 	public ResponseEntity<Long> likeReview(@PathVariable Long reviewId, Authentication authentication) {
@@ -136,7 +139,7 @@ public class ReviewController {
         Member member = principal.getMember();
 		//좋아요 증가 로직 처리
 		int updatedLikeCount = reviewService.increaseLikeCount(reviewId);
-		
+
 		//업데이트된 좋아요 수를 JSON 형태로 응답
 		Map<String, Object> response = new HashMap<>();
 		response.put("updatedLikeCount", updatedLikeCount);

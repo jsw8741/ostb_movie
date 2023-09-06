@@ -29,7 +29,7 @@ public class LoginController {
 	// 로그인 화면
 	@GetMapping("/login/loginForm")
 	public String loginForm() {
-		return "/login/loginForm";
+		return "login/loginForm";
 	}
 	
 	// 회원가입 화면
@@ -48,7 +48,7 @@ public class LoginController {
         	model.addAttribute("memberFormDto", new MemberFormDto());
         }
 		
-		return "/login/joinForm";
+		return "login/joinForm";
 	}
 	
 	// 회원가입
@@ -56,7 +56,7 @@ public class LoginController {
 	public String joinNew(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){
 		if(bindingResult.hasErrors()) {
 			// 에러가 있다면 회원가입 페이지로 이동
-			return "/login/joinForm";
+			return "login/joinForm";
 		}
 		
 		try {
@@ -66,10 +66,10 @@ public class LoginController {
 			model.addAttribute("joinMessage", "회원 가입이 완료되었습니다!");
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());
-			return "/login/joinForm";
+			return "login/joinForm";
 		}
 		
-		return "/login/loginForm";
+		return "login/loginForm";
 	}
 	
 	// 로그인 실패
@@ -100,7 +100,7 @@ public class LoginController {
 			return "login/findEmail";
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());
-			return "/login/findEmailForm";
+			return "login/findEmailForm";
 		}
 		
 	}
@@ -121,7 +121,7 @@ public class LoginController {
 			// 소셜 로그인 / 회원은 불가능 
 			if(member.getPassword().equals("SNS 로그인")) {
 				model.addAttribute("SNSerrorMessage", "소셜가입 회원은 비밀번호 찾기/변경이 불가능합니다.\n간편 로그인을 이용해주세요.");
-				return "/login/loginForm";
+				return "login/loginForm";
 			}else {
 			// 2. 입력한 메일로 임시 비밀번호 전송
 			String tempPassword = EmailServiceImpl.createTempPassword();
@@ -135,9 +135,10 @@ public class LoginController {
 			return "login/loginForm";
 			}
 			
-		} catch (IllegalStateException e) {
+		} catch (Exception e) {
+			
 			model.addAttribute("errorMessage", e.getMessage());
-			return "/login/findEmailForm";
+			return "login/loginForm";
 		}
 		
 	}

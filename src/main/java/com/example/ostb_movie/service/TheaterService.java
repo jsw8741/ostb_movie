@@ -62,4 +62,9 @@ public class TheaterService {
 	public void deleteTheater(Long theaterId) {
 		theaterRepository.deleteById(theaterId);
 	}
+	
+	//  상영 정보 가져오기
+	public Theater getTheater(Long theaterId) {
+		return theaterRepository.findById(theaterId).orElseThrow(EntityNotFoundException::new);
+	}
 };

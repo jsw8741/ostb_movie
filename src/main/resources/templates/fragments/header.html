@@ -39,26 +39,26 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">스토어</p></li>
-															<li><a href="/order/myCart">- 팝콘</a></li>
-															<li><a href="/item/items">- 스낵</a></li>
-															<li><a href="/admin/itemform">- 음료</a></li>
-															<li><a href="#">- 영화 관람권</a></li>
+															<li><a href="/item/items/POPCON">- 팝콘</a></li>
+															<li><a href="/item/items/TICKET">- 영화관람권</a></li>
+															<li><a href="/item/items/VOUCHER">- 상품권</a></li>
+															<li><a href="/item/items/GOODS">- 굿즈</a></li>
+															<li><a href="/item/items/SNAK">- 스낵</a></li>
+															<li><a href="/item/items/DRINK">- 음료</a></li>
 														</ul>
-														<ul class="single-mega cn-col-5">
+														<!-- <ul class="single-mega cn-col-5">
 															<li><p class="first_title">이벤트</p></li>
 															<li><a href="#">- 룰렛 이벤트</a></li>
-														</ul>
+														</ul> -->
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">고객센터</p></li>
-															<li><a href="/FAQ/list">- FAQ</a></li>
+															<li><a href="/FAQ/list"
+																onclick="return checkLogin();">- FAQ</a></li>
 															<li><a href="/notice/list">- 공지사항</a></li>
-															<li><a sec:authorize="isAuthenticated()"
-																href="/lost/list">- 분실물 문의</a></li>
-															<li><a sec:authorize="isAuthenticated()"
-																href="/chatt/mychatt">- 이메일 문의</a></li>
-															<li><a
-																sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"
-																href="/chatt/list">- 채팅</a></li>
+															<li><a href="/lost/list"
+																onclick="return checkLogin();">- 분실물 문의</a></li>
+															<li><a href="/chatt/mychatt"
+																onclick="return checkLogin();">- 채팅 문의</a></li>
 														</ul>
 													</div></li>
 												<li><a href="#">예매</a>
@@ -76,26 +76,27 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">스토어</p></li>
-															<li><a href="/order/myCart">- 팝콘</a></li>
-															<li><a href="/item/items">- 스낵</a></li>
-															<li><a href="/admin/itemform">- 음료</a></li>
-															<li><a href="#">- 영화 관람권</a></li>
+															<li><a href="/item/items/POPCON">- 팝콘</a></li>
+															<li><a href="/item/items/TICKET">- 영화관람권</a></li>
+															<li><a href="/item/items/VOUCHER">- 상품권</a></li>
+															<li><a href="/item/items/GOODS">- 굿즈</a></li>
+															<li><a href="/item/items/SNAK">- 스낵</a></li>
+															<li><a href="/item/items/DRINK">- 음료</a></li>
 														</ul>
-														<ul class="single-mega cn-col-5">
+
+														<!-- <ul class="single-mega cn-col-5">
 															<li><p class="first_title">이벤트</p></li>
 															<li><a href="#">- 룰렛 이벤트</a></li>
-														</ul>
+														</ul> -->
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">고객센터</p></li>
-															<li><a href="/FAQ/list">- FAQ</a></li>
+															<li><a href="/FAQ/list"
+																onclick="return checkLogin();">- FAQ</a></li>
 															<li><a href="/notice/list">- 공지사항</a></li>
-															<li><a sec:authorize="isAuthenticated()"
-																href="/lost/list">- 분실물 문의</a></li>
-															<li><a sec:authorize="isAuthenticated()"
-																href="/chatt/mychatt">- 이메일 문의</a></li>
-															<li><a
-																sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"
-																href="/chatt/list">- 채팅</a></li>
+															<li><a href="/lost/list"
+																onclick="return checkLogin();">- 분실물 문의</a></li>
+															<li><a href="/chatt/mychatt"
+																onclick="return checkLogin();">- 채팅 문의</a></li>
 														</ul>
 													</div></li>
 												<li><a href="#">스토어</a>
@@ -113,29 +114,30 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">스토어</p></li>
-															<li><a href="/order/myCart">- 팝콘</a></li>
-															<li><a href="/item/items">- 스낵</a></li>
-															<li><a href="/admin/itemform">- 음료</a></li>
-															<li><a href="#">- 영화 관람권</a></li>
+															<li><a href="/item/items/POPCON">- 팝콘</a></li>
+															<li><a href="/item/items/TICKET">- 영화관람권</a></li>
+															<li><a href="/item/items/VOUCHER">- 상품권</a></li>
+															<li><a href="/item/items/GOODS">- 굿즈</a></li>
+															<li><a href="/item/items/SNAK">- 스낵</a></li>
+															<li><a href="/item/items/DRINK">- 음료</a></li>
 														</ul>
-														<ul class="single-mega cn-col-5">
+
+														<!-- <ul class="single-mega cn-col-5">
 															<li><p class="first_title">이벤트</p></li>
 															<li><a href="#">- 룰렛 이벤트</a></li>
-														</ul>
+														</ul> -->
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">고객센터</p></li>
-															<li><a href="/FAQ/list">- FAQ</a></li>
+															<li><a href="/FAQ/list"
+																onclick="return checkLogin();">- FAQ</a></li>
 															<li><a href="/notice/list">- 공지사항</a></li>
-															<li><a sec:authorize="isAuthenticated()"
-																href="/lost/list">- 분실물 문의</a></li>
-															<li><a sec:authorize="isAuthenticated()"
-																href="/chatt/mychatt">- 이메일 문의</a></li>
-															<li><a
-																sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"
-																href="/chatt/list">- 채팅</a></li>
+															<li><a href="/lost/list"
+																onclick="return checkLogin();">- 분실물 문의</a></li>
+															<li><a href="/chatt/mychatt"
+																onclick="return checkLogin();">- 채팅 문의</a></li>
 														</ul>
 													</div></li>
-												<li><a href="#">이벤트</a>
+												<!-- <li><a href="#">이벤트</a>
 													<div class="megamenu">
 														<ul class="single-mega cn-col-7">
 														</ul>
@@ -161,18 +163,13 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">고객센터</p></li>
-															<li><a href="/FAQ/list">- FAQ</a></li>
+															<li><a href="/FAQ/list" onclick="return checkLogin();">- FAQ</a></li>
 															<li><a href="/notice/list">- 공지사항</a></li>
-															<li><a sec:authorize="isAuthenticated()"
-																href="/lost/list">- 분실물 문의</a></li>
-															<li><a sec:authorize="isAuthenticated()"
-																href="/chatt/mychatt">- 이메일 문의</a></li>
-															<li><a
-																sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"
-																href="/chatt/list">- 채팅</a></li>
+															<li><a href="/lost/list" onclick="return checkLogin();">- 분실물 문의</a></li>
+															<li><a href="/chatt/mychatt" onclick="return checkLogin();">- 채팅 문의</a></li>
 														</ul>
-													</div></li>
-												<li><a href="/FAQ/list">고객센터</a>
+													</div></li> -->
+												<li><a href="/FAQ/list" onclick="return checkLogin();">고객센터</a>
 													<div class="megamenu">
 														<ul class="single-mega cn-col-7">
 														</ul>
@@ -187,44 +184,40 @@
 														</ul>
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">스토어</p></li>
-															<li><a href="/order/myCart">- 팝콘</a></li>
-															<li><a href="/item/items">- 스낵</a></li>
-															<li><a href="/admin/itemform">- 음료</a></li>
-															<li><a href="#">- 영화 관람권</a></li>
+															<li><a href="/item/items/POPCON">- 팝콘</a></li>
+															<li><a href="/item/items/TICKET">- 영화관람권</a></li>
+															<li><a href="/item/items/VOUCHER">- 상품권</a></li>
+															<li><a href="/item/items/GOODS">- 굿즈</a></li>
+															<li><a href="/item/items/SNAK">- 스낵</a></li>
+															<li><a href="/item/items/DRINK">- 음료</a></li>
 														</ul>
-														<ul class="single-mega cn-col-5">
+
+														<!-- <ul class="single-mega cn-col-5">
 															<li><p class="first_title">이벤트</p></li>
 															<li><a href="#">- 룰렛 이벤트</a></li>
-														</ul>
+														</ul> -->
 														<ul class="single-mega cn-col-5">
 															<li><p class="first_title">고객센터</p></li>
-															<li><a href="/FAQ/list">- FAQ</a></li>
+															<li><a href="/FAQ/list"
+																onclick="return checkLogin();">- FAQ</a></li>
 															<li><a href="/notice/list">- 공지사항</a></li>
-															<li><a sec:authorize="isAuthenticated()"
-																href="/lost/list">- 분실물 문의</a></li>
-															<li><a sec:authorize="isAuthenticated()"
-																href="/chatt/mychatt">- 이메일 문의</a></li>
-															<!-- 추후 USER 제거 -->
-															<li><a
-																sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"
-																href="/chatt/list">- 채팅</a></li>
+															<li><a href="/lost/list"
+																onclick="return checkLogin();">- 분실물 문의</a></li>
+															<li><a href="/chatt/mychatt"
+																onclick="return checkLogin();">- 채팅 문의</a></li>
 														</ul>
 													</div></li>
-												<li
-													sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"><a
+												<li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MASTER')"><a
 													href="#">관리자</a>
 													<div class="megamenu">
 														<ul class="single-mega cn-col-5">
 															<li><p>관리자</p></li>
 															<li><a href="/admin/itemform">- 상품 등록</a></li>
 															<li><a href="/admin/items">- 상품관리</a></li>
-															<li><a href="/admin/members">- 회원 관리</a></li>
-															<li><a href="/order/orderList">- 구매 이력 </a></li>
-															<li><a sec:authorize="isAuthenticated()"
-																href="/chatt/mychatt">- 이메일 문의</a></li>
-															<li><a
-																sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"
-																href="/chatt/list">- 채팅</a></li>
+															<li><a href="/admin/members">- 회원관리</a></li>
+															<li><a href="#">- 상영관 등록</a></li>
+															<li><a href="/lost/list">- 분실물 관리</a></li>
+															<li><a href="/chatt/list">- 채팅 관리</a></li>
 														</ul>
 													</div></li>
 												<li><a href="/members/info"
@@ -239,10 +232,11 @@
 											</ul>
 										</div>
 										<div class="header_bar">
-											<a href="/order/myCart"> <i class="fa-solid fa-cart-shopping"></i>
-											</a>
 											<!-- <i class=" fa-solid fa-lock fa"></i> <i
 												class=" fa-solid fa-user-plus fa"></i> -->
+											<a href="/order/myCart"> <i
+												class="fa-solid fa-cart-shopping"></i>
+											</a>
 										</div>
 									</div>
 								</nav>
@@ -253,6 +247,33 @@
 			</div>
 		</div>
 	</div>
+
+	<script th:inline="javascript">
+		async
+		function checkLogin() {
+			try {
+				const response = await
+				fetch("/check-login", {
+					method : "GET",
+					credentials : "include" // 쿠키를 전송하기 위해 필요한 옵션
+				});
+
+				const data = await
+				response.json();
+				if (data.isAuthenticated) {
+					// 로그인된 상태라면 링크를 클릭한 후 이동
+					return true;
+				} else {
+					alert("로그인이 필요합니다."); // 또는 원하는 메시지 출력
+					window.location.href = "/login/loginForm"; // 로그인 페이지로 리다이렉트
+					return false; // 링크를 클릭해도 이동하지 않음
+				}
+			} catch (error) {
+				console.error("로그인 여부 확인 중 오류:", error);
+				// 에러 발생 시 어떻게 처리할지 정의
+			}
+		}
+	</script>
 </div>
 
 </html>

@@ -1031,11 +1031,11 @@ button.swiper-pagination-bullet {
 .btn_typeB1 {
   display: inline-block;
   width: auto;
-  min-width: 220px;
+  min-width: 105px;
   height: 40px;
   font-family: "HGGGothicssi";
   font-weight: 600;
-  font-size: 24px;
+  font-size: 18px;
   color: #4e2bf4;
   text-align: center;
   line-height: 40px;
@@ -1043,11 +1043,12 @@ button.swiper-pagination-bullet {
   border-radius: 8px;
   padding: 0 30px;
   background-color: black;
+  margin-left: 996px;
 }
 
 .btn_typeB1:hover{
 	color: #29a5ff;
-	font-size: 24px;
+	font-size: 18px;
 	font-weight: 600;
 }
 
@@ -1213,6 +1214,9 @@ button.swiper-pagination-bullet {
   font-weight: 400;
   font-size: 18px;
   color: white;
+  align-items: center;
+  display: flex;
+  margin-left: 15px;
 }
 
 .list_top_ui .list_total em {
@@ -1658,7 +1662,7 @@ button.swiper-pagination-bullet {
   vertical-align: middle;
   background: #f5f5f5;
   border-radius: 8px;
-  /* 크롬 자동완성에서 선택시 background color */
+  /* Ã­ÂÂ¬Ã«Â¡Â¬ Ã¬Å¾ÂÃ«Ââ„¢Ã¬â„¢â€žÃ¬â€žÂ±Ã¬â€”ÂÃ¬â€žÅ“ Ã¬â€žÂ Ã­Æ’ÂÃ¬â€¹Å“ background color */
 }
 
 .inp_self:focus:not([readonly]):not(.error),
@@ -2205,6 +2209,15 @@ video {
     min-width: 280px;
     padding: 0 30px;
     margin: 0 auto;
+    margin-top: 100px;
+}
+
+.layout2 {
+    position: relative;
+    max-width: 1284px;
+    min-width: 280px;
+    padding: 0 30px;
+    margin: 0 auto;
 }
 
 em {
@@ -2246,7 +2259,7 @@ li.ac_item {}
   font-size: 15px;
   color: #fff;
   text-align: center;
-  line-height: 32px;
+  line-height: 30px;
   background-color: #999;
   border-radius: 8px;
   -webkit-transition: background-color .15s;

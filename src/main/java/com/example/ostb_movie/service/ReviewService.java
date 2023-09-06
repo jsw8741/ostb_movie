@@ -9,15 +9,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
+import com.example.ostb_movie.constant.LikeStatus;
 import com.example.ostb_movie.dto.ReviewDto;
 import com.example.ostb_movie.dto.ReviewModifyDto;
 import com.example.ostb_movie.entity.Member;
 import com.example.ostb_movie.entity.Movie;
 import com.example.ostb_movie.entity.Review;
+import com.example.ostb_movie.entity.ReviewLike;
 import com.example.ostb_movie.repository.MemberRepository;
 import com.example.ostb_movie.repository.MovieRepository;
+import com.example.ostb_movie.repository.ReviewLikeRepository;
 import com.example.ostb_movie.repository.ReviewRepository;
 
+import groovyjarjarantlr4.v4.parse.ANTLRParser.sync_return;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +32,7 @@ public class ReviewService {
 	private final ReviewRepository reviewRepository;
 	private final MovieRepository movieRepository;
 	private final MemberRepository memberRepository;
+	private final ReviewLikeRepository reviewLikeRepository;
 	
 	//리뷰 등록
 	public Long saveReview(ReviewDto reviewDto) throws Exception {
@@ -46,8 +51,10 @@ public class ReviewService {
 	
 	//리뷰 업데이트
 	public void updateReview(ReviewModifyDto reviewModifyDto) throws Exception {
+		
 		Review review = reviewRepository.findById(reviewModifyDto.getId())
 								.orElseThrow(EntityNotFoundException::new);
+		
 		review.updateReview(reviewModifyDto);
 	}
 	
@@ -114,15 +121,15 @@ public class ReviewService {
 	public int increaseLikeCount(Long reviewId) {
 		Review review = reviewRepository.findById(reviewId)
 				.orElseThrow(EntityNotFoundException::new);
-		
+
 		if(review != null) {
 			int newLikeCount = review.getRvLike() + 1;
 			review.setRvLike(newLikeCount);
 			reviewRepository.save(review);
 			return newLikeCount;
 		}
-		
-		return 0;
+
+		return 0;  
 	}
 	
 }
