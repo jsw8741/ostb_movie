@@ -234,7 +234,7 @@
 										<div class="header_bar">
 											<!-- <i class=" fa-solid fa-lock fa"></i> <i
 												class=" fa-solid fa-user-plus fa"></i> -->
-											<a href="/order/myCart"> <i
+											<a href="/order/myCart" sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_MASTER')"> <i
 												class="fa-solid fa-cart-shopping"></i>
 											</a>
 										</div>
