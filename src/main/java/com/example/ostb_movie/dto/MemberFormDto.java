@@ -2,6 +2,7 @@ package com.example.ostb_movie.dto;
 
 import org.modelmapper.ModelMapper;
 
+import com.example.ostb_movie.constant.Role;
 import com.example.ostb_movie.entity.Member;
 
 import jakarta.validation.constraints.Email;
@@ -38,10 +39,14 @@ public class MemberFormDto {
 	
 	private Long totalPay;
 	
+	private Role role;
+	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
 	//entity -> dto
 	public static MemberFormDto of(Member member) {
 		return modelMapper.map(member, MemberFormDto.class);
 	}
+	
+	
 }
