@@ -66,7 +66,7 @@ public class OneController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "1:1문의 중 에러가 발생했습니다.");
-			return "/chatt/createChatt";
+			return "chatt/createChatt";
 		}
 		return "redirect:/chatt/mychatt";
 	}
@@ -131,7 +131,7 @@ public class OneController {
 	@PostMapping("/chatt/{roomId}/chattClose")
 	public @ResponseBody ResponseEntity closeChatt(@PathVariable("roomId") String roomId, Authentication authentication) {
 		roomId = chattService.closeChatt(roomId);
-		System.out.println("sssssss" + roomId);
+
 		return new ResponseEntity<String>(roomId, HttpStatus.OK);
 	}
 	

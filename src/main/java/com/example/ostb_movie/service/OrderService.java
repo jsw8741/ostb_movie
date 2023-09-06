@@ -25,8 +25,6 @@ public class OrderService {
 
 	private final OrderRepository orderRepository;
 	private final ItemRepository itemRepository;
-	private final MemberRepository memberRepository;
-	private final ItemImgRepository itemImgRepository;
 
 	public Order saveReservation(Order order) {
 		Order  saveOrder;
