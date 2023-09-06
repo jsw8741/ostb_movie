@@ -104,6 +104,10 @@ public class Member{
 		this.memberImg = memberImg;
 	}
 	
+	public void updateAdminMember(MemberFormDto member) {
+		this.point=member.getPoint();
+		this.role=member.getRole();
+	}
 	public static Member createMaster(PasswordEncoder passwordEncoder) {
 		String password = passwordEncoder.encode("12345678");
 		

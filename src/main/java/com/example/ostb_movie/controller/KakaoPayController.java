@@ -33,39 +33,41 @@ public class KakaoPayController {
 	private final KakaoPayService kakaoPayService;
 	private final CartService cartService;
 	private final OrderService orderService;
+
 	@GetMapping("/pay/ready")
 	@ResponseBody
-	public KakaoPayReadyDto kakaoPay(HttpSession session, Model model, Principal principal,
-			@RequestParam(value = "selectedItems[]", required = false) List<String> selectedItems) {
-		Long totalPrice = (long) 0;
+	public KakaoPayReadyDto kakaoPay(HttpSession session, Model model,
+			@RequestParam(value = "selectedItems[]", required = false) List<String> selectedItems,
+			@RequestParam(value = "totalprice", required = false) Long totalprice,
+			@RequestParam(value = "email", required = false) String email) {
+
 		// 선택된 상품 정보 출력
 		Map<String, Object> params = new HashMap<>();
+		Long totalPrice = totalprice;
+		params.put("totalPrice", totalPrice);
 		int conut = 0;
 		if (selectedItems != null) {
 			for (String itemId : selectedItems) {
 				Cart cart = cartService.getCartItemById(Long.parseLong(itemId));
-				String cleanedAmount = cart.getTprice().replaceAll("[^\\d]", "");
-				long longAmount = Long.parseLong(cleanedAmount);
 				if (conut == 0) {
 					params.put("itemName", cart.getItemId().getItemNm());
 				}
-				totalPrice += longAmount;
 				conut += 1;
 			}
 			params.put("itemCount", conut - 1);
 		}
-		params.put("totalPrice", totalPrice);
 		String tid = (String) session.getAttribute("tid");
 
 		KakaoPayReadyDto res = kakaoPayService.kakaoPay(params);
 		// 주문 정보 생성 및 연결
 		Order order = new Order();
 		order.setOrderStatus(OrderStatus.CANCLE); // 예시: 주문 상태 설정
-
 		// tid 값을 세션에 저장
 		session.setAttribute("tid", res.getTid());
 		session.setAttribute("selectedItems", selectedItems);
-
+		if (email != null) {
+			session.setAttribute("email", email);
+		}
 		// tid 값을 success 페이지로 전달하기 위해 모델에 추가
 		model.addAttribute("tid", res.getTid());
 		model.addAttribute("selectedItems", selectedItems);
@@ -75,14 +77,14 @@ public class KakaoPayController {
 	@GetMapping("/pay/success")
 	public String success(@RequestParam("pg_token") String pgToken, HttpSession session, Principal principal) {
 		String tid = (String) session.getAttribute("tid");
-		System.out.println("asdasdasd");
 		List<String> selectedItems = (List<String>) session.getAttribute("selectedItems");
-			for (String itemId : selectedItems) {
-				Cart cart = cartService.getCartItemById(Long.parseLong(itemId));
-				orderService.cartOrder(cart, cart.getEmail());
-				cartService.deletcart(Long.parseLong(itemId));
-			}	
-		
+
+		for (String itemId : selectedItems) {
+			Cart cart = cartService.getCartItemById(Long.parseLong(itemId));
+			orderService.cartOrder(cart, cart.getEmail());
+			cartService.deletcart(Long.parseLong(itemId));
+
+		}
 		// 카카오 결재 요청하기
 		KakaoPayApproveDto kakaoPayApproveDto = kakaoPayService.kakaoPayApprove(tid, pgToken);
 		session.removeAttribute("tid");

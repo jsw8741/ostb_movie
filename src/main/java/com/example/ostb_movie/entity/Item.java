@@ -1,6 +1,7 @@
 package com.example.ostb_movie.entity;
 
 import com.example.ostb_movie.constant.Categori;
+import com.example.ostb_movie.constant.ItemStatus;
 import com.example.ostb_movie.dto.ItemFormDto;
 
 import jakarta.persistence.Column;
@@ -39,7 +40,7 @@ public class Item {
 
 	@Enumerated(EnumType.STRING)
 	private Categori categori;
-
+	
 	public void updateItem(ItemFormDto itemFormDto) {
 		this.itemNm = itemFormDto.getItemNm();
 		this.price = itemFormDto.getPrice();

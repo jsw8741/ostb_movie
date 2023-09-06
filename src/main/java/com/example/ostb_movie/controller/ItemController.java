@@ -40,19 +40,30 @@ public class ItemController {
 	@GetMapping(value = "/item/items")
 	public String itemShopList(Model model) {
 		List<Itemimg> items = itemimgService.allItemList();
-
 		model.addAttribute("items", items);
 		for (Itemimg item : items) {
 		}
 		return "item/itemList";
 	}
 
-	@GetMapping(value = "/item/items/{category}" )
-	public String itemShopList(Model model ,  @PathVariable("category") Categori categori) {
+	@GetMapping(value = "/item/items/{category}")
+	public String itemShopList(Model model, @PathVariable("category") Categori categori) {
 		List<Itemimg> items = itemimgService.ItemList(categori);
-		model.addAttribute("items", items);
-		for (Itemimg item : items) {
+		if (categori.toString() == "VOUCHER") {
+			model.addAttribute("categori", "상품권");
+		} else if (categori.toString() == "POPCON") {
+			model.addAttribute("categori", "팝콘");
+		} else if (categori.toString() == "SNACK") {
+			model.addAttribute("categori", "스낵");
+		} else if (categori.toString() == "GOODS") {
+			model.addAttribute("categori", "굿즈");
+		} else if (categori.toString() == "DRINK") {
+			model.addAttribute("categori", "음료");
+		}	else if (categori.toString() == "TICKET") {
+			model.addAttribute("categori", "영화관람권");
 		}
+		model.addAttribute("categoryName", categori);
+		model.addAttribute("items", items);
 		return "item/itemCategory";
 	}
 
@@ -97,7 +108,8 @@ public class ItemController {
 	// 상품 관리 창
 	@GetMapping(value = { "/admin/items", "/admin/items/{page}" })
 	public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
-
+		System.err.println("ssss" + page.toString());
+		System.err.println("ssss" + itemSearchDto.getSearchBy() + itemSearchDto.getSearchQuery());
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
 
 		Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);
@@ -108,7 +120,7 @@ public class ItemController {
 		return "item/itemMng";
 	}
 
-//상품 수정 창
+	//상품 수정 창
 	@GetMapping(value = "/admin/item/{itemId}")
 	public String itemDtl(@PathVariable("itemId") Long itemid, Model model) {
 
@@ -149,7 +161,7 @@ public class ItemController {
 	// 아이템 삭제
 	@GetMapping(value = "/admin/item/delete/{itemId}")
 	public String Facilitiesdelete(@PathVariable("itemId") Long itemId, Model model) {
-		orderService.deletItems(itemId);
+		orderService.deleteItems(itemId);
 		itemService.deleteByitemIdByNative(itemId);
 		return "redirect:/";
 	}

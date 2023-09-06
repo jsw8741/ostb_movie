@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.example.ostb_movie.constant.Categori;
+import com.example.ostb_movie.constant.ItemStatus;
 import com.example.ostb_movie.constant.OrderStatus;
 import com.example.ostb_movie.dto.OrderDto;
 
@@ -39,17 +41,20 @@ public class Order {
 
 	private String Email;
 
-	@OnDelete(action= OnDeleteAction.CASCADE)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item_id")
 	private Item itemId;
 
 	private int count;
-	
+
 	private String tprice;
 
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderStatus; // 주문상태
+	
+	@Enumerated(EnumType.STRING)
+	private ItemStatus itemStatus; // 주문상태
 
 	public static Order createorder(OrderDto orderDto, String email) {
 		Order order = new Order();
@@ -58,15 +63,26 @@ public class Order {
 		order.setTprice(orderDto.getTotalprice());
 		order.setOrderStatus(OrderStatus.ORDER);
 		order.setCount(orderDto.getCount());
-
+		if(orderDto.getItemId().getCategori().equals("TICKET") || orderDto.getItemId().getCategori().equals("VOUCHER")) {
+			order.setItemStatus(ItemStatus.NOTUSED);
+		}else {
+			order.setItemStatus(ItemStatus.OFFLINE);
+		}
 		return order;
 	}
+
 	public static Order createorderCart(Cart cart, String email) {
+		System.err.println(cart.getItemId().getCategori()+"222222222");
 		Order order = new Order();
 		order.setEmail(email);
 		order.setItemId(cart.getItemId());
 		order.setTprice(cart.getTprice());
 		order.setOrderStatus(OrderStatus.ORDER);
+		if(cart.getItemId().getCategori().equals(Categori.TICKET) || cart.getItemId().getCategori().equals(Categori.VOUCHER)) {
+			order.setItemStatus(ItemStatus.NOTUSED);
+		}else {
+			order.setItemStatus(ItemStatus.OFFLINE);
+		}
 		order.setCount(cart.getCount());
 
 		return order;
