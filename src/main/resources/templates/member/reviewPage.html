@@ -33,7 +33,7 @@
 							<i class="fa-solid fa-thumbs-up" style="color: #29A5FF; cursor: pointer;"></i>
 						</button>
 						&nbsp&nbsp
-						<p th:text="${review.rvLike}" id="likeCount_${review.id}"></p>	
+						<p th:text="${review.rvLike}" id="likeCount_${review.id}"></p>
 						<a class="rv_modify" th:href="'/member/reviewUpdatePage/' + ${review.id}">수정하기</a>
 							<p>
 								<button class="review_delete" th:value="${review.id}" onclick="deleteReview(this.value)">삭제하기</button>

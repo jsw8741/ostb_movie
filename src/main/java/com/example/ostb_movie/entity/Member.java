@@ -15,7 +15,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -82,6 +81,8 @@ public class Member{
 		member.setPhone(memberFormDto.getPhone());
 		member.setBirth(memberFormDto.getBirth());
 		member.setMemberImg("/images/profile.png");
+		member.setPoint(memberFormDto.getPoint());
+		member.setTotalPay(memberFormDto.getTotalPay());
 		member.setRole(Role.ROLE_USER);
 		
 		if(memberFormDto.getNickname().isEmpty()) {
@@ -103,6 +104,20 @@ public class Member{
 		this.memberImg = memberImg;
 	}
 	
+	public static Member createMaster(PasswordEncoder passwordEncoder) {
+		String password = passwordEncoder.encode("12345678");
+		
+		Member member = new Member();
+		
+		member.setName("master");
+		member.setEmail("master@naver.com");
+		member.setPassword(password);
+		member.setPhone("010-9999-9999");
+		member.setRole(Role.ROLE_MASTER);
+		
+		return member;
+	}
+	
 	@Builder(builderClassName = "MemberDetailRegister", builderMethodName = "MemberDetailRegister")
     public Member(String email, String password, String name, Role role) {
         this.email = email;
@@ -112,13 +127,22 @@ public class Member{
     }
 
     @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")
-    public Member(String email, String password, String name, Role role, String provider, String providerId) {
+    public Member(String email, String password, String name, Role role, String provider, String providerId, Long point, Long totalPay) {
     	this.email = email;
         this.password = password;
         this.name = name;
         this.role = role;
         this.provider = provider;
         this.providerId = providerId;
+        this.point = point;
+        this.totalPay = totalPay;
+        
     }
+    
+    public Member nickNameUpdate(String nickname) {
+		this.nickname = nickname;
+		
+		return this;
+	}
 
 }

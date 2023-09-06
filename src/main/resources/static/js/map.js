@@ -12,9 +12,7 @@ function myMap() {
     map: map,
     label: "ostb movie",
     icon: {
-        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-        labelOrigin: new google.maps.Point(20, 47),
-        anchor: new google.maps.Point(50,32)
+        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
     }
   });
   

@@ -49,20 +49,20 @@
 						
 					</ul>
 					
-					<a href="/FAQ/createFAQ" class="btn_typeB1 tab_inner swiper-wrapper" sec:authorize="hasAnyRole('ROLE_USER')"><span>FAQ 등록</span></a>
+					<div class="layout1" th:if="${faqs.isEmpty()}">					
+						<h3 style="color: white;font-size: 30px;text-align: center;bottom: 30px;position: relative;">등록된 글이 없습니다.</h3>	
+					</div>
 					
 					<span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
 			</div>
 			<!--// tab -->
 			
 			<section class="wrap_con">
-				<div class="layout1" th:if="${faqs.isEmpty()}">					
-					<h3 style="color: white;font-size: 30px;text-align: center;bottom: 30px;position: relative;">등록된 글이 없습니다.</h3>	
-				</div>
-				
-				<div class="layout1" th:if="${not faqs.isEmpty()}">
+				<div class="layout2" th:if="${not faqs.isEmpty()}">
 					<div class="list_top_ui">
-						<div class="list_total">총 <em>[[${totalCount}]]건</em></div>						
+						<div class="list_total">총 <em>[[${totalCount}]]건</em>
+							<a href="/FAQ/createFAQ" class="btn_typeB1 tab_inner swiper-wrapper" sec:authorize="hasAnyRole('ROLE_USER')"><span>FAQ 등록</span></a>
+						</div>					
 						<div class="search_area">
 							<div class="search_bundle">
 								<div class="inp_search">
@@ -94,7 +94,7 @@
 											<div class="con_area">
 											[[${faq.faqContent}]]
 											<br>
-											<a class="faqupdate" sec:authorize="isAuthenticated()" th:href="'/FAQ/updateFAQ/' + ${faq.Id}">수정하기</a>
+											<a class="faqupdate" th:if="${faq.member.id} == ${currentMember.id}" th:href="'/FAQ/updateFAQ/' + ${faq.id}">수정하기</a>
 											</div>
 										</div>
 									</li>

@@ -12,10 +12,11 @@
 <th:block layout:fragment="css">
 <link rel="stylesheet" th:href="@{/css/FAQ.css}">
 <style>
-
 .content {
-	height: 800px !important;
-	width: 800px !important;
+	width: 1000px !important;
+	height: 900px !important;
+	max-width: 1000px;
+	max-height: 1000px;
 }
 
 .viewpage_tit .subject {
@@ -33,8 +34,8 @@
 
 #chatt #talk{
 	height: 400px;
-	overflow: scroll;
 	border : 1px solid #aaa;
+	overflow: scroll;
 }
 #chatt #msg{
 	width: 740px;
@@ -122,14 +123,14 @@
 		<input type="hidden" th:value="${roomId}"  id="room"/>
 		<input type="hidden" id="createdBy" th:value="${createdBy}">
 <div id='chatt' class="viewpage_ti ">
-		<div class="layout1 pageTitle bg_blue py-3">
+		<div class="layout2 pageTitle bg_blue py-3">
 			<h2 class="tit">고객센터</h2>
 			<p class="desc">
 				OSTB에 대해 궁금하신 점이 있다면<br>무엇이든 물어보세요!
 			</p>
 		</div>
 		<div class="py-2 btn_ac">
-		<input class="btn_typeC2" type='text' id='mid' th:value="${createdBy}">
+		<input class="btn_typeC2" type='text' id='mid' th:value="${member.name}" disabled="disabled">
 		<input class="btn_typeC2" type='button' value='채팅 시작하기' id='btnLogin'>
 		<input class="btn_typeC2" type='button' id='btnLogout' value="채팅종료" th:onclick="closeChatt()">
 		<input type="hidden" id='roomId' th:value="${roomId}">

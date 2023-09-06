@@ -19,5 +19,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Member getMemberEmail(@Param("name") String name, @Param("phone") String phone);
 
 	Optional<Member> findById(Member member);
+	
+	@Query("select m from Member m where m.role = 'ROLE_MASTER'")
+	List<Member> getMasterList();
     
 }
