@@ -13,7 +13,7 @@ public interface ItemImgRepository extends JpaRepository<Itemimg, Long> {
 
 	Itemimg findByItemIdOrderByIdAsc(Long itemId);
 
-	@Query("SELECT i FROM Itemimg i JOIN i.item item WHERE item.categori =:categori")
+	@Query("select i from Itemimg i JOIN i.item item where item.categori =:categori")
 	List<Itemimg> findByCategori(@Param("categori")Categori categori);
 
 }

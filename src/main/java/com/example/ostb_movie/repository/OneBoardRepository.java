@@ -14,7 +14,7 @@ import com.example.ostb_movie.entity.OneBoard;
 public interface OneBoardRepository extends JpaRepository<OneBoard, Long> {
 	Page<OneBoard> findAllByOrderByRoomStatusDescRegTimeDesc(Pageable pageable);
 	
-	@Query(value = "SELECT * FROM one_board WHERE member_id = :memberId ORDER BY room_id DESC LIMIT 6", nativeQuery = true)
+	@Query(value = "select * from one_board where member_id = :memberId order by room_id desc limit 6", nativeQuery = true)
 	List<OneBoard> getmyChatt(long memberId);
 	
 	@Query(value = "select created_by from one_board where room_id = :roomId", nativeQuery = true)

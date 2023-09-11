@@ -19,9 +19,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional
 public class ItemImgService {
-	@Value("${itemImgLocation}")
-	private String itemImgLocation;
-//	private String itemImgLocation = "C:/movie/item";
+//	@Value("${itemImgLocation}")
+//	private String itemImgLocation;
+	private String itemImgLocation = "C:/movie/item";
 	private final ItemImgRepository itemImgRepository;
 	private final FileService fileService;
 

@@ -39,7 +39,7 @@ public class LoginController {
 		if(authentication != null) {
 			PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 	        Member member = principal.getMember();
-	        System.out.println();
+
 	        if(member != null) {
 	        	MemberFormDto memberFormDto = MemberFormDto.of(member);
 	        	model.addAttribute("memberFormDto", memberFormDto);
@@ -47,7 +47,7 @@ public class LoginController {
 		}else {    
         	model.addAttribute("memberFormDto", new MemberFormDto());
         }
-		
+		 
 		return "login/joinForm";
 	}
 	
