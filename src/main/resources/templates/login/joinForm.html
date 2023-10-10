@@ -17,8 +17,7 @@
 		<div class="SignUp__wrap">
 			<div class="SignUp__section">
 				<div class="SignUp__mobile-hidden">
-					<div class="SignUp__section-title" th:if="${#strings.equals(memberFormDto.password, 'SNS 로그인')}">간편 가입</div>
-					<div class="SignUp__section-title" th:unless="${#strings.equals(memberFormDto.password, 'SNS 로그인')}">회원 가입</div>
+					<div class="SignUp__section-title">회원 가입</div>
 				</div>
 				
 				<form role="form" action="/login/join" method="post" th:object="${memberFormDto}" name="joinForm">
@@ -64,9 +63,7 @@
 							</div>
 						</li>
 						
-						<input th:if="${#strings.equals(memberFormDto.password, 'SNS 로그인')}" type="hidden" th:field="*{password}">
-						
-						<li th:unless="${#strings.equals(memberFormDto.password, 'SNS 로그인')}">
+						<li>
 							<div class="ProductView__inputComponent">
 								<div class="ProductView__inputComponent-title-wrap">
 									<div class="ProductView__inputComponent-title">비밀번호</div>
@@ -79,7 +76,7 @@
 							</div>
 						</li>
 						
-						<li th:unless="${#strings.equals(memberFormDto.password, 'SNS 로그인')}">
+						<li>
 							<div class="ProductView__inputComponent">
 								<div class="ProductView__inputComponent-title-wrap">
 									<div class="ProductView__inputComponent-title">비밀번호 확인</div>
@@ -144,8 +141,7 @@
 						</li>
 					
 						<li>
-							<button type="button" onclick="joinAllSubmit()" class="register" th:unless="${#strings.equals(memberFormDto.password, 'SNS 로그인')}">가입하기</button>
-							<button type="button" onclick="joinSNSSubmit()" class="register" th:if="${#strings.equals(memberFormDto.password, 'SNS 로그인')}">가입하기</button>
+							<button type="button" onclick="joinSubmit()" class="register">가입하기</button>
 						</li>
 					</ul>
 						
@@ -190,72 +186,8 @@
 		    icon.innerHTML = svgList[currentIndex];
 		  });
 
-		// SNS 회원가입 
-		function joinSNSSubmit(){
-			const f = document.joinForm;
-			
-			let year = f.year.value;
-			let month = f.month.value;
-			let day = f.day.value;
-			let birth;
-			
-			// 이름 확인
-			if(!f.name.value){
-				alert('이름을 입력해주세요.');
-				f.name.focus();
-				return;
-			}
-			
-			// 이메일 확인
-			if(!f.email.value){
-				alert('이메일을 입력해주세요.');
-				f.email.focus();
-				return;
-			}else if(!validateEmail()){
-				alert('이메일 형식으로 입력해주세요.');
-				f.email.focus();
-				return;
-			}
-			
-			// 전화번호
-			if(!f.phone.value){
-				alert('전화번호를 입력해주세요.');
-				f.phone.focus();
-				return;
-			}else if(!validatePhone()){
-				alert('올바른 전화번호를 입력해주세요.');
-				f.phone.focus();
-				return;
-			}
-			
-			// 생년월일
-			if(year == '년'){
-				alert('년도를 선택해주세요');
-				return;
-			}else if(month == '월'){
-				alert('월을 선택해주세요');
-				return;
-			}else if(day == '일'){
-				alert('일을 선택해주세요');
-				return;
-			}
-		
-			if(month.length < 2){
-				month = 0 + month;
-			}
-			
-			if(day.length < 2){
-				day = 0 + day;
-			}
-		
-			birth = year.substr(2) + '.' + month + '.' + day;				
-			$('input[name=birth]').attr('value',birth);
-			
-			f.submit();
-		}
-		
 		// 일반 회원 가입
-		function joinAllSubmit(){
+		function joinSubmit(){
 			const f = document.joinForm;
 			
 			let year = f.year.value;

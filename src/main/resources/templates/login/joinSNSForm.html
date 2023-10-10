@@ -63,8 +63,6 @@
 							</div>
 						</li>
 						
-						<input th:if="${#strings.equals(memberFormDto.password, 'SNS 로그인')}" type="hidden" th:field="*{password}">
-						
 						<li>
 							<div class="asd mb-3">
 	              
@@ -122,6 +120,7 @@
 					</ul>
 						
 					</div>
+					<input type="hidden" th:field="*{password}">
 					<input type="hidden" th:field="*{birth}" class="birth" name="birth">
 					<input type="hidden" th:field="*{provider}" name="provider">
 					<input type="hidden" th:field="*{providerId}" name="providerId">
@@ -240,46 +239,6 @@
 	        } else {
 	            emailInput.style.border = "1px solid #ccc";
 	            emailError.textContent = "";
-	            return true;
-	        }
-	    }
-		
-		// 비밀번호 정규식 확인
-		function validatePassword() {
-	        const passwordInput = document.getElementById("passwordInput");
-	        const passwordError = document.getElementById("passwordError");
-	        const passwordValue = passwordInput.value;
-	        const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
-	
-	        if (!passwordPattern.test(passwordValue)) {
-	            passwordInput.style.border = "1px solid red";
-	            passwordError.textContent = "특수문자, 문자, 숫자를 포함한 8~15자리여야 합니다.";
-	            return false;
-	        } else {
-	            passwordInput.style.border = "1px solid #ccc";
-	            passwordError.textContent = "";
-	            return true;
-	        }
-	    }
-		
-		// 비밀번호 확인
-		function validatePasswordMatch() {
-	        const passwordInput = document.getElementById("passwordInput");
-	        const confirmPasswordInput = document.getElementById("check_pw");
-	        const passwordMatchMessage = document.getElementById("passwordMatchMessage");
-	
-	        const passwordValue = passwordInput.value;
-	        const confirmPasswordValue = confirmPasswordInput.value;
-			
-	        if (passwordValue !== confirmPasswordValue) {
-	            confirmPasswordInput.style.border = "1px solid red";
-	            passwordMatchMessage.textContent = "비밀번호가 일치하지 않습니다.";
-	            passwordMatchMessage.style.color = "red";
-	            return false;
-	        } else {
-	        	confirmPasswordInput.style.border = "none";
-	            passwordMatchMessage.textContent = "비밀번호가 일치합니다.";
-	            passwordMatchMessage.style.color = "green";
 	            return true;
 	        }
 	    }

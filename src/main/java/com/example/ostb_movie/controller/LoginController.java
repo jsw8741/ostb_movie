@@ -32,9 +32,18 @@ public class LoginController {
 		return "login/loginForm";
 	}
 	
-	// 회원가입 화면
+	// 회원가입 화면(자체 가입)
 	@GetMapping("/login/joinForm")
-	public String joinForm(Authentication authentication, Model model) {
+	public String joinForm(Model model) {
+		
+		model.addAttribute("memberFormDto", new MemberFormDto());
+        
+		return "login/joinForm";
+	}
+	
+	// 회원가입 화면(간편 가입)
+	@GetMapping("/login/joinSNSForm")
+	public String joinSNSForm(Authentication authentication, Model model) {
 		
 		if(authentication != null) {
 			PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
@@ -48,7 +57,7 @@ public class LoginController {
         	model.addAttribute("memberFormDto", new MemberFormDto());
         }
 		 
-		return "login/joinForm";
+		return "login/joinSNSForm";
 	}
 	
 	// 회원가입

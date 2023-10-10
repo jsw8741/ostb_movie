@@ -38,7 +38,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
     	Member findMember = memberRepository.findByEmail(member.getEmail());
     	
         if (findMember == null) {
-            return "/login/joinForm";
+            return "/login/joinSNSForm";
         } else {
             return "/";
         }
