@@ -116,6 +116,8 @@ h3 {
 	justify-content: space-between;
 	background-color: #959595;
 	width: 100%;
+	margin: 20px 0;
+    padding: 0 20px;
 }
 
 .price_bar>div {
@@ -125,6 +127,8 @@ h3 {
 .price_table {
 	display: flex;
 	justify-content: space-between;
+	padding: 0 20px;
+	margin-bottom: 50px;
 }
 
 .quantity {
@@ -283,7 +287,7 @@ button:hover {
 						</form>
 					</div>
 					<div id="giftForm" style="display: none;">
-						<h6>선물 하기</h6>
+						<h6 style="margin-bottom: 20px;">선물 하기</h6>
 						<div>
 							<h4>받는 사람의 이메일</h4>
 							<input type="text" id="emailInput" oninput="validateEmail()"
@@ -310,18 +314,23 @@ button:hover {
 		var itemsPrice = document.getElementById("items_Price");
 		var quantitySelect = document.getElementById("quantitySelect");
 		var totalPrice = document.getElementById("totalPrice");
-		hideButton.addEventListener("click", function() {
-			// 버튼 숨기기
-			hideButton.style.display = "none";
-			apibtn.style.display = "none";
-			// 선물 폼 보이기
-			giftForm.style.display = "block";
-		});	
+		var giftbtn = document.getElementById("giftbtn");
+	hideButton.addEventListener("click", function() {
+		var checkedCheckboxes = document.querySelectorAll('.userCoupon:checked');
+
+	if (checkedCheckboxes.length === 0) {
+    alert("선택되지 않았습니다.");
+} else {
+    hideButton.style.display = "none";
+    apibtn.style.display = "none";
+    giftForm.style.display = "block";
+	}
+    });
 		//선택된 상품의 총 가격 구하기
 		var userCouponCheckboxes = document.querySelectorAll("input[id='userCoupon']");
 		
-		userCouponCheckboxes.forEach(function(userCouponCheckbox, index) {
-		userCouponCheckbox.addEventListener("change", function() {
+	userCouponCheckboxes.forEach(function(userCouponCheckbox, index) {
+	userCouponCheckbox.addEventListener("change", function() {
 	        // 현재 체크박스의 부모 td 엘리먼트를 가져옴
 	        var currentTd = userCouponCheckbox.parentElement;
 	        // 현재 체크박스 다음에 있는 td 엘리먼트를 가져옴
@@ -342,8 +351,8 @@ button:hover {
 		        var point = quantitySelect.value;
 		        var total = price - point;
 		        totalPrice.textContent = total.toLocaleString()+"원";
-    		});
-		});
+    });
+	});
 	    // 선택된 옵션이 변경될 때 실행되는 함수
 	        
 		for (let i = 100; i <= maxQuantity; i += 100) {

@@ -15,6 +15,6 @@ public interface CartRepository extends JpaRepository<Cart,Long>{
 	void deleteByitemId(@Param("cartId") long cartId);
 	
 
-	@Query(value = "select c from Cart c where email = :email", nativeQuery = true)
+	@Query(value = "select * from cart where email = :email", nativeQuery = true)
 	List<Cart> getCartItem(@Param("email") String email);
 }
