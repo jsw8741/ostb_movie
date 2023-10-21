@@ -72,12 +72,18 @@
 	height: 100%;
 	padding-right: 40px;
 }
-
+.badge{
+	padding-top: 20px;
+}
 .text-black {
 	color: white;
 	border-bottom: solid 1px white;
 	width: 100%;
 	padding-bottom: 20px;
+}
+.text-primary{
+	padding-bottom: 10px;
+	border-bottom: solid 1px white;
 }
 </style>
 </th:block>
@@ -121,7 +127,7 @@
 						<div class="mb-5">
 							<div class="form-group row">
 								<div class="col-md-12">
-									<h4 style="padding-top: 50px;">수량</h4>
+									<h4 style="padding-top: 50px; color:#29a5ff; padding-bottom: 10px;">수량</h4>
 									<select id="count" onchange="calculateTotalPrice()"
 										th:field="*{count}" onclick="calculateTotalPrice()">
 										<option value="1">1</option>
@@ -149,7 +155,7 @@
  -->
 					<div class="form-group">
 						<div class="col-md-12">
-							<button type="button" onclick="submitForm('/order/cart')">장바구니</button>
+							<button class="cart_button" type="button" onclick="submitForm('/order/cart')">장바구니 담기</button>
 						</div>
 					</div>
 					<input type="hidden" th:name="${_csrf.parameterName}"
