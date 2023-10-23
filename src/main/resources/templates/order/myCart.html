@@ -315,10 +315,16 @@ button:hover {
 		var quantitySelect = document.getElementById("quantitySelect");
 		var totalPrice = document.getElementById("totalPrice");
 		var giftbtn = document.getElementById("giftbtn");
+	//선물하기 눌렀을때 선택된 상품이 없으면 경고를 띄움
 	hideButton.addEventListener("click", function() {
-		var checkedCheckboxes = document.querySelectorAll('.userCoupon:checked');
-
-	if (checkedCheckboxes.length === 0) {
+		var selectedItems = []; 
+		userCouponCheckboxes.forEach(function(
+									userCouponCheckbox) {
+								if (userCouponCheckbox.checked) {
+									var productId = userCouponCheckbox.value; // 상품 ID
+									selectedItems.push(productId); // 상품 ID만 배열에 추가
+								}});
+	if (selectedItems.length === 0) {
     alert("선택되지 않았습니다.");
 } else {
     hideButton.style.display = "none";
@@ -375,6 +381,9 @@ button:hover {
 									var productId = userCouponCheckbox.value; // 상품 ID
 									selectedItems.push(productId); // 상품 ID만 배열에 추가
 								}});
+								if (selectedItems.length === 0) {
+    								alert("선택되지 않았습니다.");
+								} else {
 							var data = {
 								selectedItems : selectedItems,
 								 totalprice : totalPrice
@@ -396,7 +405,9 @@ button:hover {
 											+ top + ",left=" + left;
 									window.open(box, "KakaoPay",
 									popupOptions);
-								}})});
+								}})
+								$("#main_button").show();
+							}});
 		
 		document.addEventListener("DOMContentLoaded", function() {
 			itemsPrice.textContent =  totalSelectedPrice.toLocaleString()+ "원";
@@ -463,14 +474,11 @@ function validateEmail() {
             }
         }
 //결제완료 버튼
-$(document).ready(function() {
-    $("#giftbtn").click(function() {
-        $("#main_button").show();
-    });
-    $("#apibtn").click(function() {
-        $("#main_button").show();
-    });
-});
+ $(document).ready(function() {
+     $("#giftbtn").click(function() {
+         $("#main_button").show();
+     });
+ });
 //버튼 누를시 메인이동
 $("#main_button").click(function() {
     window.location.href = "/";
